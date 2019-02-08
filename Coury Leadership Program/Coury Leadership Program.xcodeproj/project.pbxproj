@@ -14,6 +14,24 @@
 		C4CA5A96220E0DBA00ECF768 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A95220E0DBA00ECF768 /* Assets.xcassets */; };
 		C4CA5A99220E0DBA00ECF768 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A97220E0DBA00ECF768 /* LaunchScreen.storyboard */; };
 		C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */; };
+		C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AA5220E175C00ECF768 /* CalendarCell.swift */; };
+		C4CA5AA8220E175C00ECF768 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5AA6220E175C00ECF768 /* CalendarCell.xib */; };
+		C4CA5AAB220E178700ECF768 /* PollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AA9220E178700ECF768 /* PollCell.swift */; };
+		C4CA5AAC220E178700ECF768 /* PollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5AAA220E178700ECF768 /* PollCell.xib */; };
+		C4CA5AAF220E17C900ECF768 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AAD220E17C900ECF768 /* LinkCell.swift */; };
+		C4CA5AB0220E17C900ECF768 /* LinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5AAE220E17C900ECF768 /* LinkCell.xib */; };
+		C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AB1220E17EA00ECF768 /* ImageCell.swift */; };
+		C4CA5AB4220E17EA00ECF768 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5AB2220E17EA00ECF768 /* ImageCell.xib */; };
+		C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AB6220E189600ECF768 /* QuoteCell.swift */; };
+		C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5AB7220E189600ECF768 /* QuoteCell.xib */; };
+		C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABA220E18E100ECF768 /* Calendar.swift */; };
+		C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABC220E18EB00ECF768 /* Poll.swift */; };
+		C4CA5ABF220E18F600ECF768 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABE220E18F600ECF768 /* Link.swift */; };
+		C4CA5AC1220E190100ECF768 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC0220E190100ECF768 /* Image.swift */; };
+		C4CA5AC3220E190F00ECF768 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC2220E190F00ECF768 /* Quote.swift */; };
+		C4CA5AC6220E19E700ECF768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC5220E19E700ECF768 /* User.swift */; };
+		C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Strength.swift */; };
+		C4CE85F1220E255600D5570A /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F0220E255600D5570A /* Feed.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +44,24 @@
 		C4CA5A98220E0DBA00ECF768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4CA5A9A220E0DBA00ECF768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C4CA5AA5220E175C00ECF768 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		C4CA5AA6220E175C00ECF768 /* CalendarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
+		C4CA5AA9220E178700ECF768 /* PollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCell.swift; sourceTree = "<group>"; };
+		C4CA5AAA220E178700ECF768 /* PollCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PollCell.xib; sourceTree = "<group>"; };
+		C4CA5AAD220E17C900ECF768 /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
+		C4CA5AAE220E17C900ECF768 /* LinkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinkCell.xib; sourceTree = "<group>"; };
+		C4CA5AB1220E17EA00ECF768 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		C4CA5AB2220E17EA00ECF768 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		C4CA5AB6220E189600ECF768 /* QuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
+		C4CA5AB7220E189600ECF768 /* QuoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuoteCell.xib; sourceTree = "<group>"; };
+		C4CA5ABA220E18E100ECF768 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		C4CA5ABC220E18EB00ECF768 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
+		C4CA5ABE220E18F600ECF768 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		C4CA5AC0220E190100ECF768 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		C4CA5AC2220E190F00ECF768 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		C4CA5AC5220E19E700ECF768 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C4CA5AC7220E1A0700ECF768 /* Strength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strength.swift; sourceTree = "<group>"; };
+		C4CE85F0220E255600D5570A /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +108,10 @@
 		C4CA5AA0220E0F2900ECF768 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C4CE85F0220E255600D5570A /* Feed.swift */,
+				C4CA5AC4220E191500ECF768 /* Feed Items */,
+				C4CA5AC5220E19E700ECF768 /* User.swift */,
+				C4CA5AC7220E1A0700ECF768 /* Strength.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -80,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				C4CA5A92220E0DB900ECF768 /* Main.storyboard */,
+				C4CA5AB5220E17F100ECF768 /* Feed Items */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -92,6 +133,35 @@
 				C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C4CA5AB5220E17F100ECF768 /* Feed Items */ = {
+			isa = PBXGroup;
+			children = (
+				C4CA5AA5220E175C00ECF768 /* CalendarCell.swift */,
+				C4CA5AA6220E175C00ECF768 /* CalendarCell.xib */,
+				C4CA5AA9220E178700ECF768 /* PollCell.swift */,
+				C4CA5AAA220E178700ECF768 /* PollCell.xib */,
+				C4CA5AAD220E17C900ECF768 /* LinkCell.swift */,
+				C4CA5AAE220E17C900ECF768 /* LinkCell.xib */,
+				C4CA5AB1220E17EA00ECF768 /* ImageCell.swift */,
+				C4CA5AB2220E17EA00ECF768 /* ImageCell.xib */,
+				C4CA5AB6220E189600ECF768 /* QuoteCell.swift */,
+				C4CA5AB7220E189600ECF768 /* QuoteCell.xib */,
+			);
+			path = "Feed Items";
+			sourceTree = "<group>";
+		};
+		C4CA5AC4220E191500ECF768 /* Feed Items */ = {
+			isa = PBXGroup;
+			children = (
+				C4CA5ABA220E18E100ECF768 /* Calendar.swift */,
+				C4CA5ABC220E18EB00ECF768 /* Poll.swift */,
+				C4CA5ABE220E18F600ECF768 /* Link.swift */,
+				C4CA5AC0220E190100ECF768 /* Image.swift */,
+				C4CA5AC2220E190F00ECF768 /* Quote.swift */,
+			);
+			path = "Feed Items";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,8 +223,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4CA5A99220E0DBA00ECF768 /* LaunchScreen.storyboard in Resources */,
+				C4CA5AAC220E178700ECF768 /* PollCell.xib in Resources */,
 				C4CA5A96220E0DBA00ECF768 /* Assets.xcassets in Resources */,
+				C4CA5AB0220E17C900ECF768 /* LinkCell.xib in Resources */,
+				C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */,
 				C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */,
+				C4CA5AB4220E17EA00ECF768 /* ImageCell.xib in Resources */,
+				C4CA5AA8220E175C00ECF768 /* CalendarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,8 +242,21 @@
 			files = (
 				C4CA5A91220E0DB900ECF768 /* SecondViewController.swift in Sources */,
 				C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */,
+				C4CA5AAB220E178700ECF768 /* PollCell.swift in Sources */,
+				C4CA5ABF220E18F600ECF768 /* Link.swift in Sources */,
+				C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */,
+				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
+				C4CA5AC1220E190100ECF768 /* Image.swift in Sources */,
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
+				C4CE85F1220E255600D5570A /* Feed.swift in Sources */,
+				C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */,
+				C4CA5AC6220E19E700ECF768 /* User.swift in Sources */,
+				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
+				C4CA5AAF220E17C900ECF768 /* LinkCell.swift in Sources */,
+				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
+				C4CA5AC3220E190F00ECF768 /* Quote.swift in Sources */,
+				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
