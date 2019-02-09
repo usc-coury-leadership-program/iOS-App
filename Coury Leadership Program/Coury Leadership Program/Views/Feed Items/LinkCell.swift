@@ -10,6 +10,8 @@ import UIKit
 
 class LinkCell: UITableViewCell {
 
+    public static let HEIGHT: CGFloat = 64
+
     @IBOutlet weak var headlineText: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
 

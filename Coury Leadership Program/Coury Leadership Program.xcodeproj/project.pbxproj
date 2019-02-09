@@ -26,12 +26,10 @@
 		C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5AB7220E189600ECF768 /* QuoteCell.xib */; };
 		C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABA220E18E100ECF768 /* Calendar.swift */; };
 		C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABC220E18EB00ECF768 /* Poll.swift */; };
-		C4CA5ABF220E18F600ECF768 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABE220E18F600ECF768 /* Link.swift */; };
-		C4CA5AC1220E190100ECF768 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC0220E190100ECF768 /* Image.swift */; };
-		C4CA5AC3220E190F00ECF768 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC2220E190F00ECF768 /* Quote.swift */; };
 		C4CA5AC6220E19E700ECF768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC5220E19E700ECF768 /* User.swift */; };
 		C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Strength.swift */; };
 		C4CE85F1220E255600D5570A /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F0220E255600D5570A /* Feed.swift */; };
+		C4CE85F3220E454F00D5570A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F2220E454F00D5570A /* Content.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,12 +54,10 @@
 		C4CA5AB7220E189600ECF768 /* QuoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuoteCell.xib; sourceTree = "<group>"; };
 		C4CA5ABA220E18E100ECF768 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		C4CA5ABC220E18EB00ECF768 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
-		C4CA5ABE220E18F600ECF768 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
-		C4CA5AC0220E190100ECF768 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		C4CA5AC2220E190F00ECF768 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		C4CA5AC5220E19E700ECF768 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C4CA5AC7220E1A0700ECF768 /* Strength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strength.swift; sourceTree = "<group>"; };
 		C4CE85F0220E255600D5570A /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		C4CE85F2220E454F00D5570A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,9 +153,7 @@
 			children = (
 				C4CA5ABA220E18E100ECF768 /* Calendar.swift */,
 				C4CA5ABC220E18EB00ECF768 /* Poll.swift */,
-				C4CA5ABE220E18F600ECF768 /* Link.swift */,
-				C4CA5AC0220E190100ECF768 /* Image.swift */,
-				C4CA5AC2220E190F00ECF768 /* Quote.swift */,
+				C4CE85F2220E454F00D5570A /* Content.swift */,
 			);
 			path = "Feed Items";
 			sourceTree = "<group>";
@@ -243,10 +237,9 @@
 				C4CA5A91220E0DB900ECF768 /* SecondViewController.swift in Sources */,
 				C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */,
 				C4CA5AAB220E178700ECF768 /* PollCell.swift in Sources */,
-				C4CA5ABF220E18F600ECF768 /* Link.swift in Sources */,
 				C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */,
+				C4CE85F3220E454F00D5570A /* Content.swift in Sources */,
 				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
-				C4CA5AC1220E190100ECF768 /* Image.swift in Sources */,
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
 				C4CE85F1220E255600D5570A /* Feed.swift in Sources */,
 				C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */,
@@ -255,7 +248,6 @@
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
 				C4CA5AAF220E17C900ECF768 /* LinkCell.swift in Sources */,
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
-				C4CA5AC3220E190F00ECF768 /* Quote.swift in Sources */,
 				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

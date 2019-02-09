@@ -10,6 +10,8 @@ import UIKit
 
 class QuoteCell: UITableViewCell {
 
+    public static let HEIGHT: CGFloat = 140
+
     @IBOutlet weak var quoteText: UILabel!
 
     override func awakeFromNib() {

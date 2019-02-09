@@ -9,6 +9,8 @@
 import UIKit
 
 class PollCell: UITableViewCell {
+
+    public static let HEIGHT: CGFloat = 200
     
     @IBOutlet weak var questionText: UILabel!
 

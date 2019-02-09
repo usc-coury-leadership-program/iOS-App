@@ -10,6 +10,19 @@ import UIKit
 
 class CalendarCell: UITableViewCell {
 
+    public static let HEIGHT: CGFloat = 68
+    public var calendar: Calendar? = nil {
+        didSet {currentEvent = 0}
+    }
+    private var currentEvent: Int = 0 {
+        didSet {
+            guard let events = calendar?.events else {return}
+            if (currentEvent < 0) {currentEvent = events.count - 1}
+            let event = events[currentEvent % events.count]
+            eventText.text = event.name + " @ " + event.date.description
+        }
+    }
+
     @IBOutlet weak var eventText: UILabel!
 
     override func awakeFromNib() {
@@ -23,10 +36,8 @@ class CalendarCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func onClickPrevious(_ sender: Any) {
-    }
+    @IBAction func onClickPrevious(_ sender: Any) {currentEvent -= 1}
 
-    @IBAction func onClickNext(_ sender: Any) {
-    }
+    @IBAction func onClickNext(_ sender: Any) {currentEvent += 1}
     
 }

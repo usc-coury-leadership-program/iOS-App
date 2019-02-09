@@ -1,5 +1,5 @@
 //
-//  ThirdViewController.swift
+//  ProfileViewController.swift
 //  Coury Leadership Program
 //
 //  Created by Hayden Shively on 2/8/19.

@@ -9,6 +9,8 @@
 import UIKit
 
 class ImageCell: UITableViewCell {
+
+    public static let HEIGHT: CGFloat = 320
     
     @IBOutlet weak var squareImage: UIImageView!
 
