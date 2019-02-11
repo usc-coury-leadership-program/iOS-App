@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LinkCell: UITableViewCell {
+class LinkCell: FeedItem {
 
     public static let HEIGHT: CGFloat = 64
 

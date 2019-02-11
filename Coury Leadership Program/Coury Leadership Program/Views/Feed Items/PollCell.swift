@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PollCell: UITableViewCell {
+class PollCell: FeedItem {
 
     public static let HEIGHT: CGFloat = 200
     

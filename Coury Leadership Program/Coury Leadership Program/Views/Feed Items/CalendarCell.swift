@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarCell: UITableViewCell {
+class CalendarCell: FeedItem {
 
     public static let HEIGHT: CGFloat = 68
     public var calendar: Calendar? = nil {

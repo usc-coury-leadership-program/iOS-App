@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuoteCell: UITableViewCell {
+class QuoteCell: FeedItem {
 
     public static let HEIGHT: CGFloat = 140
 

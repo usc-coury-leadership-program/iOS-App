@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageCell: UITableViewCell {
+class ImageCell: FeedItem {
 
     public static let HEIGHT: CGFloat = 320
     
