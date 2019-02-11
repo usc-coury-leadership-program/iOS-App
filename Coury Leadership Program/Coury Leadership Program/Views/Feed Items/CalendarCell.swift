@@ -10,7 +10,7 @@ import UIKit
 
 class CalendarCell: FeedItem {
 
-    public static let HEIGHT: CGFloat = 68
+    public static let HEIGHT: CGFloat = 84
     public var calendar: Calendar? = nil {
         didSet {currentEvent = 0}
     }

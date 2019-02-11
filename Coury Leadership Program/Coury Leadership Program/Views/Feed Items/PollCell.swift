@@ -10,7 +10,7 @@ import UIKit
 
 class PollCell: FeedItem {
 
-    public static let HEIGHT: CGFloat = 200
+    public static let HEIGHT: CGFloat = 216
     
     @IBOutlet weak var questionText: UILabel!
 

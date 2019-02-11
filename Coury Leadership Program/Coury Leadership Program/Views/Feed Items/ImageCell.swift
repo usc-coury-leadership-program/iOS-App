@@ -10,13 +10,16 @@ import UIKit
 
 class ImageCell: FeedItem {
 
-    public static let HEIGHT: CGFloat = 320
-    
+    public static let HEIGHT: CGFloat = 336
+    @IBOutlet weak var insetView: UIView!
+
     @IBOutlet weak var squareImage: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        insetView.layer.cornerRadius = 8
+        insetView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

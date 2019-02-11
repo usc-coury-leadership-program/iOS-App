@@ -19,23 +19,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Inspirational quotes are very inspirational, even in the hardest of times&quot; - iOS Developer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyG-CH-bid">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
-                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="18"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8uU-8n-QFP">
+                        <rect key="frame" x="16" y="0.0" width="288" height="123.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Inspirational quotes are very inspirational, even in the hardest of times&quot; - iOS Developer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyG-CH-bid">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="123.5"/>
+                                <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="GyG-CH-bid" secondAttribute="bottom" id="fm0-6m-O37"/>
+                            <constraint firstItem="GyG-CH-bid" firstAttribute="leading" secondItem="8uU-8n-QFP" secondAttribute="leading" id="irp-0G-sbd"/>
+                            <constraint firstItem="GyG-CH-bid" firstAttribute="top" secondItem="8uU-8n-QFP" secondAttribute="top" id="jUU-Wc-sqJ"/>
+                            <constraint firstAttribute="trailing" secondItem="GyG-CH-bid" secondAttribute="trailing" id="nPT-1f-CI4"/>
+                        </constraints>
+                    </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="GyG-CH-bid" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="daK-3a-naj"/>
-                    <constraint firstItem="GyG-CH-bid" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hXQ-bq-B4I"/>
-                    <constraint firstItem="GyG-CH-bid" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="o6N-Vz-DgH"/>
-                    <constraint firstItem="GyG-CH-bid" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="wUu-hg-mqg"/>
+                    <constraint firstItem="8uU-8n-QFP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="FlU-Ms-lHa"/>
+                    <constraint firstAttribute="trailing" secondItem="8uU-8n-QFP" secondAttribute="trailing" constant="16" id="Qok-ku-iqe"/>
+                    <constraint firstItem="8uU-8n-QFP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="izO-xE-PcA"/>
+                    <constraint firstAttribute="bottom" secondItem="8uU-8n-QFP" secondAttribute="bottom" constant="16" id="rhC-J3-XPj"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="insetView" destination="8uU-8n-QFP" id="2Co-Uz-I7x"/>
                 <outlet property="quoteText" destination="GyG-CH-bid" id="hBQ-Dc-bzK"/>
             </connections>
             <point key="canvasLocation" x="56" y="91.754122938530742"/>

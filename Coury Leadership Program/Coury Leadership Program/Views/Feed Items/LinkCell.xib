@@ -12,43 +12,60 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LinkCell" rowHeight="64" id="KGk-i7-Jjw" customClass="LinkCell" customModule="Coury_Leadership_Program" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LinkCell" rowHeight="90" id="KGk-i7-Jjw" customClass="LinkCell" customModule="Coury_Leadership_Program" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="351" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="351" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbW-Xt-OgN">
-                        <rect key="frame" x="256.5" y="0.0" width="63.5" height="63.5"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKI-dz-eJ4">
+                        <rect key="frame" x="16" y="0.0" width="319" height="73.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbW-Xt-OgN">
+                                <rect key="frame" x="245.5" y="0.0" width="73.5" height="73.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="FbW-Xt-OgN" secondAttribute="height" multiplier="1:1" id="mKG-ND-ekb"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline from website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K68-ev-qnA">
+                                <rect key="frame" x="8" y="15.5" width="229.5" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="lK2-kC-gGA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="FbW-Xt-OgN" secondAttribute="height" multiplier="1:1" id="mKG-ND-ekb"/>
+                            <constraint firstItem="5RU-u5-Kx1" firstAttribute="trailing" secondItem="FbW-Xt-OgN" secondAttribute="trailing" id="8Uf-CQ-YQI"/>
+                            <constraint firstItem="K68-ev-qnA" firstAttribute="centerY" secondItem="5RU-u5-Kx1" secondAttribute="centerY" id="HDy-cl-pcB"/>
+                            <constraint firstItem="K68-ev-qnA" firstAttribute="leading" secondItem="5RU-u5-Kx1" secondAttribute="leading" constant="8" id="Lv8-Ef-EOd"/>
+                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="height" secondItem="LKI-dz-eJ4" secondAttribute="height" id="PXK-EA-9fg"/>
+                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="leading" secondItem="K68-ev-qnA" secondAttribute="trailing" constant="8" id="avZ-G3-pdT"/>
+                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="centerY" secondItem="5RU-u5-Kx1" secondAttribute="centerY" id="vSj-fh-cXw"/>
                         </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline from website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K68-ev-qnA">
-                        <rect key="frame" x="16" y="11" width="232.5" height="42"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <viewLayoutGuide key="safeArea" id="5RU-u5-Kx1"/>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="K68-ev-qnA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="509-1C-Stt"/>
-                    <constraint firstAttribute="bottom" secondItem="FbW-Xt-OgN" secondAttribute="bottom" id="8Os-dd-NSi"/>
-                    <constraint firstItem="K68-ev-qnA" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Tm5-79-YvO"/>
-                    <constraint firstItem="K68-ev-qnA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ami-Vl-M1C"/>
-                    <constraint firstItem="FbW-Xt-OgN" firstAttribute="leading" secondItem="K68-ev-qnA" secondAttribute="trailing" constant="8" id="c2w-By-66G"/>
-                    <constraint firstAttribute="trailing" secondItem="FbW-Xt-OgN" secondAttribute="trailing" id="f0O-ve-mfe"/>
-                    <constraint firstItem="FbW-Xt-OgN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jr7-N3-DvJ"/>
+                    <constraint firstItem="LKI-dz-eJ4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IS5-v5-GuE"/>
+                    <constraint firstAttribute="bottom" secondItem="LKI-dz-eJ4" secondAttribute="bottom" constant="16" id="NFn-ye-4Po"/>
+                    <constraint firstItem="LKI-dz-eJ4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Nov-R1-QXe"/>
+                    <constraint firstAttribute="trailing" secondItem="LKI-dz-eJ4" secondAttribute="trailing" constant="16" id="p52-e5-jQY"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="headlineText" destination="K68-ev-qnA" id="6v3-du-iPA"/>
+                <outlet property="insetView" destination="LKI-dz-eJ4" id="Xwu-oV-12C"/>
                 <outlet property="previewImage" destination="FbW-Xt-OgN" id="J3B-M4-eXa"/>
             </connections>
-            <point key="canvasLocation" x="-70" y="32"/>
+            <point key="canvasLocation" x="-45.600000000000001" y="43.178410794602705"/>
         </tableViewCell>
     </objects>
 </document>

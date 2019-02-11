@@ -10,7 +10,8 @@ import UIKit
 
 class LinkCell: FeedItem {
 
-    public static let HEIGHT: CGFloat = 64
+    public static let HEIGHT: CGFloat = 80
+    @IBOutlet weak var insetView: UIView!
 
     @IBOutlet weak var headlineText: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
@@ -18,6 +19,8 @@ class LinkCell: FeedItem {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        insetView.layer.cornerRadius = 8
+        insetView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

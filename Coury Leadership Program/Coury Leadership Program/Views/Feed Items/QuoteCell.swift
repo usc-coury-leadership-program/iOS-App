@@ -10,13 +10,16 @@ import UIKit
 
 class QuoteCell: FeedItem {
 
-    public static let HEIGHT: CGFloat = 140
+    public static let HEIGHT: CGFloat = 156
+    @IBOutlet weak var insetView: UIView!
 
     @IBOutlet weak var quoteText: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        insetView.layer.cornerRadius = 8
+        insetView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

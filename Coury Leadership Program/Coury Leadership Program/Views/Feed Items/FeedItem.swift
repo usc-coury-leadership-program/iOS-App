@@ -13,6 +13,5 @@ class FeedItem: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    
   }
 }

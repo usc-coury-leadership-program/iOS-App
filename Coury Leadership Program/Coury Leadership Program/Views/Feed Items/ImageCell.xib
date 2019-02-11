@@ -19,19 +19,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="319.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-0h-dAi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="319.5"/>
-                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Z8-YL-5GC">
+                        <rect key="frame" x="16" y="0.0" width="288" height="303.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-0h-dAi">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="303.5"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="a1M-0h-dAi" secondAttribute="trailing" id="FqJ-Mp-gIk"/>
+                            <constraint firstItem="a1M-0h-dAi" firstAttribute="top" secondItem="l1c-fL-jm7" secondAttribute="top" id="V9P-ru-x3N"/>
+                            <constraint firstAttribute="bottom" secondItem="a1M-0h-dAi" secondAttribute="bottom" id="XqQ-ND-9yr"/>
+                            <constraint firstItem="a1M-0h-dAi" firstAttribute="leading" secondItem="l1c-fL-jm7" secondAttribute="leading" id="ekm-fW-eGb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="l1c-fL-jm7"/>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="a1M-0h-dAi" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="6jp-G8-vMY"/>
-                    <constraint firstItem="a1M-0h-dAi" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="f6A-MZ-biI"/>
-                    <constraint firstItem="a1M-0h-dAi" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="gGw-mM-SeX"/>
-                    <constraint firstItem="a1M-0h-dAi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sLJ-4U-3cy"/>
+                    <constraint firstAttribute="bottom" secondItem="5Z8-YL-5GC" secondAttribute="bottom" constant="16" id="KCJ-9o-71j"/>
+                    <constraint firstAttribute="trailing" secondItem="5Z8-YL-5GC" secondAttribute="trailing" constant="16" id="VBF-2b-BdS"/>
+                    <constraint firstItem="5Z8-YL-5GC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="aFW-bq-ZfN"/>
+                    <constraint firstItem="5Z8-YL-5GC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u9b-9O-UYE"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="insetView" destination="5Z8-YL-5GC" id="7Z0-aG-kJl"/>
                 <outlet property="squareImage" destination="a1M-0h-dAi" id="Q1o-pE-Bdw"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="278.86056971514245"/>
