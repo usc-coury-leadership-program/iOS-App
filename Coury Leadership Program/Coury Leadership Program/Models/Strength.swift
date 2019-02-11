@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+
+struct StrengthModel {
+  let image: String
+  let name: String
+  let description: String
+}
+
+//let strengths: [StrengthModel] = [StrengthModel(image:"", )]
