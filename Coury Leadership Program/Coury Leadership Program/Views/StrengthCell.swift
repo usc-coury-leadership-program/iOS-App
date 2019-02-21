@@ -10,13 +10,18 @@ import UIKit
 
 class StrengthCell: UICollectionViewCell {
 
+    @IBOutlet weak var strengthName: UILabel!
+    @IBOutlet weak var image: UIImageView!
+    
     override func awakeFromNib() {
-      super.awakeFromNib()
-      // Initialization code
-      self.layer.masksToBounds = true
-      self.layer.cornerRadius = 16
-      
-      
+        super.awakeFromNib()
+        // Initialization code
+        layer.masksToBounds = true
+        layer.cornerRadius = 16
+        layer.borderColor = strengthName.backgroundColor?.cgColor
+        layer.borderWidth = 3
+
+        strengthName.adjustsFontSizeToFitWidth = true
     }
   
 

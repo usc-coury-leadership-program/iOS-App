@@ -88,7 +88,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }else if let content = content as? Quote {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "QuoteCell", for: indexPath) as! QuoteCell
-                cell.quoteText.text = content.quoteText
+                cell.quoteText.text = content.quoteText + " - " + content.author
                 return cell
             }else {
                 fatalError("Content type cannot be displayed because it's not associated with a cell xib!")

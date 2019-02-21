@@ -16,3 +16,23 @@ public struct CalendarEvent {
     let name: String
     let date: Date
 }
+
+extension Date {
+    var month: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        return dateFormatter.string(from: self)
+    }
+
+    var day: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d"
+        return dateFormatter.string(from: self)
+    }
+
+    var time: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mma"
+        return dateFormatter.string(from: self)
+    }
+}

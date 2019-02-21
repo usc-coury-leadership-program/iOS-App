@@ -11,8 +11,8 @@ import UIKit
 class LinkCell: FeedItem {
 
     public static let HEIGHT: CGFloat = 80
+    
     @IBOutlet weak var insetView: UIView!
-
     @IBOutlet weak var headlineText: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
 

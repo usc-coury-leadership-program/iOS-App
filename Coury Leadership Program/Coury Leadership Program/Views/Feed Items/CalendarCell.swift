@@ -19,15 +19,20 @@ class CalendarCell: FeedItem {
             guard let events = calendar?.events else {return}
             if (currentEvent < 0) {currentEvent = events.count - 1}
             let event = events[currentEvent % events.count]
-            eventText.text = event.name + " @ " + event.date.description
+            eventText.text = event.name + " - " + event.date.month + " " + event.date.day + " " + event.date.time
         }
     }
 
+    @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var eventText: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        insetView.layer.cornerRadius = 8
+        insetView.layer.masksToBounds = true
+        insetView.layer.borderColor = UIColor.gray.cgColor
+        insetView.layer.borderWidth = 1
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -11,8 +11,8 @@ import UIKit
 class QuoteCell: FeedItem {
 
     public static let HEIGHT: CGFloat = 156
-    @IBOutlet weak var insetView: UIView!
 
+    @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var quoteText: UILabel!
 
     override func awakeFromNib() {

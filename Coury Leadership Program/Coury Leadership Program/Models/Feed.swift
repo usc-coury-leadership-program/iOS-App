@@ -16,12 +16,12 @@ public struct Feed {
 
 
 let exampleCalendar = Calendar(events: [
-    CalendarEvent(name: "Leadership Meeting 1", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 0.0)!)),
-    CalendarEvent(name: "Leadership Meeting 2", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 1.0)!)),
-    CalendarEvent(name: "Leadership Meeting 3", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 2.0)!))
+    CalendarEvent(name: "Intro Lecture", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 0.0)!)),
+    CalendarEvent(name: "Guest Speaker", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 1.0)!)),
+    CalendarEvent(name: "Cohort Meeting", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 2.0)!))
 ])
 let exampleContent: [Content] = [
-    Link(url: URL(string: "https://www.google.com/")!, squareImage: UIImage(named: "first")!),
-    Quote(quoteText: "'Inspirational quotes are very inspirational, even in the hardest of times'", emphasizedWords: [], author: "iOS Developer")
+    Link(url: URL(string: "https://www.business.com/")!, squareImage: UIImage(named: "first")!),
+    Quote(quoteText: "\"Inspirational quotes are very inspirational, even in the hardest of times\"", emphasizedWords: [], author: "iOS Developer")
 ]
 let exampleFeed = Feed(calendar: exampleCalendar, polls: [], content: exampleContent)
