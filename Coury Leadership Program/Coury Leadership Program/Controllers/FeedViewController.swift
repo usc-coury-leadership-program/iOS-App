@@ -69,6 +69,10 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         cell.onTap()
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // TODO reset tapCount on all cells
+    }
+
     //MARK: - convenience functions
     func engageTableView() {
         tableView.delegate = self

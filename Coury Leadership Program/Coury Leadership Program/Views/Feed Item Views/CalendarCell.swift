@@ -12,9 +12,6 @@ class CalendarCell: UITableViewCell, FeedableCell {
     
     public static let HEIGHT: CGFloat = 84
     public static let REUSE_ID: String = "CalendarCell"
-    public static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
-    public static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
-    public static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath)}
 
     public var calendar: Calendar? = nil {
         didSet {currentEvent = 0}
@@ -50,9 +47,6 @@ class CalendarCell: UITableViewCell, FeedableCell {
 
     @IBAction func onClickNext(_ sender: Any) {currentEvent += 1}
 
-    func onTap() {
-        addInnerShadow(around: insetView.layer)
-        eventText.addInnerShadow()
-    }
+    func onTap() {}
     
 }

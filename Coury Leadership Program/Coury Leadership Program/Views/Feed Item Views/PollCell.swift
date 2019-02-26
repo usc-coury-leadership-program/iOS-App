@@ -12,9 +12,6 @@ class PollCell: UITableViewCell, FeedableCell {
     
     public static let HEIGHT: CGFloat = 216
     public static let REUSE_ID: String = "PollCell"
-    public static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
-    public static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
-    public static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath)}
     
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var questionText: UILabel!
@@ -32,9 +29,6 @@ class PollCell: UITableViewCell, FeedableCell {
         // Configure the view for the selected state
     }
 
-    func onTap() {
-        addInnerShadow(around: insetView.layer)
-        questionText.addInnerShadow()
-    }
+    func onTap() {}
     
 }

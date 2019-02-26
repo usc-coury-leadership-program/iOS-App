@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import CoreMotion
 
 class LinkCell: UITableViewCell, FeedableCell {
 
     public static let HEIGHT: CGFloat = 80
     public static let REUSE_ID: String = "LinkCell"
-    public static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
-    public static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
-    public static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath)}
+
+    private let motionManager = CMMotionManager()
+    private var tapCount: Int = 0
     
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var headlineText: UILabel!
@@ -34,8 +35,26 @@ class LinkCell: UITableViewCell, FeedableCell {
     }
 
     func onTap() {
-        addInnerShadow(around: insetView.layer)
-        headlineText.addInnerShadow()
+        tapCount += 1
+
+        if tapCount%2 != 0 {
+            addShadow(around: insetView.layer)
+
+            if motionManager.isDeviceMotionAvailable {
+                motionManager.deviceMotionUpdateInterval = 0.02
+                motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
+                    guard let motion = motion else {return}
+                    self.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
+                }
+            }
+        }else {
+            motionManager.stopDeviceMotionUpdates()
+            removeShadow(from: insetView.layer)
+        }
+    }
+
+    func adjustShadow(pitch: Double, roll: Double) {
+        insetView.layer.shadowOffset = CGSize(width: roll*10, height: pitch*10)
     }
     
 }

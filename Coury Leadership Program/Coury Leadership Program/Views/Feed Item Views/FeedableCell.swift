@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMotion
 
 public protocol FeedableCell {
 
@@ -23,35 +24,25 @@ public protocol FeedableCell {
     
 }
 
-extension UITableViewCell {
-    func addInnerShadow(around layer: CALayer) {
-        let innerShadow = CALayer()
-        innerShadow.frame = layer.bounds
-        
-        // Shadow path (1pt ring around bounds)
-        let path = UIBezierPath(rect: innerShadow.bounds.insetBy(dx: 1.0, dy: 1.0))
-        let cutout = UIBezierPath(rect: innerShadow.bounds).reversing()
-        path.append(cutout)
-
-        innerShadow.cornerRadius = 8
-        innerShadow.shadowPath = path.cgPath
-        innerShadow.masksToBounds = true
-
-        // Shadow properties
-//        innerShadow.shadowColor = UIColor(white: 0.0, alpha: 1.0).cgColor
-        innerShadow.shadowOffset = CGSize.zero
-        innerShadow.shadowOpacity = 1.0
-        innerShadow.shadowRadius = 4.0
-
-        layer.addSublayer(innerShadow)
-    }
+extension FeedableCell {
+    static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
+    static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
+    static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath)}
 }
 
-extension UILabel {
-    func addInnerShadow() {
-        layer.shadowRadius = 2.0
+extension UITableViewCell {
+
+    func addShadow(around layer: CALayer) {
+        let path = UIBezierPath(rect: layer.bounds.insetBy(dx: 0.0, dy: 0.0))
+
+        layer.shadowRadius = 8
         layer.shadowOpacity = 0.8
         layer.shadowOffset = CGSize.zero
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowPath = path.cgPath
         layer.masksToBounds = false
     }
+
+    func removeShadow(from layer: CALayer) {layer.shadowOpacity = 0.0}
+
 }

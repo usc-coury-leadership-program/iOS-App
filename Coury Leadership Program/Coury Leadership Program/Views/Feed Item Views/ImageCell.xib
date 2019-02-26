@@ -36,6 +36,7 @@
                         <viewLayoutGuide key="safeArea" id="l1c-fL-jm7"/>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="5Z8-YL-5GC" secondAttribute="bottom" constant="16" id="KCJ-9o-71j"/>
                     <constraint firstAttribute="trailing" secondItem="5Z8-YL-5GC" secondAttribute="trailing" constant="16" id="VBF-2b-BdS"/>
@@ -43,6 +44,7 @@
                     <constraint firstItem="5Z8-YL-5GC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u9b-9O-UYE"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="insetView" destination="5Z8-YL-5GC" id="7Z0-aG-kJl"/>
