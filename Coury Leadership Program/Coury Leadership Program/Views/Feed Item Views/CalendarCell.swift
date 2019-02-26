@@ -49,5 +49,10 @@ class CalendarCell: UITableViewCell, FeedableCell {
     @IBAction func onClickPrevious(_ sender: Any) {currentEvent -= 1}
 
     @IBAction func onClickNext(_ sender: Any) {currentEvent += 1}
+
+    func onTap() {
+        addInnerShadow(around: insetView.layer)
+        eventText.addInnerShadow()
+    }
     
 }

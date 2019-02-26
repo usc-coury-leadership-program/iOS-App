@@ -31,5 +31,10 @@ class PollCell: UITableViewCell, FeedableCell {
 
         // Configure the view for the selected state
     }
+
+    func onTap() {
+        addInnerShadow(around: insetView.layer)
+        questionText.addInnerShadow()
+    }
     
 }

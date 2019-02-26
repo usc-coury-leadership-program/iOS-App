@@ -62,6 +62,13 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 
+    //cell selection
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Touched cell!")
+        guard let cell = self.tableView.cellForRow(at: indexPath) as? FeedableCell else {return}
+        cell.onTap()
+    }
+
     //MARK: - convenience functions
     func engageTableView() {
         tableView.delegate = self
