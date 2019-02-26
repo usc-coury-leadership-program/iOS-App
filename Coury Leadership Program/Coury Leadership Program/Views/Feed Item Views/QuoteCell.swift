@@ -8,9 +8,13 @@
 
 import UIKit
 
-class QuoteCell: FeedItem {
+class QuoteCell: UITableViewCell, FeedableCell {
 
     public static let HEIGHT: CGFloat = 156
+    public static let REUSE_ID: String = "QuoteCell"
+    public static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
+    public static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
+    public static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath)}
 
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var quoteText: UILabel!

@@ -51,48 +51,12 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 
-//    //header title
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return nil
-//    }
-//    //header view
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        guard let headerView = view as? UITableViewHeaderFooterView else {return}
-//        let backgroundView = UIView()
-//        backgroundView.backgroundColor = .clear
-//        headerView.backgroundView = backgroundView
-//    }
-
     //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
-            cell.calendar = exampleFeed.calendar
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PollCell", for: indexPath) as! PollCell
-            cell.questionText.text = exampleFeed.polls[indexPath.row].question
-            return cell
-        case 2:
-            let content = exampleFeed.content[indexPath.row]
-
-            if let content = content as? Link {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "LinkCell", for: indexPath) as! LinkCell
-                cell.headlineText.text = content.url.absoluteString
-                cell.previewImage.image = content.squareImage
-                return cell
-            }else if let content = content as? Image {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! ImageCell
-                cell.squareImage.image = content.squareImage
-                return cell
-            }else if let content = content as? Quote {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "QuoteCell", for: indexPath) as! QuoteCell
-                cell.quoteText.text = content.quoteText + " - " + content.author
-                return cell
-            }else {
-                fatalError("Content type cannot be displayed because it's not associated with a cell xib!")
-            }
+        case 0: return exampleFeed.calendar.generateCellFor(tableView, at: indexPath)
+        case 1: return exampleFeed.polls[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 2: return exampleFeed.content[indexPath.row].generateCellFor(tableView, at: indexPath)
 
         default: fatalError("Feed's TableView has more sections than expected.")
         }
@@ -102,10 +66,11 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func engageTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "CalendarCell", bundle: nil), forCellReuseIdentifier: "CalendarCell")
-        tableView.register(UINib(nibName: "LinkCell", bundle: nil), forCellReuseIdentifier: "LinkCell")
-        tableView.register(UINib(nibName: "ImageCell", bundle: nil), forCellReuseIdentifier: "ImageCell")
-        tableView.register(UINib(nibName: "QuoteCell", bundle: nil), forCellReuseIdentifier: "QuoteCell")
+
+        CalendarCell.registerWith(tableView)
+        LinkCell.registerWith(tableView)
+        ImageCell.registerWith(tableView)
+        QuoteCell.registerWith(tableView)
 
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)

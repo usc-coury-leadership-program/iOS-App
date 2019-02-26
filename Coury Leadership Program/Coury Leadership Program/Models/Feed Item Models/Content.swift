@@ -8,17 +8,44 @@
 
 import UIKit
 
-public protocol Content {
+public struct Link: FeedableData {
 
-}
-
-public struct Link: Content{
     let url: URL
     let squareImage: UIImage
+
+    public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = LinkCell.generateCellFor(tableView, at: indexPath) as! LinkCell
+        cell.headlineText.text = url.absoluteString
+        cell.previewImage.image = squareImage
+        return cell
+    }
 }
 
-public struct Image: Content {
+public struct Image: FeedableData {
+
     let squareImage: UIImage
+
+    public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = ImageCell.generateCellFor(tableView, at: indexPath) as! ImageCell
+        cell.squareImage.image = squareImage
+        return cell
+    }
+
+}
+
+public struct Quote: FeedableData {
+
+    let quoteText: String
+    let emphasizedWords: [Int]
+    let author: String
+
+    public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = QuoteCell.generateCellFor(tableView, at: indexPath) as! QuoteCell
+        cell.quoteText.text = quoteText + " - " + author
+        return cell
+    }
+
+}
 
 //    let url = URL(string: image.url)
 //
@@ -28,9 +55,6 @@ public struct Image: Content {
 //    imageView.image = UIImage(data: data!)
 //    }
 //    }
-}
-
-
 
 //extension UIImageView {
 //    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
@@ -52,11 +76,3 @@ public struct Image: Content {
 //        downloaded(from: url, contentMode: mode)
 //    }
 //}
-
-
-
-public struct Quote: Content {
-    let quoteText: String
-    let emphasizedWords: [Int]
-    let author: String
-}

@@ -6,10 +6,18 @@
 //  Copyright © 2019 USC Marshall School of Business. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-public struct Calendar {
+public struct Calendar: FeedableData {
+
     let events: [CalendarEvent]
+
+    public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = CalendarCell.generateCellFor(tableView, at: indexPath) as! CalendarCell
+        cell.calendar = self
+        return cell
+    }
+
 }
 
 public struct CalendarEvent {
@@ -18,6 +26,7 @@ public struct CalendarEvent {
 }
 
 extension Date {
+
     var month: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM"
@@ -35,4 +44,5 @@ extension Date {
         dateFormatter.dateFormat = "h:mma"
         return dateFormatter.string(from: self)
     }
+    
 }
