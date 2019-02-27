@@ -47,7 +47,7 @@ class LinkCell: UITableViewCell, FeedableCell {
                     self.showShadow()
                 }
             }
-        }else {
+        } else {
             motionManager.stopDeviceMotionUpdates()
             hideShadow()
         }

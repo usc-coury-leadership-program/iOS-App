@@ -24,8 +24,10 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
 
-    /*header height*/func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
-    /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    // Header height
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
+    // Cell height
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
@@ -39,10 +41,13 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         default: return 30
         }
     }
-    /*footer height*/func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
+    // Footer height
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
 
-    /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 3}
-    /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // Number of sections
+    func numberOfSections(in tableView: UITableView) -> Int {return 3}
+    // Number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return 1
         case 1: return exampleFeed.polls.count
@@ -51,7 +56,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 
-    //cell generation
+    // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
         case 0: return exampleFeed.calendar.generateCellFor(tableView, at: indexPath)
@@ -62,14 +67,14 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 
-    //cell selection
+    // Cell selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? FeedableCell else {return}
         cell.onTap()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // TODO reset tapCount on all cells
+        //TODO: reset tapCount on all cells
     }
 
     //MARK: - convenience functions

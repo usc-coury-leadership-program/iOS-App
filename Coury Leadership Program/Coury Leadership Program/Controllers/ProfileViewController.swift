@@ -23,7 +23,8 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func onSettingsClick(_ sender: Any) {
-        print("Settings button was clicked!")// TODO
+        //TODO
+        print("Settings button was clicked!")
     }
 
 }
