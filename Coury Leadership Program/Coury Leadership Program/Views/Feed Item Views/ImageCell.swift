@@ -34,26 +34,24 @@ class ImageCell: UITableViewCell, FeedableCell {
     }
 
     func onTap() {
+        if tapCount == 0 {configureShadow()}
         tapCount += 1
 
         if tapCount%2 != 0 {
-            addShadow(around: insetView.layer)
-
             if motionManager.isDeviceMotionAvailable {
                 motionManager.deviceMotionUpdateInterval = 0.02
                 motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
                     guard let motion = motion else {return}
                     self.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
+                    self.showShadow()
                 }
             }
         }else {
             motionManager.stopDeviceMotionUpdates()
-            removeShadow(from: insetView.layer)
+            hideShadow()
         }
     }
 
-    func adjustShadow(pitch: Double, roll: Double) {
-        insetView.layer.shadowOffset = CGSize(width: roll*10, height: pitch*10)
-    }
+    func adjustShadow(pitch: Double, roll: Double) {insetView.layer.shadowOffset = CGSize(width: roll*10, height: pitch*10)}
     
 }
