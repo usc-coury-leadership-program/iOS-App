@@ -17,6 +17,16 @@ class FeedViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
         presentSignInVC()
+        
+        // Adam's testing code. Please delete!!
+        Database.shared().fetchCalendar(andRun: {(calendar) in
+            print(calendar)
+        })
+        Database.shared().fetchContent(andRun: {(content) in
+            print(content)
+        })
+        Database.shared().uploadUserProfile(User(name: "Adam", strengths: [strengths[0], strengths[3]], savedContent: []))
+        // End of Adam's testing code
     }
 
     func presentSignInVC() {

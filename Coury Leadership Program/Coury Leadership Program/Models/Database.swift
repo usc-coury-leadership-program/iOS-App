@@ -139,5 +139,30 @@ class Database {
     
     public func fetchPolls(andRun callback: @escaping ([Poll]) -> Void) {
         callback([])
+        // Will be changed with new database format by @adam later
+    }
+    
+    public func uploadUserProfile(_ user: User) {
+        // Temporary - real fix will be to store Firebase UID in User object
+        if !signedIn {
+            print("Error! user is not signed in")
+            return
+        }
+        let uid:String = Auth.auth().currentUser!.uid
+        var strengthStrings:[String] = []
+        for strength in user.strengths {
+            strengthStrings.append(strength.name)
+        }
+        
+        Firestore.firestore().collection("Users").document(uid).setData([
+            "name" : user.name,
+            "strengths" : strengthStrings
+        ]) { err in
+            if let err = err {
+                print("Error writing user document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
     }
 }
