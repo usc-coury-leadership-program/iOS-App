@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class ProfileViewController: UIViewController {
 
@@ -14,16 +16,36 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionSizeLabel: UILabel!
 
+    var handle: AuthStateDidChangeListenerHandle?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         engageCollectionView()
 
         nameLabel.adjustsFontSizeToFitWidth = true
+
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            self.nameLabel.text = user?.displayName
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
 
     @IBAction func onSettingsClick(_ sender: Any) {
         print("Settings button was clicked!")// TODO
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance()?.signOut()
+
+            print ("test")
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
 
 }

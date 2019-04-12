@@ -36,7 +36,6 @@ public struct Image: FeedableData {
 public struct Quote: FeedableData {
 
     let quoteText: String
-    let emphasizedWords: [Int]
     let author: String
 
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {

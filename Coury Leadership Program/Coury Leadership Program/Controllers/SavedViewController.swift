@@ -8,40 +8,65 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
-    
-    @IBOutlet weak var tableView: UITableView!
+class SavedViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textFieldConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
-        presentSignInVC()
-//
-//        fetchFeed()
+        engageTextField()
+        tableView.keyboardDismissMode = .onDrag
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        presentSignInVC()
-//    }
-
-    func presentSignInVC() {
-        let signInVC = self.storyboard?.instantiateViewController(withIdentifier: "SignIn") as! SignInViewController
-        self.present(signInVC, animated: true, completion: nil)
+    @objc func keyboardWillShow(sender: NSNotification) {
+        let keyboardFrame: CGRect = (sender.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration: Double = sender.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        UIView.animate(withDuration: duration) {
+            self.textFieldConstraint.constant = keyboardFrame.height - self.view.safeAreaInsets.bottom + 16
+            self.view.layoutIfNeeded()
+        }
     }
 
+    @objc func keyboardWillHide(sender: NSNotification) {
+        let duration: Double = sender.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        UIView.animate(withDuration: duration) {
+            self.textFieldConstraint.constant = 24
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+
+extension SavedViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let newGoal: String = textField.text, newGoal.count > 0 {
+            print(newGoal)
+        }
+    }
+
+    //MARK: - convenience functions
+    func engageTextField() {
+        textField.delegate = self
+    }
 }
 
 
-extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
+extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
 
     /*header height*/func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
     /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0: return CalendarCell.HEIGHT
-        case 1: return PollCell.HEIGHT
-        case 2:
+        case 0:
             let content = exampleFeed.content[indexPath.row]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
@@ -53,12 +78,10 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
     /*footer height*/func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
 
-    /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 3}
+    /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 1}
     /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
-        case 0: return 1
-        case 1: return exampleFeed.polls.count
-        case 2: return exampleFeed.content.count
+        case 0: return exampleFeed.content.count
         default: return 0
         }
     }
@@ -66,10 +89,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
-        case 0: return exampleFeed.calendar.generateCellFor(tableView, at: indexPath)
-        case 1: return exampleFeed.polls[indexPath.row].generateCellFor(tableView, at: indexPath)
-        case 2: return exampleFeed.content[indexPath.row].generateCellFor(tableView, at: indexPath)
-        default: fatalError("Feed's TableView has more sections than expected.")
+        case 0: return exampleFeed.content[indexPath.row].generateCellFor(tableView, at: indexPath)
+        default: fatalError("Saved feed's TableView has more sections than expected.")
         }
     }
 

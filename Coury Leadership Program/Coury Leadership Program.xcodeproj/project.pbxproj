@@ -10,10 +10,12 @@
 		66EB5514221126DC004FF186 /* FeedableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB5513221126DC004FF186 /* FeedableCell.swift */; };
 		66EB55172211306F004FF186 /* StrengthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* StrengthCell.swift */; };
 		66EB55182211306F004FF186 /* StrengthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* StrengthCell.xib */; };
+		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
+		C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B75DA225998DA006ACDA0 /* SignInViewController.swift */; };
 		C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4759FC72224C58C002F27AF /* FeedableData.swift */; };
 		C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */; };
 		C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */; };
-		C4CA5A91220E0DB900ECF768 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A90220E0DB900ECF768 /* SecondViewController.swift */; };
+		C4CA5A91220E0DB900ECF768 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */; };
 		C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A92220E0DB900ECF768 /* Main.storyboard */; };
 		C4CA5A96220E0DBA00ECF768 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A95220E0DBA00ECF768 /* Assets.xcassets */; };
 		C4CA5A99220E0DBA00ECF768 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A97220E0DBA00ECF768 /* LaunchScreen.storyboard */; };
@@ -34,17 +36,22 @@
 		C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Strength.swift */; };
 		C4CE85F1220E255600D5570A /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F0220E255600D5570A /* Feed.swift */; };
 		C4CE85F3220E454F00D5570A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F2220E454F00D5570A /* Content.swift */; };
+		C4EFABF122581FCD00067AA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4EFABF022581FCD00067AA7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Coury_Leadership_Program.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66EB5513221126DC004FF186 /* FeedableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableCell.swift; sourceTree = "<group>"; };
 		66EB55152211306F004FF186 /* StrengthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthCell.swift; sourceTree = "<group>"; };
 		66EB55162211306F004FF186 /* StrengthCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StrengthCell.xib; sourceTree = "<group>"; };
+		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
+		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
+		C45B75DA225998DA006ACDA0 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C4759FC72224C58C002F27AF /* FeedableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableData.swift; sourceTree = "<group>"; };
 		C4CA5A89220E0DB900ECF768 /* Coury Leadership Program.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coury Leadership Program.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		C4CA5A90220E0DB900ECF768 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		C4CA5A93220E0DB900ECF768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4CA5A95220E0DBA00ECF768 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4CA5A98220E0DBA00ECF768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,6 +73,7 @@
 		C4CA5AC7220E1A0700ECF768 /* Strength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strength.swift; sourceTree = "<group>"; };
 		C4CE85F0220E255600D5570A /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		C4CE85F2220E454F00D5570A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		C4EFABF022581FCD00067AA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,17 +81,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C52D63A306EDA958B310EA8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C4CA5A80220E0DB900ECF768 = {
 			isa = PBXGroup;
 			children = (
 				C4CA5A8B220E0DB900ECF768 /* Coury Leadership Program */,
 				C4CA5A8A220E0DB900ECF768 /* Products */,
+				D74E71C271EEA86B660F6897 /* Pods */,
+				1C52D63A306EDA958B310EA8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +124,7 @@
 				C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */,
 				C4CA5A97220E0DBA00ECF768 /* LaunchScreen.storyboard */,
 				C4CA5A9A220E0DBA00ECF768 /* Info.plist */,
+				C4EFABF022581FCD00067AA7 /* GoogleService-Info.plist */,
 			);
 			path = "Coury Leadership Program";
 			sourceTree = "<group>";
@@ -135,8 +155,9 @@
 			isa = PBXGroup;
 			children = (
 				C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */,
-				C4CA5A90220E0DB900ECF768 /* SecondViewController.swift */,
+				C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */,
 				C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */,
+				C45B75DA225998DA006ACDA0 /* SignInViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -170,6 +191,15 @@
 			path = "Feed Item Models";
 			sourceTree = "<group>";
 		};
+		D74E71C271EEA86B660F6897 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */,
+				9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -177,9 +207,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C4CA5A9D220E0DBA00ECF768 /* Build configuration list for PBXNativeTarget "Coury Leadership Program" */;
 			buildPhases = (
+				4E2319717DB3E457688E0468 /* [CP] Check Pods Manifest.lock */,
 				C4CA5A85220E0DB900ECF768 /* Sources */,
 				C4CA5A86220E0DB900ECF768 /* Frameworks */,
 				C4CA5A87220E0DB900ECF768 /* Resources */,
+				9D313FF45B051151C773EC29 /* [CP] Embed Pods Frameworks */,
+				CA99AB49A536CF5F46FF1080 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -202,6 +235,7 @@
 				TargetAttributes = {
 					C4CA5A88220E0DB900ECF768 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -235,6 +269,7 @@
 				C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */,
 				66EB55182211306F004FF186 /* StrengthCell.xib in Resources */,
 				C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */,
+				C4EFABF122581FCD00067AA7 /* GoogleService-Info.plist in Resources */,
 				C4CA5AB4220E17EA00ECF768 /* ImageCell.xib in Resources */,
 				C4CA5AA8220E175C00ECF768 /* CalendarCell.xib in Resources */,
 			);
@@ -242,12 +277,97 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4E2319717DB3E457688E0468 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Coury Leadership Program-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D313FF45B051151C773EC29 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA99AB49A536CF5F46FF1080 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C4CA5A85220E0DB900ECF768 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4CA5A91220E0DB900ECF768 /* SecondViewController.swift in Sources */,
+				C4CA5A91220E0DB900ECF768 /* SavedViewController.swift in Sources */,
 				C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */,
 				C4CA5AAB220E178700ECF768 /* PollCell.swift in Sources */,
 				C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */,
@@ -256,6 +376,7 @@
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
 				C4CE85F1220E255600D5570A /* Feed.swift in Sources */,
 				C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */,
+				C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */,
 				C4CA5AC6220E19E700ECF768 /* User.swift in Sources */,
 				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
@@ -408,6 +529,7 @@
 		};
 		C4CA5A9E220E0DBA00ECF768 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -419,13 +541,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "usc.marshall.Coury-Leadership-Program";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		C4CA5A9F220E0DBA00ECF768 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -437,7 +560,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "usc.marshall.Coury-Leadership-Program";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
