@@ -17,14 +17,7 @@ class FeedViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
         presentSignInVC()
-//
-//        fetchFeed()
     }
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        presentSignInVC()
-//    }
 
     func presentSignInVC() {
         let signInVC = self.storyboard?.instantiateViewController(withIdentifier: "SignIn") as! SignInViewController

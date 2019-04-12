@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+public struct User {
+
+    let name: String
+    let strengths: [Strength]
+    let savedContent: [FeedableData]
+    
+}

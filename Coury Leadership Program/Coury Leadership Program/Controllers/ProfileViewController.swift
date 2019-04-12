@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionSizeLabel: UILabel!
 
+    let collectionViewColumnCount: CGFloat = 3
     var handle: AuthStateDidChangeListenerHandle?
 
     override func viewDidLoad() {
@@ -57,7 +58,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     //cell size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let interitemSpacing = self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: indexPath.section)
-        let cellEdgeLength = (collectionView.bounds.width - interitemSpacing)/2.0
+        let sumWhitespace = (collectionViewColumnCount - 1.0)*interitemSpacing
+        let cellEdgeLength = (collectionView.bounds.width - sumWhitespace)/collectionViewColumnCount
         return CGSize(width: cellEdgeLength, height: cellEdgeLength)
     }
 
@@ -69,7 +71,13 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! StrengthCell
         cell.strengthName.text = strengths[indexPath.row].name
         cell.image.image = strengths[indexPath.row].image
+        cell.hasThisStrength = true
         return cell
+    }
+    //cell view
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? StrengthCell else {return}
+        cell.strengthName.adjustsFontSizeToFitWidth = true
     }
 
     //MARK: - convenience functions
