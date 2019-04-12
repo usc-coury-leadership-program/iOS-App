@@ -27,7 +27,9 @@ public protocol FeedableCell {
 extension FeedableCell {
     static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
     static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
-    static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath)}
+    static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath)
+    }
 
     func configureShadow() {
         hideShadow()

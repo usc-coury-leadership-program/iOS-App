@@ -40,7 +40,7 @@ class QuoteCell: UITableViewCell, FeedableCell {
                     self.showShadow()
                 }
             }
-        }else {
+        } else {
             motionManager.stopDeviceMotionUpdates()
             hideShadow()
         }
