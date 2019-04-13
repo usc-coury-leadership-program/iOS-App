@@ -19,17 +19,19 @@ import GoogleSignIn
 
 public class User {
 
+    private var isBulkUpdating: Bool = false
+
     private var name: String? {
-        didSet {if name != nil {Database.shared().updateUserProfile(with: self)}}
+        didSet {if name != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
     private var uid: String? {
-        didSet {if uid != nil {Database.shared().updateUserProfile(with: self)}}
+        didSet {if uid != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
     private var strengths: [Strength]? {
-        didSet {if strengths != nil {Database.shared().updateUserProfile(with: self)}}
+        didSet {if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
     private var savedContent: [FeedableData]? {
-        didSet {if savedContent != nil {Database.shared().updateUserProfile(with: self)}}
+        didSet {if savedContent != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
 
     private static var sharedUser: User = {return User()}()
@@ -42,9 +44,12 @@ public class User {
     public static func shared() -> User {return sharedUser}
 
     public func reconstruct(name: String?, uid: String?, strengths: [Strength]?, savedContent: [FeedableData]?) {
+        isBulkUpdating = true
         self.name = name
         self.uid = uid
         self.strengths = strengths
         self.savedContent = savedContent
+        isBulkUpdating = false
+        Database.shared().uploadUserProfile(self)
     }
 }
