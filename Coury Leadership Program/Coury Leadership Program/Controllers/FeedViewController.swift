@@ -20,6 +20,7 @@ class FeedViewController: UIViewController {
         engageTableView()
         presentSignInVC()
 
+
         Database.shared().fetchCalendar() {(calendar) in
             self.currentFeed = Feed(calendar: calendar, polls: self.currentFeed.polls, content: self.currentFeed.content)
             self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
@@ -32,9 +33,6 @@ class FeedViewController: UIViewController {
             self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: content)
             self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         }
-        
-        Database.shared().uploadUserProfile(User(name: "Adam", strengths: [strengths[0], strengths[3]], savedContent: []))
-        // End of Adam's testing code
     }
 
     func presentSignInVC() {

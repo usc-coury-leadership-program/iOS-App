@@ -142,27 +142,19 @@ public class Database {
         // Will be changed with new database format by @adam later
     }
     
-    public func uploadUserProfile(_ user: User) {
-        // Temporary - real fix will be to store Firebase UID in User object
-//        if !signedIn {
-//            print("Database error! User is not signed in.")
-//            return
-//        }
-//        let uid: String = Auth.auth().currentUser!.uid
-        guard let uid = Auth.auth().currentUser?.uid, let name = Auth.auth().currentUser?.displayName else {
-            print("Database error! User is not signed in.")
+    public func uploadUserProfile(_ user: CLPUser) {
+
+        guard let uid = user.uid, let name = user.name, let strengths = user.strengths, let savedContent = user.savedContent else {
+            print("Some user data is nil, abandoning upload.")
             return
         }
 
-        let stringifiedStrengths: [String] = user.strengths.map() {$0.name}
+        let stringifiedStrengths: [String] = strengths.map() {$0.name}
         Firestore.firestore().collection("Users").document(uid).setData([
             "name" : name,
             "strengths" : stringifiedStrengths
         ]) {(error) in
             if let error = error {print("Error writing user document: \(error)")}
-//            else {
-//                print("Document successfully written!")
-//            }
         }
     }
 }

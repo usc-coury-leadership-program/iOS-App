@@ -17,31 +17,31 @@ import GoogleSignIn
 //
 //}
 
-public class User {
+public class CLPUser {
 
     private var isBulkUpdating: Bool = false
 
-    private var name: String? {
+    public private(set) var name: String? {
         didSet {if name != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
-    private var uid: String? {
+    public private(set) var uid: String? {
         didSet {if uid != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
-    private var strengths: [Strength]? {
+    public private(set) var strengths: [Strength]? {
         didSet {if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
-    private var savedContent: [FeedableData]? {
+    public private(set) var savedContent: [FeedableData]? {
         didSet {if savedContent != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
 
-    private static var sharedUser: User = {return User()}()
+    private static var sharedUser: CLPUser = {return CLPUser()}()
     private init() {
         if let googleUser = Auth.auth().currentUser {
             name = googleUser.displayName
             uid = googleUser.uid
         }
     }
-    public static func shared() -> User {return sharedUser}
+    public static func shared() -> CLPUser {return sharedUser}
 
     public func reconstruct(name: String?, uid: String?, strengths: [Strength]?, savedContent: [FeedableData]?) {
         isBulkUpdating = true
@@ -51,5 +51,17 @@ public class User {
         self.savedContent = savedContent
         isBulkUpdating = false
         Database.shared().uploadUserProfile(self)
+    }
+
+    public func updateInformation(from googleUser: User) {
+        name = googleUser.displayName
+        uid = googleUser.uid
+    }
+
+    public func makeAllNil() {
+        name = nil
+        uid = nil
+        strengths = nil
+        savedContent = nil
     }
 }
