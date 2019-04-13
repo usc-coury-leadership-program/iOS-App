@@ -18,7 +18,7 @@ class CalendarCell: UITableViewCell, FeedableCell {
     }
     private var currentEvent: Int = 0 {
         didSet {
-            guard let events = calendar?.events else {return}
+            guard let events = calendar?.events, events.count > 0 else {return}
             if (currentEvent < 0) {currentEvent = events.count - 1}
             let event = events[currentEvent % events.count]
             eventText.text = event.name + " - " + event.date.month + " " + event.date.day + " " + event.date.time

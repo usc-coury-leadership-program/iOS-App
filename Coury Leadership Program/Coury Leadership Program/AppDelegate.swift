@@ -56,9 +56,9 @@ extension AppDelegate: GIDSignInDelegate {
 
         guard let authentication = user.authentication else {return}
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+
         //TODO
         Database.shared().signIn()
-        
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if error != nil {return}
 

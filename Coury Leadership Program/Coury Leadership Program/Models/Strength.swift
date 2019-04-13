@@ -9,7 +9,7 @@
 import UIKit
 
 
-struct Strength {
+public struct Strength {
     let image: UIImage
     let name: String
     let description: String

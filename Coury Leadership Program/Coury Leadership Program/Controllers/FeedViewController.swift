@@ -12,19 +12,27 @@ class FeedViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
 
+    private var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
         presentSignInVC()
+
+        Database.shared().fetchCalendar() {(calendar) in
+            self.currentFeed = Feed(calendar: calendar, polls: self.currentFeed.polls, content: self.currentFeed.content)
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
+        Database.shared().fetchPolls() {(polls) in
+            self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: polls, content: self.currentFeed.content)
+            self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+        }
+        Database.shared().fetchContent() {(content) in
+            self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: content)
+            self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+        }
         
-        // Adam's testing code. Please delete!!
-        Database.shared().fetchCalendar(andRun: {(calendar) in
-            print(calendar)
-        })
-        Database.shared().fetchContent(andRun: {(content) in
-            print(content)
-        })
         Database.shared().uploadUserProfile(User(name: "Adam", strengths: [strengths[0], strengths[3]], savedContent: []))
         // End of Adam's testing code
     }
@@ -47,7 +55,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
         case 2:
-            let content = exampleFeed.content[indexPath.row]
+            let content = currentFeed.content[indexPath.row]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
             else if let _ = content as? Quote {return QuoteCell.HEIGHT}
@@ -65,8 +73,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return 1
-        case 1: return exampleFeed.polls.count
-        case 2: return exampleFeed.content.count
+        case 1: return currentFeed.polls.count
+        case 2: return currentFeed.content.count
         default: return 0
         }
     }
@@ -74,9 +82,9 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
-        case 0: return exampleFeed.calendar.generateCellFor(tableView, at: indexPath)
-        case 1: return exampleFeed.polls[indexPath.row].generateCellFor(tableView, at: indexPath)
-        case 2: return exampleFeed.content[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 0: return currentFeed.calendar.generateCellFor(tableView, at: indexPath)
+        case 1: return currentFeed.polls[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 2: return currentFeed.content[indexPath.row].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }
     }

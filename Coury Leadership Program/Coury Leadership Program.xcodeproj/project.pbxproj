@@ -11,6 +11,7 @@
 		66EB55172211306F004FF186 /* StrengthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* StrengthCell.swift */; };
 		66EB55182211306F004FF186 /* StrengthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* StrengthCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
+		C418793C22615B4A00C6DC84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C418793B22615B4A00C6DC84 /* Database.swift */; };
 		C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B75DA225998DA006ACDA0 /* SignInViewController.swift */; };
 		C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4759FC72224C58C002F27AF /* FeedableData.swift */; };
 		C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 		66EB55162211306F004FF186 /* StrengthCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StrengthCell.xib; sourceTree = "<group>"; };
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
+		C418793B22615B4A00C6DC84 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		C45B75DA225998DA006ACDA0 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C4759FC72224C58C002F27AF /* FeedableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableData.swift; sourceTree = "<group>"; };
 		C4CA5A89220E0DB900ECF768 /* Coury Leadership Program.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coury Leadership Program.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 		C4CA5AA0220E0F2900ECF768 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C418793B22615B4A00C6DC84 /* Database.swift */,
 				C4CE85F0220E255600D5570A /* Feed.swift */,
 				C4CA5AC4220E191500ECF768 /* Feed Item Models */,
 				C4CA5AC5220E19E700ECF768 /* User.swift */,
@@ -385,6 +388,7 @@
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
 				C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */,
 				66EB55172211306F004FF186 /* StrengthCell.swift in Sources */,
+				C418793C22615B4A00C6DC84 /* Database.swift in Sources */,
 				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

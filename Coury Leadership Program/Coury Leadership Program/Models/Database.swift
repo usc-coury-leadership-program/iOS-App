@@ -10,9 +10,9 @@ import Foundation
 import Firebase
 import GoogleSignIn
 
-class Database {
+public class Database {
     
-    private var signedIn:Bool
+    private var signedIn: Bool
     
     /*
     private var signInStateChangeCallbacks: Dictionary<String, (Bool) -> Void> = [:]
@@ -26,7 +26,7 @@ class Database {
     
     // The shared instance
     private static var sharedDB: Database = {
-        let db:Database = Database()
+        let db: Database = Database()
         return db
     }()
     
@@ -144,25 +144,25 @@ class Database {
     
     public func uploadUserProfile(_ user: User) {
         // Temporary - real fix will be to store Firebase UID in User object
-        if !signedIn {
-            print("Error! user is not signed in")
+//        if !signedIn {
+//            print("Database error! User is not signed in.")
+//            return
+//        }
+//        let uid: String = Auth.auth().currentUser!.uid
+        guard let uid = Auth.auth().currentUser?.uid, let name = Auth.auth().currentUser?.displayName else {
+            print("Database error! User is not signed in.")
             return
         }
-        let uid:String = Auth.auth().currentUser!.uid
-        var strengthStrings:[String] = []
-        for strength in user.strengths {
-            strengthStrings.append(strength.name)
-        }
-        
+
+        let stringifiedStrengths: [String] = user.strengths.map() {$0.name}
         Firestore.firestore().collection("Users").document(uid).setData([
-            "name" : user.name,
-            "strengths" : strengthStrings
-        ]) { err in
-            if let err = err {
-                print("Error writing user document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
+            "name" : name,
+            "strengths" : stringifiedStrengths
+        ]) {(error) in
+            if let error = error {print("Error writing user document: \(error)")}
+//            else {
+//                print("Document successfully written!")
+//            }
         }
     }
 }
