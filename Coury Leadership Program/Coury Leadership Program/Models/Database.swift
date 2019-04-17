@@ -13,6 +13,7 @@ import GoogleSignIn
 public class Database {
     
     private var signedIn: Bool
+    private var lastUploadedProfile: [String : Any] = [:]
     
     /*
     private var signInStateChangeCallbacks: Dictionary<String, (Bool) -> Void> = [:]
@@ -142,19 +143,36 @@ public class Database {
         // Will be changed with new database format by @adam later
     }
     
-    public func uploadUserProfile(_ user: CLPUser) {
+//    public func uploadUserProfile(_ user: CLPUser) {
+//
+//        guard let uid = user.uid, let name = user.name, let strengths = user.strengths, let savedContent = user.savedContent else {
+//            print("Some user data is nil, abandoning upload.")
+//            return
+//        }
+//
+//        let stringifiedStrengths: [String] = strengths.map() {$0.name}
+//        Firestore.firestore().collection("Users").document(uid).setData([
+//            "name" : name,
+//            "strengths" : stringifiedStrengths
+//            //TODO upload savedContent
+//
+//        ]) {(error) in
+//            if let error = error {print("Error writing user document: \(error)")}
+//        }
+//    }
 
-        guard let uid = user.uid, let name = user.name, let strengths = user.strengths, let savedContent = user.savedContent else {
-            print("Some user data is nil, abandoning upload.")
-            return
-        }
 
-        let stringifiedStrengths: [String] = strengths.map() {$0.name}
-        Firestore.firestore().collection("Users").document(uid).setData([
-            "name" : name,
-            "strengths" : stringifiedStrengths
-        ]) {(error) in
-            if let error = error {print("Error writing user document: \(error)")}
+    public func updateUserProfile(_ user: CLPUser) {
+
+        guard let uid = user.uid else {return}
+        let profileToUpload = user.toDict()
+        if !profileToUpload.elementsEqual(lastUploadedProfile, by: { (newElement, uploadedElement) in
+            let uploadedString = uploadedElement.value as! String
+            return (newElement.key == uploadedElement.key) && (newElement.value == uploadedString)
+        }) {
+            Firestore.firestore().collection("Users").document(uid).setData(profileToUpload, mergeFields: user.listOfFullFields())
+            lastUploadedProfile = profileToUpload
         }
+        print("Did run Database.updateUserProfile()")
     }
 }

@@ -10,13 +10,6 @@ import Foundation
 import Firebase
 import GoogleSignIn
 
-//public struct User {
-//
-//    let strengths: [Strength]
-//    let savedContent: [FeedableData]
-//
-//}
-
 public class CLPUser {
 
     private var isBulkUpdating: Bool = false
@@ -50,18 +43,45 @@ public class CLPUser {
         self.strengths = strengths
         self.savedContent = savedContent
         isBulkUpdating = false
-        Database.shared().uploadUserProfile(self)
+        Database.shared().updateUserProfile(self)
     }
 
     public func updateInformation(from googleUser: User) {
-        name = googleUser.displayName
-        uid = googleUser.uid
+        self.name = googleUser.displayName
+        self.uid = googleUser.uid
     }
 
     public func makeAllNil() {
-        name = nil
-        uid = nil
-        strengths = nil
-        savedContent = nil
+        self.name = nil
+        self.uid = nil
+        self.strengths = nil
+        self.savedContent = nil
+    }
+
+    public func toDict() -> [String : String] {
+        var dict: [String : String] = [:]
+
+        dict["name"] = self.name != nil ? self.name : ""
+        dict["uid"] = self.uid != nil ? self.uid : ""
+        dict["strengths"] = self.strengths != nil ? strengthsAsStrings().joined(separator: ",") : ""
+        dict["saved content"] = ""//TODO
+
+        return dict
+    }
+
+    public func listOfFullFields() -> [String] {
+        var fullFields: [String] = []
+
+        if self.name != nil {fullFields.append("name")}
+        if self.uid != nil {fullFields.append("uid")}
+        if self.strengths != nil {fullFields.append("strengths")}
+        if self.savedContent != nil {fullFields.append("saved content")}
+
+        return fullFields
+    }
+
+    public func strengthsAsStrings() -> [String] {
+        guard let strengths = self.strengths else {return []}
+        return strengths.map() {$0.name}
     }
 }

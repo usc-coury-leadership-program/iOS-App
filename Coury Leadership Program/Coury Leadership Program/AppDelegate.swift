@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: GIDSignInDelegate {
 
+    // sign in
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if error != nil {return}
 
@@ -65,9 +66,9 @@ extension AppDelegate: GIDSignInDelegate {
         }
     }
 
+    // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        CLPUser.shared().makeAllNil()
-        Database.shared().signOut()
+        AppDelegate.signOut()
     }
 
     //MARK: - convenience functions
@@ -80,5 +81,14 @@ extension AppDelegate: GIDSignInDelegate {
     func handleAsFirebase(_ url: URL, with options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         let sourceApp = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
+    }
+
+    public static func signOut() {
+        GIDSignIn.sharedInstance()?.signOut()
+        do {try Auth.auth().signOut()}
+        catch {print(error)}
+        CLPUser.shared().makeAllNil()
+        Database.shared().signOut()
+        print("Did run AppDelegate.signOut()")
     }
 }

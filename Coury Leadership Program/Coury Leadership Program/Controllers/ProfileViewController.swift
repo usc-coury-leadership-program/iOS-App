@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController {
 
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             self.nameLabel.text = user?.displayName
+            self.nameLabel.setNeedsLayout()
         }
     }
 
@@ -38,15 +39,7 @@ class ProfileViewController: UIViewController {
 
     @IBAction func onSettingsClick(_ sender: Any) {
         print("Settings button was clicked!")// TODO
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            GIDSignIn.sharedInstance()?.signOut()
-
-            print ("test")
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
+        AppDelegate.signOut()
     }
 
 }

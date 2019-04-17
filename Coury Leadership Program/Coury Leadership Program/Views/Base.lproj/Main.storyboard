@@ -37,6 +37,7 @@
                     <tabBarItem key="tabBarItem" title="Feed" image="first" id="acW-dT-cKf" userLabel="Feed"/>
                     <connections>
                         <outlet property="tableView" destination="xsa-OG-cBN" id="PPy-jX-wQn"/>
+                        <segue destination="FeX-Ig-enU" kind="presentation" identifier="SignInSegue" id="818-gU-nKK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -201,24 +202,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7BP-Dj-R72" customClass="GIDSignInButton">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7me-5Q-IWL">
+                                <rect key="frame" x="16" y="160" width="343" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="0do-Wq-IzC">
+                                    <size key="itemSize" width="161" height="161"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbC-1u-IJ9">
+                                <rect key="frame" x="16" y="76" width="343" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="xCB-gM-0qw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="29"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your strengths:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGj-ES-Roo">
+                                <rect key="frame" x="16" y="119" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="cbw-vq-Ald"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="7BP-Dj-R72" firstAttribute="centerY" secondItem="ush-CQ-LdY" secondAttribute="centerY" id="9y7-bm-wm9"/>
-                            <constraint firstItem="7BP-Dj-R72" firstAttribute="centerX" secondItem="ush-CQ-LdY" secondAttribute="centerX" id="ALo-Io-4OK"/>
-                            <constraint firstItem="7BP-Dj-R72" firstAttribute="width" secondItem="ush-CQ-LdY" secondAttribute="width" id="BjJ-QX-7XX"/>
-                            <constraint firstItem="7BP-Dj-R72" firstAttribute="height" secondItem="ush-CQ-LdY" secondAttribute="height" id="bSG-Rw-cgT"/>
+                            <constraint firstItem="ush-CQ-LdY" firstAttribute="trailing" secondItem="7me-5Q-IWL" secondAttribute="trailing" constant="16" id="7ok-Ze-rVU"/>
+                            <constraint firstItem="7me-5Q-IWL" firstAttribute="leading" secondItem="ush-CQ-LdY" secondAttribute="leading" constant="16" id="C0h-z8-LHk"/>
+                            <constraint firstItem="ush-CQ-LdY" firstAttribute="trailing" secondItem="kbC-1u-IJ9" secondAttribute="trailing" constant="16" id="CEM-pR-jml"/>
+                            <constraint firstItem="kbC-1u-IJ9" firstAttribute="leading" secondItem="ush-CQ-LdY" secondAttribute="leading" constant="16" id="PUa-eE-0Zk"/>
+                            <constraint firstItem="kGj-ES-Roo" firstAttribute="leading" secondItem="ush-CQ-LdY" secondAttribute="leading" constant="16" id="Pzh-W1-Wg5"/>
+                            <constraint firstItem="7me-5Q-IWL" firstAttribute="centerX" secondItem="ush-CQ-LdY" secondAttribute="centerX" id="ZXw-Js-NHS"/>
+                            <constraint firstItem="kbC-1u-IJ9" firstAttribute="top" secondItem="ush-CQ-LdY" secondAttribute="top" constant="32" id="ieR-Of-OrD"/>
+                            <constraint firstItem="7me-5Q-IWL" firstAttribute="top" secondItem="kGj-ES-Roo" secondAttribute="bottom" constant="20" id="kmV-Aq-VaK"/>
+                            <constraint firstItem="ush-CQ-LdY" firstAttribute="trailing" secondItem="kGj-ES-Roo" secondAttribute="trailing" constant="16" id="lL1-FP-Ebn"/>
+                            <constraint firstItem="7me-5Q-IWL" firstAttribute="bottom" secondItem="ush-CQ-LdY" secondAttribute="bottom" id="mvh-5d-bjO"/>
+                            <constraint firstItem="kGj-ES-Roo" firstAttribute="top" secondItem="kbC-1u-IJ9" secondAttribute="bottom" constant="8" id="x72-JR-vtR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ush-CQ-LdY"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="7me-5Q-IWL" id="d9O-z0-sHH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbv-DQ-0bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-18" y="-756"/>
+            <point key="canvasLocation" x="-18.399999999999999" y="-756.6502463054187"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
