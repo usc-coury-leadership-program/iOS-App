@@ -14,37 +14,21 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     private var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
-    private var needsFeedUpdateAfterSignIn: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         if CLPUser.shared().uid != nil {updateFeed()}
+        else if !CLPUser.shared().isSigningIn {presentSignInVC()}
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if CLPUser.shared().uid == nil {
-            print("We gotta sign in!")
-            needsFeedUpdateAfterSignIn = true
-            presentSignInVC()
-        }else if (needsFeedUpdateAfterSignIn) {
-            updateFeed()
-            needsFeedUpdateAfterSignIn = false
-        }
-        if CLPUser.shared().strengths == nil {
-            print("We gotta do some extra sign in stuff!")
-        }
-    }
-
-    func presentSignInVC() {
-        //let signInVC = self.storyboard?.instantiateViewController(withIdentifier: "SignIn") as! SignInViewController
-        //self.present(signInVC, animated: true, completion: nil)
-
-        self.performSegue(withIdentifier: "SignInSegue", sender: self)
-    }
+    func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updateFeed() {
         Database.shared().fetchCalendar() {(calendar) in

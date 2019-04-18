@@ -160,7 +160,9 @@ public class Database {
 //            if let error = error {print("Error writing user document: \(error)")}
 //        }
 //    }
-
+    public func fetchUserProfile() {
+        //TODO
+    }
 
     public func updateUserProfile(_ user: CLPUser) {
 

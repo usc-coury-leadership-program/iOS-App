@@ -64,13 +64,13 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! StrengthCell
         cell.strengthName.text = strengths[indexPath.row].name
         cell.image.image = strengths[indexPath.row].image
-        cell.hasThisStrength = true
         return cell
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? StrengthCell else {return}
         cell.strengthName.adjustsFontSizeToFitWidth = true
+        cell.hasThisStrength = CLPUser.shared().strengthsAsStrings().contains(strengths[indexPath.row].name)
     }
 
     //MARK: - convenience functions
@@ -82,6 +82,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)
 
+        collectionView.allowsSelection = false
         collectionView.reloadData()
     }
 }

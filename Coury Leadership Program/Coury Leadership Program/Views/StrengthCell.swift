@@ -15,10 +15,12 @@ class StrengthCell: UICollectionViewCell {
 
     static private let prettyBlueColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 0.75)
 
-    var hasThisStrength = true {
+    public var hasThisStrength: Bool = false {
         didSet {
             strengthName.backgroundColor = self.hasThisStrength ? StrengthCell.prettyBlueColor : UIColor.lightGray
             layer.borderColor = self.hasThisStrength ? StrengthCell.prettyBlueColor.cgColor : UIColor.lightGray.cgColor
+
+//            transform = self.hasThisStrength ? CGAffineTransform(scaleX: 1.01, y: 1.01) : CGAffineTransform.identity
         }
     }
     
@@ -28,7 +30,9 @@ class StrengthCell: UICollectionViewCell {
         layer.masksToBounds = true
         layer.cornerRadius = 16
         layer.borderWidth = 3
+
         strengthName.adjustsFontSizeToFitWidth = true
+        hasThisStrength = false
     }
 
 }

@@ -12,6 +12,7 @@ import GoogleSignIn
 
 public class CLPUser {
 
+    public var isSigningIn: Bool = false
     private var isBulkUpdating: Bool = false
 
     public private(set) var name: String? {
@@ -57,6 +58,8 @@ public class CLPUser {
         self.strengths = nil
         self.savedContent = nil
     }
+
+    public func set(strengths: [Strength]) {self.strengths = strengths}
 
     public func toDict() -> [String : String] {
         var dict: [String : String] = [:]

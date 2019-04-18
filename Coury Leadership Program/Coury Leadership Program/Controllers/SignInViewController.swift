@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import GoogleSignIn
 
 class SignInViewController: UIViewController, GIDSignInUIDelegate {
@@ -14,29 +15,18 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
     let collectionViewColumnCount: CGFloat = 3
+    var handle: AuthStateDidChangeListenerHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         engageCollectionView()
         GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
     }
 
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        print("ran sign")
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+//        self.dismiss(animated: true, completion: nil)
+//    }
 
 }
 
@@ -61,13 +51,30 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! StrengthCell
         cell.strengthName.text = strengths[indexPath.row].name
         cell.image.image = strengths[indexPath.row].image
-        cell.hasThisStrength = true
         return cell
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? StrengthCell else {return}
         cell.strengthName.adjustsFontSizeToFitWidth = true
+    }
+
+    //selecting
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
+        cell.hasThisStrength = true
+        if (isSelectionCount(of: collectionView, 5)) {
+            CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> Strength in
+                return strengths[indexPath.row]
+            })
+            AppDelegate.signIn()
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    //deselecting
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
+        cell.hasThisStrength = false
     }
 
     //MARK: - convenience functions
@@ -79,6 +86,12 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)
 
+        collectionView.allowsMultipleSelection = true
         collectionView.reloadData()
+    }
+
+    func isSelectionCount(of collectionView: UICollectionView, _ number: Int) -> Bool {
+        guard let selection = collectionView.indexPathsForSelectedItems else {return false}
+        return selection.count == number
     }
 }

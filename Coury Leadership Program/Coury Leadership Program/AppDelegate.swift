@@ -61,6 +61,7 @@ extension AppDelegate: GIDSignInDelegate {
             if error != nil {return}
             guard let googleUser = authResult?.user else {return}
 
+            CLPUser.shared().isSigningIn = false
             CLPUser.shared().updateInformation(from: googleUser)
             Database.shared().signIn()
         }
@@ -81,6 +82,11 @@ extension AppDelegate: GIDSignInDelegate {
     func handleAsFirebase(_ url: URL, with options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         let sourceApp = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
+    }
+
+    public static func signIn() {
+        CLPUser.shared().isSigningIn = true
+        GIDSignIn.sharedInstance().signIn()
     }
 
     public static func signOut() {
