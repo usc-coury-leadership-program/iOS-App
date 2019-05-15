@@ -537,7 +537,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 37X3EN3NY4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Coury Leadership Program/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -556,7 +556,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 37X3EN3NY4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Coury Leadership Program/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

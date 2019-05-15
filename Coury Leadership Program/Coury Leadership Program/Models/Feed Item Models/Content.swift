@@ -15,8 +15,8 @@ public struct Link: FeedableData {
 
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = LinkCell.generateCellFor(tableView, at: indexPath) as! LinkCell
-        cell.headlineText.text = url.absoluteString
-        cell.previewImage.image = squareImage
+        cell.url = url
+        //cell.previewImage.image = squareImage
         return cell
     }
 }

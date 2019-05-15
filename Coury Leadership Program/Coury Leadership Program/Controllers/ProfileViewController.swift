@@ -29,6 +29,7 @@ class ProfileViewController: UIViewController {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             self.nameLabel.text = user?.displayName
             self.nameLabel.setNeedsLayout()
+            self.collectionView.reloadData()
         }
     }
 
@@ -37,10 +38,7 @@ class ProfileViewController: UIViewController {
         Auth.auth().removeStateDidChangeListener(handle!)
     }
 
-    @IBAction func onSettingsClick(_ sender: Any) {
-        print("Settings button was clicked!")// TODO
-        AppDelegate.signOut()
-    }
+    @IBAction func onSettingsClick(_ sender: Any) {AppDelegate.signOut()}
 
 }
 

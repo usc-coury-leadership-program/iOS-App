@@ -113,14 +113,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6aE-rb-IJu">
                                 <rect key="frame" x="16" y="44" width="343" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9k-fr-kCc">
-                                        <rect key="frame" x="278" y="0.0" width="57" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9k-fr-kCc">
+                                        <rect key="frame" x="235" y="0.0" width="100" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="57" id="GW6-80-yeX"/>
+                                            <constraint firstAttribute="width" constant="100" id="GW6-80-yeX"/>
                                             <constraint firstAttribute="height" constant="30" id="MYQ-gS-dr7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                        <state key="normal" title="Settings"/>
+                                        <state key="normal" title="Sign Out"/>
                                         <connections>
                                             <action selector="onSettingsClick:" destination="RTf-vq-K0W" eventType="touchUpInside" id="5ZA-0f-fws"/>
                                         </connections>
