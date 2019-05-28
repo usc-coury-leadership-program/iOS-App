@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import GoogleSignIn
 
 class FeedViewController: UIViewController {
@@ -14,6 +15,7 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     private var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
+    var handle: AuthStateDidChangeListenerHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +25,13 @@ class FeedViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        if CLPUser.shared().uid != nil {updateFeed()}
+        if CLPUser.shared().id != nil {handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFeed()}}
         else if !CLPUser.shared().isSigningIn {presentSignInVC()}
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
     }
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}

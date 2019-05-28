@@ -18,10 +18,10 @@ public class CLPUser {
     public private(set) var name: String? {
         didSet {if name != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
-    public private(set) var uid: String? {
-        didSet {if uid != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+    public private(set) var id: String? {
+        didSet {if id != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
-    public private(set) var strengths: [Strength]? {
+    public private(set) var strengths: [String]? {
         didSet {if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
     public private(set) var savedContent: [FeedableData]? {
@@ -32,41 +32,41 @@ public class CLPUser {
     private init() {
         if let googleUser = Auth.auth().currentUser {
             name = googleUser.displayName
-            uid = googleUser.uid
+            id = googleUser.uid
         }
     }
     public static func shared() -> CLPUser {return sharedUser}
 
-    public func reconstruct(name: String?, uid: String?, strengths: [Strength]?, savedContent: [FeedableData]?) {
+    public func reconstruct(name: String?, id: String?, strengths: [String]?, savedContent: [FeedableData]?, fromDatabase: Bool = false) {
         isBulkUpdating = true
         self.name = name
-        self.uid = uid
+        self.id = id
         self.strengths = strengths
         self.savedContent = savedContent
         isBulkUpdating = false
-        Database.shared().updateUserProfile(self)
+        if !fromDatabase {Database.shared().updateUserProfile(self)}
     }
 
     public func updateInformation(from googleUser: User) {
         self.name = googleUser.displayName
-        self.uid = googleUser.uid
+        self.id = googleUser.uid
     }
 
     public func makeAllNil() {
         self.name = nil
-        self.uid = nil
+        self.id = nil
         self.strengths = nil
         self.savedContent = nil
     }
 
-    public func set(strengths: [Strength]) {self.strengths = strengths}
+    public func set(strengths: [String]) {self.strengths = strengths}
 
     public func toDict() -> [String : String] {
         var dict: [String : String] = [:]
 
         dict["name"] = self.name != nil ? self.name : ""
-        dict["uid"] = self.uid != nil ? self.uid : ""
-        dict["strengths"] = self.strengths != nil ? strengthsAsStrings().joined(separator: ",") : ""
+        dict["id"] = self.id != nil ? self.id : ""
+        dict["strengths"] = self.strengths != nil ? strengths!.joined(separator: ",") : ""
         dict["saved content"] = ""//TODO
 
         return dict
@@ -76,15 +76,10 @@ public class CLPUser {
         var fullFields: [String] = []
 
         if self.name != nil {fullFields.append("name")}
-        if self.uid != nil {fullFields.append("uid")}
+        if self.id != nil {fullFields.append("id")}
         if self.strengths != nil {fullFields.append("strengths")}
         if self.savedContent != nil {fullFields.append("saved content")}
 
         return fullFields
-    }
-
-    public func strengthsAsStrings() -> [String] {
-        guard let strengths = self.strengths else {return []}
-        return strengths.map() {$0.name}
     }
 }

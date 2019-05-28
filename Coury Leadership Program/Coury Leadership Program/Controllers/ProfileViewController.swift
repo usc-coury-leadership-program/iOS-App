@@ -24,8 +24,12 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         engageCollectionView()
 
+        nameLabel.text = ""
         nameLabel.adjustsFontSizeToFitWidth = true
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             self.nameLabel.text = user?.displayName
             self.nameLabel.setNeedsLayout()
@@ -35,7 +39,7 @@ class ProfileViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(handle!)
+        if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
     }
 
     @IBAction func onSettingsClick(_ sender: Any) {AppDelegate.signOut()}
@@ -68,7 +72,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? StrengthCell else {return}
         cell.strengthName.adjustsFontSizeToFitWidth = true
-        cell.hasThisStrength = CLPUser.shared().strengthsAsStrings().contains(strengths[indexPath.row].name)
+        guard let userStrengthList = CLPUser.shared().strengths else {cell.hasThisStrength = false; return}
+        cell.hasThisStrength = userStrengthList.contains(strengths[indexPath.row].name)
     }
 
     //MARK: - convenience functions

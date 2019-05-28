@@ -33,10 +33,11 @@
                                     <constraint firstAttribute="height" constant="40" id="5oz-6r-AOc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iil-Ai-iwv" firstAttribute="leading" secondItem="Zmt-Q0-fOi" secondAttribute="leading" constant="3" id="Foj-H5-rNY"/>
                             <constraint firstAttribute="trailing" secondItem="BYo-ia-tXT" secondAttribute="trailing" constant="8" id="H9E-Jo-F86"/>

@@ -101,7 +101,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bFe-U4-snt">
                                 <rect key="frame" x="16" y="149" width="343" height="580"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="eY7-id-eEs">
                                     <size key="itemSize" width="161" height="161"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -119,7 +119,7 @@
                                             <constraint firstAttribute="width" constant="100" id="GW6-80-yeX"/>
                                             <constraint firstAttribute="height" constant="30" id="MYQ-gS-dr7"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Sign Out"/>
                                         <connections>
                                             <action selector="onSettingsClick:" destination="RTf-vq-K0W" eventType="touchUpInside" id="5ZA-0f-fws"/>
@@ -159,7 +159,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XvQ-Vs-gSX" userLabel="Seperator">
                                 <rect key="frame" x="0.0" y="144" width="375" height="5"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="yIT-Su-mhu"/>
                                 </constraints>

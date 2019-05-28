@@ -12,7 +12,7 @@ import CoreMotion
 class LinkCell: UITableViewCell, FeedableCell {
     private static let BASE_THUMBNAIL_URL = "https://www.google.com/s2/favicons?domain="
 
-    public static let HEIGHT: CGFloat = 80
+    public static let HEIGHT: CGFloat = 60
     public static let REUSE_ID: String = "LinkCell"
 
     private let motionManager = CMMotionManager()
@@ -39,7 +39,8 @@ class LinkCell: UITableViewCell, FeedableCell {
                 let htmlDoc = try String(contentsOf: url!)
                 let range1 = htmlDoc.range(of: "<title>")
                 let range2 = htmlDoc.range(of: "</title>")
-                let substr = htmlDoc[range1!.upperBound ..< range2!.lowerBound]
+                guard let start = range1, let end = range2 else {return}
+                let substr = htmlDoc[start.upperBound ..< end.lowerBound]
                 print(substr)
                 headlineText.text = String(substr)
             } catch {

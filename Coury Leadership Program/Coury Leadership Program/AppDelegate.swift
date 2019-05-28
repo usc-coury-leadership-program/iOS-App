@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         engageFirebase()
+        AppDelegate.signIn(allowingInteraction: false)
         return true
     }
 
@@ -52,24 +53,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: GIDSignInDelegate {
 
     // sign in
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if error != nil {return}
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser?, withError error: Error!) {
+        if error != nil {
+            print("There was an error while signing in with Google: " + String(describing: error))
+            CLPUser.shared().isSigningIn = false
+            return
+        }
 
-        guard let authentication = user.authentication else {return}
+        guard let authentication = user?.authentication else {
+            print("No authentication available after signing in with Google!")
+            CLPUser.shared().isSigningIn = false
+            return
+        }
+
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
-            if error != nil {return}
-            guard let googleUser = authResult?.user else {return}
+            if error != nil {
+                print("There was an error while authenticating with Firebase: " + String(describing: error))
+                CLPUser.shared().isSigningIn = false
+                return
+            }
 
             CLPUser.shared().isSigningIn = false
-            CLPUser.shared().updateInformation(from: googleUser)
+            CLPUser.shared().updateInformation(from: authResult!.user)
             Database.shared().signIn()
+            Database.shared().fetchUserProfile(CLPUser.shared())
         }
     }
 
     // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        AppDelegate.signOut()
+        Database.shared().signOut()
+        CLPUser.shared().makeAllNil()
+
+        do {try Auth.auth().signOut()}
+        catch {print(error)}
     }
 
     //MARK: - convenience functions
@@ -84,17 +102,19 @@ extension AppDelegate: GIDSignInDelegate {
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
     }
 
-    public static func signIn() {
-        CLPUser.shared().isSigningIn = true
-        GIDSignIn.sharedInstance().signIn()
+    public static func signIn(allowingInteraction: Bool = true) {
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            CLPUser.shared().isSigningIn = true
+            GIDSignIn.sharedInstance().signInSilently()
+        }
+        else if allowingInteraction {
+            CLPUser.shared().isSigningIn = true
+            GIDSignIn.sharedInstance().signIn()
+        }
     }
 
     public static func signOut() {
         GIDSignIn.sharedInstance()?.signOut()
-        do {try Auth.auth().signOut()}
-        catch {print(error)}
-        CLPUser.shared().makeAllNil()
-        Database.shared().signOut()
-        print("Did run AppDelegate.signOut()")
+        GIDSignIn.sharedInstance()?.disconnect()
     }
 }

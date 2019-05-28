@@ -10,34 +10,34 @@ import UIKit
 
 
 public struct Strength {
-    let image: UIImage
     let name: String
+    let image: UIImage
     let description: String
 }
 
 let strengths: [Strength] = [
-    Strength(image: #imageLiteral(resourceName: "curiosity"), name: "Curiosity", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "spirituality"), name: "Spirituality", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "honesty"), name: "Honesty", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "leadership"), name: "Leadership", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "fairness"), name: "Fairness", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "kindness"), name: "Kindness", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "forgiveness"), name: "Forgiveness", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "humility"), name: "Humility", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "gratitude"), name: "Gratitude", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "appreciation-of-beauty"), name: "Appreciation of Beauty", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "judgment"), name: "Judgement", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "creativity"), name: "Creativity", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "humor"), name: "Humor", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "prudence"), name: "Prudence", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "bravery"), name: "Bravery", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "perspective"), name: "Perspective", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "social-intelligence"), name: "Social Intelligence", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "zest"), name: "Zest", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "perseverance"), name: "Perseverance", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "love"), name: "Love", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "self-regulation"), name: "Self Regulation", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "love-of-learning"), name: "Love of Learning", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "hope"), name: "Hope", description: "blablabla"),
-    Strength(image: #imageLiteral(resourceName: "teamwork"), name: "Teamwork", description: "blablabla")
+    Strength(name: "Curiosity", image: #imageLiteral(resourceName: "curiosity"), description: "blablabla"),
+    Strength(name: "Spirituality",image: #imageLiteral(resourceName: "spirituality"), description: "blablabla"),
+    Strength(name: "Honesty", image: #imageLiteral(resourceName: "honesty"), description: "blablabla"),
+    Strength(name: "Leadership", image: #imageLiteral(resourceName: "leadership"), description: "blablabla"),
+    Strength(name: "Fairness", image: #imageLiteral(resourceName: "fairness"), description: "blablabla"),
+    Strength(name: "Kindness", image: #imageLiteral(resourceName: "kindness"), description: "blablabla"),
+    Strength(name: "Forgiveness", image: #imageLiteral(resourceName: "forgiveness"), description: "blablabla"),
+    Strength(name: "Humility", image: #imageLiteral(resourceName: "humility"), description: "blablabla"),
+    Strength(name: "Gratitude", image: #imageLiteral(resourceName: "gratitude"), description: "blablabla"),
+    Strength(name: "Appreciation of Beauty", image: #imageLiteral(resourceName: "appreciation-of-beauty"), description: "blablabla"),
+    Strength(name: "Judgement", image: #imageLiteral(resourceName: "judgment"), description: "blablabla"),
+    Strength(name: "Creativity", image: #imageLiteral(resourceName: "creativity"), description: "blablabla"),
+    Strength(name: "Humor", image: #imageLiteral(resourceName: "humor"), description: "blablabla"),
+    Strength(name: "Prudence", image: #imageLiteral(resourceName: "prudence"), description: "blablabla"),
+    Strength(name: "Bravery", image: #imageLiteral(resourceName: "bravery"), description: "blablabla"),
+    Strength(name: "Perspective", image: #imageLiteral(resourceName: "perspective"), description: "blablabla"),
+    Strength(name: "Social Intelligence", image: #imageLiteral(resourceName: "social-intelligence"), description: "blablabla"),
+    Strength(name: "Zest", image: #imageLiteral(resourceName: "zest"), description: "blablabla"),
+    Strength(name: "Perseverance", image: #imageLiteral(resourceName: "perseverance"), description: "blablabla"),
+    Strength(name: "Love", image: #imageLiteral(resourceName: "love"), description: "blablabla"),
+    Strength(name: "Self Regulation", image: #imageLiteral(resourceName: "self-regulation"), description: "blablabla"),
+    Strength(name: "Love of Learning", image: #imageLiteral(resourceName: "love-of-learning"), description: "blablabla"),
+    Strength(name: "Hope", image: #imageLiteral(resourceName: "hope"), description: "blablabla"),
+    Strength(name: "Teamwork", image: #imageLiteral(resourceName: "teamwork"), description: "blablabla")
 ]

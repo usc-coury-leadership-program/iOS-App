@@ -94,7 +94,7 @@ public class Database {
                 
                 callback(result)
                 
-            } else {
+            }else {
                 // Could not find anything, so just return an empty array
                 print("Content document does not exist")
                 callback([])
@@ -127,10 +127,10 @@ public class Database {
                 }
                 callback(Calendar(events: events))
                 
-            } else {
+            }else {
                 // Could not find anything, so just return an empty array
                 print("Calendar document does not exist")
-                callback(Calendar(events:[]))
+                callback(Calendar(events: []))
                 return
             }
             
@@ -160,13 +160,23 @@ public class Database {
 //            if let error = error {print("Error writing user document: \(error)")}
 //        }
 //    }
-    public func fetchUserProfile() {
-        //TODO
+    
+    public func fetchUserProfile(_ user: CLPUser) {
+        guard let uid = user.id else {return}
+        Firestore.firestore().collection("Users").document(uid).getDocument { (document, error) in
+
+            if let document = document, document.exists, let data = document.data() {
+                let userStrengths: [String]? = (data["strengths"] as! String?)?.components(separatedBy: ",")
+                let userSavedContent: [FeedableData]? = nil//data["saved content"] TODO
+                user.reconstruct(name: user.name, id: user.id, strengths: userStrengths, savedContent: userSavedContent, fromDatabase: true)
+
+            }else {print("User document \(uid) does not exist")}
+        }
     }
 
     public func updateUserProfile(_ user: CLPUser) {
 
-        guard let uid = user.uid else {return}
+        guard let uid = user.id else {return}
         let profileToUpload = user.toDict()
         if !profileToUpload.elementsEqual(lastUploadedProfile, by: { (newElement, uploadedElement) in
             let uploadedString = uploadedElement.value as! String

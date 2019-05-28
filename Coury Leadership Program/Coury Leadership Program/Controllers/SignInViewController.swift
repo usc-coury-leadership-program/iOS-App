@@ -64,8 +64,8 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
         cell.hasThisStrength = true
         if (isSelectionCount(of: collectionView, 5)) {
-            CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> Strength in
-                return strengths[indexPath.row]
+            CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
+                return strengths[indexPath.row].name
             })
             AppDelegate.signIn()
             self.dismiss(animated: true, completion: nil)
