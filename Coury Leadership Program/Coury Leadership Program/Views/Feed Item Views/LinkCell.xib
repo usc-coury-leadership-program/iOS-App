@@ -24,6 +24,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbW-Xt-OgN">
                                 <rect key="frame" x="243.5" y="0.0" width="75.5" height="75.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FbW-Xt-OgN" secondAttribute="height" multiplier="1:1" id="mKG-ND-ekb"/>
                                 </constraints>

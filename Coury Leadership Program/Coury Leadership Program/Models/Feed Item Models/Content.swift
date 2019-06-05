@@ -40,7 +40,8 @@ public struct Quote: FeedableData {
 
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = QuoteCell.generateCellFor(tableView, at: indexPath) as! QuoteCell
-        cell.quoteText.text = quoteText + " - " + author
+        cell.quoteText.text = quoteText//"“" + quoteText + "”"
+        cell.authorText.text = "- " + author
         return cell
     }
 

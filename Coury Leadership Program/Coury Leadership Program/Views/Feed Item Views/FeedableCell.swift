@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreMotion
 
 public protocol FeedableCell {
 
@@ -32,16 +31,16 @@ extension FeedableCell {
     }
 
     func configureShadow() {
-        hideShadow()
-
         insetView.layer.shadowRadius = 8
         insetView.layer.shadowOffset = CGSize.zero
         insetView.layer.shadowColor = UIColor.black.cgColor
-        insetView.layer.shadowPath = UIBezierPath(rect: insetView.layer.bounds.insetBy(dx: 0.0, dy: 0.0)).cgPath
+//        insetView.layer.shadowPath = UIBezierPath(rect: insetView.layer.bounds.insetBy(dx: 0.0, dy: 0.0)).cgPath
         insetView.layer.masksToBounds = false
     }
-
-    func showShadow() {insetView.layer.shadowOpacity = 0.8}
-
+    func showShadow() {insetView.layer.shadowOpacity = 0.4}
+    func adjustShadow(pitch: Double, roll: Double) {
+//        insetView.layer.shadowPath = UIBezierPath(rect: insetView.layer.bounds).cgPath
+        insetView.layer.shadowOffset = CGSize(width: roll*2.0, height: pitch*2.0)
+    }
     func hideShadow() {insetView.layer.shadowOpacity = 0.0}
 }

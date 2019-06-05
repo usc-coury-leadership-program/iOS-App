@@ -10,11 +10,12 @@ import UIKit
 
 class StrengthCell: UICollectionViewCell {
 
+    static private let prettyBlueColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 0.75)
+
     @IBOutlet weak var strengthName: UILabel!
     @IBOutlet weak var image: UIImageView!
 
-    static private let prettyBlueColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 0.75)
-
+    public var strength: Strength? = nil
     public var hasThisStrength: Bool = false {
         didSet {
             strengthName.backgroundColor = self.hasThisStrength ? StrengthCell.prettyBlueColor : UIColor.lightGray

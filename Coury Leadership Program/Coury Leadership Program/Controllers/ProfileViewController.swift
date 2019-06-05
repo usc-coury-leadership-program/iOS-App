@@ -43,7 +43,42 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func onSettingsClick(_ sender: Any) {AppDelegate.signOut()}
+}
 
+extension ProfileViewController: UIPopoverPresentationControllerDelegate {
+
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+
+    @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
+//        if sender.state == .began {
+//            let touchPoint = sender.location(in: self.collectionView)
+//            if let indexPath = collectionView.indexPathForItem(at: touchPoint) {
+//                let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
+//                print(cell.strengthName.text)
+//                performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
+//            }
+//        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "StrengthDetailSegue" {
+            guard let cell = sender as? StrengthCell, let toVC = segue.destination as? StrengthDetailViewController else {return}
+
+            toVC.strength = cell.strength
+
+            let ppc = toVC.popoverPresentationController!
+            ppc.delegate = self
+//            ppc.sourceView = cell
+//            ppc.sourceRect = CGRect(x: cell.bounds.minX, y: cell.bounds.minY, width: 50, height: 50 )
+            ppc.sourceView = self.collectionView
+            ppc.sourceRect = CGRect(x: self.collectionView.bounds.midX, y: self.collectionView.bounds.midY,width: 0,height: 0)
+            ppc.backgroundColor = .clear
+        }
+    }
 }
 
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -64,7 +99,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! StrengthCell
-        cell.strengthName.text = strengths[indexPath.row].name
+        cell.strength = strengths[indexPath.row]
+        cell.strengthName.text = strengths[indexPath.row].shortName()
         cell.image.image = strengths[indexPath.row].image
         return cell
     }
@@ -76,6 +112,11 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         cell.hasThisStrength = userStrengthList.contains(strengths[indexPath.row].name)
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
+        performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
+    }
+
     //MARK: - convenience functions
     func engageCollectionView() {
         collectionView.delegate = self
@@ -85,7 +126,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)
 
-        collectionView.allowsSelection = false
+        collectionView.allowsSelection = true
         collectionView.reloadData()
     }
 }

@@ -49,7 +49,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! StrengthCell
-        cell.strengthName.text = strengths[indexPath.row].name
+        cell.strengthName.text = strengths[indexPath.row].shortName()
         cell.image.image = strengths[indexPath.row].image
         return cell
     }

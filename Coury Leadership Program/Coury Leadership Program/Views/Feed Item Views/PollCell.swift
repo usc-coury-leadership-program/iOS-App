@@ -23,12 +23,13 @@ class PollCell: UITableViewCell, FeedableCell {
         insetView.layer.masksToBounds = true
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureShadow()
+        showShadow()
     }
 
-    func onTap() {}
+    func onTap() {
+    }
     
 }

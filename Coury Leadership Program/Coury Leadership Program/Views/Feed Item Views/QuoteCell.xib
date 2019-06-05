@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,20 +22,31 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8uU-8n-QFP">
                         <rect key="frame" x="16" y="0.0" width="288" height="123.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Inspirational quotes are very inspirational, even in the hardest of times&quot; - iOS Developer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyG-CH-bid">
-                                <rect key="frame" x="8" y="8" width="272" height="107.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspirational quotes are very inspirational, even in the hardest of times" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyG-CH-bid">
+                                <rect key="frame" x="16" y="8" width="248" height="82.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- iOS Developer" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajI-hw-6RV">
+                                <rect key="frame" x="24" y="94.5" width="248" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="GfB-mr-jdV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="GyG-CH-bid" secondAttribute="bottom" constant="8" id="fm0-6m-O37"/>
-                            <constraint firstItem="GyG-CH-bid" firstAttribute="leading" secondItem="8uU-8n-QFP" secondAttribute="leading" constant="8" id="irp-0G-sbd"/>
+                            <constraint firstItem="ajI-hw-6RV" firstAttribute="width" secondItem="GyG-CH-bid" secondAttribute="width" id="BWo-wv-X72"/>
+                            <constraint firstItem="ajI-hw-6RV" firstAttribute="top" secondItem="GyG-CH-bid" secondAttribute="bottom" constant="4" id="PB6-Hp-LcX"/>
+                            <constraint firstAttribute="bottom" secondItem="ajI-hw-6RV" secondAttribute="bottom" constant="8" id="YQ7-Sa-VhT"/>
+                            <constraint firstAttribute="trailing" secondItem="ajI-hw-6RV" secondAttribute="trailing" constant="16" id="be8-P6-mmP"/>
+                            <constraint firstItem="GyG-CH-bid" firstAttribute="leading" secondItem="8uU-8n-QFP" secondAttribute="leading" constant="16" id="irp-0G-sbd"/>
                             <constraint firstItem="GyG-CH-bid" firstAttribute="top" secondItem="8uU-8n-QFP" secondAttribute="top" constant="8" id="jUU-Wc-sqJ"/>
-                            <constraint firstAttribute="trailing" secondItem="GyG-CH-bid" secondAttribute="trailing" constant="8" id="nPT-1f-CI4"/>
+                            <constraint firstAttribute="trailing" secondItem="GyG-CH-bid" secondAttribute="trailing" constant="24" id="nPT-1f-CI4"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -50,6 +61,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="authorText" destination="ajI-hw-6RV" id="Fk4-lI-KWN"/>
                 <outlet property="insetView" destination="8uU-8n-QFP" id="2Co-Uz-I7x"/>
                 <outlet property="quoteText" destination="GyG-CH-bid" id="hBQ-Dc-bzK"/>
             </connections>

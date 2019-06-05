@@ -37,6 +37,7 @@
 		C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Strength.swift */; };
 		C4CE85F1220E255600D5570A /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F0220E255600D5570A /* Feed.swift */; };
 		C4CE85F3220E454F00D5570A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F2220E454F00D5570A /* Content.swift */; };
+		C4D1212A229DFF8300064544 /* StrengthDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D12129229DFF8300064544 /* StrengthDetailViewController.swift */; };
 		C4EFABF122581FCD00067AA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4EFABF022581FCD00067AA7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		C4CA5AC7220E1A0700ECF768 /* Strength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strength.swift; sourceTree = "<group>"; };
 		C4CE85F0220E255600D5570A /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		C4CE85F2220E454F00D5570A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		C4D12129229DFF8300064544 /* StrengthDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthDetailViewController.swift; sourceTree = "<group>"; };
 		C4EFABF022581FCD00067AA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,9 +160,10 @@
 			isa = PBXGroup;
 			children = (
 				C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */,
+				C45B75DA225998DA006ACDA0 /* SignInViewController.swift */,
 				C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */,
 				C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */,
-				C45B75DA225998DA006ACDA0 /* SignInViewController.swift */,
+				C4D12129229DFF8300064544 /* StrengthDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */,
 				66EB55172211306F004FF186 /* StrengthCell.swift in Sources */,
 				C418793C22615B4A00C6DC84 /* Database.swift in Sources */,
+				C4D1212A229DFF8300064544 /* StrengthDetailViewController.swift in Sources */,
 				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

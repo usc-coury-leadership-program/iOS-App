@@ -70,25 +70,25 @@ public class Database {
                     return
                 }
                 
-                guard let links:[String] = data["Links"] as? [String] else {
+                guard let links: [String] = data["Links"] as? [String] else {
                     // Could not find links
                     print("Could not find links!")
                     callback(result)
                     return
                 }
                 for link in links {
-                    let linkCell:Link = Link(url: URL(string: link)!, squareImage: UIImage(named:"first")!)
+                    let linkCell: Link = Link(url: URL(string: link)!, squareImage: UIImage(named:"first")!)
                     result.append(linkCell)
                 }
                 
-                guard let quotes:[Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
+                guard let quotes: [Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
                     // Could not find quotes
                     print("Could not finds quotes")
                     callback(result)
                     return
                 }
                 for quote in quotes {
-                    let quoteCell:Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
+                    let quoteCell: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
                     result.append(quoteCell)
                 }
                 

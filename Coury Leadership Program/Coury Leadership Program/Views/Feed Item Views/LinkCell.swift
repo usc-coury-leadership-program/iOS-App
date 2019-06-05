@@ -7,17 +7,14 @@
 //
 
 import UIKit
-import CoreMotion
 
 class LinkCell: UITableViewCell, FeedableCell {
+    
     private static let BASE_THUMBNAIL_URL = "https://www.google.com/s2/favicons?domain="
 
     public static let HEIGHT: CGFloat = 60
     public static let REUSE_ID: String = "LinkCell"
 
-    private let motionManager = CMMotionManager()
-    private var tapCount: Int = 0
-    
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var headlineText: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
@@ -27,7 +24,6 @@ class LinkCell: UITableViewCell, FeedableCell {
             headlineText.text = url?.absoluteString
             guard let urlhost = url?.host else {return}
             let thumbnailURL = URL(string: LinkCell.BASE_THUMBNAIL_URL + urlhost)
-            print(thumbnailURL)
             do {
                 let thumbnailData = try Data.init(contentsOf: thumbnailURL!)
                 previewImage.image = UIImage(data: thumbnailData)
@@ -41,7 +37,6 @@ class LinkCell: UITableViewCell, FeedableCell {
                 let range2 = htmlDoc.range(of: "</title>")
                 guard let start = range1, let end = range2 else {return}
                 let substr = htmlDoc[start.upperBound ..< end.lowerBound]
-                print(substr)
                 headlineText.text = String(substr)
             } catch {
                 print("failed to get html doc")
@@ -54,40 +49,19 @@ class LinkCell: UITableViewCell, FeedableCell {
         // Initialization code
         insetView.layer.cornerRadius = 8
         insetView.layer.masksToBounds = true
+
+        previewImage.layer.cornerRadius = 8
+        previewImage.layer.masksToBounds = true
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureShadow()
+        showShadow()
     }
 
     func onTap() {
-        print("TAPPED")
-        print(url)
-        if url != nil {
-            print(url!)
-            UIApplication.shared.open(url!)}
-
-
-//        if tapCount == 0 {configureShadow()}
-//        tapCount += 1
-//
-//        if tapCount%2 != 0 {
-//            if motionManager.isDeviceMotionAvailable {
-//                motionManager.deviceMotionUpdateInterval = 0.02
-//                motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-//                    guard let motion = motion else {return}
-//                    self.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
-//                    self.showShadow()
-//                }
-//            }
-//        } else {
-//            motionManager.stopDeviceMotionUpdates()
-//            hideShadow()
-//        }
+        if url != nil {UIApplication.shared.open(url!)}
+        else {print("That URL is nil and cannot be opened")}
     }
-
-    func adjustShadow(pitch: Double, roll: Double) {insetView.layer.shadowOffset = CGSize(width: roll*10, height: pitch*10)}
-    
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMotion
 import Firebase
 import GoogleSignIn
 
@@ -15,12 +16,16 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     private var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
+    private var allAdjustShadowFunctions: [IndexPath : (Double, Double) -> Void] = [:]
     var handle: AuthStateDidChangeListenerHandle?
+
+    private let motionManager = CMMotionManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
+        engageMotionShadows()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -37,17 +42,58 @@ class FeedViewController: UIViewController {
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updateFeed() {
-        Database.shared().fetchCalendar() {(calendar) in
-            self.currentFeed = Feed(calendar: calendar, polls: self.currentFeed.polls, content: self.currentFeed.content)
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        if self.currentFeed.calendar.events.count == 0 {
+            Database.shared().fetchCalendar() {(calendar) in
+                self.currentFeed = Feed(calendar: calendar, polls: self.currentFeed.polls, content: self.currentFeed.content)
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            }
         }
-        Database.shared().fetchPolls() {(polls) in
-            self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: polls, content: self.currentFeed.content)
-            self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+        if self.currentFeed.polls.count == 0 {
+            Database.shared().fetchPolls() {(polls) in
+                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: polls, content: self.currentFeed.content)
+                self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+            }
         }
-        Database.shared().fetchContent() {(content) in
-            self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: content)
-            self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+        if self.currentFeed.content.count == 0 {
+            Database.shared().fetchContent() {(content) in
+                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: content)
+                self.tableView.reloadSections(IndexSet(integer: 2), with: .fade)
+            }
+        }
+    }
+
+
+    @IBAction func onTapGesture(_ sender: UITapGestureRecognizer) {
+        if sender.state == .recognized {
+            let touchPoint = sender.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                let cell = tableView.cellForRow(at: indexPath)!
+                UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
+                        cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+                    }
+                    UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+                        cell.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                    }
+                }) {(_) in
+                    (cell as? FeedableCell)?.onTap()
+                }
+            }
+        }
+    }
+}
+
+extension FeedViewController {
+
+    private func engageMotionShadows() {
+        if motionManager.isDeviceMotionAvailable {
+            motionManager.deviceMotionUpdateInterval = 0.02
+            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
+                guard let motion = motion else {return}
+                for adjustShadow in self.allAdjustShadowFunctions.values {
+                    adjustShadow(motion.attitude.pitch, motion.attitude.roll)
+                }
+            }
         }
     }
 
@@ -97,15 +143,15 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         default: fatalError("Feed's TableView has more sections than expected.")
         }
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? FeedableCell else {return}
+        allAdjustShadowFunctions[indexPath] = cell.adjustShadow(pitch:roll:)
+    }
 
     // Cell selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = self.tableView.cellForRow(at: indexPath) as? FeedableCell else {return}
         cell.onTap()
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //TODO: reset tapCount on all cells
     }
 
     //MARK: - convenience functions

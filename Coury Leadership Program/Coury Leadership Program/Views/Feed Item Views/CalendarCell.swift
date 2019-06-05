@@ -33,14 +33,12 @@ class CalendarCell: UITableViewCell, FeedableCell {
         // Initialization code
         insetView.layer.cornerRadius = 8
         insetView.layer.masksToBounds = true
-        insetView.layer.borderColor = UIColor.gray.cgColor
-        insetView.layer.borderWidth = 1
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureShadow()
+        showShadow()
     }
     
     @IBAction func onClickPrevious(_ sender: Any) {currentEvent -= 1}
