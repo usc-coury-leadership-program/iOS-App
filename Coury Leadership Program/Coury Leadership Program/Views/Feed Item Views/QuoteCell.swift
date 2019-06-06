@@ -14,14 +14,22 @@ class QuoteCell: UITableViewCell, FeedableCell {
     public static let REUSE_ID: String = "QuoteCell"
 
     @IBOutlet weak var insetView: UIView!
+    @IBOutlet weak var savedIndicator: UIView!
     @IBOutlet weak var quoteText: UILabel!
     @IBOutlet weak var authorText: UILabel!
+
+    var isSaved: Bool = false {
+        didSet {savedIndicator.backgroundColor = isSaved ? insetView.backgroundColor : .clear}
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         insetView.layer.cornerRadius = 8
         insetView.layer.masksToBounds = true
+
+        savedIndicator.layer.cornerRadius = savedIndicator.bounds.width/2.0
+        savedIndicator.layer.masksToBounds = true
 
         quoteText.adjustsFontSizeToFitWidth = true
     }
@@ -33,5 +41,15 @@ class QuoteCell: UITableViewCell, FeedableCell {
     }
 
     func onTap() {
+    }
+    func onLongPress(began: Bool) {
+        if began {
+            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 1.0, 0.0, 0.0);
+            insetView.transform = CGAffineTransform(translationX: -10.0, y: 0.0)
+            isSaved = !isSaved
+        }else {
+            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);
+            insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
+        }
     }
 }

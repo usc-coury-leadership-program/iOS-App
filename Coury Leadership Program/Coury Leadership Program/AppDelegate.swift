@@ -77,7 +77,7 @@ extension AppDelegate: GIDSignInDelegate {
             CLPUser.shared().isSigningIn = false
             CLPUser.shared().updateInformation(from: authResult!.user)
             Database.shared().signIn()
-            Database.shared().fetchUserProfile(CLPUser.shared())
+            Database.shared().fetchUserProfile(CLPUser.shared(), andRun: nil)
         }
     }
 

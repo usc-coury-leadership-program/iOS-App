@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,25 +29,35 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="a1M-0h-dAi" secondAttribute="trailing" id="FqJ-Mp-gIk"/>
-                            <constraint firstItem="a1M-0h-dAi" firstAttribute="top" secondItem="l1c-fL-jm7" secondAttribute="top" id="V9P-ru-x3N"/>
+                            <constraint firstItem="a1M-0h-dAi" firstAttribute="top" secondItem="5Z8-YL-5GC" secondAttribute="top" id="V9P-ru-x3N"/>
                             <constraint firstAttribute="bottom" secondItem="a1M-0h-dAi" secondAttribute="bottom" id="XqQ-ND-9yr"/>
-                            <constraint firstItem="a1M-0h-dAi" firstAttribute="leading" secondItem="l1c-fL-jm7" secondAttribute="leading" id="ekm-fW-eGb"/>
+                            <constraint firstItem="a1M-0h-dAi" firstAttribute="leading" secondItem="5Z8-YL-5GC" secondAttribute="leading" id="ekm-fW-eGb"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="l1c-fL-jm7"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GD6-m4-h27">
+                        <rect key="frame" x="312" y="144" width="16" height="16"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="GD6-m4-h27" secondAttribute="height" multiplier="1:1" id="eKT-nn-CXN"/>
+                            <constraint firstAttribute="height" constant="16" id="p5d-Q6-7QB"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="5Z8-YL-5GC" secondAttribute="bottom" constant="16" id="KCJ-9o-71j"/>
+                    <constraint firstItem="GD6-m4-h27" firstAttribute="centerY" secondItem="5Z8-YL-5GC" secondAttribute="centerY" id="Q5Y-dC-kDj"/>
                     <constraint firstAttribute="trailing" secondItem="5Z8-YL-5GC" secondAttribute="trailing" constant="16" id="VBF-2b-BdS"/>
                     <constraint firstItem="5Z8-YL-5GC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="aFW-bq-ZfN"/>
                     <constraint firstItem="5Z8-YL-5GC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u9b-9O-UYE"/>
+                    <constraint firstAttribute="trailing" secondItem="GD6-m4-h27" secondAttribute="trailing" constant="-8" id="zMN-mb-YZM"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="insetView" destination="5Z8-YL-5GC" id="7Z0-aG-kJl"/>
+                <outlet property="savedIndicator" destination="GD6-m4-h27" id="4Ax-yP-YH4"/>
                 <outlet property="squareImage" destination="a1M-0h-dAi" id="Q1o-pE-Bdw"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="278.86056971514245"/>

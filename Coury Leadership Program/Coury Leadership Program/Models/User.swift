@@ -24,7 +24,7 @@ public class CLPUser {
     public private(set) var strengths: [String]? {
         didSet {if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
-    public private(set) var savedContent: [FeedableData]? {
+    public private(set) var savedContent: [Int]? {
         didSet {if savedContent != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
 
@@ -37,7 +37,7 @@ public class CLPUser {
     }
     public static func shared() -> CLPUser {return sharedUser}
 
-    public func reconstruct(name: String?, id: String?, strengths: [String]?, savedContent: [FeedableData]?, fromDatabase: Bool = false) {
+    public func reconstruct(name: String?, id: String?, strengths: [String]?, savedContent: [Int]?, fromDatabase: Bool = false) {
         isBulkUpdating = true
         self.name = name
         self.id = id
@@ -61,14 +61,25 @@ public class CLPUser {
 
     public func set(strengths: [String]) {self.strengths = strengths}
 
+    public func toggleSavedContent(for index: Int) {
+        if savedContent == nil {savedContent = [index]}
+        else {
+            let existingLocationOfIndexInArray = savedContent!.firstIndex(of: index)
+            if existingLocationOfIndexInArray != nil {savedContent!.remove(at: existingLocationOfIndexInArray!)}
+            else {
+                savedContent!.append(index)
+            }
+        }
+    }
+
     public func toDict() -> [String : String] {
         var dict: [String : String] = [:]
 
         dict["name"] = self.name != nil ? self.name : ""
         dict["id"] = self.id != nil ? self.id : ""
         dict["strengths"] = self.strengths != nil ? strengths!.joined(separator: ",") : ""
-        dict["saved content"] = ""//TODO
-
+        dict["saved content"] = self.savedContent != nil ? savedContent!.map({String($0)}).joined(separator: ",") : ""
+        
         return dict
     }
 

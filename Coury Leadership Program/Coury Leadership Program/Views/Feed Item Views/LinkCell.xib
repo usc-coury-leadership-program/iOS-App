@@ -23,14 +23,14 @@
                         <rect key="frame" x="16" y="0.0" width="319" height="75.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbW-Xt-OgN">
-                                <rect key="frame" x="243.5" y="0.0" width="75.5" height="75.5"/>
+                                <rect key="frame" x="4" y="4" width="67.5" height="67.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="FbW-Xt-OgN" secondAttribute="height" multiplier="1:1" id="mKG-ND-ekb"/>
+                                    <constraint firstAttribute="width" secondItem="FbW-Xt-OgN" secondAttribute="height" multiplier="1:1" id="mVN-C1-yzR"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline from website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K68-ev-qnA">
-                                <rect key="frame" x="8" y="16.5" width="227.5" height="43"/>
+                                <rect key="frame" x="79.5" y="16.5" width="231.5" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="lK2-kC-gGA"/>
                                 </constraints>
@@ -41,20 +41,29 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5RU-u5-Kx1" firstAttribute="trailing" secondItem="FbW-Xt-OgN" secondAttribute="trailing" id="8Uf-CQ-YQI"/>
-                            <constraint firstItem="K68-ev-qnA" firstAttribute="centerY" secondItem="5RU-u5-Kx1" secondAttribute="centerY" id="HDy-cl-pcB"/>
-                            <constraint firstItem="K68-ev-qnA" firstAttribute="leading" secondItem="5RU-u5-Kx1" secondAttribute="leading" constant="8" id="Lv8-Ef-EOd"/>
-                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="height" secondItem="LKI-dz-eJ4" secondAttribute="height" id="PXK-EA-9fg"/>
-                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="leading" secondItem="K68-ev-qnA" secondAttribute="trailing" constant="8" id="avZ-G3-pdT"/>
-                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="centerY" secondItem="5RU-u5-Kx1" secondAttribute="centerY" id="vSj-fh-cXw"/>
+                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="top" secondItem="LKI-dz-eJ4" secondAttribute="top" constant="4" id="703-jT-lRM"/>
+                            <constraint firstItem="K68-ev-qnA" firstAttribute="leading" secondItem="FbW-Xt-OgN" secondAttribute="trailing" constant="8" id="Fjb-An-Yz9"/>
+                            <constraint firstItem="FbW-Xt-OgN" firstAttribute="leading" secondItem="LKI-dz-eJ4" secondAttribute="leading" constant="4" id="Xo0-zV-hQn"/>
+                            <constraint firstAttribute="bottom" secondItem="FbW-Xt-OgN" secondAttribute="bottom" constant="4" id="f9V-HZ-W4l"/>
+                            <constraint firstAttribute="trailing" secondItem="K68-ev-qnA" secondAttribute="trailing" constant="8" id="kBg-sk-nmO"/>
+                            <constraint firstItem="K68-ev-qnA" firstAttribute="centerY" secondItem="FbW-Xt-OgN" secondAttribute="centerY" id="pja-cl-MN3"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="5RU-u5-Kx1"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iI2-l1-z4T">
+                        <rect key="frame" x="343" y="30" width="16" height="16"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="2MB-yr-faj"/>
+                            <constraint firstAttribute="width" secondItem="iI2-l1-z4T" secondAttribute="height" multiplier="1:1" id="rwp-5W-GK6"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="iI2-l1-z4T" firstAttribute="centerY" secondItem="LKI-dz-eJ4" secondAttribute="centerY" id="2nL-78-eP2"/>
                     <constraint firstItem="LKI-dz-eJ4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IS5-v5-GuE"/>
                     <constraint firstItem="LKI-dz-eJ4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Nov-R1-QXe"/>
+                    <constraint firstAttribute="trailing" secondItem="iI2-l1-z4T" secondAttribute="trailing" constant="-8" id="cNB-z4-rJi"/>
                     <constraint firstAttribute="trailing" secondItem="LKI-dz-eJ4" secondAttribute="trailing" constant="16" id="p52-e5-jQY"/>
                     <constraint firstAttribute="bottom" secondItem="LKI-dz-eJ4" secondAttribute="bottom" constant="16" id="uJb-pi-ZhW"/>
                 </constraints>
@@ -65,6 +74,7 @@
                 <outlet property="headlineText" destination="K68-ev-qnA" id="6v3-du-iPA"/>
                 <outlet property="insetView" destination="LKI-dz-eJ4" id="Xwu-oV-12C"/>
                 <outlet property="previewImage" destination="FbW-Xt-OgN" id="J3B-M4-eXa"/>
+                <outlet property="savedIndicator" destination="iI2-l1-z4T" id="1tU-Ax-iX1"/>
             </connections>
             <point key="canvasLocation" x="-45.600000000000001" y="44.07796101949026"/>
         </tableViewCell>

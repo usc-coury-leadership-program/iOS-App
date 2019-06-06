@@ -28,9 +28,16 @@ class FeedViewController: UIViewController {
         engageMotionShadows()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 20.0, left: 0.0, bottom: 20.0, right: 0.0)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if CLPUser.shared().id != nil {handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFeed()}}
+        if CLPUser.shared().id != nil {
+            handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFirebaseConnectedComponents()}
+        }
         else if !CLPUser.shared().isSigningIn {presentSignInVC()}
     }
 
@@ -40,6 +47,13 @@ class FeedViewController: UIViewController {
     }
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
+
+    func updateFirebaseConnectedComponents() {
+        Database.shared().fetchUserProfile(CLPUser.shared()) {
+            self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+        }
+        updateFeed()
+    }
 
     func updateFeed() {
         if self.currentFeed.calendar.events.count == 0 {
@@ -68,6 +82,8 @@ class FeedViewController: UIViewController {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 let cell = tableView.cellForRow(at: indexPath)!
+                (cell as? FeedableCell)?.onTap()
+
                 UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
                         cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
@@ -75,12 +91,37 @@ class FeedViewController: UIViewController {
                     UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
                         cell.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                     }
-                }) {(_) in
-                    (cell as? FeedableCell)?.onTap()
-                }
+                }, completion: nil)
             }
         }
     }
+
+    @IBAction func onLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+        let touchPoint = sender.location(in: tableView)
+        if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+            guard let cell = tableView.cellForRow(at: indexPath) as? FeedableCell else {return}
+
+            switch sender.state {
+            case .began:
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                    cell.onLongPress(began: true)
+                }, completion: nil)
+
+                CLPUser.shared().toggleSavedContent(for: indexPath.row)
+                
+            default:
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                    cell.onLongPress(began: false)
+                }, completion: nil)
+            }
+        }
+    }
+
+    @IBAction func onSwipeGesture(_ sender: UISwipeGestureRecognizer) {
+//        print("Noticed swipe!")
+//        print(sender.location(in: tableView))
+    }
+
 }
 
 extension FeedViewController {
@@ -146,12 +187,6 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? FeedableCell else {return}
         allAdjustShadowFunctions[indexPath] = cell.adjustShadow(pitch:roll:)
-    }
-
-    // Cell selection
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = self.tableView.cellForRow(at: indexPath) as? FeedableCell else {return}
-        cell.onTap()
     }
 
     //MARK: - convenience functions

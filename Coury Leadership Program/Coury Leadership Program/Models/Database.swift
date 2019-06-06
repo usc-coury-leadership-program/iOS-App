@@ -54,6 +54,8 @@ public class Database {
     public func signOut() {
         signedIn = false
     }
+
+    public private(set) var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
     
     public func fetchContent(andRun callback: @escaping ([FeedableData]) -> Void) {
         
@@ -61,7 +63,7 @@ public class Database {
             
             if let document = document, document.exists {
                 // Generate the appropriate FeedableData Items and send them to the callback
-                var result:[FeedableData] = []
+                var result: [FeedableData] = []
                 
                 guard let data = document.data() else {
                     // Could not find anything, so just return an empty array
@@ -91,7 +93,8 @@ public class Database {
                     let quoteCell: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
                     result.append(quoteCell)
                 }
-                
+
+                self.currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: result)
                 callback(result)
                 
             }else {
@@ -116,16 +119,20 @@ public class Database {
                     return
                 }
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMM d h:mma"
+                dateFormatter.dateFormat = "MMM d yyyy h:mma"
                 var events: [CalendarEvent] = []
                 
                 for entry in data {
                     let dateString = (entry.value as! String)
                     let date = dateFormatter.date(from: dateString)!
-                    let calEvent:CalendarEvent = CalendarEvent(name: entry.key, date: date)
+                    let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
                     events.append(calEvent)
                 }
-                callback(Calendar(events: events))
+
+                let sorted = events.sorted() {(event0, event1) -> Bool in
+                    event0.date.compare(event1.date) == .orderedAscending
+                }
+                callback(Calendar(events: sorted))
                 
             }else {
                 // Could not find anything, so just return an empty array
@@ -143,32 +150,22 @@ public class Database {
         // Will be changed with new database format by @adam later
     }
     
-//    public func uploadUserProfile(_ user: CLPUser) {
-//
-//        guard let uid = user.uid, let name = user.name, let strengths = user.strengths, let savedContent = user.savedContent else {
-//            print("Some user data is nil, abandoning upload.")
-//            return
-//        }
-//
-//        let stringifiedStrengths: [String] = strengths.map() {$0.name}
-//        Firestore.firestore().collection("Users").document(uid).setData([
-//            "name" : name,
-//            "strengths" : stringifiedStrengths
-//            //TODO upload savedContent
-//
-//        ]) {(error) in
-//            if let error = error {print("Error writing user document: \(error)")}
-//        }
-//    }
-    
-    public func fetchUserProfile(_ user: CLPUser) {
+    public func fetchUserProfile(_ user: CLPUser, andRun callback: (() -> Void)?) {
         guard let uid = user.id else {return}
         Firestore.firestore().collection("Users").document(uid).getDocument { (document, error) in
 
             if let document = document, document.exists, let data = document.data() {
-                let userStrengths: [String]? = (data["strengths"] as! String?)?.components(separatedBy: ",")
-                let userSavedContent: [FeedableData]? = nil//data["saved content"] TODO
+                let userStrengths: [String]? = (data["strengths"] as? String)?.components(separatedBy: ",")
+
+                var userSavedContent: [Int]? = nil
+                if let rawSavedContent: String = data["saved content"] as? String {
+                    if rawSavedContent.count > 0 {
+                        userSavedContent = rawSavedContent.components(separatedBy: ",").map({Int($0)!})
+                    }
+                }
+
                 user.reconstruct(name: user.name, id: user.id, strengths: userStrengths, savedContent: userSavedContent, fromDatabase: true)
+                callback?()
 
             }else {print("User document \(uid) does not exist")}
         }

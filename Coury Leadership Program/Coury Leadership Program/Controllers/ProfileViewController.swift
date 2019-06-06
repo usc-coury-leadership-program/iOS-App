@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionSizeLabel: UILabel!
+    @IBOutlet weak var visualEffectHeader: UIVisualEffectView!
 
     let collectionViewColumnCount: CGFloat = 3
     var handle: AuthStateDidChangeListenerHandle?
@@ -69,13 +70,12 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
             guard let cell = sender as? StrengthCell, let toVC = segue.destination as? StrengthDetailViewController else {return}
 
             toVC.strength = cell.strength
+            toVC.preferredContentSize = CGSize(width: collectionView.contentSize.width, height: 500)
 
             let ppc = toVC.popoverPresentationController!
             ppc.delegate = self
-//            ppc.sourceView = cell
-//            ppc.sourceRect = CGRect(x: cell.bounds.minX, y: cell.bounds.minY, width: 50, height: 50 )
-            ppc.sourceView = self.collectionView
-            ppc.sourceRect = CGRect(x: self.collectionView.bounds.midX, y: self.collectionView.bounds.midY,width: 0,height: 0)
+            ppc.sourceView = collectionView
+            ppc.sourceRect = CGRect(x: collectionView.bounds.midX, y: collectionView.bounds.midY + collectionView.contentInset.top/2.0, width: 0, height: 0)
             ppc.backgroundColor = .clear
         }
     }
@@ -124,7 +124,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         collectionView.register(UINib(nibName: "StrengthCell", bundle: nil), forCellWithReuseIdentifier: "StrengthCell")
 
         collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)
+        collectionView.contentInset = UIEdgeInsets(top: visualEffectHeader.frame.maxY + 20.0, left: 0.0, bottom: 20.0, right: 0.0)
 
         collectionView.allowsSelection = true
         collectionView.reloadData()

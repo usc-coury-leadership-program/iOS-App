@@ -24,6 +24,16 @@ class SavedViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 20.0, left: 0.0, bottom: 20.0, right: 0.0)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+
     @objc func keyboardWillShow(sender: NSNotification) {
         let keyboardFrame: CGRect = (sender.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration: Double = sender.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
@@ -67,7 +77,8 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            let content = exampleFeed.content[indexPath.row]
+            let contentIndex = CLPUser.shared().savedContent![indexPath.row]
+            let content = Database.shared().currentFeed.content[contentIndex]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
             else if let _ = content as? Quote {return QuoteCell.HEIGHT}
@@ -81,7 +92,7 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 1}
     /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
-        case 0: return exampleFeed.content.count
+        case 0: return CLPUser.shared().savedContent?.count ?? 0
         default: return 0
         }
     }
@@ -89,19 +100,11 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
-        case 0: return exampleFeed.content[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 0:
+            let contentIndex = CLPUser.shared().savedContent![indexPath.row]
+            return Database.shared().currentFeed.content[contentIndex].generateCellFor(tableView, at: indexPath)
         default: fatalError("Saved feed's TableView has more sections than expected.")
         }
-    }
-
-    //cell selection
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = self.tableView.cellForRow(at: indexPath) as? FeedableCell else {return}
-        cell.onTap()
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // TODO reset tapCount on all cells
     }
 
     //MARK: - convenience functions

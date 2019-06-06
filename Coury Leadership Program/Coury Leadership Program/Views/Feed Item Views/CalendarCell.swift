@@ -9,7 +9,7 @@
 import UIKit
 
 class CalendarCell: UITableViewCell, FeedableCell {
-    
+
     public static let HEIGHT: CGFloat = 84
     public static let REUSE_ID: String = "CalendarCell"
 
@@ -40,11 +40,8 @@ class CalendarCell: UITableViewCell, FeedableCell {
         configureShadow()
         showShadow()
     }
-    
-    @IBAction func onClickPrevious(_ sender: Any) {currentEvent -= 1}
 
-    @IBAction func onClickNext(_ sender: Any) {currentEvent += 1}
-
-    func onTap() {}
+    func onTap() {currentEvent += 1}
+    func onLongPress(began: Bool) {}
     
 }

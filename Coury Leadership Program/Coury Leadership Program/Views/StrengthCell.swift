@@ -18,8 +18,8 @@ class StrengthCell: UICollectionViewCell {
     public var strength: Strength? = nil
     public var hasThisStrength: Bool = false {
         didSet {
-            strengthName.backgroundColor = self.hasThisStrength ? StrengthCell.prettyBlueColor : UIColor.lightGray
-            layer.borderColor = self.hasThisStrength ? StrengthCell.prettyBlueColor.cgColor : UIColor.lightGray.cgColor
+            strengthName.backgroundColor = self.hasThisStrength ? StrengthCell.prettyBlueColor : UIColor.lightGray.withAlphaComponent(0.75)
+            layer.borderColor = self.hasThisStrength ? StrengthCell.prettyBlueColor.cgColor : UIColor.lightGray.withAlphaComponent(0.75).cgColor
 
 //            transform = self.hasThisStrength ? CGAffineTransform(scaleX: 1.01, y: 1.01) : CGAffineTransform.identity
         }

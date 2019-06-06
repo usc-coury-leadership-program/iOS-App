@@ -17,6 +17,9 @@ public struct Link: FeedableData {
         let cell = LinkCell.generateCellFor(tableView, at: indexPath) as! LinkCell
         cell.url = url
         //cell.previewImage.image = squareImage
+        if tableView.numberOfSections != 1 {// TODO workaround to make dots only show up in feed, rather than in feed and saved VC's
+            cell.isSaved = CLPUser.shared().savedContent?.contains(indexPath.row) ?? false
+        }
         return cell
     }
 }
@@ -28,6 +31,9 @@ public struct Image: FeedableData {
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = ImageCell.generateCellFor(tableView, at: indexPath) as! ImageCell
         cell.squareImage.image = squareImage
+        if tableView.numberOfSections != 1 {// TODO workaround to make dots only show up in feed, rather than in feed and saved VC's
+            cell.isSaved = CLPUser.shared().savedContent?.contains(indexPath.row) ?? false
+        }
         return cell
     }
 
@@ -42,6 +48,9 @@ public struct Quote: FeedableData {
         let cell = QuoteCell.generateCellFor(tableView, at: indexPath) as! QuoteCell
         cell.quoteText.text = quoteText//"“" + quoteText + "”"
         cell.authorText.text = "- " + author
+        if tableView.numberOfSections != 1 {// TODO workaround to make dots only show up in feed, rather than in feed and saved VC's
+            cell.isSaved = CLPUser.shared().savedContent?.contains(indexPath.row) ?? false
+        }
         return cell
     }
 

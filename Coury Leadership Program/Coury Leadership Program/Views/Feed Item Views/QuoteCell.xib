@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8uU-8n-QFP">
                         <rect key="frame" x="16" y="0.0" width="288" height="123.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspirational quotes are very inspirational, even in the hardest of times" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyG-CH-bid">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inspirational quotes are very inspirational, even in the hardest of times" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyG-CH-bid">
                                 <rect key="frame" x="16" y="8" width="248" height="82.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
@@ -49,13 +49,23 @@
                             <constraint firstAttribute="trailing" secondItem="GyG-CH-bid" secondAttribute="trailing" constant="24" id="nPT-1f-CI4"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57G-WB-2ZG">
+                        <rect key="frame" x="312" y="54" width="16" height="16"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="57G-WB-2ZG" secondAttribute="height" multiplier="1:1" id="0BU-g0-lPf"/>
+                            <constraint firstAttribute="height" constant="16" id="gZk-gj-XIv"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="8uU-8n-QFP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="FlU-Ms-lHa"/>
                     <constraint firstAttribute="trailing" secondItem="8uU-8n-QFP" secondAttribute="trailing" constant="16" id="Qok-ku-iqe"/>
+                    <constraint firstItem="57G-WB-2ZG" firstAttribute="centerY" secondItem="8uU-8n-QFP" secondAttribute="centerY" id="Y2j-nc-an6"/>
                     <constraint firstItem="8uU-8n-QFP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="izO-xE-PcA"/>
                     <constraint firstAttribute="bottom" secondItem="8uU-8n-QFP" secondAttribute="bottom" constant="16" id="rhC-J3-XPj"/>
+                    <constraint firstAttribute="trailing" secondItem="57G-WB-2ZG" secondAttribute="trailing" constant="-8" id="y8k-eG-Db7"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,6 +74,7 @@
                 <outlet property="authorText" destination="ajI-hw-6RV" id="Fk4-lI-KWN"/>
                 <outlet property="insetView" destination="8uU-8n-QFP" id="2Co-Uz-I7x"/>
                 <outlet property="quoteText" destination="GyG-CH-bid" id="hBQ-Dc-bzK"/>
+                <outlet property="savedIndicator" destination="57G-WB-2ZG" id="BVK-Dd-fUG"/>
             </connections>
             <point key="canvasLocation" x="56" y="91.754122938530742"/>
         </tableViewCell>

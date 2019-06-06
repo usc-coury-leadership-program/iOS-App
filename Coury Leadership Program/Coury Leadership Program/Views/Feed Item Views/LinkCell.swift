@@ -16,8 +16,14 @@ class LinkCell: UITableViewCell, FeedableCell {
     public static let REUSE_ID: String = "LinkCell"
 
     @IBOutlet weak var insetView: UIView!
+    @IBOutlet weak var savedIndicator: UIView!
     @IBOutlet weak var headlineText: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
+
+    var isSaved: Bool = false {
+        didSet {savedIndicator.backgroundColor = isSaved ? insetView.backgroundColor : .clear}
+    }
+
     var url: URL? = nil {
         didSet {
 
@@ -50,6 +56,9 @@ class LinkCell: UITableViewCell, FeedableCell {
         insetView.layer.cornerRadius = 8
         insetView.layer.masksToBounds = true
 
+        savedIndicator.layer.cornerRadius = savedIndicator.bounds.width/2.0
+        savedIndicator.layer.masksToBounds = true
+
         previewImage.layer.cornerRadius = 8
         previewImage.layer.masksToBounds = true
     }
@@ -63,5 +72,16 @@ class LinkCell: UITableViewCell, FeedableCell {
     func onTap() {
         if url != nil {UIApplication.shared.open(url!)}
         else {print("That URL is nil and cannot be opened")}
+    }
+
+    func onLongPress(began: Bool) {
+        if began {
+            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 1.0, 0.0, 0.0);
+            insetView.transform = CGAffineTransform(translationX: -10.0, y: 0.0)
+            isSaved = !isSaved
+        }else {
+            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);
+            insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
+        }
     }
 }

@@ -20,6 +20,7 @@ public protocol FeedableCell {
     static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell
 
     func onTap()
+    func onLongPress(began: Bool)
     
 }
 
