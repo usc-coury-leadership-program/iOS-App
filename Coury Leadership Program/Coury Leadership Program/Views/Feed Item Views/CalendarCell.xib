@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9sO-4e-Top">
-                        <rect key="frame" x="16" y="0.0" width="288" height="64.5"/>
+                        <rect key="frame" x="16" y="8" width="288" height="64.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Up Next:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPu-jh-kn8">
                                 <rect key="frame" x="8" y="8" width="272" height="20"/>
@@ -53,8 +53,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="9sO-4e-Top" secondAttribute="bottom" constant="16" id="NDJ-Op-Qb7"/>
-                    <constraint firstItem="9sO-4e-Top" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="THg-9T-1PM"/>
+                    <constraint firstAttribute="bottom" secondItem="9sO-4e-Top" secondAttribute="bottom" constant="8" id="NDJ-Op-Qb7"/>
+                    <constraint firstItem="9sO-4e-Top" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="THg-9T-1PM"/>
                     <constraint firstItem="9sO-4e-Top" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="gkf-Vw-xKX"/>
                     <constraint firstAttribute="trailing" secondItem="9sO-4e-Top" secondAttribute="trailing" constant="16" id="kDu-nJ-XSf"/>
                 </constraints>

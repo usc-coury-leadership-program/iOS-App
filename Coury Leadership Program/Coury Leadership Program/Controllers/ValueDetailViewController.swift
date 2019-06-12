@@ -8,28 +8,28 @@
 
 import UIKit
 
-class StrengthDetailViewController: UIViewController {
+class ValueDetailViewController: UIViewController {
 
     private static let BASE_URL = "https://www.viacharacter.org/www/Character-Strengths/"
 
-    @IBOutlet weak var strengthName: UILabel!
+    @IBOutlet weak var valueName: UILabel!
     @IBOutlet weak var mottoText: UITextView!
     @IBOutlet weak var textView: UITextView!
 
-    public var strength: Strength? = nil
+    public var value: Value? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        strengthName.text = strength?.shortName()
-        mottoText.text = strength?.motto
-        textView.text = strength?.description
+        valueName.text = value?.shortName()
+        mottoText.text = value?.motto
+        textView.text = value?.description
     }
 
     @IBAction func onReadMoreButtonPress(_ sender: Any) {
-        guard let strengthNameNoSpaces = strength?.name.replacingOccurrences(of: " ", with: "-") else {return}
-        let url = URL(string: StrengthDetailViewController.BASE_URL + strengthNameNoSpaces)
+        guard let valueNameNoSpaces = value?.name.replacingOccurrences(of: " ", with: "-") else {return}
+        let url = URL(string: ValueDetailViewController.BASE_URL + valueNameNoSpaces)
         UIApplication.shared.open(url!)
     }
 

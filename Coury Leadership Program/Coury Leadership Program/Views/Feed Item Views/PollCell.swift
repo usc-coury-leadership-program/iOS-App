@@ -16,17 +16,19 @@ class PollCell: UITableViewCell, FeedableCell {
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var questionText: UILabel!
 
+    func setSaved(to: Bool) {}
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        contentView.layer.masksToBounds = false
         insetView.layer.cornerRadius = 8
-        insetView.layer.masksToBounds = true
+        insetView.layer.masksToBounds = false
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         configureShadow()
-        showShadow()
     }
 
     func onTap() {}

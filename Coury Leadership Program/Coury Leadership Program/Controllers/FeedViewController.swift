@@ -16,64 +16,85 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     private var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
-    private var allAdjustShadowFunctions: [IndexPath : (Double, Double) -> Void] = [:]
+    private var currentOrder: [Int]?
+    private var gotCalendar = false
+    private var gotPolls = false
+    private var gotContent = false
     var handle: AuthStateDidChangeListenerHandle?
-
     private let motionManager = CMMotionManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
-        engageMotionShadows()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 20.0, left: 0.0, bottom: 20.0, right: 0.0)
+        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if CLPUser.shared().id != nil {
             handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFirebaseConnectedComponents()}
+            //self.updateFirebaseConnectedComponents()
         }
         else if !CLPUser.shared().isSigningIn {presentSignInVC()}
+        engageMotionShadows()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        disengageMotionShadows()
         if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
+        gotCalendar = false
+        gotPolls = false
+        gotContent = false
     }
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updateFirebaseConnectedComponents() {
-        Database.shared().fetchUserProfile(CLPUser.shared()) {
-            self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
-        }
+        updateSaved()
         updateFeed()
     }
 
+    func updateSaved() {
+        Database.shared().fetchUserProfile(CLPUser.shared()) {
+            if self.gotCalendar && self.gotPolls && self.gotContent {
+//                self.tableView.reloadSections(IndexSet(integer: 2), with: .none)
+//                self.tableView.beginUpdates()
+//                self.tableView.endUpdates()
+                self.tableView.layoutSubviews()
+            }
+        }
+    }
+
     func updateFeed() {
-        if self.currentFeed.calendar.events.count == 0 {
+        if currentFeed.calendar.events.count == 0 {
             Database.shared().fetchCalendar() {(calendar) in
                 self.currentFeed = Feed(calendar: calendar, polls: self.currentFeed.polls, content: self.currentFeed.content)
-                self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                self.gotCalendar = true
+                self.updateTableView()
             }
-        }
-        if self.currentFeed.polls.count == 0 {
+        }else {self.gotCalendar = true}
+
+        if currentFeed.polls.count == 0 {
             Database.shared().fetchPolls() {(polls) in
                 self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: polls, content: self.currentFeed.content)
-                self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+                self.gotPolls = true
+                self.updateTableView()
             }
-        }
-        if self.currentFeed.content.count == 0 {
+        }else {self.gotPolls = true}
+
+        if currentFeed.content.count == 0 {
             Database.shared().fetchContent() {(content) in
                 self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: content)
-                self.tableView.reloadSections(IndexSet(integer: 2), with: .fade)
+                self.gotContent = true
+                self.updateTableView()
             }
-        }
+        }else {self.gotContent = true}
     }
 
 
@@ -107,7 +128,8 @@ class FeedViewController: UIViewController {
                     cell.onLongPress(began: true)
                 }, completion: nil)
 
-                CLPUser.shared().toggleSavedContent(for: indexPath.row)
+//                let unrandomizedIndex = currentOrder?.firstIndex(of: indexPath.row) ?? indexPath.row
+                if indexPath.section == 2 {CLPUser.shared().toggleSavedContent(for: shuffled(indexPath))}
                 
             default:
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
@@ -131,12 +153,14 @@ extension FeedViewController {
             motionManager.deviceMotionUpdateInterval = 0.02
             motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
                 guard let motion = motion else {return}
-                for adjustShadow in self.allAdjustShadowFunctions.values {
-                    adjustShadow(motion.attitude.pitch, motion.attitude.roll)
+                for cell in self.tableView.visibleCells {
+                    (cell as? FeedableCell)?.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
                 }
             }
         }
     }
+
+    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
 
 }
 
@@ -151,7 +175,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
         case 2:
-            let content = currentFeed.content[indexPath.row]
+            let content = currentFeed.content[shuffled(indexPath)]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
             else if let _ = content as? Quote {return QuoteCell.HEIGHT}
@@ -180,13 +204,14 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         switch (indexPath.section) {
         case 0: return currentFeed.calendar.generateCellFor(tableView, at: indexPath)
         case 1: return currentFeed.polls[indexPath.row].generateCellFor(tableView, at: indexPath)
-        case 2: return currentFeed.content[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 2: return currentFeed.content[shuffled(indexPath)].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? FeedableCell else {return}
-        allAdjustShadowFunctions[indexPath] = cell.adjustShadow(pitch:roll:)
+        (cell as? FeedableCell)?.showShadow()
+        (cell as? FeedableCell)?.setSaved(to: CLPUser.shared().savedContent?.contains(shuffled(indexPath)) ?? false)
+        //(cell as! FeedableCell).isSaved = CLPUser.shared().savedContent?.contains(indexPath.row) ?? false
     }
 
     //MARK: - convenience functions
@@ -200,8 +225,19 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         QuoteCell.registerWith(tableView)
 
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)
-
-        tableView.reloadData()
+        tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 12.0, right: 0.0)
+        tableView.estimatedRowHeight = CalendarCell.HEIGHT
     }
+
+    func updateTableView() {
+        if gotCalendar && gotPolls && gotContent {
+            if currentOrder == nil {currentOrder = ([Int](0...currentFeed.content.count - 1)).shuffled()}
+            print("Updated table view")
+            tableView.reloadData()
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+
+    func shuffled(_ indexPath: IndexPath) -> Int {return currentOrder?[indexPath.row] ?? indexPath.row}
 }

@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKI-dz-eJ4">
-                        <rect key="frame" x="16" y="0.0" width="319" height="75.5"/>
+                        <rect key="frame" x="16" y="8" width="319" height="75.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbW-Xt-OgN">
                                 <rect key="frame" x="4" y="4" width="67.5" height="67.5"/>
@@ -50,7 +50,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iI2-l1-z4T">
-                        <rect key="frame" x="343" y="30" width="16" height="16"/>
+                        <rect key="frame" x="343" y="38" width="16" height="16"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="2MB-yr-faj"/>
@@ -61,11 +61,11 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="iI2-l1-z4T" firstAttribute="centerY" secondItem="LKI-dz-eJ4" secondAttribute="centerY" id="2nL-78-eP2"/>
-                    <constraint firstItem="LKI-dz-eJ4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IS5-v5-GuE"/>
+                    <constraint firstItem="LKI-dz-eJ4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="IS5-v5-GuE"/>
                     <constraint firstItem="LKI-dz-eJ4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Nov-R1-QXe"/>
                     <constraint firstAttribute="trailing" secondItem="iI2-l1-z4T" secondAttribute="trailing" constant="-8" id="cNB-z4-rJi"/>
                     <constraint firstAttribute="trailing" secondItem="LKI-dz-eJ4" secondAttribute="trailing" constant="16" id="p52-e5-jQY"/>
-                    <constraint firstAttribute="bottom" secondItem="LKI-dz-eJ4" secondAttribute="bottom" constant="16" id="uJb-pi-ZhW"/>
+                    <constraint firstAttribute="bottom" secondItem="LKI-dz-eJ4" secondAttribute="bottom" constant="8" id="uJb-pi-ZhW"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

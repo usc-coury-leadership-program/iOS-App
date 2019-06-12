@@ -20,13 +20,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Z8-YL-5GC">
-                        <rect key="frame" x="16" y="0.0" width="288" height="303.5"/>
+                        <rect key="frame" x="16" y="8" width="288" height="303.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-0h-dAi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-0h-dAi">
                                 <rect key="frame" x="0.0" y="0.0" width="288" height="303.5"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="a1M-0h-dAi" secondAttribute="trailing" id="FqJ-Mp-gIk"/>
                             <constraint firstItem="a1M-0h-dAi" firstAttribute="top" secondItem="5Z8-YL-5GC" secondAttribute="top" id="V9P-ru-x3N"/>
@@ -35,7 +35,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GD6-m4-h27">
-                        <rect key="frame" x="312" y="144" width="16" height="16"/>
+                        <rect key="frame" x="312" y="152" width="16" height="16"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="GD6-m4-h27" secondAttribute="height" multiplier="1:1" id="eKT-nn-CXN"/>
@@ -45,10 +45,10 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="5Z8-YL-5GC" secondAttribute="bottom" constant="16" id="KCJ-9o-71j"/>
+                    <constraint firstAttribute="bottom" secondItem="5Z8-YL-5GC" secondAttribute="bottom" constant="8" id="KCJ-9o-71j"/>
                     <constraint firstItem="GD6-m4-h27" firstAttribute="centerY" secondItem="5Z8-YL-5GC" secondAttribute="centerY" id="Q5Y-dC-kDj"/>
                     <constraint firstAttribute="trailing" secondItem="5Z8-YL-5GC" secondAttribute="trailing" constant="16" id="VBF-2b-BdS"/>
-                    <constraint firstItem="5Z8-YL-5GC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="aFW-bq-ZfN"/>
+                    <constraint firstItem="5Z8-YL-5GC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="aFW-bq-ZfN"/>
                     <constraint firstItem="5Z8-YL-5GC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u9b-9O-UYE"/>
                     <constraint firstAttribute="trailing" secondItem="GD6-m4-h27" secondAttribute="trailing" constant="-8" id="zMN-mb-YZM"/>
                 </constraints>

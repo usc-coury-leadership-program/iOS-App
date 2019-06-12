@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StrengthCell" id="gTV-IL-0wX" customClass="StrengthCell" customModule="Coury_Leadership_Program" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ValueCell" id="gTV-IL-0wX" userLabel="ValueCell" customClass="ValueCell" customModule="Coury_Leadership_Program" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -26,7 +26,7 @@
                                 <rect key="frame" x="8" y="8" width="184" height="184"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strength" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iil-Ai-iwv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iil-Ai-iwv">
                                 <rect key="frame" x="3" y="160" width="194" height="40"/>
                                 <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -58,7 +58,7 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
                 <outlet property="image" destination="BYo-ia-tXT" id="HHF-bW-XKI"/>
-                <outlet property="strengthName" destination="iil-Ai-iwv" id="Zeb-tz-KIA"/>
+                <outlet property="valueName" destination="iil-Ai-iwv" id="Zeb-tz-KIA"/>
             </connections>
             <point key="canvasLocation" x="112" y="48.575712143928037"/>
         </collectionViewCell>

@@ -48,21 +48,21 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
 
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! StrengthCell
-        cell.strengthName.text = strengths[indexPath.row].shortName()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! ValueCell
+        cell.valueName.text = strengths[indexPath.row].shortName()
         cell.image.image = strengths[indexPath.row].image
         return cell
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? StrengthCell else {return}
-        cell.strengthName.adjustsFontSizeToFitWidth = true
+        guard let cell = cell as? ValueCell else {return}
+        cell.valueName.adjustsFontSizeToFitWidth = true
     }
 
     //selecting
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
-        cell.hasThisStrength = true
+        let cell = collectionView.cellForItem(at: indexPath) as! ValueCell
+        cell.hasThisValue = true
         if (isSelectionCount(of: collectionView, 5)) {
             CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
                 return strengths[indexPath.row].name
@@ -73,15 +73,15 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     //deselecting
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
-        cell.hasThisStrength = false
+        let cell = collectionView.cellForItem(at: indexPath) as! ValueCell
+        cell.hasThisValue = false
     }
 
     //MARK: - convenience functions
     func engageCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "StrengthCell", bundle: nil), forCellWithReuseIdentifier: "StrengthCell")
+        collectionView.register(UINib(nibName: "ValueCell", bundle: nil), forCellWithReuseIdentifier: "ValueCell")
 
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)

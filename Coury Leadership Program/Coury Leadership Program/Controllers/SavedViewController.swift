@@ -11,62 +11,23 @@ import UIKit
 class SavedViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var textFieldConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
-        engageTextField()
-        tableView.keyboardDismissMode = .onDrag
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 20.0, left: 0.0, bottom: 20.0, right: 0.0)
+        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
-    }
-
-    @objc func keyboardWillShow(sender: NSNotification) {
-        let keyboardFrame: CGRect = (sender.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let duration: Double = sender.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-        UIView.animate(withDuration: duration) {
-            self.textFieldConstraint.constant = keyboardFrame.height - self.view.safeAreaInsets.bottom + 16
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    @objc func keyboardWillHide(sender: NSNotification) {
-        let duration: Double = sender.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-        UIView.animate(withDuration: duration) {
-            self.textFieldConstraint.constant = 24
-            self.view.layoutIfNeeded()
-        }
-    }
-}
-
-extension SavedViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if let newGoal: String = textField.text, newGoal.count > 0 {
-            print(newGoal)
-        }
-    }
-
-    //MARK: - convenience functions
-    func engageTextField() {
-        textField.delegate = self
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 
@@ -106,6 +67,9 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
         default: fatalError("Saved feed's TableView has more sections than expected.")
         }
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        (cell as? FeedableCell)?.showShadow()
+    }
 
     //MARK: - convenience functions
     func engageTableView() {
@@ -118,8 +82,7 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
         QuoteCell.registerWith(tableView)
 
         tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)
-
-        tableView.reloadData()
+        tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 12.0, right: 0.0)
+        tableView.estimatedRowHeight = QuoteCell.HEIGHT
     }
 }

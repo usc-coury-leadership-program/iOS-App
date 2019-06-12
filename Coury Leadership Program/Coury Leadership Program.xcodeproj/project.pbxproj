@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		66EB5514221126DC004FF186 /* FeedableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB5513221126DC004FF186 /* FeedableCell.swift */; };
-		66EB55172211306F004FF186 /* StrengthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* StrengthCell.swift */; };
-		66EB55182211306F004FF186 /* StrengthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* StrengthCell.xib */; };
+		66EB55172211306F004FF186 /* ValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* ValueCell.swift */; };
+		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
 		C418793C22615B4A00C6DC84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C418793B22615B4A00C6DC84 /* Database.swift */; };
 		C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B75DA225998DA006ACDA0 /* SignInViewController.swift */; };
@@ -34,18 +34,18 @@
 		C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABA220E18E100ECF768 /* Calendar.swift */; };
 		C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABC220E18EB00ECF768 /* Poll.swift */; };
 		C4CA5AC6220E19E700ECF768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC5220E19E700ECF768 /* User.swift */; };
-		C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Strength.swift */; };
+		C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Values.swift */; };
 		C4CE85F1220E255600D5570A /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F0220E255600D5570A /* Feed.swift */; };
 		C4CE85F3220E454F00D5570A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F2220E454F00D5570A /* Content.swift */; };
-		C4D1212A229DFF8300064544 /* StrengthDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D12129229DFF8300064544 /* StrengthDetailViewController.swift */; };
+		C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D12129229DFF8300064544 /* ValueDetailViewController.swift */; };
 		C4EFABF122581FCD00067AA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4EFABF022581FCD00067AA7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Coury_Leadership_Program.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66EB5513221126DC004FF186 /* FeedableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableCell.swift; sourceTree = "<group>"; };
-		66EB55152211306F004FF186 /* StrengthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthCell.swift; sourceTree = "<group>"; };
-		66EB55162211306F004FF186 /* StrengthCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StrengthCell.xib; sourceTree = "<group>"; };
+		66EB55152211306F004FF186 /* ValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCell.swift; sourceTree = "<group>"; };
+		66EB55162211306F004FF186 /* ValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCell.xib; sourceTree = "<group>"; };
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
 		C418793B22615B4A00C6DC84 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -73,10 +73,10 @@
 		C4CA5ABA220E18E100ECF768 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		C4CA5ABC220E18EB00ECF768 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
 		C4CA5AC5220E19E700ECF768 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C4CA5AC7220E1A0700ECF768 /* Strength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strength.swift; sourceTree = "<group>"; };
+		C4CA5AC7220E1A0700ECF768 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
 		C4CE85F0220E255600D5570A /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		C4CE85F2220E454F00D5570A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
-		C4D12129229DFF8300064544 /* StrengthDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthDetailViewController.swift; sourceTree = "<group>"; };
+		C4D12129229DFF8300064544 /* ValueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueDetailViewController.swift; sourceTree = "<group>"; };
 		C4EFABF022581FCD00067AA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +140,7 @@
 				C4CE85F0220E255600D5570A /* Feed.swift */,
 				C4CA5AC4220E191500ECF768 /* Feed Item Models */,
 				C4CA5AC5220E19E700ECF768 /* User.swift */,
-				C4CA5AC7220E1A0700ECF768 /* Strength.swift */,
+				C4CA5AC7220E1A0700ECF768 /* Values.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,8 +150,8 @@
 			children = (
 				C4CA5A92220E0DB900ECF768 /* Main.storyboard */,
 				C4CA5AB5220E17F100ECF768 /* Feed Item Views */,
-				66EB55152211306F004FF186 /* StrengthCell.swift */,
-				66EB55162211306F004FF186 /* StrengthCell.xib */,
+				66EB55152211306F004FF186 /* ValueCell.swift */,
+				66EB55162211306F004FF186 /* ValueCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,7 +163,7 @@
 				C45B75DA225998DA006ACDA0 /* SignInViewController.swift */,
 				C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */,
 				C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */,
-				C4D12129229DFF8300064544 /* StrengthDetailViewController.swift */,
+				C4D12129229DFF8300064544 /* ValueDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 				C4CA5A96220E0DBA00ECF768 /* Assets.xcassets in Resources */,
 				C4CA5AB0220E17C900ECF768 /* LinkCell.xib in Resources */,
 				C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */,
-				66EB55182211306F004FF186 /* StrengthCell.xib in Resources */,
+				66EB55182211306F004FF186 /* ValueCell.xib in Resources */,
 				C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */,
 				C4EFABF122581FCD00067AA7 /* GoogleService-Info.plist in Resources */,
 				C4CA5AB4220E17EA00ECF768 /* ImageCell.xib in Resources */,
@@ -312,32 +312,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -350,16 +329,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-resources.sh",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -381,7 +355,7 @@
 				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
 				C4CE85F1220E255600D5570A /* Feed.swift in Sources */,
-				C4CA5AC8220E1A0700ECF768 /* Strength.swift in Sources */,
+				C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */,
 				C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */,
 				C4CA5AC6220E19E700ECF768 /* User.swift in Sources */,
 				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
@@ -390,9 +364,9 @@
 				C4CA5AAF220E17C900ECF768 /* LinkCell.swift in Sources */,
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
 				C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */,
-				66EB55172211306F004FF186 /* StrengthCell.swift in Sources */,
+				66EB55172211306F004FF186 /* ValueCell.swift in Sources */,
 				C418793C22615B4A00C6DC84 /* Database.swift in Sources */,
-				C4D1212A229DFF8300064544 /* StrengthDetailViewController.swift in Sources */,
+				C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */,
 				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

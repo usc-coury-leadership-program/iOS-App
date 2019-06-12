@@ -14,6 +14,7 @@ public class Database {
     
     private var signedIn: Bool
     private var lastUploadedProfile: [String : Any] = [:]
+    private var storage: Storage
     
     /*
     private var signInStateChangeCallbacks: Dictionary<String, (Bool) -> Void> = [:]
@@ -38,7 +39,7 @@ public class Database {
         } else {
             signedIn = false
         }
-        
+        storage = Storage.storage()
     }
     
     // Shared instance accessor
@@ -79,8 +80,19 @@ public class Database {
                     return
                 }
                 for link in links {
-                    let linkCell: Link = Link(url: URL(string: link)!, squareImage: UIImage(named:"first")!)
-                    result.append(linkCell)
+                    let linkStruct: Link = Link(url: URL(string: link)!, squareImage: UIImage(named:"first")!)
+                    result.append(linkStruct)
+                }
+
+                guard let images: [String] = data["Images"] as? [String] else {
+                    // Could not find any images
+                    print("Could not find images!")
+                    callback(result)
+                    return
+                }
+                for image in images {
+                    let storageRef = self.storage.reference(withPath: "Feed/Images/" + image)
+                    result.append(Image(imageReference: storageRef))
                 }
                 
                 guard let quotes: [Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
@@ -90,8 +102,8 @@ public class Database {
                     return
                 }
                 for quote in quotes {
-                    let quoteCell: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
-                    result.append(quoteCell)
+                    let quoteStruct: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
+                    result.append(quoteStruct)
                 }
 
                 self.currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: result)

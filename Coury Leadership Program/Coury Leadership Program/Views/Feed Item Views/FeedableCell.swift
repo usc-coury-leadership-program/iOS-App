@@ -21,6 +21,7 @@ public protocol FeedableCell {
 
     func onTap()
     func onLongPress(began: Bool)
+    func setSaved(to: Bool)
     
 }
 
@@ -35,8 +36,6 @@ extension FeedableCell {
         insetView.layer.shadowRadius = 8
         insetView.layer.shadowOffset = CGSize.zero
         insetView.layer.shadowColor = UIColor.black.cgColor
-//        insetView.layer.shadowPath = UIBezierPath(rect: insetView.layer.bounds.insetBy(dx: 0.0, dy: 0.0)).cgPath
-        insetView.layer.masksToBounds = false
     }
     func showShadow() {insetView.layer.shadowOpacity = 0.4}
     func adjustShadow(pitch: Double, roll: Double) {

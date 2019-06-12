@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 public struct Link: FeedableData {
 
@@ -24,17 +25,44 @@ public struct Link: FeedableData {
     }
 }
 
-public struct Image: FeedableData {
+public class Image: FeedableData {
 
-    let squareImage: UIImage
+    let reference: StorageReference
+    private(set) var squareImage: UIImage? = nil
+
+    init(imageReference: StorageReference) {self.reference = imageReference}
 
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = ImageCell.generateCellFor(tableView, at: indexPath) as! ImageCell
-        cell.squareImage.image = squareImage
+
+        downloadImage() { image in
+            cell.squareImage.image = image
+        }
+
         if tableView.numberOfSections != 1 {// TODO workaround to make dots only show up in feed, rather than in feed and saved VC's
             cell.isSaved = CLPUser.shared().savedContent?.contains(indexPath.row) ?? false
         }
         return cell
+    }
+
+//    public static func downloadImage(at reference: StorageReference, completion: @escaping (UIImage?) -> Void) {
+//        reference.getData(maxSize: 1*1024*1024) { data, error in
+//            if error != nil {completion(nil)}
+//            completion(UIImage(data: data!))
+//        }
+//    }
+    private func downloadImage(completion: @escaping (UIImage?) -> Void) {
+        if self.squareImage != nil {completion(self.squareImage); return}
+
+        reference.getData(maxSize: 1*1024*1024) { data, error in
+            if error != nil {
+                print("Failed to download image at " + self.reference.fullPath)
+                completion(nil)
+            }else {
+                self.squareImage = UIImage(data: data!)
+                completion(self.squareImage)
+            }
+        }
     }
 
 }

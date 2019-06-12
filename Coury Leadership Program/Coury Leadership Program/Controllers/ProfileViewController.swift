@@ -27,6 +27,7 @@ class ProfileViewController: UIViewController {
 
         nameLabel.text = ""
         nameLabel.adjustsFontSizeToFitWidth = true
+        collectionSizeLabel.text = ""
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +35,8 @@ class ProfileViewController: UIViewController {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             self.nameLabel.text = user?.displayName
             self.nameLabel.setNeedsLayout()
+            self.collectionSizeLabel.text = String(CLPUser.shared().savedContent?.count ?? 0)
+            self.collectionSizeLabel.setNeedsLayout()
             self.collectionView.reloadData()
         }
     }
@@ -66,10 +69,10 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "StrengthDetailSegue" {
-            guard let cell = sender as? StrengthCell, let toVC = segue.destination as? StrengthDetailViewController else {return}
+        if segue.identifier == "ValueDetailSegue" {
+            guard let cell = sender as? ValueCell, let toVC = segue.destination as? ValueDetailViewController else {return}
 
-            toVC.strength = cell.strength
+            toVC.value = cell.value
             toVC.preferredContentSize = CGSize(width: collectionView.contentSize.width, height: 500)
 
             let ppc = toVC.popoverPresentationController!
@@ -98,30 +101,30 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! StrengthCell
-        cell.strength = strengths[indexPath.row]
-        cell.strengthName.text = strengths[indexPath.row].shortName()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ValueCell", for: indexPath) as! ValueCell
+        cell.value = strengths[indexPath.row]
+        cell.valueName.text = strengths[indexPath.row].shortName()
         cell.image.image = strengths[indexPath.row].image
         return cell
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? StrengthCell else {return}
-        cell.strengthName.adjustsFontSizeToFitWidth = true
-        guard let userStrengthList = CLPUser.shared().strengths else {cell.hasThisStrength = false; return}
-        cell.hasThisStrength = userStrengthList.contains(strengths[indexPath.row].name)
+        guard let cell = cell as? ValueCell else {return}
+        cell.valueName.adjustsFontSizeToFitWidth = true
+        guard let userStrengthList = CLPUser.shared().strengths else {cell.hasThisValue = false; return}
+        cell.hasThisValue = userStrengthList.contains(strengths[indexPath.row].name)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
-        performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
+        let cell = collectionView.cellForItem(at: indexPath) as! ValueCell
+        performSegue(withIdentifier: "ValueDetailSegue", sender: cell)
     }
 
     //MARK: - convenience functions
     func engageCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "StrengthCell", bundle: nil), forCellWithReuseIdentifier: "StrengthCell")
+        collectionView.register(UINib(nibName: "ValueCell", bundle: nil), forCellWithReuseIdentifier: "ValueCell")
 
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(top: visualEffectHeader.frame.maxY + 20.0, left: 0.0, bottom: 20.0, right: 0.0)

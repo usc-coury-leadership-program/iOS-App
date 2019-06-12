@@ -20,21 +20,32 @@ class ImageCell: UITableViewCell, FeedableCell {
     var isSaved: Bool = false {
         didSet {savedIndicator.backgroundColor = isSaved ? insetView.backgroundColor : .clear}
     }
+    func setSaved(to: Bool) {
+        isSaved = to
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        contentView.layer.masksToBounds = false
         insetView.layer.cornerRadius = 8
-        insetView.layer.masksToBounds = true
+        insetView.layer.masksToBounds = false
         
         savedIndicator.layer.cornerRadius = savedIndicator.bounds.width/2.0
         savedIndicator.layer.masksToBounds = true
+
+        squareImage.layer.cornerRadius = 8
+        squareImage.layer.masksToBounds = true
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         configureShadow()
-        showShadow()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        squareImage.image = nil
     }
 
     func onTap() {

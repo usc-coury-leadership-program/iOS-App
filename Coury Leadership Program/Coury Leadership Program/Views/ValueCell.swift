@@ -8,18 +8,18 @@
 
 import UIKit
 
-class StrengthCell: UICollectionViewCell {
+class ValueCell: UICollectionViewCell {
 
     static private let prettyBlueColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 0.75)
 
-    @IBOutlet weak var strengthName: UILabel!
+    @IBOutlet weak var valueName: UILabel!
     @IBOutlet weak var image: UIImageView!
 
-    public var strength: Strength? = nil
-    public var hasThisStrength: Bool = false {
+    public var value: Value? = nil
+    public var hasThisValue: Bool = false {
         didSet {
-            strengthName.backgroundColor = self.hasThisStrength ? StrengthCell.prettyBlueColor : UIColor.lightGray.withAlphaComponent(0.75)
-            layer.borderColor = self.hasThisStrength ? StrengthCell.prettyBlueColor.cgColor : UIColor.lightGray.withAlphaComponent(0.75).cgColor
+            valueName.backgroundColor = self.hasThisValue ? ValueCell.prettyBlueColor : UIColor.lightGray.withAlphaComponent(0.75)
+            layer.borderColor = self.hasThisValue ? ValueCell.prettyBlueColor.cgColor : UIColor.lightGray.withAlphaComponent(0.75).cgColor
 
 //            transform = self.hasThisStrength ? CGAffineTransform(scaleX: 1.01, y: 1.01) : CGAffineTransform.identity
         }
@@ -32,8 +32,8 @@ class StrengthCell: UICollectionViewCell {
         layer.cornerRadius = 16
         layer.borderWidth = 3
 
-        strengthName.adjustsFontSizeToFitWidth = true
-        hasThisStrength = false
+        valueName.adjustsFontSizeToFitWidth = true
+        hasThisValue = false
     }
 
 }
