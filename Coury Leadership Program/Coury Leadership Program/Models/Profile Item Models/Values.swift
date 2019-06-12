@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 public struct Value {
     let name: String
     let image: UIImage
@@ -16,9 +15,16 @@ public struct Value {
     let description: String
 
     public func shortName() -> String {return self.name.components(separatedBy: " ").prefix(3).joined(separator: " ")}
+
+    public func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = ValueCell.generateCellFor(collectionView, at: indexPath) as! ValueCell
+        cell.valueName.text = shortName()
+        cell.image.image = image
+        return cell
+    }
 }
 
-let strengths: [Value] = [
+let values: [Value] = [
     Value(name: "Curiosity", image: #imageLiteral(resourceName: "curiosity"), motto: "Ask questions, lots of them", description: """
     If Curiosity is your strength, you are interested in learning more about anything and everything. You are always asking questions, and you find all subjects and topics fascinating. You like exploration and discovery.
     """),

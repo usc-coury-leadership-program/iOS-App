@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,11 @@
 		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
 		C418793C22615B4A00C6DC84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C418793B22615B4A00C6DC84 /* Database.swift */; };
+		C4561F1C22B09A9900358678 /* Strengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F1B22B09A9900358678 /* Strengths.swift */; };
+		C4561F2322B0A20E00358678 /* StrengthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2122B0A20E00358678 /* StrengthCell.swift */; };
+		C4561F2422B0A20E00358678 /* StrengthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4561F2222B0A20E00358678 /* StrengthCell.xib */; };
+		C4561F2822B0A3DB00358678 /* ProfilableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2722B0A3DB00358678 /* ProfilableData.swift */; };
+		C4561F2A22B0A45A00358678 /* ProfilableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2922B0A45A00358678 /* ProfilableCell.swift */; };
 		C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B75DA225998DA006ACDA0 /* SignInViewController.swift */; };
 		C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4759FC72224C58C002F27AF /* FeedableData.swift */; };
 		C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */; };
@@ -49,6 +54,11 @@
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
 		C418793B22615B4A00C6DC84 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		C4561F1B22B09A9900358678 /* Strengths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strengths.swift; sourceTree = "<group>"; };
+		C4561F2122B0A20E00358678 /* StrengthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthCell.swift; sourceTree = "<group>"; };
+		C4561F2222B0A20E00358678 /* StrengthCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StrengthCell.xib; sourceTree = "<group>"; };
+		C4561F2722B0A3DB00358678 /* ProfilableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilableData.swift; sourceTree = "<group>"; };
+		C4561F2922B0A45A00358678 /* ProfilableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilableCell.swift; sourceTree = "<group>"; };
 		C45B75DA225998DA006ACDA0 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C4759FC72224C58C002F27AF /* FeedableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableData.swift; sourceTree = "<group>"; };
 		C4CA5A89220E0DB900ECF768 /* Coury Leadership Program.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coury Leadership Program.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +110,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C4561F2522B0A37500358678 /* Profile Item Views */ = {
+			isa = PBXGroup;
+			children = (
+				66EB55152211306F004FF186 /* ValueCell.swift */,
+				66EB55162211306F004FF186 /* ValueCell.xib */,
+				C4561F2122B0A20E00358678 /* StrengthCell.swift */,
+				C4561F2222B0A20E00358678 /* StrengthCell.xib */,
+				C4561F2922B0A45A00358678 /* ProfilableCell.swift */,
+			);
+			path = "Profile Item Views";
+			sourceTree = "<group>";
+		};
+		C4561F2622B0A39800358678 /* Profile Item Models */ = {
+			isa = PBXGroup;
+			children = (
+				C4CA5AC7220E1A0700ECF768 /* Values.swift */,
+				C4561F1B22B09A9900358678 /* Strengths.swift */,
+				C4561F2722B0A3DB00358678 /* ProfilableData.swift */,
+			);
+			path = "Profile Item Models";
+			sourceTree = "<group>";
+		};
 		C4CA5A80220E0DB900ECF768 = {
 			isa = PBXGroup;
 			children = (
@@ -136,11 +168,11 @@
 		C4CA5AA0220E0F2900ECF768 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C4CA5AC5220E19E700ECF768 /* User.swift */,
 				C418793B22615B4A00C6DC84 /* Database.swift */,
 				C4CE85F0220E255600D5570A /* Feed.swift */,
 				C4CA5AC4220E191500ECF768 /* Feed Item Models */,
-				C4CA5AC5220E19E700ECF768 /* User.swift */,
-				C4CA5AC7220E1A0700ECF768 /* Values.swift */,
+				C4561F2622B0A39800358678 /* Profile Item Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,8 +182,7 @@
 			children = (
 				C4CA5A92220E0DB900ECF768 /* Main.storyboard */,
 				C4CA5AB5220E17F100ECF768 /* Feed Item Views */,
-				66EB55152211306F004FF186 /* ValueCell.swift */,
-				66EB55162211306F004FF186 /* ValueCell.xib */,
+				C4561F2522B0A37500358678 /* Profile Item Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -273,6 +304,7 @@
 				C4CA5A96220E0DBA00ECF768 /* Assets.xcassets in Resources */,
 				C4CA5AB0220E17C900ECF768 /* LinkCell.xib in Resources */,
 				C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */,
+				C4561F2422B0A20E00358678 /* StrengthCell.xib in Resources */,
 				66EB55182211306F004FF186 /* ValueCell.xib in Resources */,
 				C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */,
 				C4EFABF122581FCD00067AA7 /* GoogleService-Info.plist in Resources */,
@@ -348,7 +380,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4CA5A91220E0DB900ECF768 /* SavedViewController.swift in Sources */,
+				C4561F2822B0A3DB00358678 /* ProfilableData.swift in Sources */,
 				C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */,
+				C4561F2322B0A20E00358678 /* StrengthCell.swift in Sources */,
+				C4561F1C22B09A9900358678 /* Strengths.swift in Sources */,
 				C4CA5AAB220E178700ECF768 /* PollCell.swift in Sources */,
 				C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */,
 				C4CE85F3220E454F00D5570A /* Content.swift in Sources */,
@@ -362,6 +397,7 @@
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
 				66EB5514221126DC004FF186 /* FeedableCell.swift in Sources */,
 				C4CA5AAF220E17C900ECF768 /* LinkCell.swift in Sources */,
+				C4561F2A22B0A45A00358678 /* ProfilableCell.swift in Sources */,
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
 				C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */,
 				66EB55172211306F004FF186 /* ValueCell.swift in Sources */,

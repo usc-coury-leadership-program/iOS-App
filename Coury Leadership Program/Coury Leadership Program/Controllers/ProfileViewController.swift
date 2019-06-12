@@ -97,22 +97,21 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 
     /*number of sections*/func numberOfSections(in collectionView: UICollectionView) -> Int {return 1}
-    /*number of rows    */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return strengths.count}
+    /*number of rows    */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return values.count}
 
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ValueCell", for: indexPath) as! ValueCell
-        cell.value = strengths[indexPath.row]
-        cell.valueName.text = strengths[indexPath.row].shortName()
-        cell.image.image = strengths[indexPath.row].image
+        cell.value = values[indexPath.row]
+        cell.valueName.text = values[indexPath.row].shortName()
+        cell.image.image = values[indexPath.row].image
         return cell
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? ValueCell else {return}
-        cell.valueName.adjustsFontSizeToFitWidth = true
         guard let userStrengthList = CLPUser.shared().strengths else {cell.hasThisValue = false; return}
-        cell.hasThisValue = userStrengthList.contains(strengths[indexPath.row].name)
+        cell.hasThisValue = userStrengthList.contains(values[indexPath.row].name)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

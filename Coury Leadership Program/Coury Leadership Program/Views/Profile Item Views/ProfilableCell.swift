@@ -1,0 +1,42 @@
+//
+//  ProfilableCell.swift
+//  Coury Leadership Program
+//
+//  Created by Hayden Shively on 6/11/19.
+//  Copyright © 2019 USC Marshall School of Business. All rights reserved.
+//
+
+import UIKit
+
+public protocol ProfilableCell {
+
+    static var REUSE_ID: String { get }
+
+    static func getUINib() -> UINib
+    static func registerWith(_ collectionView: UICollectionView)
+    static func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell
+
+//    func onTap()
+//    func onLongPress(began: Bool)
+//    func setSaved(to: Bool)
+
+}
+
+extension ProfilableCell {
+    static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
+    static func registerWith(_ collectionView: UICollectionView) {collectionView.register(getUINib(), forCellWithReuseIdentifier: REUSE_ID)}
+    static func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: REUSE_ID, for: indexPath)
+    }
+}
+
+extension UICollectionViewCell {
+    func configureShadow() {
+        contentView.layer.shadowRadius = 8
+        contentView.layer.shadowOffset = CGSize.zero
+        contentView.layer.shadowColor = UIColor.black.cgColor
+    }
+    func showShadow() {contentView.layer.shadowOpacity = 0.4}
+    func adjustShadow(pitch: Double, roll: Double) {contentView.layer.shadowOffset = CGSize(width: roll*2.0, height: pitch*2.0)}
+    func hideShadow() {contentView.layer.shadowOpacity = 0.0}
+}

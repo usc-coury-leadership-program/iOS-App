@@ -44,13 +44,13 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 
     /*number of sections*/func numberOfSections(in collectionView: UICollectionView) -> Int {return 1}
-    /*number of rows    */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return strengths.count}
+    /*number of rows    */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return values.count}
 
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! ValueCell
-        cell.valueName.text = strengths[indexPath.row].shortName()
-        cell.image.image = strengths[indexPath.row].image
+        cell.valueName.text = values[indexPath.row].shortName()
+        cell.image.image = values[indexPath.row].image
         return cell
     }
     //cell view
@@ -65,7 +65,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         cell.hasThisValue = true
         if (isSelectionCount(of: collectionView, 5)) {
             CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
-                return strengths[indexPath.row].name
+                return values[indexPath.row].name
             })
             AppDelegate.signIn()
             self.dismiss(animated: true, completion: nil)

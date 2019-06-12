@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ValueCell: UICollectionViewCell {
+class ValueCell: UICollectionViewCell, ProfilableCell {
+
+    public static let REUSE_ID: String = "ValueCell"
 
     static private let prettyBlueColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 0.75)
 
