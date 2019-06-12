@@ -146,24 +146,6 @@ class FeedViewController: UIViewController {
 
 }
 
-extension FeedViewController {
-
-    private func engageMotionShadows() {
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 0.02
-            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-                guard let motion = motion else {return}
-                for cell in self.tableView.visibleCells {
-                    (cell as? FeedableCell)?.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
-                }
-            }
-        }
-    }
-
-    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
-
-}
-
 
 extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
 
@@ -240,4 +222,22 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func shuffled(_ indexPath: IndexPath) -> Int {return currentOrder?[indexPath.row] ?? indexPath.row}
+}
+
+extension FeedViewController {
+
+    private func engageMotionShadows() {
+        if motionManager.isDeviceMotionAvailable {
+            motionManager.deviceMotionUpdateInterval = 0.02
+            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
+                guard let motion = motion else {return}
+                for cell in self.tableView.visibleCells {
+                    (cell as? FeedableCell)?.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
+                }
+            }
+        }
+    }
+
+    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
+
 }

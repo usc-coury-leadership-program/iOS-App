@@ -18,24 +18,31 @@ class ValueCell: UICollectionViewCell, ProfilableCell {
     @IBOutlet weak var image: UIImageView!
 
     public var value: Value? = nil
+
     public var hasThisValue: Bool = false {
         didSet {
             valueName.backgroundColor = self.hasThisValue ? ValueCell.prettyBlueColor : UIColor.lightGray.withAlphaComponent(0.75)
-            layer.borderColor = self.hasThisValue ? ValueCell.prettyBlueColor.cgColor : UIColor.lightGray.withAlphaComponent(0.75).cgColor
+            contentView.layer.borderColor = self.hasThisValue ? ValueCell.prettyBlueColor.cgColor : UIColor.lightGray.withAlphaComponent(0.75).cgColor
 
-//            transform = self.hasThisStrength ? CGAffineTransform(scaleX: 1.01, y: 1.01) : CGAffineTransform.identity
+            //            transform = self.hasThisStrength ? CGAffineTransform(scaleX: 1.01, y: 1.01) : CGAffineTransform.identity
         }
     }
+    func setHas(to: Bool) {hasThisValue = to}
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        layer.masksToBounds = true
-        layer.cornerRadius = 16
-        layer.borderWidth = 3
+        layer.masksToBounds = false
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 16
+        contentView.layer.borderWidth = 3
 
         valueName.adjustsFontSizeToFitWidth = true
-        hasThisValue = false
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureShadow()
     }
 
 }

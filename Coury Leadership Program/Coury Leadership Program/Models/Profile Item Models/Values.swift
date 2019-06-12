@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct Value {
+public struct Value: ProfilableData {
     let name: String
     let image: UIImage
     let motto: String
@@ -18,6 +18,7 @@ public struct Value {
 
     public func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = ValueCell.generateCellFor(collectionView, at: indexPath) as! ValueCell
+        cell.value = self
         cell.valueName.text = shortName()
         cell.image.image = image
         return cell

@@ -19,6 +19,7 @@ public protocol ProfilableCell {
 //    func onTap()
 //    func onLongPress(began: Bool)
 //    func setSaved(to: Bool)
+    func setHas(to: Bool)
 
 }
 
@@ -32,11 +33,11 @@ extension ProfilableCell {
 
 extension UICollectionViewCell {
     func configureShadow() {
-        contentView.layer.shadowRadius = 8
-        contentView.layer.shadowOffset = CGSize.zero
-        contentView.layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 16
+        layer.shadowOffset = CGSize.zero
+        layer.shadowColor = UIColor.black.cgColor
     }
-    func showShadow() {contentView.layer.shadowOpacity = 0.4}
-    func adjustShadow(pitch: Double, roll: Double) {contentView.layer.shadowOffset = CGSize(width: roll*2.0, height: pitch*2.0)}
-    func hideShadow() {contentView.layer.shadowOpacity = 0.0}
+    func showShadow() {layer.shadowOpacity = 0.4}
+    func adjustShadow(pitch: Double, roll: Double) {layer.shadowOffset = CGSize(width: roll*2.0, height: pitch*2.0)}
+    func hideShadow() {layer.shadowOpacity = 0.0}
 }

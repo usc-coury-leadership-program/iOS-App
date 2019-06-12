@@ -104,7 +104,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bFe-U4-snt">
-                                <rect key="frame" x="16" y="0.0" width="343" height="729"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="eY7-id-eEs">
@@ -179,11 +179,11 @@
                         <constraints>
                             <constraint firstItem="YLM-GW-T8P" firstAttribute="trailing" secondItem="E6r-Hn-exe" secondAttribute="trailing" id="0qt-EL-hTb"/>
                             <constraint firstItem="bFe-U4-snt" firstAttribute="centerX" secondItem="YLM-GW-T8P" secondAttribute="centerX" id="59c-Yd-VPw"/>
-                            <constraint firstItem="YLM-GW-T8P" firstAttribute="trailing" secondItem="bFe-U4-snt" secondAttribute="trailing" constant="16" id="6d8-zq-fqq"/>
+                            <constraint firstItem="YLM-GW-T8P" firstAttribute="trailing" secondItem="bFe-U4-snt" secondAttribute="trailing" id="6d8-zq-fqq"/>
                             <constraint firstItem="bFe-U4-snt" firstAttribute="bottom" secondItem="YLM-GW-T8P" secondAttribute="bottom" id="LtB-9B-t3g"/>
                             <constraint firstItem="E6r-Hn-exe" firstAttribute="leading" secondItem="YLM-GW-T8P" secondAttribute="leading" id="Ox5-64-B7c"/>
                             <constraint firstItem="bFe-U4-snt" firstAttribute="top" secondItem="che-1s-5h5" secondAttribute="top" id="Pth-QO-4Ql"/>
-                            <constraint firstItem="bFe-U4-snt" firstAttribute="leading" secondItem="YLM-GW-T8P" secondAttribute="leading" constant="16" id="Rpg-SI-61j"/>
+                            <constraint firstItem="bFe-U4-snt" firstAttribute="leading" secondItem="YLM-GW-T8P" secondAttribute="leading" id="Rpg-SI-61j"/>
                             <constraint firstItem="E6r-Hn-exe" firstAttribute="top" secondItem="che-1s-5h5" secondAttribute="top" id="p5G-vH-Sl6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YLM-GW-T8P"/>

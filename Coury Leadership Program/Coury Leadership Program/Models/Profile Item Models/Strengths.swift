@@ -8,13 +8,14 @@
 
 import UIKit
 
-public struct Strength {
+public struct Strength: ProfilableData {
     let name: String
     let domain: Domain
     let description: String
 
     public func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = StrengthCell.generateCellFor(collectionView, at: indexPath) as! StrengthCell
+        cell.strength = self
         cell.strengthName.text = name
         cell.contentView.backgroundColor = domain.color()
         return cell
