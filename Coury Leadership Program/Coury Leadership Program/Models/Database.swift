@@ -167,16 +167,17 @@ public class Database {
         Firestore.firestore().collection("Users").document(uid).getDocument { (document, error) in
 
             if let document = document, document.exists, let data = document.data() {
-                let userStrengths: [String]? = (data["strengths"] as? String)?.components(separatedBy: ",")
+                let values: [String]? = (data["values"] as? String)?.components(separatedBy: ",")
+                let strengths: [String]? = (data["strengths"] as? String)?.components(separatedBy: ",")
 
-                var userSavedContent: [Int]? = nil
+                var savedContent: [Int]? = nil
                 if let rawSavedContent: String = data["saved content"] as? String {
                     if rawSavedContent.count > 0 {
-                        userSavedContent = rawSavedContent.components(separatedBy: ",").map({Int($0)!})
+                        savedContent = rawSavedContent.components(separatedBy: ",").map({Int($0)!})
                     }
                 }
 
-                user.reconstruct(name: user.name, id: user.id, strengths: userStrengths, savedContent: userSavedContent, fromDatabase: true)
+                user.reconstruct(name: user.name, id: user.id, values: values, strengths: strengths, savedContent: savedContent, fromDatabase: true)
                 callback?()
 
             }else {print("User document \(uid) does not exist")}

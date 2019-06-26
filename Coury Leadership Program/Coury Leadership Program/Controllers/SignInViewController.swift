@@ -14,8 +14,9 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let collectionViewColumnCount: CGFloat = 3
-    var handle: AuthStateDidChangeListenerHandle?
+    private let collectionViewColumnCount: CGFloat = 3
+    private var selectingType: SelectingType = .values
+    private var handle: AuthStateDidChangeListenerHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().uiDelegate = self
     }
 
-//    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
-
+    private enum SelectingType {case values, strengths}
 }
 
 
@@ -44,37 +42,56 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 
     /*number of sections*/func numberOfSections(in collectionView: UICollectionView) -> Int {return 1}
-    /*number of rows    */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return values.count}
+    /*number of rows    */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch selectingType {
+        case .values: return VALUE_LIST.count
+        case .strengths: return STRENGTH_LIST.count
+        }
+    }
 
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StrengthCell", for: indexPath) as! ValueCell
-        cell.valueName.text = values[indexPath.row].shortName()
-        cell.image.image = values[indexPath.row].image
-        return cell
+        switch selectingType {
+        case .values: return VALUE_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
+        case .strengths: return STRENGTH_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
+        }
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? ValueCell else {return}
-        cell.valueName.adjustsFontSizeToFitWidth = true
+//        guard let cell = cell as? ValueCell else {return}
+//        cell.valueName.adjustsFontSizeToFitWidth = true
+        (cell as? ProfilableCell)?.setHas(to: cell.isSelected)
+        //(cell as? ValueCell)?.valueName.isHidden = false
     }
 
     //selecting
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ValueCell
-        cell.hasThisValue = true
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfilableCell
+        cell.setHas(to: true)
+
         if (isSelectionCount(of: collectionView, 5)) {
-            CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
-                return values[indexPath.row].name
-            })
-            AppDelegate.signIn()
-            self.dismiss(animated: true, completion: nil)
+            switch selectingType {
+            case .values:
+                CLPUser.shared().set(values: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
+                    return VALUE_LIST[indexPath.row].name
+                })
+                selectingType = .strengths
+                collectionView.reloadData()
+
+
+            case .strengths:
+                CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
+                    return STRENGTH_LIST[indexPath.row].name
+                })
+                AppDelegate.signIn()
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     //deselecting
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ValueCell
-        cell.hasThisValue = false
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfilableCell
+        cell.setHas(to: false)
     }
 
     //MARK: - convenience functions
@@ -82,6 +99,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ValueCell", bundle: nil), forCellWithReuseIdentifier: "ValueCell")
+        collectionView.register(UINib(nibName: "StrengthCell", bundle: nil), forCellWithReuseIdentifier: "StrengthCell")
 
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)

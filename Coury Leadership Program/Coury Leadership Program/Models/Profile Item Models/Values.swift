@@ -25,7 +25,7 @@ public struct Value: ProfilableData {
     }
 }
 
-let values: [Value] = [
+let VALUE_LIST: [Value] = [
     Value(name: "Curiosity", image: #imageLiteral(resourceName: "curiosity"), motto: "Ask questions, lots of them", description: """
     If Curiosity is your strength, you are interested in learning more about anything and everything. You are always asking questions, and you find all subjects and topics fascinating. You like exploration and discovery.
     """),

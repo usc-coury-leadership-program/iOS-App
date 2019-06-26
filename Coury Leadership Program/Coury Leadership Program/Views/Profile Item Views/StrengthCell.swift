@@ -16,12 +16,17 @@ class StrengthCell: UICollectionViewCell, ProfilableCell {
 
     public var strength: Strength? = nil
 
-    public var hasThisValue: Bool = false {
+    public var hasThisStrength: Bool = false {
         didSet {
-            //            transform = self.hasThisStrength ? CGAffineTransform(scaleX: 1.01, y: 1.01) : CGAffineTransform.identity
+            //valueName.backgroundColor = self.hasThisValue ? ValueCell.prettyBlueColor : UIColor.lightGray.withAlphaComponent(0.75)
+            //contentView.layer.borderColor = self.hasThisValue ? ValueCell.prettyBlueColor.cgColor : UIColor.lightGray.withAlphaComponent(0.75).cgColor
+            //contentView.layer.borderWidth = hasThisStrength ? 3 : 0
+            contentView.backgroundColor = hasThisStrength ? strength?.domain.color() : strength?.domain.color().withAlphaComponent(0.5)
+//            strengthName.textColor = hasThisStrength ? .white : UIColor(cgColor: contentView.layer.borderColor!)
+//            contentView.backgroundColor = self.hasThisStrength ?  : UIColor.lightGray.withAlphaComponent(0.75)
         }
     }
-    func setHas(to: Bool) {hasThisValue = to}
+    func setHas(to: Bool) {hasThisStrength = to}
     
     override func awakeFromNib() {
         super.awakeFromNib()

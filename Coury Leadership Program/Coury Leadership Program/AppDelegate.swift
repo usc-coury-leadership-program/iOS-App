@@ -116,5 +116,6 @@ extension AppDelegate: GIDSignInDelegate {
     public static func signOut() {
         GIDSignIn.sharedInstance()?.signOut()
         GIDSignIn.sharedInstance()?.disconnect()
+        CLPUser.shared().makeAllNil()
     }
 }

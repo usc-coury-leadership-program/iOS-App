@@ -17,7 +17,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionSizeLabel: UILabel!
     @IBOutlet weak var visualEffectHeader: UIVisualEffectView!
-
+    @IBOutlet weak var visualEffectForPPC: UIVisualEffectView!
+    
     let collectionViewColumnCount: CGFloat = 3
     var handle: AuthStateDidChangeListenerHandle?
     private let motionManager = CMMotionManager()
@@ -41,13 +42,13 @@ class ProfileViewController: UIViewController {
             self.collectionSizeLabel.setNeedsLayout()
             self.collectionView.reloadData()
         }
-        engageMotionShadows()
+        //engageMotionShadows()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
-        disengageMotionShadows()
+//        disengageMotionShadows()
     }
 
     @IBAction func onSettingsClick(_ sender: Any) {AppDelegate.signOut()}
@@ -72,20 +73,33 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+
+        let toVC = segue.destination
         
-        if segue.identifier == "ValueDetailSegue" {
-            guard let cell = sender as? ValueCell, let toVC = segue.destination as? ValueDetailViewController else {return}
+        switch segue.identifier {
+        case "ValueDetailSegue":
+            guard let cell = sender as? ValueCell else {return}
+            (toVC as! ValueDetailViewController).value = cell.value
+            toVC.preferredContentSize = CGSize(width: collectionView.contentSize.width, height: 460)
 
-            toVC.value = cell.value
-            toVC.preferredContentSize = CGSize(width: collectionView.contentSize.width, height: 500)
+        case "StrengthDetailSegue":
+            guard let cell = sender as? StrengthCell else {return}
+            (toVC as! StrengthDetailViewController).strength = cell.strength
+            toVC.preferredContentSize = CGSize(width: collectionView.contentSize.width, height: 400)
 
-            let ppc = toVC.popoverPresentationController!
-            ppc.delegate = self
-            ppc.sourceView = collectionView
-            ppc.sourceRect = CGRect(x: collectionView.bounds.midX, y: collectionView.bounds.midY + collectionView.contentInset.top/2.0, width: 0, height: 0)
-            ppc.backgroundColor = .clear
+        default: break
         }
+
+        let ppc = toVC.popoverPresentationController!
+        ppc.delegate = self
+        ppc.sourceView = collectionView
+        ppc.sourceRect = CGRect(x: collectionView.bounds.midX, y: collectionView.bounds.midY/* + collectionView.contentInset.top/2.0*/, width: 0, height: 0)
+        ppc.backgroundColor = .clear
     }
+
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {visualEffectForPPC.isHidden = false}
+    @IBAction func unwindToProfile(_ unwindSegue: UIStoryboardSegue) {visualEffectForPPC.isHidden = true}
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {visualEffectForPPC.isHidden = true}
 }
 
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -111,8 +125,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     //number of rows
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return values.count
-        case 1: return strengths.count
+        case 0: return VALUE_LIST.count
+        case 1: return STRENGTH_LIST.count
         default: return 0
         }
     }
@@ -120,23 +134,29 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case 0: return values[indexPath.row].generateCellFor(collectionView, at: indexPath)
-        case 1: return strengths[indexPath.row].generateCellFor(collectionView, at: indexPath)
+        case 0: return VALUE_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
+        case 1: return STRENGTH_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
         default: fatalError("Profile's CollectionView has more sections than expected.")
         }
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        cell.showShadow()
+        //cell.showShadow()
         switch indexPath.section {
-        case 0: (cell as? ProfilableCell)?.setHas(to: CLPUser.shared().strengths?.contains(values[indexPath.row].name) ?? false)
+        case 0: (cell as? ProfilableCell)?.setHas(to: CLPUser.shared().values?.contains(VALUE_LIST[indexPath.row].name) ?? false)
+        case 1: (cell as? ProfilableCell)?.setHas(to: CLPUser.shared().strengths?.contains(STRENGTH_LIST[indexPath.row].name) ?? false)
         default: break
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ValueCell
-        performSegue(withIdentifier: "ValueDetailSegue", sender: cell)
+        guard let cell = collectionView.cellForItem(at: indexPath) else {return}
+        switch indexPath.section{
+        case 0: performSegue(withIdentifier: "ValueDetailSegue", sender: cell)
+        case 1: performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
+        default: fatalError("Profile's CollectionView has more sections than expected.")
+        }
+
     }
 
     //MARK: - convenience functions

@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ubb-eB-Aqn">
-                                <rect key="frame" x="8" y="8" width="84" height="84"/>
+                                <rect key="frame" x="3" y="3" width="94" height="94"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -33,8 +33,8 @@
                         <constraints>
                             <constraint firstItem="Ubb-eB-Aqn" firstAttribute="centerY" secondItem="Oj1-Az-Rdb" secondAttribute="centerY" id="hk5-ME-Jd6"/>
                             <constraint firstItem="Ubb-eB-Aqn" firstAttribute="centerX" secondItem="Oj1-Az-Rdb" secondAttribute="centerX" id="iZK-4W-b2O"/>
-                            <constraint firstItem="Ubb-eB-Aqn" firstAttribute="height" secondItem="Oj1-Az-Rdb" secondAttribute="height" constant="-16" id="vkR-8r-dsm"/>
-                            <constraint firstItem="Ubb-eB-Aqn" firstAttribute="width" secondItem="Oj1-Az-Rdb" secondAttribute="width" constant="-16" id="xgg-ul-WQE"/>
+                            <constraint firstItem="Ubb-eB-Aqn" firstAttribute="height" secondItem="Oj1-Az-Rdb" secondAttribute="height" constant="-6" id="vkR-8r-dsm"/>
+                            <constraint firstItem="Ubb-eB-Aqn" firstAttribute="width" secondItem="Oj1-Az-Rdb" secondAttribute="width" constant="-6" id="xgg-ul-WQE"/>
                         </constraints>
                     </view>
                 </subviews>

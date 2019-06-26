@@ -12,6 +12,7 @@
 		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
 		C418793C22615B4A00C6DC84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C418793B22615B4A00C6DC84 /* Database.swift */; };
+		C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */; };
 		C4561F1C22B09A9900358678 /* Strengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F1B22B09A9900358678 /* Strengths.swift */; };
 		C4561F2322B0A20E00358678 /* StrengthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2122B0A20E00358678 /* StrengthCell.swift */; };
 		C4561F2422B0A20E00358678 /* StrengthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4561F2222B0A20E00358678 /* StrengthCell.xib */; };
@@ -54,6 +55,7 @@
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
 		C418793B22615B4A00C6DC84 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthDetailViewController.swift; sourceTree = "<group>"; };
 		C4561F1B22B09A9900358678 /* Strengths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strengths.swift; sourceTree = "<group>"; };
 		C4561F2122B0A20E00358678 /* StrengthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthCell.swift; sourceTree = "<group>"; };
 		C4561F2222B0A20E00358678 /* StrengthCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StrengthCell.xib; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */,
 				C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */,
 				C4D12129229DFF8300064544 /* ValueDetailViewController.swift */,
+				C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */,
 				C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */,
 				C4CA5AC6220E19E700ECF768 /* User.swift in Sources */,
+				C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */,
 				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
 				66EB5514221126DC004FF186 /* FeedableCell.swift in Sources */,

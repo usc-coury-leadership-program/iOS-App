@@ -21,6 +21,9 @@ public class CLPUser {
     public private(set) var id: String? {
         didSet {if id != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
+    public private(set) var values: [String]? {
+        didSet {if values != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+    }
     public private(set) var strengths: [String]? {
         didSet {if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
@@ -37,10 +40,11 @@ public class CLPUser {
     }
     public static func shared() -> CLPUser {return sharedUser}
 
-    public func reconstruct(name: String?, id: String?, strengths: [String]?, savedContent: [Int]?, fromDatabase: Bool = false) {
+    public func reconstruct(name: String?, id: String?, values: [String]?, strengths: [String]?, savedContent: [Int]?, fromDatabase: Bool = false) {
         isBulkUpdating = true
         self.name = name
         self.id = id
+        self.values = values
         self.strengths = strengths
         self.savedContent = savedContent
         isBulkUpdating = false
@@ -55,10 +59,12 @@ public class CLPUser {
     public func makeAllNil() {
         self.name = nil
         self.id = nil
+        self.values = nil
         self.strengths = nil
         self.savedContent = nil
     }
 
+    public func set(values: [String]) {self.values = values}
     public func set(strengths: [String]) {self.strengths = strengths}
 
     public func toggleSavedContent(for index: Int) {
@@ -75,10 +81,11 @@ public class CLPUser {
     public func toDict() -> [String : String] {
         var dict: [String : String] = [:]
 
-        dict["name"] = self.name != nil ? self.name : ""
-        dict["id"] = self.id != nil ? self.id : ""
-        dict["strengths"] = self.strengths != nil ? strengths!.joined(separator: ",") : ""
-        dict["saved content"] = self.savedContent != nil ? savedContent!.map({String($0)}).joined(separator: ",") : ""
+        dict["name"] = name != nil ? name : ""
+        dict["id"] = id != nil ? id : ""
+        dict["values"] = values != nil ? values!.joined(separator: ",") : ""
+        dict["strengths"] = strengths != nil ? strengths!.joined(separator: ",") : ""
+        dict["saved content"] = savedContent != nil ? savedContent!.map({String($0)}).joined(separator: ",") : ""
         
         return dict
     }
@@ -86,10 +93,11 @@ public class CLPUser {
     public func listOfFullFields() -> [String] {
         var fullFields: [String] = []
 
-        if self.name != nil {fullFields.append("name")}
-        if self.id != nil {fullFields.append("id")}
-        if self.strengths != nil {fullFields.append("strengths")}
-        if self.savedContent != nil {fullFields.append("saved content")}
+        if name != nil {fullFields.append("name")}
+        if id != nil {fullFields.append("id")}
+        if values != nil {fullFields.append("values")}
+        if strengths != nil {fullFields.append("strengths")}
+        if savedContent != nil {fullFields.append("saved content")}
 
         return fullFields
     }

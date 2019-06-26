@@ -10,11 +10,12 @@ import UIKit
 
 class ValueDetailViewController: UIViewController {
 
-    private static let BASE_URL = "https://www.viacharacter.org/www/Character-Strengths/"
+    private static let BASE_URL = "https://www.viacharacter.org/character-strengths/"
 
     @IBOutlet weak var valueName: UILabel!
     @IBOutlet weak var mottoText: UITextView!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var readMoreButton: UIButton!
 
     public var value: Value? = nil
 
@@ -25,6 +26,10 @@ class ValueDetailViewController: UIViewController {
         valueName.text = value?.shortName()
         mottoText.text = value?.motto
         textView.text = value?.description
+
+        self.view.backgroundColor = ValueCell.prettyBlueColor
+        valueName.textColor = ValueCell.prettyBlueColor
+        readMoreButton.setTitleColor(ValueCell.prettyBlueColor, for: .normal)
     }
 
     @IBAction func onReadMoreButtonPress(_ sender: Any) {
@@ -33,9 +38,9 @@ class ValueDetailViewController: UIViewController {
         UIApplication.shared.open(url!)
     }
 
-    @IBAction func onCloseButtonPress(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
+//    @IBAction func onCloseButtonPress(_ sender: Any) {
+//        self.dismiss(animated: true, completion: nil)
+//    }
 
     /*
     // MARK: - Navigation
