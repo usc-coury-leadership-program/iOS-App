@@ -43,7 +43,7 @@ class CalendarCell: UITableViewCell, FeedableCell {
         configureShadow()
     }
 
-    func onTap() {currentEvent += 1}
+    func onTap(inContext vc: UIViewController) {currentEvent += 1}
     func onLongPress(began: Bool) {}
     
 }

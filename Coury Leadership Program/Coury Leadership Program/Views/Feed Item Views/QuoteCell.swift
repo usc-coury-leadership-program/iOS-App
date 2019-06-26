@@ -43,7 +43,7 @@ class QuoteCell: UITableViewCell, FeedableCell {
         configureShadow()
     }
 
-    func onTap() {
+    func onTap(inContext vc: UIViewController) {
     }
     func onLongPress(began: Bool) {
         if began {

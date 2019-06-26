@@ -48,7 +48,15 @@ class ImageCell: UITableViewCell, FeedableCell {
         squareImage.image = nil
     }
 
-    func onTap() {
+    func onTap(inContext vc: UIViewController) {
+        let alert = UIAlertController(title: "Do you want to save this wallpaper to your Camera Roll?", message: "You can also long press on the image to bookmark it within the app.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default) {_ in
+            guard let imageToSave = self.squareImage.image else {return}
+            UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
+        })
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        vc.present(alert, animated: true)
     }
 
     func onLongPress(began: Bool) {

@@ -31,7 +31,7 @@ class PollCell: UITableViewCell, FeedableCell {
         configureShadow()
     }
 
-    func onTap() {}
+    func onTap(inContext vc: UIViewController) {}
     func onLongPress(began: Bool) {}
     
 }

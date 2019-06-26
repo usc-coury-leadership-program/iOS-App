@@ -19,7 +19,7 @@ public protocol FeedableCell {
     static func registerWith(_ tableView: UITableView)
     static func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell
 
-    func onTap()
+    func onTap(inContext vc: UIViewController)
     func onLongPress(began: Bool)
     func setSaved(to: Bool)
     

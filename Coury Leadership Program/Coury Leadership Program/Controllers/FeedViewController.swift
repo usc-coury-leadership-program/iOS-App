@@ -103,7 +103,7 @@ class FeedViewController: UIViewController {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 let cell = tableView.cellForRow(at: indexPath)!
-                (cell as? FeedableCell)?.onTap()
+                (cell as? FeedableCell)?.onTap(inContext: self)
 
                 UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {

@@ -72,7 +72,7 @@ class LinkCell: UITableViewCell, FeedableCell {
         configureShadow()
     }
 
-    func onTap() {
+    func onTap(inContext vc: UIViewController) {
         if url != nil {UIApplication.shared.open(url!)}
         else {print("That URL is nil and cannot be opened")}
     }
