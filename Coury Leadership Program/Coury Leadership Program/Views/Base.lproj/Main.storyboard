@@ -377,7 +377,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="29"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your strengths:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGj-ES-Roo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your top 5 values:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGj-ES-Roo">
                                 <rect key="frame" x="16" y="119" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cbw-vq-Ald"/>
@@ -405,6 +405,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="7me-5Q-IWL" id="d9O-z0-sHH"/>
+                        <outlet property="helpText" destination="kGj-ES-Roo" id="4CN-kd-lcl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbv-DQ-0bo" userLabel="First Responder" sceneMemberID="firstResponder"/>

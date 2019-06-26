@@ -13,7 +13,8 @@ import GoogleSignIn
 class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    @IBOutlet weak var helpText: UILabel!
+
     private let collectionViewColumnCount: CGFloat = 3
     private var selectingType: SelectingType = .values
     private var handle: AuthStateDidChangeListenerHandle?
@@ -76,6 +77,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
                     return VALUE_LIST[indexPath.row].name
                 })
                 selectingType = .strengths
+                helpText.text = "...and now your top 5 strengths:"
                 collectionView.reloadData()
 
 
