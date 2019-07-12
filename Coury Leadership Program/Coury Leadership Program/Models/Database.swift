@@ -158,7 +158,31 @@ public class Database {
     }
     
     public func fetchPolls(andRun callback: @escaping ([Poll]) -> Void) {
-        callback([])
+        Firestore.firestore().collection("Feed").document("Polls").getDocument { (document, error) in
+            
+            if let document = document, document.exists {
+                guard let data = document.data() else {
+                    // Could not find anything, so just return an empty array
+                    print("Polls document has no data")
+                    callback([])
+                    return
+                }
+                
+                var polls: [Poll] = []
+                for question in data {
+                    let answers = (question.value as! [String])
+                    polls.append(question: question, answers: answers)
+                }
+
+                callback(polls)
+                
+            }else {
+                // Could not find anything, so just return an empty array
+                print("Polls document does not exist")
+                callback([])
+                return
+            }
+        }
     }
     
     public func fetchUserProfile(_ user: CLPUser, andRun callback: (() -> Void)?) {
