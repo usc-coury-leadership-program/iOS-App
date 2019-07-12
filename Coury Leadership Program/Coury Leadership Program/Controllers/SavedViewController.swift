@@ -62,7 +62,7 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
         case 0:
-            let contentIndex = CLPUser.shared().savedContent![indexPath.row]
+            let contentIndex = CLPUser.shared().savedContent![indexPath.row]//TODO can be index out of range
             return Database.shared().currentFeed.content[contentIndex].generateCellFor(tableView, at: indexPath)
         default: fatalError("Saved feed's TableView has more sections than expected.")
         }

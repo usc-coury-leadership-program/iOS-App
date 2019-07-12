@@ -159,7 +159,6 @@ public class Database {
     
     public func fetchPolls(andRun callback: @escaping ([Poll]) -> Void) {
         callback([])
-        // Will be changed with new database format by @adam later
     }
     
     public func fetchUserProfile(_ user: CLPUser, andRun callback: (() -> Void)?) {
