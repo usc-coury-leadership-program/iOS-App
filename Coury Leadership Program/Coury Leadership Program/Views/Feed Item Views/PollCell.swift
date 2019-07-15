@@ -10,7 +10,7 @@ import UIKit
 
 class PollCell: UITableViewCell, FeedableCell {
 
-    public static let HEIGHT: CGFloat = 216
+    public static let HEIGHT: CGFloat = 90
     public static let REUSE_ID: String = "PollCell"
     
     @IBOutlet weak var insetView: UIView!

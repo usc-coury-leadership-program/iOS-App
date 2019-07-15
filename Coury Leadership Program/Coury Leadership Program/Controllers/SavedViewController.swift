@@ -76,7 +76,6 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
 
-        CalendarCell.registerWith(tableView)
         LinkCell.registerWith(tableView)
         ImageCell.registerWith(tableView)
         QuoteCell.registerWith(tableView)

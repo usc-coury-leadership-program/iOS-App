@@ -171,7 +171,7 @@ public class Database {
                 var polls: [Poll] = []
                 for question in data {
                     let answers = (question.value as! [String])
-                    polls.append(question: question, answers: answers)
+                    polls.append(Poll(question: question.key, answers: answers))
                 }
 
                 callback(polls)
