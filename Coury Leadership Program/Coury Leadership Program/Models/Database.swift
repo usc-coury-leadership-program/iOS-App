@@ -169,9 +169,9 @@ public class Database {
                 }
                 
                 var polls: [Poll] = []
-                for question in data {
-                    let answers = (question.value as! [String])
-                    polls.append(Poll(question: question.key, answers: answers))
+                for (i, question) in data.enumerated() {
+                    let answers = (question.value as! [String]).map({$0.retrievePeriods()})
+                    polls.append(Poll(question: question.key.retrievePeriods(), answers: answers, id: i))
                 }
 
                 callback(polls)
@@ -200,7 +200,14 @@ public class Database {
                     }
                 }
 
-                user.reconstruct(name: user.name, id: user.id, values: values, strengths: strengths, savedContent: savedContent, fromDatabase: true)
+                var answeredPolls: [Int]? = []
+                if let rawAnsweredPolls: String = data["answered polls"] as? String {
+                    if rawAnsweredPolls.count > 0 {
+                        answeredPolls = rawAnsweredPolls.components(separatedBy: ",").map({Int($0)!})
+                    }
+                }
+
+                user.reconstruct(name: user.name, id: user.id, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls, fromDatabase: true)
                 callback?()
 
             }else {print("User document \(uid) does not exist")}
@@ -219,5 +226,32 @@ public class Database {
             lastUploadedProfile = profileToUpload
         }
         print("Did run Database.updateUserProfile()")
+    }
+
+
+    public func sendPollResults(_ poll: Poll, response: String) {
+        if !poll.answers.contains(response) {fatalError("That's not a valid response to the poll. Aborting upload to database.")}
+        Firestore.firestore().collection("Analytics").document("Polls").getDocument { (document, error) in
+            if let document = document, document.exists, let data = document.data() {
+
+                var responseMap: [String : Int] = data[poll.question.noPeriods()] as! [String : Int]? ?? [:]
+                let currentVotes: Int = responseMap[response.noPeriods()] ?? 0
+                responseMap[response.noPeriods()] = currentVotes + 1
+
+                Firestore.firestore().collection("Analytics").document("Polls").updateData([poll.question.noPeriods() : responseMap])
+
+            }else {print("Polls document does not exist")}
+        }
+
+    }
+}
+
+extension String {
+    func noPeriods() -> String {
+        return self.replacingOccurrences(of: ".", with: "___")
+    }
+
+    func retrievePeriods() -> String {
+        return self.replacingOccurrences(of: "___", with: ".")
     }
 }

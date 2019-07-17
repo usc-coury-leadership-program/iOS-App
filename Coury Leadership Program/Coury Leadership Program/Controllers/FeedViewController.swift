@@ -38,7 +38,7 @@ class FeedViewController: UIViewController {
         super.viewDidAppear(animated)
         if CLPUser.shared().id != nil {
             handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFirebaseConnectedComponents()}
-            //self.updateFirebaseConnectedComponents()
+            self.updateFirebaseConnectedComponents()
         }
         else if !CLPUser.shared().isSigningIn {presentSignInVC()}
         engageMotionShadows()
@@ -56,20 +56,15 @@ class FeedViewController: UIViewController {
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updateFirebaseConnectedComponents() {
-        updateSaved()
+        Database.shared().fetchUserProfile(CLPUser.shared()) {
+            self.updatePolls()
+            self.updateSaved()
+        }
         updateFeed()
     }
 
-    func updateSaved() {
-        Database.shared().fetchUserProfile(CLPUser.shared()) {
-            if self.gotCalendar && self.gotPolls && self.gotContent {
-//                self.tableView.reloadSections(IndexSet(integer: 2), with: .none)
-//                self.tableView.beginUpdates()
-//                self.tableView.endUpdates()
-                self.tableView.layoutSubviews()
-            }
-        }
-    }
+    func updatePolls() {self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
+    func updateSaved() {self.tableView.layoutSubviews()}
 
     func updateFeed() {
         if currentFeed.calendar.events.count == 0 {
@@ -128,7 +123,6 @@ class FeedViewController: UIViewController {
                     cell.onLongPress(began: true)
                 }, completion: nil)
 
-//                let unrandomizedIndex = currentOrder?.firstIndex(of: indexPath.row) ?? indexPath.row
                 if indexPath.section == 2 {CLPUser.shared().toggleSavedContent(for: shuffled(indexPath))}
                 
             default:
@@ -175,7 +169,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return 1
-        case 1: return currentFeed.polls.count
+        case 1: return currentFeed.pollsToAnswer().count
         case 2: return currentFeed.content.count
         default: return 0
         }
@@ -185,7 +179,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
         case 0: return currentFeed.calendar.generateCellFor(tableView, at: indexPath)
-        case 1: return currentFeed.polls[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 1: return currentFeed.pollsToAnswer()[indexPath.row].generateCellFor(tableView, at: indexPath)
         case 2: return currentFeed.content[shuffled(indexPath)].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }

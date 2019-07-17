@@ -30,6 +30,9 @@ public class CLPUser {
     public private(set) var savedContent: [Int]? {
         didSet {if savedContent != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
+    public private(set) var answeredPolls: [Int]? {
+        didSet {if answeredPolls != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+    }
 
     private static var sharedUser: CLPUser = {return CLPUser()}()
     private init() {
@@ -40,13 +43,14 @@ public class CLPUser {
     }
     public static func shared() -> CLPUser {return sharedUser}
 
-    public func reconstruct(name: String?, id: String?, values: [String]?, strengths: [String]?, savedContent: [Int]?, fromDatabase: Bool = false) {
+    public func reconstruct(name: String?, id: String?, values: [String]?, strengths: [String]?, savedContent: [Int]?, answeredPolls: [Int]?, fromDatabase: Bool = false) {
         isBulkUpdating = true
         self.name = name
         self.id = id
         self.values = values
         self.strengths = strengths
         self.savedContent = savedContent
+        self.answeredPolls = answeredPolls
         isBulkUpdating = false
         if !fromDatabase {Database.shared().updateUserProfile(self)}
     }
@@ -62,19 +66,33 @@ public class CLPUser {
         self.values = nil
         self.strengths = nil
         self.savedContent = nil
+        self.answeredPolls = nil
     }
 
     public func set(values: [String]) {self.values = values}
     public func set(strengths: [String]) {self.strengths = strengths}
 
     public func toggleSavedContent(for index: Int) {
-        if savedContent == nil {savedContent = [index]}
-        else {
-            let existingLocationOfIndexInArray = savedContent!.firstIndex(of: index)
-            if existingLocationOfIndexInArray != nil {savedContent!.remove(at: existingLocationOfIndexInArray!)}
-            else {
-                savedContent!.append(index)
-            }
+        if savedContent == nil {
+            savedContent = [index]
+        }else if let existingLocation = savedContent!.firstIndex(of: index) {
+            savedContent!.remove(at: existingLocation)
+        }else {
+            savedContent!.append(index)
+        }
+//        else {
+//            let existingLocationOfIndexInArray = savedContent!.firstIndex(of: index)
+//            if existingLocationOfIndexInArray != nil {savedContent!.remove(at: existingLocationOfIndexInArray!)}
+//            else {
+//                savedContent!.append(index)
+//            }
+//        }
+    }
+
+    public func addToAnsweredPolls(poll number: Int) {
+        if answeredPolls == nil {answeredPolls = [number]}
+        else if answeredPolls!.firstIndex(of: number) == nil {
+            answeredPolls?.append(number)
         }
     }
 
@@ -86,6 +104,7 @@ public class CLPUser {
         dict["values"] = values != nil ? values!.joined(separator: ",") : ""
         dict["strengths"] = strengths != nil ? strengths!.joined(separator: ",") : ""
         dict["saved content"] = savedContent != nil ? savedContent!.map({String($0)}).joined(separator: ",") : ""
+        dict["answered polls"] = answeredPolls != nil ? answeredPolls!.map({String($0)}).joined(separator: ",") : ""
         
         return dict
     }
@@ -98,6 +117,7 @@ public class CLPUser {
         if values != nil {fullFields.append("values")}
         if strengths != nil {fullFields.append("strengths")}
         if savedContent != nil {fullFields.append("saved content")}
+        if answeredPolls != nil {fullFields.append("answered polls")}
 
         return fullFields
     }

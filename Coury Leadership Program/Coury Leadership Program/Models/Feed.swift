@@ -12,6 +12,10 @@ public struct Feed {
     let calendar: Calendar
     let polls: [Poll]
     let content: [FeedableData]
+
+    func pollsToAnswer() -> [Poll] {
+        return polls.filter({$0.needsToBeAnswered() ?? false})
+    }
 }
 
 //let exampleCalendar = Calendar(events: [

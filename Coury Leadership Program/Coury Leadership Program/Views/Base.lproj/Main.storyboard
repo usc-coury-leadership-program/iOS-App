@@ -46,7 +46,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="I9f-Kj-fy1">
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="I9f-Kj-fy1">
                     <connections>
                         <action selector="onTapGesture:" destination="9pv-A4-QxB" id="e1c-vy-KCP"/>
                     </connections>

@@ -12,11 +12,24 @@ public struct Poll: FeedableData {
 
     let question: String
     let answers: [String]
+    let id: Int
 
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = PollCell.generateCellFor(tableView, at: indexPath) as! PollCell
         cell.questionText.text = question
+        cell.poll = self
         return cell
+    }
+
+    public func needsToBeAnswered() -> Bool? {
+        let didFindID = CLPUser.shared().answeredPolls?.contains(self.id)
+        if didFindID != nil {return !didFindID!}
+        return didFindID
+    }
+
+    public func markAsAnswered(with response: String) {
+        CLPUser.shared().addToAnsweredPolls(poll: id)
+        Database.shared().sendPollResults(self, response: response)
     }
 
 }

@@ -21,6 +21,8 @@
 		C4561F2A22B0A45A00358678 /* ProfilableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2922B0A45A00358678 /* ProfilableCell.swift */; };
 		C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B75DA225998DA006ACDA0 /* SignInViewController.swift */; };
 		C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4759FC72224C58C002F27AF /* FeedableData.swift */; };
+		C4783B1F22DC325800483EC6 /* PollCellAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4783B1D22DC325800483EC6 /* PollCellAnswerCell.swift */; };
+		C4783B2022DC325800483EC6 /* PollCellAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4783B1E22DC325800483EC6 /* PollCellAnswerCell.xib */; };
 		C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */; };
 		C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */; };
 		C4CA5A91220E0DB900ECF768 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */; };
@@ -65,6 +67,8 @@
 		C4561F2922B0A45A00358678 /* ProfilableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilableCell.swift; sourceTree = "<group>"; };
 		C45B75DA225998DA006ACDA0 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C4759FC72224C58C002F27AF /* FeedableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableData.swift; sourceTree = "<group>"; };
+		C4783B1D22DC325800483EC6 /* PollCellAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCellAnswerCell.swift; sourceTree = "<group>"; };
+		C4783B1E22DC325800483EC6 /* PollCellAnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PollCellAnswerCell.xib; sourceTree = "<group>"; };
 		C4CA5A89220E0DB900ECF768 /* Coury Leadership Program.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coury Leadership Program.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +137,17 @@
 				C4561F2722B0A3DB00358678 /* ProfilableData.swift */,
 			);
 			path = "Profile Item Models";
+			sourceTree = "<group>";
+		};
+		C4783B1C22DC322100483EC6 /* Poll Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C4CA5AA9220E178700ECF768 /* PollCell.swift */,
+				C4CA5AAA220E178700ECF768 /* PollCell.xib */,
+				C4783B1D22DC325800483EC6 /* PollCellAnswerCell.swift */,
+				C4783B1E22DC325800483EC6 /* PollCellAnswerCell.xib */,
+			);
+			name = "Poll Cell";
 			sourceTree = "<group>";
 		};
 		C4CA5A80220E0DB900ECF768 = {
@@ -209,8 +224,7 @@
 			children = (
 				C4CA5AA5220E175C00ECF768 /* CalendarCell.swift */,
 				C4CA5AA6220E175C00ECF768 /* CalendarCell.xib */,
-				C4CA5AA9220E178700ECF768 /* PollCell.swift */,
-				C4CA5AAA220E178700ECF768 /* PollCell.xib */,
+				C4783B1C22DC322100483EC6 /* Poll Cell */,
 				C4CA5AAD220E17C900ECF768 /* LinkCell.swift */,
 				C4CA5AAE220E17C900ECF768 /* LinkCell.xib */,
 				C4CA5AB1220E17EA00ECF768 /* ImageCell.swift */,
@@ -315,6 +329,7 @@
 				C4CA5AB0220E17C900ECF768 /* LinkCell.xib in Resources */,
 				C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */,
 				C4561F2422B0A20E00358678 /* StrengthCell.xib in Resources */,
+				C4783B2022DC325800483EC6 /* PollCellAnswerCell.xib in Resources */,
 				66EB55182211306F004FF186 /* ValueCell.xib in Resources */,
 				C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */,
 				C420C3E122C407DF00D2E8A9 /* GoogleService-Info.plist in Resources */,
@@ -414,6 +429,7 @@
 				66EB55172211306F004FF186 /* ValueCell.swift in Sources */,
 				C418793C22615B4A00C6DC84 /* Database.swift in Sources */,
 				C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */,
+				C4783B1F22DC325800483EC6 /* PollCellAnswerCell.swift in Sources */,
 				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
