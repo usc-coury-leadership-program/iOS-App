@@ -136,16 +136,29 @@ public class Database {
                 
                 for entry in data {
                     let dateString = (entry.value as! String)
-                    let date = dateFormatter.date(from: dateString)!
-                    let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
-                    events.append(calEvent)
+                    if let date = dateFormatter.date(from: dateString) {
+                        let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
+                        events.append(calEvent)
+                    }else {
+                        dateFormatter.dateFormat = "MMM d yyyy"
+                        if let date = dateFormatter.date(from: dateString) {
+                            let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
+                            events.append(calEvent)
+                        }else {
+                            dateFormatter.dateFormat = "MMM yyyy"
+                            if let date = dateFormatter.date(from: dateString) {
+                                let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
+                                events.append(calEvent)
+                            }else {continue}
+                        }
+                    }
                 }
 
                 let sorted = events.sorted() {(event0, event1) -> Bool in
                     event0.date.compare(event1.date) == .orderedAscending
                 }
                 callback(Calendar(events: sorted))
-                
+
             }else {
                 // Could not find anything, so just return an empty array
                 print("Calendar document does not exist")
