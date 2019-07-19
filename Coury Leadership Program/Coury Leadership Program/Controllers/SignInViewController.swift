@@ -59,10 +59,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let cell = cell as? ValueCell else {return}
-//        cell.valueName.adjustsFontSizeToFitWidth = true
         (cell as? ProfilableCell)?.setHas(to: cell.isSelected)
-        //(cell as? ValueCell)?.valueName.isHidden = false
     }
 
     //selecting
@@ -77,7 +74,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
                     return VALUE_LIST[indexPath.row].name
                 })
                 selectingType = .strengths
-                helpText.text = "...and now your top 5 strengths:"
+                helpText.text = "Great! Now your top 5 Clifton Strengths:"
                 collectionView.reloadData()
 
 
@@ -100,8 +97,9 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
     func engageCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "ValueCell", bundle: nil), forCellWithReuseIdentifier: "ValueCell")
-        collectionView.register(UINib(nibName: "StrengthCell", bundle: nil), forCellWithReuseIdentifier: "StrengthCell")
+
+        ValueCell.registerWith(collectionView)
+        StrengthCell.registerWith(collectionView)
 
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 20.0, right: 0.0)

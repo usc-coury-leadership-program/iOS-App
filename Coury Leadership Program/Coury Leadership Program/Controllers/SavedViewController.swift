@@ -39,7 +39,6 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             let contentIndex = CLPUser.shared().savedContent![indexPath.row]
-            if contentIndex > Database.shared().currentFeed.content.count {return 30}
             let content = Database.shared().currentFeed.content[contentIndex]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
@@ -54,7 +53,9 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 1}
     /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
-        case 0: return CLPUser.shared().savedContent?.count ?? 0
+        case 0:
+            let savedCount = CLPUser.shared().savedContent?.count ?? 0
+            return savedCount <= Database.shared().currentFeed.content.count ? savedCount : 0
         default: return 0
         }
     }

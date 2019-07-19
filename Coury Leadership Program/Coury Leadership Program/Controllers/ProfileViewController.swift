@@ -27,20 +27,15 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         engageCollectionView()
-
-        nameLabel.text = ""
         nameLabel.adjustsFontSizeToFitWidth = true
-        collectionSizeLabel.text = ""
+
+        updateUserSpecificText()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            self.nameLabel.text = user?.displayName
-            self.nameLabel.setNeedsLayout()
-            let userScore = (CLPUser.shared().savedContent?.count ?? 0) + (CLPUser.shared().answeredPolls?.count ?? 0)
-            self.collectionSizeLabel.text = String(userScore)
-            self.collectionSizeLabel.setNeedsLayout()
+            self.updateUserSpecificText()
             self.collectionView.reloadData()
         }
         //engageMotionShadows()
@@ -50,6 +45,12 @@ class ProfileViewController: UIViewController {
         super.viewWillDisappear(animated)
         if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
 //        disengageMotionShadows()
+    }
+
+    func updateUserSpecificText() {
+        nameLabel.text = CLPUser.shared().name
+        let userScore = (CLPUser.shared().savedContent?.count ?? 0) + (CLPUser.shared().answeredPolls?.count ?? 0)
+        collectionSizeLabel.text = String(userScore)
     }
 
     @IBAction func onSettingsClick(_ sender: Any) {AppDelegate.signOut()}

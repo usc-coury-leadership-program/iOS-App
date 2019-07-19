@@ -124,7 +124,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="52" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iz-M1-WFc">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iz-M1-WFc">
                                             <rect key="frame" x="295" y="76" width="64" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="Mva-1C-z0J"/>
@@ -134,7 +134,7 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-ar-FKN">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-ar-FKN">
                                             <rect key="frame" x="16" y="81" width="275" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="6CN-qM-VWf"/>
@@ -161,8 +161,7 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <state key="normal" title="About"/>
                                             <connections>
-                                                <action selector="onSettingsClick:" destination="RTf-vq-K0W" eventType="touchUpInside" id="QGR-94-0l5"/>
-                                                <segue destination="Po8-TK-ytm" kind="show" identifier="AboutSegue" id="3Z4-e3-fxO"/>
+                                                <segue destination="Po8-TK-ytm" kind="showDetail" identifier="AboutSegue" id="3Z4-e3-fxO"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -452,7 +451,7 @@ Profile - Icon made by Lucy G from www.flaticon.com</string>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="29"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your top 5 values:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGj-ES-Roo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your top 5 VIA Stengths:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGj-ES-Roo">
                                 <rect key="frame" x="16" y="119" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cbw-vq-Ald"/>
