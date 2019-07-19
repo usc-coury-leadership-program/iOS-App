@@ -39,7 +39,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Feed" image="first" id="acW-dT-cKf" userLabel="Feed"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="Feed Icon" id="acW-dT-cKf" userLabel="Feed"/>
                     <connections>
                         <outlet property="tableView" destination="xsa-OG-cBN" id="PPy-jX-wQn"/>
                         <segue destination="FeX-Ig-enU" kind="presentation" identifier="SignInSegue" id="818-gU-nKK"/>
@@ -86,7 +86,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Saved" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Improve" image="Wall Icon" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="tableView" destination="VT6-Dd-Mv7" id="mx9-jA-iaN"/>
                     </connections>
@@ -200,7 +200,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YLM-GW-T8P"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="first" id="VuW-cd-136"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="Profile Icon" id="VuW-cd-136"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionSizeLabel" destination="6iz-M1-WFc" id="NvB-Ls-fYI"/>
@@ -546,7 +546,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="Feed Icon" width="22" height="22"/>
+        <image name="Profile Icon" width="22" height="22"/>
+        <image name="Wall Icon" width="22" height="22"/>
     </resources>
 </document>
