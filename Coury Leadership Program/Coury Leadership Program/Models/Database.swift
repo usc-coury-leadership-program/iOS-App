@@ -106,7 +106,7 @@ public class Database {
                     result.append(quoteStruct)
                 }
 
-                self.currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: result)
+                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: result)
                 callback(result)
                 
             }else {
@@ -157,6 +157,7 @@ public class Database {
                 let sorted = events.sorted() {(event0, event1) -> Bool in
                     event0.date.compare(event1.date) == .orderedAscending
                 }
+                self.currentFeed = Feed(calendar: Calendar(events:sorted), polls: self.currentFeed.polls, content: self.currentFeed.content)
                 callback(Calendar(events: sorted))
 
             }else {
@@ -187,6 +188,7 @@ public class Database {
                     polls.append(Poll(question: question.key.retrievePeriods(), answers: answers, id: i))
                 }
 
+                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: polls, content: self.currentFeed.content)
                 callback(polls)
                 
             }else {

@@ -99,3 +99,30 @@ let VALUE_LIST: [Value] = [
     If Teamwork is your strength, you excel as a member of a group. You are a loyal and dedicated teammate, you always do your share, and you work hard for the success of your group.
     """)
 ]
+
+let CURIOSITY_LIBRARY = [
+"What are you most curious about? Were you a curious child and adolescent?",
+"How has your curiosity been affected growing up? If it has changed over time, why is that?",
+"How does curiosity play out across the different domains of your life – family, socializing, work, school?",
+"Try a new food or going to a new restaurant to explore different foods and places",
+"Drive a different route home to explore a new area near where you live",
+"Do an online search for community activities going on around you and take notice of what piques your curiosity most",
+"Consider an activity you dislike. Pay attention to 3 novel features of this activity while you do it",
+"Practice active curiosity and explore your current environment, paying attention to anything you may often ignore or take for granted",
+"Try asking “why?” more often on your team or with your subordinates and supervisors to express more curiosity at work. Don’t take what you’re told at face value if it doesn’t make complete sense to you",
+]
+
+//TODO add all value libraries from via website
+
+
+let CREATIVITY_LIBRARY = [
+"What holds you back from trying to be creative?",
+"How do real or anticipated reactions of other people affect your creative efforts?",
+"How do you use creativity to help solve your own life problems or those of your family, friends, and colleagues?",
+"Explore a creative solution to a life difficulty or challenge that’s expressed by a family member or a friend",
+"At a work meeting, when a new topic comes up, brainstorm several ideas with the group to reflect on or discuss together",
+"Write an article, essay, short story, or poem, make a drawing or painting, and share it with others",
+"When facing a problem, define the issue clearly and then practice divergent thinking",
+"Set time aside each day for creative thinking or creative activities",
+"With one of your typical work tasks, think of a new and unique way to complete it"
+]

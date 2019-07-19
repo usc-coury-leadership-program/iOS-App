@@ -22,10 +22,28 @@ public class CLPUser {
         didSet {if id != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
     }
     public private(set) var values: [String]? {
-        didSet {if values != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+        didSet {
+            if values != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}
+            if (values != nil) && (!(oldValue?.elementsEqual(values!) ?? false)) {
+                for value in values! {
+                    Messaging.messaging().subscribe(toTopic: value) { error in
+                        print("Subscribed to \(value) notification topic")
+                    }
+                }
+            }
+        }
     }
     public private(set) var strengths: [String]? {
-        didSet {if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+        didSet {
+            if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}
+            if (strengths != nil) && (!(oldValue?.elementsEqual(strengths!) ?? false)) {
+                for strength in strengths! {
+                    Messaging.messaging().subscribe(toTopic: strength) { error in
+                        print("Subscribed to \(strength) notification topic")
+                    }
+                }
+            }
+        }
     }
     public private(set) var savedContent: [Int]? {
         didSet {if savedContent != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}

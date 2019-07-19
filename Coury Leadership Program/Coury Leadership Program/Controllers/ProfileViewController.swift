@@ -38,7 +38,8 @@ class ProfileViewController: UIViewController {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             self.nameLabel.text = user?.displayName
             self.nameLabel.setNeedsLayout()
-            self.collectionSizeLabel.text = String(CLPUser.shared().savedContent?.count ?? 0)
+            let userScore = (CLPUser.shared().savedContent?.count ?? 0) + (CLPUser.shared().answeredPolls?.count ?? 0)
+            self.collectionSizeLabel.text = String(userScore)
             self.collectionSizeLabel.setNeedsLayout()
             self.collectionView.reloadData()
         }
