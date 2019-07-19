@@ -143,11 +143,26 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9k-fr-kCc">
-                                            <rect key="frame" x="16" y="38" width="343" height="30"/>
+                                            <rect key="frame" x="259" y="38" width="100" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="YF4-YF-tTx"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <state key="normal" title="Sign Out"/>
                                             <connections>
                                                 <action selector="onSettingsClick:" destination="RTf-vq-K0W" eventType="touchUpInside" id="5ZA-0f-fws"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pao-WC-OlV">
+                                            <rect key="frame" x="16" y="38" width="100" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="enE-Bn-06G"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="About"/>
+                                            <connections>
+                                                <action selector="onSettingsClick:" destination="RTf-vq-K0W" eventType="touchUpInside" id="QGR-94-0l5"/>
+                                                <segue destination="Po8-TK-ytm" kind="show" identifier="AboutSegue" id="3Z4-e3-fxO"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -155,11 +170,12 @@
                                         <constraint firstAttribute="trailing" secondItem="e9k-fr-kCc" secondAttribute="trailing" constant="16" id="Dn4-Za-6Bd"/>
                                         <constraint firstItem="6iz-M1-WFc" firstAttribute="leading" secondItem="h5u-ar-FKN" secondAttribute="trailing" constant="4" id="L8F-RW-B9m"/>
                                         <constraint firstItem="6iz-M1-WFc" firstAttribute="top" secondItem="e9k-fr-kCc" secondAttribute="bottom" constant="8" id="MXI-db-5DP"/>
-                                        <constraint firstItem="e9k-fr-kCc" firstAttribute="leading" secondItem="TDd-cX-lVT" secondAttribute="leading" constant="16" id="WMq-iQ-cg0"/>
                                         <constraint firstAttribute="trailing" secondItem="6iz-M1-WFc" secondAttribute="trailing" constant="16" id="dfM-QG-uuN"/>
+                                        <constraint firstItem="pao-WC-OlV" firstAttribute="leading" secondItem="TDd-cX-lVT" secondAttribute="leading" constant="16" id="kGH-7e-RQF"/>
                                         <constraint firstItem="h5u-ar-FKN" firstAttribute="leading" secondItem="TDd-cX-lVT" secondAttribute="leading" constant="16" id="lmz-pg-IYg"/>
                                         <constraint firstAttribute="bottom" secondItem="6iz-M1-WFc" secondAttribute="bottom" constant="8" id="vgF-HA-PGa"/>
                                         <constraint firstItem="h5u-ar-FKN" firstAttribute="centerY" secondItem="6iz-M1-WFc" secondAttribute="centerY" id="yiM-G9-1RW"/>
+                                        <constraint firstItem="pao-WC-OlV" firstAttribute="bottom" secondItem="e9k-fr-kCc" secondAttribute="bottom" id="zCj-q1-5FV"/>
                                     </constraints>
                                 </view>
                                 <constraints>
@@ -224,6 +240,65 @@
                 </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2393" y="0.0"/>
+        </scene>
+        <!--About View Controller-->
+        <scene sceneID="gGb-Yj-6kK">
+            <objects>
+                <viewController id="Po8-TK-ytm" customClass="AboutViewController" customModule="Coury_Leadership_Program" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="I8E-Y1-Dx5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAN-Va-q4K">
+                                <rect key="frame" x="16" y="716" width="343" height="46"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="Y9k-SL-9P0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="CLOSE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onReadMoreButtonPress:" destination="REo-dz-LoZ" eventType="touchUpInside" id="lc1-eU-y8x"/>
+                                    <segue destination="8mH-Qi-2HX" kind="unwind" unwindAction="unwindToProfile:" id="tQA-4c-J9q"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6ly-LY-W6b">
+                                <rect key="frame" x="16" y="44" width="343" height="640"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Icon Attributions:
+Feed - Icon Made by Freepic from www.flaticon.com
+Improve - Icon made by Good Ware from www.flaticon.com
+Profile - Icon made by Lucy G from www.flaticon.com</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jAN-Va-q4K" firstAttribute="leading" secondItem="2fP-uO-rUU" secondAttribute="leading" constant="16" id="42c-2Y-9OK"/>
+                            <constraint firstItem="6ly-LY-W6b" firstAttribute="leading" secondItem="2fP-uO-rUU" secondAttribute="leading" constant="16" id="88z-lV-rse"/>
+                            <constraint firstItem="6ly-LY-W6b" firstAttribute="top" secondItem="2fP-uO-rUU" secondAttribute="top" id="VbG-Wf-IdL"/>
+                            <constraint firstItem="2fP-uO-rUU" firstAttribute="bottom" secondItem="jAN-Va-q4K" secondAttribute="bottom" constant="16" id="kyV-lS-sjB"/>
+                            <constraint firstItem="2fP-uO-rUU" firstAttribute="trailing" secondItem="6ly-LY-W6b" secondAttribute="trailing" constant="16" id="l5c-Xl-HOg"/>
+                            <constraint firstItem="jAN-Va-q4K" firstAttribute="top" secondItem="6ly-LY-W6b" secondAttribute="bottom" constant="32" id="u51-yT-4bX"/>
+                            <constraint firstItem="2fP-uO-rUU" firstAttribute="trailing" secondItem="jAN-Va-q4K" secondAttribute="trailing" constant="16" id="wVx-Kj-8gS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2fP-uO-rUU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fgT-aG-2Rk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="8mH-Qi-2HX" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3558" y="0.0"/>
         </scene>
         <!--Value Detail View Controller-->
         <scene sceneID="S89-ic-F7u">
@@ -410,7 +485,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbv-DQ-0bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-18.399999999999999" y="-756.6502463054187"/>
+            <point key="canvasLocation" x="-241" y="-757"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -429,7 +504,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-1159" y="0.0"/>
         </scene>
         <!--Strength Detail View Controller-->
         <scene sceneID="itQ-ql-2YF">

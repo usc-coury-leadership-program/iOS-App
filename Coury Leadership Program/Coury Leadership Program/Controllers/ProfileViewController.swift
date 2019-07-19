@@ -74,6 +74,7 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        if segue.identifier == "AboutSegue" {return}
 
         let toVC = segue.destination
         

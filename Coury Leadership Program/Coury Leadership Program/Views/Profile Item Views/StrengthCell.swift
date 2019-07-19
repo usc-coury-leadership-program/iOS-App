@@ -18,12 +18,8 @@ class StrengthCell: UICollectionViewCell, ProfilableCell {
 
     public var hasThisStrength: Bool = false {
         didSet {
-            //valueName.backgroundColor = self.hasThisValue ? ValueCell.prettyBlueColor : UIColor.lightGray.withAlphaComponent(0.75)
-            //contentView.layer.borderColor = self.hasThisValue ? ValueCell.prettyBlueColor.cgColor : UIColor.lightGray.withAlphaComponent(0.75).cgColor
-            //contentView.layer.borderWidth = hasThisStrength ? 3 : 0
             contentView.backgroundColor = hasThisStrength ? strength?.domain.color() : strength?.domain.color().withAlphaComponent(0.5)
-//            strengthName.textColor = hasThisStrength ? .white : UIColor(cgColor: contentView.layer.borderColor!)
-//            contentView.backgroundColor = self.hasThisStrength ?  : UIColor.lightGray.withAlphaComponent(0.75)
+            transform = hasThisStrength ? CGAffineTransform.identity : CGAffineTransform(scaleX: 0.9, y: 0.9)
         }
     }
     func setHas(to: Bool) {hasThisStrength = to}
