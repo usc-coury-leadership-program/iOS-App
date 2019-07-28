@@ -16,14 +16,14 @@ public class CLPUser {
     private var isBulkUpdating: Bool = false
 
     public private(set) var name: String? {
-        didSet {if name != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+        didSet {if name != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
     }
     public private(set) var id: String? {
-        didSet {if id != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+        didSet {if id != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
     }
     public private(set) var values: [String]? {
         didSet {
-            if values != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}
+            if values != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}
             if (values != nil) && (!(oldValue?.elementsEqual(values!) ?? false)) {
                 for value in values! {
                     Messaging.messaging().subscribe(toTopic: value) { error in
@@ -35,7 +35,7 @@ public class CLPUser {
     }
     public private(set) var strengths: [String]? {
         didSet {
-            if strengths != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}
+            if strengths != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}
             if (strengths != nil) && (!(oldValue?.elementsEqual(strengths!) ?? false)) {
                 for strength in strengths! {
                     Messaging.messaging().subscribe(toTopic: strength) { error in
@@ -46,10 +46,10 @@ public class CLPUser {
         }
     }
     public private(set) var savedContent: [Int]? {
-        didSet {if savedContent != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+        didSet {if savedContent != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
     }
     public private(set) var answeredPolls: [Int]? {
-        didSet {if answeredPolls != nil && !isBulkUpdating {Database.shared().updateUserProfile(self)}}
+        didSet {if answeredPolls != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
     }
 
     private static var sharedUser: CLPUser = {return CLPUser()}()
@@ -70,7 +70,7 @@ public class CLPUser {
         self.savedContent = savedContent
         self.answeredPolls = answeredPolls
         isBulkUpdating = false
-        if !fromDatabase {Database.shared().updateUserProfile(self)}
+        if !fromDatabase {Database.shared.updateUserProfile(self)}
     }
 
     public func updateInformation(from googleUser: User) {

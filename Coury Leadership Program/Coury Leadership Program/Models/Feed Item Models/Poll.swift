@@ -29,7 +29,12 @@ public struct Poll: FeedableData {
 
     public func markAsAnswered(with response: String) {
         CLPUser.shared().addToAnsweredPolls(poll: id)
-        Database.shared().sendPollResults(self, response: response)
+        Database.shared.sendPollResults(self, response: response)
     }
+}
 
+extension Array where Element == Poll {
+    var pollsToAnswer: [Poll] {
+        return self.filter({$0.needsToBeAnswered() ?? false})
+    }
 }

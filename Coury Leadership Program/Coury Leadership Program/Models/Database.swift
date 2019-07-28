@@ -11,72 +11,67 @@ import Firebase
 import GoogleSignIn
 
 public class Database {
-    
-    private var signedIn: Bool
-    private var lastUploadedProfile: [String : Any] = [:]
-    private var storage: Storage
-    
-    /*
-    private var signInStateChangeCallbacks: Dictionary<String, (Bool) -> Void> = [:]
-    
-    private var contentRetrievedCallbacks: Dictionary<String, ([FeedableData]) -> Void> = [:]
-    private var calendarRetrievedCallbacks: Dictionary<String, (Calendar) -> Void> = [:]
-    private var pollsRetrievedCallbacks: Dictionary<String, ([Poll]) -> Void> = [:]
-    */
-    
-    
-    
-    // The shared instance
-    private static var sharedDB: Database = {
-        let db: Database = Database()
-        return db
+    // shared instance
+    public private(set) static var shared: Database = {
+        return Database()
     }()
-    
-    // The constructor
-    private init() {
-        if let _ = Auth.auth().currentUser {
-            signedIn = true
-        } else {
-            signedIn = false
-        }
-        storage = Storage.storage()
+
+    // private static properties
+    private static let storage = Storage.storage()
+    // private instance properties
+    private var lastUploadedProfile: [String : Any] = [:]
+    private var calendarGotSetCallbacks: [() -> Void] = []
+    private var pollsGotSetCallbacks: [() -> Void] = []
+    private var contentGotSetCallbacks: [() -> Void] = []
+    // public instance properties
+    public private(set) var calendar = Calendar.empty {
+        didSet {for callback in calendarGotSetCallbacks {callback()}}
     }
-    
-    // Shared instance accessor
-    public static func shared() -> Database {
-        return sharedDB
+    public private(set) var polls: [Poll] = [] {
+        didSet {for callback in pollsGotSetCallbacks {callback()}}
     }
-    
-    // Modify sign-in state
-    public func signIn() {
-        signedIn = true
+    public private(set) var content: [FeedableData] = [] {
+        didSet {for callback in contentGotSetCallbacks {callback()}}
     }
-    
-    public func signOut() {
-        signedIn = false
+    public var feed: Feed {
+        return Feed(calendar: calendar, polls: polls, content: content)
     }
 
-    public private(set) var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
+    // private constructor
+    private init() {
+    }
+
+    public func registerCalendarCallback(_ callback: @escaping () -> Void) -> Int {
+        calendarGotSetCallbacks.append(callback)
+        return calendarGotSetCallbacks.count - 1
+    }
+    public func registerPollsCallback(_ callback: @escaping () -> Void) -> Int {
+        pollsGotSetCallbacks.append(callback)
+        return pollsGotSetCallbacks.count - 1
+    }
+    public func registerContentCallback(_ callback: @escaping () -> Void) -> Int {
+        contentGotSetCallbacks.append(callback)
+        return contentGotSetCallbacks.count - 1
+    }
+
+    public func fetch() {
+        fetchCalendar()
+        fetchPolls()
+        fetchContent()
+    }
     
-    public func fetchContent(andRun callback: @escaping ([FeedableData]) -> Void) {
-        
+    public func fetchContent() {
         Firestore.firestore().collection("Feed").document("Content").getDocument { (document, error) in
             
             if let document = document, document.exists {
-                // Generate the appropriate FeedableData Items and send them to the callback
-                var result: [FeedableData] = []
-                
                 guard let data = document.data() else {
-                    // Could not find anything, so just return an empty array
                     print("Content document has no data")
-                    callback(result)
                     return
                 }
+                var result: [FeedableData] = []
                 
                 guard let links: [String] = data["Links"] as? [String] else {
-                    // Could not find links
                     print("Could not find links!")
-                    callback(result)
                     return
                 }
                 for link in links {
@@ -85,20 +80,16 @@ public class Database {
                 }
 
                 guard let images: [String] = data["Images"] as? [String] else {
-                    // Could not find any images
                     print("Could not find images!")
-                    callback(result)
                     return
                 }
                 for image in images {
-                    let storageRef = self.storage.reference(withPath: "Feed/Images/" + image)
+                    let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
                     result.append(Image(imageReference: storageRef))
                 }
                 
                 guard let quotes: [Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
-                    // Could not find quotes
                     print("Could not finds quotes")
-                    callback(result)
                     return
                 }
                 for quote in quotes {
@@ -106,28 +97,17 @@ public class Database {
                     result.append(quoteStruct)
                 }
 
-                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: result)
-                callback(result)
-                
-            }else {
-                // Could not find anything, so just return an empty array
-                print("Content document does not exist")
-                callback([])
-                return
+                self.content = result
             }
-            
-
         }
     }
     
-    public func fetchCalendar(andRun callback: @escaping (Calendar) -> Void) {
+    public func fetchCalendar() {
         Firestore.firestore().collection("Feed").document("Calendar").getDocument { (document, error) in
             
             if let document = document, document.exists {
                 guard let data = document.data() else {
-                    // Could not find anything, so just return an empty array
                     print("Calendar document has no data")
-                    callback(Calendar(events:[]))
                     return
                 }
                 let dateFormatter = DateFormatter()
@@ -157,45 +137,27 @@ public class Database {
                 let sorted = events.sorted() {(event0, event1) -> Bool in
                     event0.date.compare(event1.date) == .orderedAscending
                 }
-                self.currentFeed = Feed(calendar: Calendar(events:sorted), polls: self.currentFeed.polls, content: self.currentFeed.content)
-                callback(Calendar(events: sorted))
-
-            }else {
-                // Could not find anything, so just return an empty array
-                print("Calendar document does not exist")
-                callback(Calendar(events: []))
-                return
+                self.calendar = Calendar(events: sorted)
             }
-            
-            
         }
     }
     
-    public func fetchPolls(andRun callback: @escaping ([Poll]) -> Void) {
+    public func fetchPolls() {
         Firestore.firestore().collection("Feed").document("Polls").getDocument { (document, error) in
             
             if let document = document, document.exists {
                 guard let data = document.data() else {
-                    // Could not find anything, so just return an empty array
                     print("Polls document has no data")
-                    callback([])
                     return
                 }
-                
                 var polls: [Poll] = []
+
                 for (i, question) in data.enumerated() {
                     let answers = (question.value as! [String]).map({$0.retrievePeriods()})
                     polls.append(Poll(question: question.key.retrievePeriods(), answers: answers, id: i))
                 }
 
-                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: polls, content: self.currentFeed.content)
-                callback(polls)
-                
-            }else {
-                // Could not find anything, so just return an empty array
-                print("Polls document does not exist")
-                callback([])
-                return
+                self.polls = polls
             }
         }
     }

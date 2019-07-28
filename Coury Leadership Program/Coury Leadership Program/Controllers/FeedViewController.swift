@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreMotion
 import Firebase
 import GoogleSignIn
 
@@ -15,17 +14,20 @@ class FeedViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
 
-    private var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
+    //private var currentFeed = Feed(calendar: Calendar(events: []), polls: [], content: [])
     private var currentOrder: [Int]?
     private var gotCalendar = false
     private var gotPolls = false
     private var gotContent = false
     var handle: AuthStateDidChangeListenerHandle?
 
+    var feedFetchingTimers: [Timer] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
+        registerFeedCallbacks()
     }
 
     override func viewDidLayoutSubviews() {
@@ -38,6 +40,7 @@ class FeedViewController: UIViewController {
         if CLPUser.shared().id != nil {
             handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFirebaseConnectedComponents()}
             self.updateFirebaseConnectedComponents()
+            self.startFetchingFeed()
         }
         else if !CLPUser.shared().isSigningIn {presentSignInVC()}
     }
@@ -45,48 +48,58 @@ class FeedViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
-        gotCalendar = false
-        gotPolls = false
-        gotContent = false
+        self.stopFetchingFeed()
+//        gotCalendar = false
+//        gotPolls = false
+//        gotContent = false
     }
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updateFirebaseConnectedComponents() {
-        Database.shared().fetchUserProfile(CLPUser.shared()) {
+        Database.shared.fetchUserProfile(CLPUser.shared()) {
             self.updatePolls()
             self.updateSaved()
         }
-        updateFeed()
     }
 
     func updatePolls() {self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
     func updateSaved() {self.tableView.layoutSubviews()}
-
-    func updateFeed() {
-        if currentFeed.calendar.events.count == 0 {
-            Database.shared().fetchCalendar() {(calendar) in
-                self.currentFeed = Feed(calendar: calendar, polls: self.currentFeed.polls, content: self.currentFeed.content)
-                self.gotCalendar = true
-                self.updateTableView()
-            }
-        }else {self.gotCalendar = true}
-
-        if currentFeed.polls.count == 0 {
-            Database.shared().fetchPolls() {(polls) in
-                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: polls, content: self.currentFeed.content)
-                self.gotPolls = true
-                self.updateTableView()
-            }
-        }else {self.gotPolls = true}
-
-        if currentFeed.content.count == 0 {
-            Database.shared().fetchContent() {(content) in
-                self.currentFeed = Feed(calendar: self.currentFeed.calendar, polls: self.currentFeed.polls, content: content)
-                self.gotContent = true
-                self.updateTableView()
-            }
-        }else {self.gotContent = true}
+    func startFetchingFeed() {
+        stopFetchingFeed()
+        let calendarTimer = Timer(timeInterval: 1.0, repeats: true) {timer in
+            if self.gotCalendar {timer.invalidate(); return}
+            Database.shared.fetchCalendar()
+        }
+        let pollTimer = Timer(timeInterval: 1.0, repeats: true) {timer in
+            if self.gotPolls {timer.invalidate(); return}
+            Database.shared.fetchPolls()
+        }
+        let contentTimer = Timer(timeInterval: 1.0, repeats: true) {timer in
+            if self.gotContent {timer.invalidate(); return}
+            Database.shared.fetchContent()
+        }
+        RunLoop.current.add(calendarTimer, forMode: .common)
+        RunLoop.current.add(pollTimer, forMode: .common)
+        RunLoop.current.add(contentTimer, forMode: .common)
+        feedFetchingTimers = [calendarTimer, pollTimer, contentTimer]
+    }
+    func stopFetchingFeed() {
+        for timer in feedFetchingTimers {timer.invalidate()}
+    }
+    func registerFeedCallbacks() {// TODO callback ids so that we can remove them later
+        Database.shared.registerCalendarCallback {
+            self.gotCalendar = true
+            self.updateTableView()
+        }
+        Database.shared.registerPollsCallback {
+            self.gotPolls = true
+            self.updateTableView()
+        }
+        Database.shared.registerContentCallback {
+            self.gotContent = true
+            self.updateTableView()
+        }
     }
 
 
@@ -148,7 +161,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
         case 2:
-            let content = currentFeed.content[shuffled(indexPath)]
+            let content = Database.shared.content[shuffled(indexPath)]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
             else if let _ = content as? Quote {return QuoteCell.HEIGHT}
@@ -166,8 +179,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return 1
-        case 1: return currentFeed.pollsToAnswer().count
-        case 2: return currentFeed.content.count
+        case 1: return Database.shared.polls.pollsToAnswer.count//currentFeed.pollsToAnswer().count
+        case 2: return Database.shared.content.count//currentFeed.content.count
         default: return 0
         }
     }
@@ -175,9 +188,9 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
-        case 0: return currentFeed.calendar.generateCellFor(tableView, at: indexPath)
-        case 1: return currentFeed.pollsToAnswer()[indexPath.row].generateCellFor(tableView, at: indexPath)
-        case 2: return currentFeed.content[shuffled(indexPath)].generateCellFor(tableView, at: indexPath)
+        case 0: return Database.shared.calendar.generateCellFor(tableView, at: indexPath)
+        case 1: return Database.shared.polls.pollsToAnswer[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 2: return Database.shared.content[shuffled(indexPath)].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }
     }
@@ -205,7 +218,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
 
     func updateTableView() {
         if gotCalendar && gotPolls && gotContent {
-            if currentOrder == nil {currentOrder = ([Int](0...currentFeed.content.count - 1)).shuffled()}
+            if currentOrder == nil {currentOrder = ([Int](0...Database.shared.content.count - 1)).shuffled()}
             print("Updated table view")
             tableView.reloadData()
             tableView.beginUpdates()
@@ -214,22 +227,4 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func shuffled(_ indexPath: IndexPath) -> Int {return currentOrder?[indexPath.row] ?? indexPath.row}
-}
-
-extension FeedViewController {
-
-//    private func engageMotionShadows() {
-//        if motionManager.isDeviceMotionAvailable {
-//            motionManager.deviceMotionUpdateInterval = 0.02
-//            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-//                guard let motion = motion else {return}
-//                for cell in self.tableView.visibleCells {
-//                    (cell as? FeedableCell)?.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
-//                }
-//            }
-//        }
-//    }
-//
-//    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
-
 }

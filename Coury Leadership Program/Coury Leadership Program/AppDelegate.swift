@@ -78,14 +78,12 @@ extension AppDelegate: GIDSignInDelegate {
 
             CLPUser.shared().isSigningIn = false
             CLPUser.shared().updateInformation(from: authResult!.user)
-            Database.shared().signIn()
-            Database.shared().fetchUserProfile(CLPUser.shared(), andRun: nil)
+            Database.shared.fetchUserProfile(CLPUser.shared(), andRun: nil)
         }
     }
 
     // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        Database.shared().signOut()
         CLPUser.shared().makeAllNil()
 
         do {try Auth.auth().signOut()}

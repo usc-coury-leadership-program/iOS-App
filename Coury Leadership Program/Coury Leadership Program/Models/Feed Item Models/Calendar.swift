@@ -10,6 +10,8 @@ import UIKit
 
 public struct Calendar: FeedableData {
 
+    public static let empty: Calendar = Calendar(events: [])
+
     let events: [CalendarEvent]
 
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
