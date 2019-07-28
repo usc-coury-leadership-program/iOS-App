@@ -21,7 +21,6 @@ class FeedViewController: UIViewController {
     private var gotPolls = false
     private var gotContent = false
     var handle: AuthStateDidChangeListenerHandle?
-    private let motionManager = CMMotionManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +40,10 @@ class FeedViewController: UIViewController {
             self.updateFirebaseConnectedComponents()
         }
         else if !CLPUser.shared().isSigningIn {presentSignInVC()}
-        engageMotionShadows()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        disengageMotionShadows()
         if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
         gotCalendar = false
         gotPolls = false
@@ -221,18 +218,18 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension FeedViewController {
 
-    private func engageMotionShadows() {
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 0.02
-            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-                guard let motion = motion else {return}
-                for cell in self.tableView.visibleCells {
-                    (cell as? FeedableCell)?.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
-                }
-            }
-        }
-    }
-
-    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
+//    private func engageMotionShadows() {
+//        if motionManager.isDeviceMotionAvailable {
+//            motionManager.deviceMotionUpdateInterval = 0.02
+//            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
+//                guard let motion = motion else {return}
+//                for cell in self.tableView.visibleCells {
+//                    (cell as? FeedableCell)?.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)
+//                }
+//            }
+//        }
+//    }
+//
+//    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
 
 }

@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController {
     
     let collectionViewColumnCount: CGFloat = 3
     var handle: AuthStateDidChangeListenerHandle?
-    private let motionManager = CMMotionManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,16 +179,16 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 
 extension ProfileViewController {
 
-    private func engageMotionShadows() {
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 0.02
-            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-                guard let motion = motion else {return}
-                for cell in self.collectionView.visibleCells {cell.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)}
-            }
-        }
-    }
-
-    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
+//    private func engageMotionShadows() {
+//        if motionManager.isDeviceMotionAvailable {
+//            motionManager.deviceMotionUpdateInterval = 0.02
+//            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
+//                guard let motion = motion else {return}
+//                for cell in self.collectionView.visibleCells {cell.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)}
+//            }
+//        }
+//    }
+//
+//    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
 
 }
