@@ -8,14 +8,14 @@
 
 import UIKit
 
-class PollCell: UITableViewCell, FeedableCell {
+class PollCell: AUITableViewCell, FeedViewCell {
 
     public static let HEIGHT: CGFloat = 104
     public static let REUSE_ID: String = "PollCell"
 
     public var poll: Poll? = nil
     
-    @IBOutlet weak var insetView: UIView!
+    @IBOutlet public weak var insetView: UIView!
     @IBOutlet weak var questionText: UILabel!
     @IBOutlet weak var answersView: UICollectionView!
 
@@ -38,6 +38,13 @@ class PollCell: UITableViewCell, FeedableCell {
 
     func onTap(inContext vc: UIViewController) {}
     func onLongPress(began: Bool) {}
+
+    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+        guard let pollModel = data as? Poll else {return self}
+        questionText.text = pollModel.question
+        poll = pollModel
+        return self
+    }
     
 }
 

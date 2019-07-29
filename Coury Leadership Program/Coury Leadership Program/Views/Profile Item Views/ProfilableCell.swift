@@ -38,6 +38,5 @@ extension UICollectionViewCell {
         layer.shadowColor = UIColor.black.cgColor
     }
     func showShadow() {layer.shadowOpacity = 0.3}
-    func adjustShadow(pitch: Double, roll: Double) {layer.shadowOffset = CGSize(width: roll*4.0, height: pitch*4.0)}
     func hideShadow() {layer.shadowOpacity = 0.0}
 }

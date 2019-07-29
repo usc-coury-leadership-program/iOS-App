@@ -8,23 +8,10 @@
 
 import UIKit
 
-public struct Calendar: FeedableData {
+public struct Calendar: TableableCellData {
+    public let CorrespondingView: TableableCell.Type = CalendarCell.self
 
-    public static let empty: Calendar = Calendar(events: [])
-
-    let events: [CalendarEvent]
-
-    public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = CalendarCell.generateCellFor(tableView, at: indexPath) as! CalendarCell
-        cell.calendar = self
-        return cell
-    }
-
-}
-
-public struct CalendarEvent {
-    let name: String
-    let date: Date
+    let events: [(name: String, date: Date)]
 }
 
 extension Date {

@@ -8,15 +8,15 @@
 
 import UIKit
 
-public struct Feed {
-    let calendar: Calendar
-    let polls: [Poll]
-    let content: [FeedableData]
-
-    func pollsToAnswer() -> [Poll] {
-        return polls.filter({$0.needsToBeAnswered() ?? false})
-    }
-}
+//public struct Feed {
+//    let calendar: Calendar
+//    let polls: [Poll]
+//    let content: [TableableCellData]
+//
+//    func pollsToAnswer() -> [Poll] {
+//        return polls.filter({$0.needsToBeAnswered() ?? false})
+//    }
+//}
 
 //let exampleCalendar = Calendar(events: [
 //    CalendarEvent(name: "Intro Lecture", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 0.0)!)),
@@ -24,7 +24,7 @@ public struct Feed {
 //    CalendarEvent(name: "Cohort Meeting", date: Date(timeIntervalSinceNow: TimeInterval(exactly: 2.0)!))
 //])
 //
-//let exampleContent: [FeedableData] = [
+//let exampleContent: [TableableCellData] = [
 //    Link(url: URL(string: "https://www.business.com/")!, squareImage: UIImage(named: "first")!),
 //    Quote(quoteText: "\"Inspirational quotes are very inspirational, even in the hardest of times\"", author: "iOS Developer")
 //]

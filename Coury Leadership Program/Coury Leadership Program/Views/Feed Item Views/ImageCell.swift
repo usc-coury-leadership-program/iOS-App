@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageCell: UITableViewCell, FeedableCell {
+class ImageCell: AUITableViewCell, FeedViewCell {
 
     public static let HEIGHT: CGFloat = 336
     public static let REUSE_ID: String = "ImageCell"
@@ -68,5 +68,12 @@ class ImageCell: UITableViewCell, FeedableCell {
             //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);
             insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
         }
+    }
+
+    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+        (data as? Image)?.downloadImage {image in
+            self.squareImage.image = image
+        }
+        return self
     }
 }

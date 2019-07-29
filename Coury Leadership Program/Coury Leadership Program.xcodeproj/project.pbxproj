@@ -7,20 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66EB5514221126DC004FF186 /* FeedableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB5513221126DC004FF186 /* FeedableCell.swift */; };
+		66EB5514221126DC004FF186 /* TableableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB5513221126DC004FF186 /* TableableCell.swift */; };
 		66EB55172211306F004FF186 /* ValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* ValueCell.swift */; };
 		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
 		C418793C22615B4A00C6DC84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C418793B22615B4A00C6DC84 /* Database.swift */; };
 		C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */; };
 		C420C3E122C407DF00D2E8A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */; };
+		C44E818522EE8E480091D2B2 /* FeedViewTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E818422EE8E480091D2B2 /* FeedViewTableView.swift */; };
+		C44E818722EE8E8D0091D2B2 /* FeedViewInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E818622EE8E8D0091D2B2 /* FeedViewInteraction.swift */; };
 		C4561F1C22B09A9900358678 /* Strengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F1B22B09A9900358678 /* Strengths.swift */; };
 		C4561F2322B0A20E00358678 /* StrengthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2122B0A20E00358678 /* StrengthCell.swift */; };
 		C4561F2422B0A20E00358678 /* StrengthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4561F2222B0A20E00358678 /* StrengthCell.xib */; };
 		C4561F2822B0A3DB00358678 /* ProfilableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2722B0A3DB00358678 /* ProfilableData.swift */; };
 		C4561F2A22B0A45A00358678 /* ProfilableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F2922B0A45A00358678 /* ProfilableCell.swift */; };
 		C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B75DA225998DA006ACDA0 /* SignInViewController.swift */; };
-		C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4759FC72224C58C002F27AF /* FeedableData.swift */; };
+		C4759FC82224C58C002F27AF /* TableableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4759FC72224C58C002F27AF /* TableableCellData.swift */; };
 		C4783B1F22DC325800483EC6 /* PollCellAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4783B1D22DC325800483EC6 /* PollCellAnswerCell.swift */; };
 		C4783B2022DC325800483EC6 /* PollCellAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4783B1E22DC325800483EC6 /* PollCellAnswerCell.xib */; };
 		C4ADBE4822E2711B007F8BC0 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADBE4722E2711B007F8BC0 /* Util.swift */; };
@@ -53,7 +55,7 @@
 
 /* Begin PBXFileReference section */
 		37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Coury_Leadership_Program.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		66EB5513221126DC004FF186 /* FeedableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableCell.swift; sourceTree = "<group>"; };
+		66EB5513221126DC004FF186 /* TableableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableableCell.swift; sourceTree = "<group>"; };
 		66EB55152211306F004FF186 /* ValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCell.swift; sourceTree = "<group>"; };
 		66EB55162211306F004FF186 /* ValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCell.xib; sourceTree = "<group>"; };
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
@@ -62,13 +64,15 @@
 		C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthDetailViewController.swift; sourceTree = "<group>"; };
 		C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C420C3E222C4085500D2E8A9 /* Coury Leadership Program.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Coury Leadership Program.entitlements"; sourceTree = "<group>"; };
+		C44E818422EE8E480091D2B2 /* FeedViewTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewTableView.swift; sourceTree = "<group>"; };
+		C44E818622EE8E8D0091D2B2 /* FeedViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewInteraction.swift; sourceTree = "<group>"; };
 		C4561F1B22B09A9900358678 /* Strengths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strengths.swift; sourceTree = "<group>"; };
 		C4561F2122B0A20E00358678 /* StrengthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthCell.swift; sourceTree = "<group>"; };
 		C4561F2222B0A20E00358678 /* StrengthCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StrengthCell.xib; sourceTree = "<group>"; };
 		C4561F2722B0A3DB00358678 /* ProfilableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilableData.swift; sourceTree = "<group>"; };
 		C4561F2922B0A45A00358678 /* ProfilableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilableCell.swift; sourceTree = "<group>"; };
 		C45B75DA225998DA006ACDA0 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		C4759FC72224C58C002F27AF /* FeedableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedableData.swift; sourceTree = "<group>"; };
+		C4759FC72224C58C002F27AF /* TableableCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableableCellData.swift; sourceTree = "<group>"; };
 		C4783B1D22DC325800483EC6 /* PollCellAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCellAnswerCell.swift; sourceTree = "<group>"; };
 		C4783B1E22DC325800483EC6 /* PollCellAnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PollCellAnswerCell.xib; sourceTree = "<group>"; };
 		C4ADBE4722E2711B007F8BC0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -119,6 +123,16 @@
 				37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C44E818322EE8E1B0091D2B2 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */,
+				C44E818422EE8E480091D2B2 /* FeedViewTableView.swift */,
+				C44E818622EE8E8D0091D2B2 /* FeedViewInteraction.swift */,
+			);
+			name = Feed;
 			sourceTree = "<group>";
 		};
 		C4561F2522B0A37500358678 /* Profile Item Views */ = {
@@ -224,7 +238,7 @@
 		C4CA5AA2220E0F3B00ECF768 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */,
+				C44E818322EE8E1B0091D2B2 /* Feed */,
 				C45B75DA225998DA006ACDA0 /* SignInViewController.swift */,
 				C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */,
 				C4ADBE4B22E2754C007F8BC0 /* Profile */,
@@ -245,7 +259,7 @@
 				C4CA5AB2220E17EA00ECF768 /* ImageCell.xib */,
 				C4CA5AB6220E189600ECF768 /* QuoteCell.swift */,
 				C4CA5AB7220E189600ECF768 /* QuoteCell.xib */,
-				66EB5513221126DC004FF186 /* FeedableCell.swift */,
+				66EB5513221126DC004FF186 /* TableableCell.swift */,
 			);
 			path = "Feed Item Views";
 			sourceTree = "<group>";
@@ -256,7 +270,7 @@
 				C4CA5ABA220E18E100ECF768 /* Calendar.swift */,
 				C4CA5ABC220E18EB00ECF768 /* Poll.swift */,
 				C4CE85F2220E454F00D5570A /* Content.swift */,
-				C4759FC72224C58C002F27AF /* FeedableData.swift */,
+				C4759FC72224C58C002F27AF /* TableableCellData.swift */,
 			);
 			path = "Feed Item Models";
 			sourceTree = "<group>";
@@ -437,16 +451,18 @@
 				C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */,
 				C4CA5AC6220E19E700ECF768 /* User.swift in Sources */,
 				C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */,
+				C44E818522EE8E480091D2B2 /* FeedViewTableView.swift in Sources */,
 				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
-				66EB5514221126DC004FF186 /* FeedableCell.swift in Sources */,
+				66EB5514221126DC004FF186 /* TableableCell.swift in Sources */,
 				C4CA5AAF220E17C900ECF768 /* LinkCell.swift in Sources */,
 				C4561F2A22B0A45A00358678 /* ProfilableCell.swift in Sources */,
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
-				C4759FC82224C58C002F27AF /* FeedableData.swift in Sources */,
+				C4759FC82224C58C002F27AF /* TableableCellData.swift in Sources */,
 				66EB55172211306F004FF186 /* ValueCell.swift in Sources */,
 				C418793C22615B4A00C6DC84 /* Database.swift in Sources */,
 				C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */,
+				C44E818722EE8E8D0091D2B2 /* FeedViewInteraction.swift in Sources */,
 				C4ADBE4A22E27543007F8BC0 /* AboutViewController.swift in Sources */,
 				C4783B1F22DC325800483EC6 /* PollCellAnswerCell.swift in Sources */,
 				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,

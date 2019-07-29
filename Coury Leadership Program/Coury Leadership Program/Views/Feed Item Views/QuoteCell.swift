@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuoteCell: UITableViewCell, FeedableCell {
+class QuoteCell: AUITableViewCell, FeedViewCell {
 
     public static let HEIGHT: CGFloat = 156
     public static let REUSE_ID: String = "QuoteCell"
@@ -54,5 +54,12 @@ class QuoteCell: UITableViewCell, FeedableCell {
             //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);
             insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
         }
+    }
+
+    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+        guard let quote = data as? Quote else {return self}
+        quoteText.text = quote.quoteText//"“" + quoteText + "”"
+        authorText.text = "- " + quote.author
+        return self
     }
 }

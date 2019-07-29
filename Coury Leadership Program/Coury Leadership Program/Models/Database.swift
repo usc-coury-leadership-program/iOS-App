@@ -24,18 +24,18 @@ public class Database {
     private var pollsGotSetCallbacks: [() -> Void] = []
     private var contentGotSetCallbacks: [() -> Void] = []
     // public instance properties
-    public private(set) var calendar = Calendar.empty {
+    public private(set) var calendar = Calendar(events: []) {
         didSet {for callback in calendarGotSetCallbacks {callback()}}
     }
     public private(set) var polls: [Poll] = [] {
         didSet {for callback in pollsGotSetCallbacks {callback()}}
     }
-    public private(set) var content: [FeedableData] = [] {
+    public private(set) var content: [TableableCellData] = [] {
         didSet {for callback in contentGotSetCallbacks {callback()}}
     }
-    public var feed: Feed {
-        return Feed(calendar: calendar, polls: polls, content: content)
-    }
+//    public var feed: Feed {
+//        return Feed(calendar: calendar, polls: polls, content: content)
+//    }
 
     // private constructor
     private init() {
@@ -60,48 +60,6 @@ public class Database {
         fetchContent()
     }
     
-    public func fetchContent() {
-        Firestore.firestore().collection("Feed").document("Content").getDocument { (document, error) in
-            
-            if let document = document, document.exists {
-                guard let data = document.data() else {
-                    print("Content document has no data")
-                    return
-                }
-                var result: [FeedableData] = []
-                
-                guard let links: [String] = data["Links"] as? [String] else {
-                    print("Could not find links!")
-                    return
-                }
-                for link in links {
-                    let linkStruct: Link = Link(url: URL(string: link)!, squareImage: UIImage(color: .black)!)
-                    result.append(linkStruct)
-                }
-
-                guard let images: [String] = data["Images"] as? [String] else {
-                    print("Could not find images!")
-                    return
-                }
-                for image in images {
-                    let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
-                    result.append(Image(imageReference: storageRef))
-                }
-                
-                guard let quotes: [Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
-                    print("Could not finds quotes")
-                    return
-                }
-                for quote in quotes {
-                    let quoteStruct: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
-                    result.append(quoteStruct)
-                }
-
-                self.content = result
-            }
-        }
-    }
-    
     public func fetchCalendar() {
         Firestore.firestore().collection("Feed").document("Calendar").getDocument { (document, error) in
             
@@ -112,23 +70,20 @@ public class Database {
                 }
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMM d yyyy h:mma"
-                var events: [CalendarEvent] = []
+                var events: [(name: String, date: Date)] = []
                 
                 for entry in data {
                     let dateString = (entry.value as! String)
                     if let date = dateFormatter.date(from: dateString) {
-                        let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
-                        events.append(calEvent)
+                        events.append((name: entry.key, date: date))
                     }else {
                         dateFormatter.dateFormat = "MMM d yyyy"
                         if let date = dateFormatter.date(from: dateString) {
-                            let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
-                            events.append(calEvent)
+                            events.append((name: entry.key, date: date))
                         }else {
                             dateFormatter.dateFormat = "MMM yyyy"
                             if let date = dateFormatter.date(from: dateString) {
-                                let calEvent: CalendarEvent = CalendarEvent(name: entry.key, date: date)
-                                events.append(calEvent)
+                                events.append((name: entry.key, date: date))
                             }else {continue}
                         }
                     }
@@ -158,6 +113,48 @@ public class Database {
                 }
 
                 self.polls = polls
+            }
+        }
+    }
+
+    public func fetchContent() {
+        Firestore.firestore().collection("Feed").document("Content").getDocument { (document, error) in
+
+            if let document = document, document.exists {
+                guard let data = document.data() else {
+                    print("Content document has no data")
+                    return
+                }
+                var result: [TableableCellData] = []
+
+                guard let links: [String] = data["Links"] as? [String] else {
+                    print("Could not find links!")
+                    return
+                }
+                for link in links {
+                    let linkStruct: Link = Link(url: URL(string: link)!, squareImage: UIImage(color: .black)!)
+                    result.append(linkStruct)
+                }
+
+                guard let images: [String] = data["Images"] as? [String] else {
+                    print("Could not find images!")
+                    return
+                }
+                for image in images {
+                    let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
+                    result.append(Image(imageReference: storageRef))
+                }
+
+                guard let quotes: [Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
+                    print("Could not finds quotes")
+                    return
+                }
+                for quote in quotes {
+                    let quoteStruct: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
+                    result.append(quoteStruct)
+                }
+
+                self.content = result
             }
         }
     }
