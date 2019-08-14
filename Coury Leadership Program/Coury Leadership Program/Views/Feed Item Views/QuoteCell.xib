@@ -50,7 +50,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57G-WB-2ZG">
-                        <rect key="frame" x="312" y="62" width="16" height="16"/>
+                        <rect key="frame" x="-8" y="62" width="16" height="16"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="57G-WB-2ZG" secondAttribute="height" multiplier="1:1" id="0BU-g0-lPf"/>
@@ -65,7 +65,7 @@
                     <constraint firstItem="57G-WB-2ZG" firstAttribute="centerY" secondItem="8uU-8n-QFP" secondAttribute="centerY" id="Y2j-nc-an6"/>
                     <constraint firstItem="8uU-8n-QFP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="izO-xE-PcA"/>
                     <constraint firstAttribute="bottom" secondItem="8uU-8n-QFP" secondAttribute="bottom" constant="8" id="rhC-J3-XPj"/>
-                    <constraint firstAttribute="trailing" secondItem="57G-WB-2ZG" secondAttribute="trailing" constant="-8" id="y8k-eG-Db7"/>
+                    <constraint firstItem="57G-WB-2ZG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-8" id="y8k-eG-Db7"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
