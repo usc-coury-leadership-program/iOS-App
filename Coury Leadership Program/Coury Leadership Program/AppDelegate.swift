@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         engageFirebase()
         AppDelegate.signIn(allowingInteraction: false)
+        CLPProfile.shared.beginFetching()
+        Feed.shared.beginFetching()
         engagePushNotifications(application)
         return true
     }
@@ -30,24 +32,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        CLPProfile.shared.stopFetching()
+        Feed.shared.stopFetching()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        CLPProfile.shared.clearFetchSuccessCallbacks()
+        CLPProfile.shared.stopFetching()
+        Feed.shared.clearFetchSuccessCallbacks()
+        Feed.shared.stopFetching()
+        Database.shared.clearCallbacks()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        CLPProfile.shared.beginFetching()
+        Feed.shared.beginFetching()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        CLPProfile.shared.beginFetching()
+        Feed.shared.beginFetching()
         application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        CLPProfile.shared.clearFetchSuccessCallbacks()
+        CLPProfile.shared.stopFetching()
+        Feed.shared.clearFetchSuccessCallbacks()
+        Feed.shared.stopFetching()
+        Database.shared.clearCallbacks()
     }
 }
 
@@ -58,13 +76,13 @@ extension AppDelegate: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser?, withError error: Error!) {
         if error != nil {
             print("There was an error while signing in with Google: " + String(describing: error))
-            CLPUser.shared().isSigningIn = false
+            CLPProfile.shared.isSigningIn = false
             return
         }
 
         guard let authentication = user?.authentication else {
             print("No authentication available after signing in with Google!")
-            CLPUser.shared().isSigningIn = false
+            CLPProfile.shared.isSigningIn = false
             return
         }
 
@@ -72,21 +90,21 @@ extension AppDelegate: GIDSignInDelegate {
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if error != nil {
                 print("There was an error while authenticating with Firebase: " + String(describing: error))
-                CLPUser.shared().isSigningIn = false
+                CLPProfile.shared.isSigningIn = false
                 return
             }
-
-            CLPUser.shared().isSigningIn = false
-            CLPUser.shared().updateInformation(from: authResult!.user)
-            Database.shared().signIn()
-            Database.shared().fetchUserProfile(CLPUser.shared(), andRun: nil)
+            CLPProfile.shared.isSigningIn = false
+            
+            CLPProfile.shared.stopFetching()
+            CLPProfile.shared.beginFetching()
+            Feed.shared.stopFetching()
+            Feed.shared.beginFetching()
         }
     }
 
     // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        Database.shared().signOut()
-        CLPUser.shared().makeAllNil()
+        CLPProfile.shared.deleteLocalCopy()
 
         do {try Auth.auth().signOut()}
         catch {print(error)}
@@ -106,11 +124,11 @@ extension AppDelegate: GIDSignInDelegate {
 
     public static func signIn(allowingInteraction: Bool = true) {
         if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            CLPUser.shared().isSigningIn = true
+            CLPProfile.shared.isSigningIn = true
             GIDSignIn.sharedInstance().signInSilently()
         }
         else if allowingInteraction {
-            CLPUser.shared().isSigningIn = true
+            CLPProfile.shared.isSigningIn = true
             GIDSignIn.sharedInstance().signIn()
         }
     }
@@ -118,7 +136,7 @@ extension AppDelegate: GIDSignInDelegate {
     public static func signOut() {
         GIDSignIn.sharedInstance()?.signOut()
         GIDSignIn.sharedInstance()?.disconnect()
-        CLPUser.shared().makeAllNil()
+        CLPProfile.shared.deleteLocalCopy()
     }
 }
 

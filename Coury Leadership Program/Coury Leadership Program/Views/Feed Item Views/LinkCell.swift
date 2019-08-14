@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LinkCell: UITableViewCell, FeedableCell {
+class LinkCell: AUITableViewCell, FeedViewCell {
     
     private static let BASE_THUMBNAIL_URL = "https://www.google.com/s2/favicons?domain="
 
@@ -86,5 +86,10 @@ class LinkCell: UITableViewCell, FeedableCell {
             //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);
             insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
         }
+    }
+
+    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+        url = (data as? Link)?.url
+        return self
     }
 }

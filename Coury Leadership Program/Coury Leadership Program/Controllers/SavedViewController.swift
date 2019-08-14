@@ -38,8 +38,8 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            let contentIndex = CLPUser.shared().savedContent![indexPath.row]
-            let content = Database.shared().currentFeed.content[contentIndex]
+            let contentIndex = CLPProfile.shared.savedContent![indexPath.row]
+            let content = Database.shared.content[contentIndex]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
             else if let _ = content as? Quote {return QuoteCell.HEIGHT}
@@ -54,8 +54,8 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0:
-            let savedCount = CLPUser.shared().savedContent?.count ?? 0
-            return savedCount <= Database.shared().currentFeed.content.count ? savedCount : 0
+            let savedCount = CLPProfile.shared.savedContent?.count ?? 0
+            return savedCount <= Database.shared.content.count ? savedCount : 0
         default: return 0
         }
     }
@@ -64,13 +64,13 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
         case 0:
-            let contentIndex = CLPUser.shared().savedContent![indexPath.row]//TODO can be index out of range
-            return Database.shared().currentFeed.content[contentIndex].generateCellFor(tableView, at: indexPath)
+            let contentIndex = CLPProfile.shared.savedContent![indexPath.row]//TODO can be index out of range
+            return Database.shared.content[contentIndex].generateCellFor(tableView, at: indexPath)
         default: fatalError("Saved feed's TableView has more sections than expected.")
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        (cell as? FeedableCell)?.showShadow()
+        (cell as? FeedViewCell)?.showShadow()
     }
 
     //MARK: - convenience functions

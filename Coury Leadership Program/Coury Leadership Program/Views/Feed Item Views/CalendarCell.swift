@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarCell: UITableViewCell, FeedableCell {
+class CalendarCell: AUITableViewCell, FeedViewCell {
 
     public static let HEIGHT: CGFloat = 84
     public static let REUSE_ID: String = "CalendarCell"
@@ -25,7 +25,7 @@ class CalendarCell: UITableViewCell, FeedableCell {
         }
     }
 
-    @IBOutlet weak var insetView: UIView!
+    @IBOutlet public weak var insetView: UIView!
     @IBOutlet weak var eventText: UILabel!
     
     func setSaved(to: Bool) {}
@@ -45,5 +45,11 @@ class CalendarCell: UITableViewCell, FeedableCell {
 
     func onTap(inContext vc: UIViewController) {currentEvent += 1}
     func onLongPress(began: Bool) {}
+
+
+    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+        calendar = data as? Calendar
+        return self
+    }
     
 }

@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController {
     
     let collectionViewColumnCount: CGFloat = 3
     var handle: AuthStateDidChangeListenerHandle?
-    private let motionManager = CMMotionManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +47,8 @@ class ProfileViewController: UIViewController {
     }
 
     func updateUserSpecificText() {
-        nameLabel.text = CLPUser.shared().name
-        let userScore = (CLPUser.shared().savedContent?.count ?? 0) + (CLPUser.shared().answeredPolls?.count ?? 0)
+        nameLabel.text = CLPProfile.shared.name
+        let userScore = (CLPProfile.shared.savedContent?.count ?? 0) + (CLPProfile.shared.answeredPolls?.count ?? 0)
         collectionSizeLabel.text = String(userScore)
     }
 
@@ -146,8 +145,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         //cell.showShadow()
         switch indexPath.section {
-        case 0: (cell as? ProfilableCell)?.setHas(to: CLPUser.shared().values?.contains(VALUE_LIST[indexPath.row].name) ?? false)
-        case 1: (cell as? ProfilableCell)?.setHas(to: CLPUser.shared().strengths?.contains(STRENGTH_LIST[indexPath.row].name) ?? false)
+        case 0: (cell as? ProfilableCell)?.setHas(to: CLPProfile.shared.values?.contains(VALUE_LIST[indexPath.row].name) ?? false)
+        case 1: (cell as? ProfilableCell)?.setHas(to: CLPProfile.shared.strengths?.contains(STRENGTH_LIST[indexPath.row].name) ?? false)
         default: break
         }
     }
@@ -180,16 +179,16 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 
 extension ProfileViewController {
 
-    private func engageMotionShadows() {
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 0.02
-            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-                guard let motion = motion else {return}
-                for cell in self.collectionView.visibleCells {cell.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)}
-            }
-        }
-    }
-
-    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
+//    private func engageMotionShadows() {
+//        if motionManager.isDeviceMotionAvailable {
+//            motionManager.deviceMotionUpdateInterval = 0.02
+//            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
+//                guard let motion = motion else {return}
+//                for cell in self.collectionView.visibleCells {cell.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)}
+//            }
+//        }
+//    }
+//
+//    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
 
 }
