@@ -162,7 +162,6 @@ public class Database {
     
     public func fetchProfile() {
         print("Fetching profile from Firebase")
-        print(Auth.auth().currentUser?.uid)
         if let googleUser = Auth.auth().currentUser {
             let name = googleUser.displayName
             let uid = googleUser.uid
@@ -200,7 +199,7 @@ public class Database {
 
     public func updateProfile(_ profile: CLPProfileData) {
 
-        guard let uid = profile.uid else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {return}
         let profileToUpload = profile.toDict()
         if !profileToUpload.elementsEqual(lastUploadedProfile, by: { (newElement, uploadedElement) in
             let uploadedString = uploadedElement.value as! String

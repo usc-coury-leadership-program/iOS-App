@@ -79,7 +79,7 @@ extension PollCell: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         collectionView.allowsSelection = false
         cell.contentView.backgroundColor = .black
         cell.answerText.textColor = .white
-        //TODO add field on User's profile that says this has been answered, then upload their response to the analysis collection on the database
+        
         poll?.markAsAnswered(with: cell.answerText.text ?? "")
     }
 

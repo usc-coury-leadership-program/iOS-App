@@ -61,7 +61,7 @@ public class CLPProfile {
     
     private var cachedServerData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
     private var localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil) {
-        didSet {Database.shared.updateProfile(localData)}
+        didSet {flushDataToServer()}
     }
     
     public var name: String? {return Auth.auth().currentUser?.displayName}
@@ -85,6 +85,10 @@ public class CLPProfile {
 
     private init() {
         registerCallbacks()
+    }
+    
+    public func flushDataToServer() {
+        Database.shared.updateProfile(localData)
     }
 
     public func deleteLocalCopy() {

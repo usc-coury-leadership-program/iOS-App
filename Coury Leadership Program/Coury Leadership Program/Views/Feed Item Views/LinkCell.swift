@@ -80,7 +80,7 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     func onLongPress(began: Bool) {
         if began {
             //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 1.0, 0.0, 0.0);
-            insetView.transform = CGAffineTransform(translationX: -10.0, y: 0.0)
+            insetView.transform = CGAffineTransform(translationX: 10.0, y: 0.0)
             isSaved = !isSaved
         }else {
             //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);

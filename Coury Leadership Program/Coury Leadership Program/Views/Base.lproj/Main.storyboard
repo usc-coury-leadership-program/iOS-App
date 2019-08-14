@@ -28,13 +28,30 @@
                                     <outletCollection property="gestureRecognizers" destination="eqa-bw-xtW" appends="YES" id="elq-WQ-ARX"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cho-TO-I82">
+                                <rect key="frame" x="157.66666666666666" y="649" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="3GG-QD-akW"/>
+                                    <constraint firstAttribute="height" constant="60" id="hEa-nk-KQP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="-:|"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="9kc-u6-oTD"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="xsa-OG-cBN" secondAttribute="bottom" id="KIz-U6-f8V"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="cho-TO-I82" secondAttribute="bottom" constant="20" id="fCc-3R-in6"/>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" id="hFU-SK-y7r"/>
+                            <constraint firstItem="cho-TO-I82" firstAttribute="centerX" secondItem="xsa-OG-cBN" secondAttribute="centerX" id="umD-z0-M5w"/>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="zhA-Qr-LfH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>

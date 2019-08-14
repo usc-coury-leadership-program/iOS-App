@@ -52,7 +52,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
         case 0: return Database.shared.calendar.generateCellFor(tableView, at: indexPath)
-        case 1: return Database.shared.polls.thatNeedAnswering[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 1: return Database.shared.polls.thatNeedAnswering[indexPath.row].generateCellFor(tableView, at: indexPath)// TODO if one of the polls gets answered, but then the user scrolls down and back up, the tableView will try to regenerate it. But it wont find it in this array, resulting in array out of bounds.
         case 2: return Database.shared.content[shuffled(indexPath)].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }

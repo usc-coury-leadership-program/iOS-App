@@ -41,9 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         CLPProfile.shared.clearFetchSuccessCallbacks()
         CLPProfile.shared.stopFetching()
+//        CLPProfile.shared.flushDataToServer()
         Feed.shared.clearFetchSuccessCallbacks()
         Feed.shared.stopFetching()
-        Database.shared.clearCallbacks()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -63,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         CLPProfile.shared.clearFetchSuccessCallbacks()
         CLPProfile.shared.stopFetching()
+//        CLPProfile.shared.flushDataToServer()
         Feed.shared.clearFetchSuccessCallbacks()
         Feed.shared.stopFetching()
         Database.shared.clearCallbacks()
@@ -97,6 +98,7 @@ extension AppDelegate: GIDSignInDelegate {
             
             CLPProfile.shared.stopFetching()
             CLPProfile.shared.beginFetching()
+            CLPProfile.shared.flushDataToServer()
             Feed.shared.stopFetching()
             Feed.shared.beginFetching()
         }
@@ -104,6 +106,7 @@ extension AppDelegate: GIDSignInDelegate {
 
     // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+//        CLPProfile.shared.flushDataToServer()
         CLPProfile.shared.deleteLocalCopy()
 
         do {try Auth.auth().signOut()}
@@ -134,9 +137,10 @@ extension AppDelegate: GIDSignInDelegate {
     }
 
     public static func signOut() {
+//        CLPProfile.shared.flushDataToServer()
+        CLPProfile.shared.deleteLocalCopy()
         GIDSignIn.sharedInstance()?.signOut()
         GIDSignIn.sharedInstance()?.disconnect()
-        CLPProfile.shared.deleteLocalCopy()
     }
 }
 
