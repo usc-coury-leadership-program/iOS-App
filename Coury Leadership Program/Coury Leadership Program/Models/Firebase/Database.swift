@@ -23,6 +23,7 @@ public class Database {
     private var calendarGotSetCallbacks: [() -> Void] = []
     private var pollsGotSetCallbacks: [() -> Void] = []
     private var contentGotSetCallbacks: [() -> Void] = []
+    private var profileGotSetCallbacks: [(CLPProfileData) -> Void] = []
     // public instance properties
     public private(set) var calendar = Calendar(events: []) {
         didSet {for callback in calendarGotSetCallbacks {callback()}}
@@ -47,11 +48,15 @@ public class Database {
     public func registerContentCallback(_ callback: @escaping () -> Void) {
         contentGotSetCallbacks.append(callback)
     }
+    public func registerProfileCallback(_ callback: @escaping (CLPProfileData) -> Void) {
+        profileGotSetCallbacks.append(callback)
+    }
 
     public func clearCallbacks() {
         calendarGotSetCallbacks = []
         pollsGotSetCallbacks = []
         contentGotSetCallbacks = []
+        profileGotSetCallbacks = []
     }
     
     public func fetchCalendar() {
@@ -153,44 +158,51 @@ public class Database {
         }
     }
     
-    public func fetchUserProfile(_ user: CLPProfile, andRun callback: (() -> Void)?) {
-        guard let uid = user.id else {return}
-        Firestore.firestore().collection("Users").document(uid).getDocument { (document, error) in
-
-            if let document = document, document.exists, let data = document.data() {
-                let values: [String]? = (data["values"] as? String)?.components(separatedBy: ",")
-                let strengths: [String]? = (data["strengths"] as? String)?.components(separatedBy: ",")
-
-                var savedContent: [Int]? = nil
-                if let rawSavedContent: String = data["saved content"] as? String {
-                    if rawSavedContent.count > 0 {
-                        savedContent = rawSavedContent.components(separatedBy: ",").map({Int($0)!})
+    public func fetchProfile() {
+        if let googleUser = Auth.auth().currentUser {
+            let name = googleUser.displayName
+            let uid = googleUser.uid
+            
+            Firestore.firestore().collection("Users").document(uid).getDocument { (document, error) in
+                
+                if let document = document, document.exists, let data = document.data() {
+                    let values: [String]? = (data["values"] as? String)?.components(separatedBy: ",")
+                    let strengths: [String]? = (data["strengths"] as? String)?.components(separatedBy: ",")
+                    
+                    var savedContent: [Int]? = nil
+                    if let rawSavedContent: String = data["saved content"] as? String {
+                        if rawSavedContent.count > 0 {
+                            savedContent = rawSavedContent.components(separatedBy: ",").map({Int($0)!})
+                        }
                     }
-                }
-
-                var answeredPolls: [Int]? = []
-                if let rawAnsweredPolls: String = data["answered polls"] as? String {
-                    if rawAnsweredPolls.count > 0 {
-                        answeredPolls = rawAnsweredPolls.components(separatedBy: ",").map({Int($0)!})
+                    
+                    var answeredPolls: [Int]? = []
+                    if let rawAnsweredPolls: String = data["answered polls"] as? String {
+                        if rawAnsweredPolls.count > 0 {
+                            answeredPolls = rawAnsweredPolls.components(separatedBy: ",").map({Int($0)!})
+                        }
                     }
-                }
-
-                user.reconstruct(name: user.name, id: user.id, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls, fromDatabase: true)
-                callback?()
-
-            }else {print("User document \(uid) does not exist")}
+                    
+                    let serverData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls)
+                    for callback in self.profileGotSetCallbacks {
+                        callback(serverData)
+                    }
+                    
+                    
+                }else {print("User document \(uid) does not exist")}
+            }
         }
     }
 
-    public func updateUserProfile(_ user: CLPProfile) {
+    public func updateProfile(_ profile: CLPProfileData) {
 
-        guard let uid = user.id else {return}
-        let profileToUpload = user.toDict()
+        guard let uid = profile.uid else {return}
+        let profileToUpload = profile.toDict()
         if !profileToUpload.elementsEqual(lastUploadedProfile, by: { (newElement, uploadedElement) in
             let uploadedString = uploadedElement.value as! String
             return (newElement.key == uploadedElement.key) && (newElement.value == uploadedString)
         }) {
-            Firestore.firestore().collection("Users").document(uid).setData(profileToUpload, mergeFields: user.listOfFullFields())
+            Firestore.firestore().collection("Users").document(uid).setData(profileToUpload, mergeFields: profile.listOfFullFields())
             lastUploadedProfile = profileToUpload
         }
         print("Did run Database.updateUserProfile()")

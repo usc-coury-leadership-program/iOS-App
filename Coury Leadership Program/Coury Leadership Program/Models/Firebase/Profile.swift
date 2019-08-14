@@ -10,80 +10,102 @@ import Foundation
 import Firebase
 import GoogleSignIn
 
+public struct CLPProfileData {
+    let name: String?
+    let uid: String?
+    let values: [String]?
+    let strengths: [String]?
+    let savedContent: [Int]?
+    let answeredPolls: [Int]?
+    
+    func toDict() -> [String : String] {
+        var dict: [String : String] = [:]
+        
+        dict["name"] = name ?? ""
+        dict["id"] = uid ?? ""
+        dict["values"] = values?.joined(separator: ",") ?? ""
+        dict["strengths"] = strengths?.joined(separator: ",") ?? ""
+        dict["saved content"] = savedContent?.map({String($0)}).joined(separator: ",") ?? ""
+        dict["answered polls"] = answeredPolls?.map({String($0)}).joined(separator: ",") ?? ""
+        
+        return dict
+    }
+    
+    func listOfFullFields() -> [String] {
+        var fullFields: [String] = []
+        
+        if name != nil {fullFields.append("name")}
+        if uid != nil {fullFields.append("id")}
+        if values != nil {fullFields.append("values")}
+        if strengths != nil {fullFields.append("strengths")}
+        if savedContent != nil {fullFields.append("saved content")}
+        if answeredPolls != nil {fullFields.append("answered polls")}
+        
+        return fullFields
+    }
+}
+
 public class CLPProfile {
     // shared instance
     public private(set) static var shared: CLPProfile = {
         return CLPProfile()
     }()
-
-    public private(set) var name: String? {didSet {if name != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
-    public private(set) var id: String? {didSet {if id != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
+    
+    private var hasData = false {didSet {self.checkFetchSuccess()}}
+    private let dataClosure: (Timer) -> Void = {_ in Database.shared.fetchProfile()}
+    private var dataProcess: Timer {return Timer(timeInterval: 2.0, repeats: true, block: dataClosure)}
+    private var activeProcesses: [Timer] = []
+    private var codeToRunAfterFetching: [() -> Void] = []
+    
+    private var serverData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
+    private var localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil) {
+        didSet {Database.shared.updateProfile(localData)}
+    }
+    
+    public var name: String? {return Auth.auth().currentUser?.displayName}
+    public var uid: String? {return Auth.auth().currentUser?.uid}
     public private(set) var values: [String]? {
-        didSet {
-            if values != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}
-            if (values != nil) && (!(oldValue?.elementsEqual(values!) ?? false)) {
-                for value in values! {
-                    Messaging.messaging().subscribe(toTopic: value) { error in
-                        print("Subscribed to \(value) notification topic")
-                    }
-                }
-            }
-        }
+        get {return localData.values ?? serverData.values}
+        set {localData = CLPProfileData(name: name, uid: uid, values: newValue, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls)}
     }
     public private(set) var strengths: [String]? {
-        didSet {
-            if strengths != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}
-            if (strengths != nil) && (!(oldValue?.elementsEqual(strengths!) ?? false)) {
-                for strength in strengths! {
-                    Messaging.messaging().subscribe(toTopic: strength) { error in
-                        print("Subscribed to \(strength) notification topic")
-                    }
-                }
-            }
-        }
+        get {return localData.strengths ?? serverData.strengths}
+        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: newValue, savedContent: savedContent, answeredPolls: answeredPolls)}
     }
-    public private(set) var savedContent: [Int]? {didSet {if savedContent != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
-    public private(set) var answeredPolls: [Int]? {didSet {if answeredPolls != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
-    public var isSigningIn: Bool = false
-    private var isBulkUpdating: Bool = false
+    public private(set) var savedContent: [Int]? {
+        get {return localData.savedContent ?? serverData.savedContent}
+        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: newValue, answeredPolls: answeredPolls)}
+    }
+    public private(set) var answeredPolls: [Int]? {
+        get {return localData.answeredPolls ?? serverData.answeredPolls}
+        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: newValue)}
+    }
 
     private init() {
-        if let googleUser = Auth.auth().currentUser {
-            name = googleUser.displayName
-            id = googleUser.uid
+        registerCallbacks()
+    }
+
+    public func deleteLocalCopy() {
+        localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
+    }
+
+    public func set(values: [String]) {
+        for value in values {
+            Messaging.messaging().subscribe(toTopic: value) { error in
+                print("Subscribed to \(value) notification topic")
+            }
         }
-    }
-
-    public func extractInformation(from googleUser: User) {
-        self.name = googleUser.displayName
-        self.id = googleUser.uid
-    }
-
-    public func reconstruct(name: String?, id: String?, values: [String]?, strengths: [String]?, savedContent: [Int]?, answeredPolls: [Int]?, fromDatabase: Bool = false) {
-        isBulkUpdating = true
-        self.name = name
-        self.id = id
         self.values = values
+    }
+    
+    public func set(strengths: [String]) {
+        for strength in strengths {
+            Messaging.messaging().subscribe(toTopic: strength) { error in
+                print("Subscribed to \(strength) notification topic")
+            }
+        }
         self.strengths = strengths
-        self.savedContent = savedContent
-        self.answeredPolls = answeredPolls
-        isBulkUpdating = false
-        if !fromDatabase {Database.shared.updateUserProfile(self)}
     }
-
-
-
-    public func makeAllNil() {
-        self.name = nil
-        self.id = nil
-        self.values = nil
-        self.strengths = nil
-        self.savedContent = nil
-        self.answeredPolls = nil
-    }
-
-    public func set(values: [String]) {self.values = values}
-    public func set(strengths: [String]) {self.strengths = strengths}
 
     public func toggleSavedContent(for index: Int) {
         if savedContent == nil {
@@ -101,35 +123,46 @@ public class CLPProfile {
             answeredPolls?.append(number)
         }
     }
-
-    public func toDict() -> [String : String] {
-        var dict: [String : String] = [:]
-
-        dict["name"] = name != nil ? name : ""
-        dict["id"] = id != nil ? id : ""
-        dict["values"] = values != nil ? values!.joined(separator: ",") : ""
-        dict["strengths"] = strengths != nil ? strengths!.joined(separator: ",") : ""
-        dict["saved content"] = savedContent != nil ? savedContent!.map({String($0)}).joined(separator: ",") : ""
-        dict["answered polls"] = answeredPolls != nil ? answeredPolls!.map({String($0)}).joined(separator: ",") : ""
-        
-        return dict
-    }
-
-    public func listOfFullFields() -> [String] {
-        var fullFields: [String] = []
-
-        if name != nil {fullFields.append("name")}
-        if id != nil {fullFields.append("id")}
-        if values != nil {fullFields.append("values")}
-        if strengths != nil {fullFields.append("strengths")}
-        if savedContent != nil {fullFields.append("saved content")}
-        if answeredPolls != nil {fullFields.append("answered polls")}
-
-        return fullFields
-    }
+    
 }
 
 
-//extension CLPProfile: Fetchable {
-//
-//}
+extension CLPProfile: Fetchable {
+    
+    private func resetState() {
+        hasData = false
+    }
+    
+    public func beginFetching() {
+        resetState()
+        activeProcesses += [dataProcess]
+        for process in activeProcesses {RunLoop.current.add(process, forMode: .common)}
+    }
+    
+    public func stopFetching() {
+        for process in activeProcesses {process.invalidate()}
+        activeProcesses = []
+    }
+    
+    public func onFetchSuccess(run block: @escaping () -> Void) {
+        codeToRunAfterFetching.append(block)
+    }
+    
+    public func clearFetchSuccessCallbacks() {
+        codeToRunAfterFetching = []
+    }
+    
+    private func checkFetchSuccess() {
+        if (hasData) {
+            stopFetching()
+            for block in codeToRunAfterFetching {block()}
+        }
+    }
+    
+    private func registerCallbacks() {// TODO only set has___ to true if the result meets certain criteria?
+        Database.shared.registerProfileCallback {(serverData) in
+            self.serverData = serverData
+            self.hasData = true
+        }
+    }
+}

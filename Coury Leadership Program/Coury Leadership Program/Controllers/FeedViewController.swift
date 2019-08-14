@@ -34,7 +34,7 @@ class FeedViewController: UIViewController {
         super.viewDidAppear(animated)
         // Feed
         Feed.shared.onFetchSuccess {self.updateTableView()}
-        Feed.shared.beginFetching()
+        
         // Profile
         if CLPProfile.shared.id != nil {
             handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFirebaseConnectedComponents()}
@@ -47,7 +47,6 @@ class FeedViewController: UIViewController {
         super.viewWillDisappear(animated)
         // Feed
         Feed.shared.clearFetchSuccessCallbacks()
-        Feed.shared.stopFetching()
         // Profile
         if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
     }

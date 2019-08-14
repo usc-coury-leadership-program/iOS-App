@@ -11,7 +11,10 @@
 		66EB55172211306F004FF186 /* ValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* ValueCell.swift */; };
 		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
-		C418793C22615B4A00C6DC84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C418793B22615B4A00C6DC84 /* Database.swift */; };
+		BE8346CC2303CDB800A9A66D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346C82303CDB800A9A66D /* Profile.swift */; };
+		BE8346CD2303CDB800A9A66D /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346C92303CDB800A9A66D /* Fetchable.swift */; };
+		BE8346CE2303CDB800A9A66D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346CA2303CDB800A9A66D /* Database.swift */; };
+		BE8346CF2303CDB800A9A66D /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346CB2303CDB800A9A66D /* Feed.swift */; };
 		C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */; };
 		C420C3E122C407DF00D2E8A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */; };
 		C44E818522EE8E480091D2B2 /* FeedViewTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E818422EE8E480091D2B2 /* FeedViewTableView.swift */; };
@@ -46,9 +49,7 @@
 		C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5AB7220E189600ECF768 /* QuoteCell.xib */; };
 		C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABA220E18E100ECF768 /* Calendar.swift */; };
 		C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABC220E18EB00ECF768 /* Poll.swift */; };
-		C4CA5AC6220E19E700ECF768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC5220E19E700ECF768 /* User.swift */; };
 		C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Values.swift */; };
-		C4CE85F1220E255600D5570A /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F0220E255600D5570A /* Feed.swift */; };
 		C4CE85F3220E454F00D5570A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F2220E454F00D5570A /* Content.swift */; };
 		C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D12129229DFF8300064544 /* ValueDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -60,7 +61,10 @@
 		66EB55162211306F004FF186 /* ValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCell.xib; sourceTree = "<group>"; };
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
-		C418793B22615B4A00C6DC84 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		BE8346C82303CDB800A9A66D /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		BE8346C92303CDB800A9A66D /* Fetchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
+		BE8346CA2303CDB800A9A66D /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		BE8346CB2303CDB800A9A66D /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthDetailViewController.swift; sourceTree = "<group>"; };
 		C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C420C3E222C4085500D2E8A9 /* Coury Leadership Program.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Coury Leadership Program.entitlements"; sourceTree = "<group>"; };
@@ -98,9 +102,7 @@
 		C4CA5AB7220E189600ECF768 /* QuoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuoteCell.xib; sourceTree = "<group>"; };
 		C4CA5ABA220E18E100ECF768 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		C4CA5ABC220E18EB00ECF768 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
-		C4CA5AC5220E19E700ECF768 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C4CA5AC7220E1A0700ECF768 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
-		C4CE85F0220E255600D5570A /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		C4CE85F2220E454F00D5570A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		C4D12129229DFF8300064544 /* ValueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +125,17 @@
 				37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE8346C72303CDB800A9A66D /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				BE8346C82303CDB800A9A66D /* Profile.swift */,
+				BE8346C92303CDB800A9A66D /* Fetchable.swift */,
+				BE8346CA2303CDB800A9A66D /* Database.swift */,
+				BE8346CB2303CDB800A9A66D /* Feed.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		C44E818322EE8E1B0091D2B2 /* Feed */ = {
@@ -215,9 +228,7 @@
 		C4CA5AA0220E0F2900ECF768 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C4CA5AC5220E19E700ECF768 /* User.swift */,
-				C418793B22615B4A00C6DC84 /* Database.swift */,
-				C4CE85F0220E255600D5570A /* Feed.swift */,
+				BE8346C72303CDB800A9A66D /* Firebase */,
 				C4CA5AC4220E191500ECF768 /* Feed Item Models */,
 				C4561F2622B0A39800358678 /* Profile Item Models */,
 				C4ADBE4722E2711B007F8BC0 /* Util.swift */,
@@ -445,11 +456,9 @@
 				C4CE85F3220E454F00D5570A /* Content.swift in Sources */,
 				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
-				C4CE85F1220E255600D5570A /* Feed.swift in Sources */,
 				C4ADBE4822E2711B007F8BC0 /* Util.swift in Sources */,
 				C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */,
 				C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */,
-				C4CA5AC6220E19E700ECF768 /* User.swift in Sources */,
 				C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */,
 				C44E818522EE8E480091D2B2 /* FeedViewTableView.swift in Sources */,
 				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
@@ -460,9 +469,12 @@
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
 				C4759FC82224C58C002F27AF /* TableableCellData.swift in Sources */,
 				66EB55172211306F004FF186 /* ValueCell.swift in Sources */,
-				C418793C22615B4A00C6DC84 /* Database.swift in Sources */,
+				BE8346CC2303CDB800A9A66D /* Profile.swift in Sources */,
+				BE8346CD2303CDB800A9A66D /* Fetchable.swift in Sources */,
 				C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */,
 				C44E818722EE8E8D0091D2B2 /* FeedViewInteraction.swift in Sources */,
+				BE8346CE2303CDB800A9A66D /* Database.swift in Sources */,
+				BE8346CF2303CDB800A9A66D /* Feed.swift in Sources */,
 				C4ADBE4A22E27543007F8BC0 /* AboutViewController.swift in Sources */,
 				C4783B1F22DC325800483EC6 /* PollCellAnswerCell.swift in Sources */,
 				C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */,
