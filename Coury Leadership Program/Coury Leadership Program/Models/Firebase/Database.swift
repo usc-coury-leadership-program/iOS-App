@@ -53,6 +53,7 @@ public class Database {
     }
 
     public func clearCallbacks() {
+        print("Clearing Database callbacks")
         calendarGotSetCallbacks = []
         pollsGotSetCallbacks = []
         contentGotSetCallbacks = []
@@ -117,6 +118,7 @@ public class Database {
     }
 
     public func fetchContent() {
+        print("Fetching content from Firebase")
         Firestore.firestore().collection("Feed").document("Content").getDocument { (document, error) in
 
             if let document = document, document.exists {
@@ -159,6 +161,8 @@ public class Database {
     }
     
     public func fetchProfile() {
+        print("Fetching profile from Firebase")
+        print(Auth.auth().currentUser?.uid)
         if let googleUser = Auth.auth().currentUser {
             let name = googleUser.displayName
             let uid = googleUser.uid

@@ -51,13 +51,15 @@ public class CLPProfile {
         return CLPProfile()
     }()
     
+    public var isSigningIn = false
+    
     private var hasData = false {didSet {self.checkFetchSuccess()}}
     private let dataClosure: (Timer) -> Void = {_ in Database.shared.fetchProfile()}
     private var dataProcess: Timer {return Timer(timeInterval: 2.0, repeats: true, block: dataClosure)}
     private var activeProcesses: [Timer] = []
     private var codeToRunAfterFetching: [() -> Void] = []
     
-    private var serverData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
+    private var cachedServerData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
     private var localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil) {
         didSet {Database.shared.updateProfile(localData)}
     }
@@ -65,19 +67,19 @@ public class CLPProfile {
     public var name: String? {return Auth.auth().currentUser?.displayName}
     public var uid: String? {return Auth.auth().currentUser?.uid}
     public private(set) var values: [String]? {
-        get {return localData.values ?? serverData.values}
+        get {return localData.values ?? cachedServerData.values}
         set {localData = CLPProfileData(name: name, uid: uid, values: newValue, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls)}
     }
     public private(set) var strengths: [String]? {
-        get {return localData.strengths ?? serverData.strengths}
+        get {return localData.strengths ?? cachedServerData.strengths}
         set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: newValue, savedContent: savedContent, answeredPolls: answeredPolls)}
     }
     public private(set) var savedContent: [Int]? {
-        get {return localData.savedContent ?? serverData.savedContent}
+        get {return localData.savedContent ?? cachedServerData.savedContent}
         set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: newValue, answeredPolls: answeredPolls)}
     }
     public private(set) var answeredPolls: [Int]? {
-        get {return localData.answeredPolls ?? serverData.answeredPolls}
+        get {return localData.answeredPolls ?? cachedServerData.answeredPolls}
         set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: newValue)}
     }
 
@@ -87,6 +89,7 @@ public class CLPProfile {
 
     public func deleteLocalCopy() {
         localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
+        cachedServerData = localData
     }
 
     public func set(values: [String]) {
@@ -161,7 +164,7 @@ extension CLPProfile: Fetchable {
     
     private func registerCallbacks() {// TODO only set has___ to true if the result meets certain criteria?
         Database.shared.registerProfileCallback {(serverData) in
-            self.serverData = serverData
+            self.cachedServerData = serverData
             self.hasData = true
         }
     }

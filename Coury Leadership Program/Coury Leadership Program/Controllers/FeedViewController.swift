@@ -32,33 +32,22 @@ class FeedViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // Profile
+        if (CLPProfile.shared.uid == nil) && !CLPProfile.shared.isSigningIn {presentSignInVC()}
+        CLPProfile.shared.onFetchSuccess {self.updatePolls(); self.updateSaved()}
         // Feed
         Feed.shared.onFetchSuccess {self.updateTableView()}
-        
-        // Profile
-        if CLPProfile.shared.id != nil {
-            handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFirebaseConnectedComponents()}
-            self.updateFirebaseConnectedComponents()
-        }
-        else if !CLPProfile.shared.isSigningIn {presentSignInVC()}
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // Profile
+        CLPProfile.shared.clearFetchSuccessCallbacks()
         // Feed
         Feed.shared.clearFetchSuccessCallbacks()
-        // Profile
-        if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
     }
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
-
-    func updateFirebaseConnectedComponents() {
-        Database.shared.fetchUserProfile(CLPProfile.shared) {
-            self.updatePolls()
-            self.updateSaved()
-        }
-    }
 
     func updatePolls() {self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
     func updateSaved() {self.tableView.layoutSubviews()}
