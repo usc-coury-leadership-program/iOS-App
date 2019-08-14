@@ -40,7 +40,7 @@ extension FeedViewController {
                     cell.onLongPress(began: true)
                 }, completion: nil)
 
-                if indexPath.section == 2 {CLPUser.shared().toggleSavedContent(for: shuffled(indexPath))}
+                if indexPath.section == 2 {CLPProfile.shared.toggleSavedContent(for: shuffled(indexPath))}
 
             default:
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {

@@ -33,31 +33,25 @@ public class Database {
     public private(set) var content: [TableableCellData] = [] {
         didSet {for callback in contentGotSetCallbacks {callback()}}
     }
-//    public var feed: Feed {
-//        return Feed(calendar: calendar, polls: polls, content: content)
-//    }
 
     // private constructor
     private init() {
     }
 
-    public func registerCalendarCallback(_ callback: @escaping () -> Void) -> Int {
+    public func registerCalendarCallback(_ callback: @escaping () -> Void) {
         calendarGotSetCallbacks.append(callback)
-        return calendarGotSetCallbacks.count - 1
     }
-    public func registerPollsCallback(_ callback: @escaping () -> Void) -> Int {
+    public func registerPollsCallback(_ callback: @escaping () -> Void) {
         pollsGotSetCallbacks.append(callback)
-        return pollsGotSetCallbacks.count - 1
     }
-    public func registerContentCallback(_ callback: @escaping () -> Void) -> Int {
+    public func registerContentCallback(_ callback: @escaping () -> Void) {
         contentGotSetCallbacks.append(callback)
-        return contentGotSetCallbacks.count - 1
     }
 
-    public func fetch() {
-        fetchCalendar()
-        fetchPolls()
-        fetchContent()
+    public func clearCallbacks() {
+        calendarGotSetCallbacks = []
+        pollsGotSetCallbacks = []
+        contentGotSetCallbacks = []
     }
     
     public func fetchCalendar() {
@@ -159,7 +153,7 @@ public class Database {
         }
     }
     
-    public func fetchUserProfile(_ user: CLPUser, andRun callback: (() -> Void)?) {
+    public func fetchUserProfile(_ user: CLPProfile, andRun callback: (() -> Void)?) {
         guard let uid = user.id else {return}
         Firestore.firestore().collection("Users").document(uid).getDocument { (document, error) in
 
@@ -188,7 +182,7 @@ public class Database {
         }
     }
 
-    public func updateUserProfile(_ user: CLPUser) {
+    public func updateUserProfile(_ user: CLPProfile) {
 
         guard let uid = user.id else {return}
         let profileToUpload = user.toDict()
@@ -221,11 +215,6 @@ public class Database {
 }
 
 extension String {
-    func noPeriods() -> String {
-        return self.replacingOccurrences(of: ".", with: "___")
-    }
-
-    func retrievePeriods() -> String {
-        return self.replacingOccurrences(of: "___", with: ".")
-    }
+    func noPeriods() -> String {return self.replacingOccurrences(of: ".", with: "___")}
+    func retrievePeriods() -> String {return self.replacingOccurrences(of: "___", with: ".")}
 }

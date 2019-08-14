@@ -15,9 +15,6 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     internal var currentOrder: [Int]?
-    internal var gotCalendar = false
-    internal var gotPolls = false
-    internal var gotContent = false
     var handle: AuthStateDidChangeListenerHandle?
 
     var feedFetchingTimers: [Timer] = []
@@ -26,7 +23,6 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         engageTableView()
-        registerFeedCallbacks()
     }
 
     override func viewDidLayoutSubviews() {
@@ -36,27 +32,30 @@ class FeedViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if CLPUser.shared().id != nil {
+        // Feed
+        Feed.shared.onFetchSuccess {self.updateTableView()}
+        Feed.shared.beginFetching()
+        // Profile
+        if CLPProfile.shared.id != nil {
             handle = Auth.auth().addStateDidChangeListener { (auth, user) in self.updateFirebaseConnectedComponents()}
             self.updateFirebaseConnectedComponents()
-            self.startFetchingFeed()
         }
-        else if !CLPUser.shared().isSigningIn {presentSignInVC()}
+        else if !CLPProfile.shared.isSigningIn {presentSignInVC()}
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // Feed
+        Feed.shared.clearFetchSuccessCallbacks()
+        Feed.shared.stopFetching()
+        // Profile
         if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
-        self.stopFetchingFeed()
-//        gotCalendar = false
-//        gotPolls = false
-//        gotContent = false
     }
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updateFirebaseConnectedComponents() {
-        Database.shared.fetchUserProfile(CLPUser.shared()) {
+        Database.shared.fetchUserProfile(CLPProfile.shared) {
             self.updatePolls()
             self.updateSaved()
         }
@@ -64,42 +63,6 @@ class FeedViewController: UIViewController {
 
     func updatePolls() {self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
     func updateSaved() {self.tableView.layoutSubviews()}
-    func startFetchingFeed() {
-        stopFetchingFeed()
-        let calendarTimer = Timer(timeInterval: 1.0, repeats: true) {timer in
-            if self.gotCalendar {timer.invalidate(); return}
-            Database.shared.fetchCalendar()
-        }
-        let pollTimer = Timer(timeInterval: 1.0, repeats: true) {timer in
-            if self.gotPolls {timer.invalidate(); return}
-            Database.shared.fetchPolls()
-        }
-        let contentTimer = Timer(timeInterval: 1.0, repeats: true) {timer in
-            if self.gotContent {timer.invalidate(); return}
-            Database.shared.fetchContent()
-        }
-        RunLoop.current.add(calendarTimer, forMode: .common)
-        RunLoop.current.add(pollTimer, forMode: .common)
-        RunLoop.current.add(contentTimer, forMode: .common)
-        feedFetchingTimers = [calendarTimer, pollTimer, contentTimer]
-    }
-    func stopFetchingFeed() {
-        for timer in feedFetchingTimers {timer.invalidate()}
-    }
-    func registerFeedCallbacks() {// TODO callback ids so that we can remove them later
-        Database.shared.registerCalendarCallback {
-            self.gotCalendar = true
-            self.updateTableView()
-        }
-        Database.shared.registerPollsCallback {
-            self.gotPolls = true
-            self.updateTableView()
-        }
-        Database.shared.registerContentCallback {
-            self.gotContent = true
-            self.updateTableView()
-        }
-    }
 }
 
 

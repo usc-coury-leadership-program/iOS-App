@@ -42,8 +42,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return 1
-        case 1: return Database.shared.polls.thatNeedAnswering.count//currentFeed.pollsToAnswer().count
-        case 2: return Database.shared.content.count//currentFeed.content.count
+        case 1: return Database.shared.polls.thatNeedAnswering.count
+        case 2: return Database.shared.content.count
         default: return 0
         }
     }
@@ -59,7 +59,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as? FeedViewCell)?.showShadow()
-        (cell as? FeedViewCell)?.setSaved(to: CLPUser.shared().savedContent?.contains(shuffled(indexPath)) ?? false)
+        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.savedContent?.contains(shuffled(indexPath)) ?? false)
     }
 
     //MARK: - convenience functions
@@ -79,13 +79,10 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func updateTableView() {
-        if gotCalendar && gotPolls && gotContent {
-            if currentOrder == nil {currentOrder = ([Int](0...Database.shared.content.count - 1)).shuffled()}
-            print("Updated table view")
-            tableView.reloadData()
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
+        if currentOrder == nil {currentOrder = ([Int](0...Database.shared.content.count - 1)).shuffled()}
+        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 
     func shuffled(_ indexPath: IndexPath) -> Int {

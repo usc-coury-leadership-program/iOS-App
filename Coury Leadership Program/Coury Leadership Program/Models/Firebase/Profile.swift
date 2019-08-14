@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  Profile.swift
 //  Coury Leadership Program
 //
 //  Created by Hayden Shively on 2/8/19.
@@ -10,17 +10,14 @@ import Foundation
 import Firebase
 import GoogleSignIn
 
-public class CLPUser {
+public class CLPProfile {
+    // shared instance
+    public private(set) static var shared: CLPProfile = {
+        return CLPProfile()
+    }()
 
-    public var isSigningIn: Bool = false
-    private var isBulkUpdating: Bool = false
-
-    public private(set) var name: String? {
-        didSet {if name != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
-    }
-    public private(set) var id: String? {
-        didSet {if id != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
-    }
+    public private(set) var name: String? {didSet {if name != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
+    public private(set) var id: String? {didSet {if id != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
     public private(set) var values: [String]? {
         didSet {
             if values != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}
@@ -45,21 +42,22 @@ public class CLPUser {
             }
         }
     }
-    public private(set) var savedContent: [Int]? {
-        didSet {if savedContent != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
-    }
-    public private(set) var answeredPolls: [Int]? {
-        didSet {if answeredPolls != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}
-    }
+    public private(set) var savedContent: [Int]? {didSet {if savedContent != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
+    public private(set) var answeredPolls: [Int]? {didSet {if answeredPolls != nil && !isBulkUpdating {Database.shared.updateUserProfile(self)}}}
+    public var isSigningIn: Bool = false
+    private var isBulkUpdating: Bool = false
 
-    private static var sharedUser: CLPUser = {return CLPUser()}()
     private init() {
         if let googleUser = Auth.auth().currentUser {
             name = googleUser.displayName
             id = googleUser.uid
         }
     }
-    public static func shared() -> CLPUser {return sharedUser}
+
+    public func extractInformation(from googleUser: User) {
+        self.name = googleUser.displayName
+        self.id = googleUser.uid
+    }
 
     public func reconstruct(name: String?, id: String?, values: [String]?, strengths: [String]?, savedContent: [Int]?, answeredPolls: [Int]?, fromDatabase: Bool = false) {
         isBulkUpdating = true
@@ -73,10 +71,7 @@ public class CLPUser {
         if !fromDatabase {Database.shared.updateUserProfile(self)}
     }
 
-    public func updateInformation(from googleUser: User) {
-        self.name = googleUser.displayName
-        self.id = googleUser.uid
-    }
+
 
     public func makeAllNil() {
         self.name = nil
@@ -98,13 +93,6 @@ public class CLPUser {
         }else {
             savedContent!.append(index)
         }
-//        else {
-//            let existingLocationOfIndexInArray = savedContent!.firstIndex(of: index)
-//            if existingLocationOfIndexInArray != nil {savedContent!.remove(at: existingLocationOfIndexInArray!)}
-//            else {
-//                savedContent!.append(index)
-//            }
-//        }
     }
 
     public func addToAnsweredPolls(poll number: Int) {
@@ -140,3 +128,8 @@ public class CLPUser {
         return fullFields
     }
 }
+
+
+//extension CLPProfile: Fetchable {
+//
+//}

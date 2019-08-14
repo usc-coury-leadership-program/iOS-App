@@ -70,7 +70,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         if (isSelectionCount(of: collectionView, 5)) {
             switch selectingType {
             case .values:
-                CLPUser.shared().set(values: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
+                CLPProfile.shared.set(values: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
                     return VALUE_LIST[indexPath.row].name
                 })
                 selectingType = .strengths
@@ -79,7 +79,7 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
 
 
             case .strengths:
-                CLPUser.shared().set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
+                CLPProfile.shared.set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
                     return STRENGTH_LIST[indexPath.row].name
                 })
                 AppDelegate.signIn()

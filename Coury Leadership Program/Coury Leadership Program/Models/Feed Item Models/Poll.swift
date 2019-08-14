@@ -16,13 +16,13 @@ public struct Poll: TableableCellData {
     let id: Int
 
     public func needsToBeAnswered() -> Bool? {
-        let didFindID = CLPUser.shared().answeredPolls?.contains(self.id)
+        let didFindID = CLPProfile.shared.answeredPolls?.contains(self.id)
         if didFindID != nil {return !didFindID!}
         return didFindID
     }
 
     public func markAsAnswered(with response: String) {
-        CLPUser.shared().addToAnsweredPolls(poll: id)
+        CLPProfile.shared.addToAnsweredPolls(poll: id)
         Database.shared.sendPollResults(self, response: response)
     }
 }

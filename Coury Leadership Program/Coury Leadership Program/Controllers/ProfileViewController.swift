@@ -47,8 +47,8 @@ class ProfileViewController: UIViewController {
     }
 
     func updateUserSpecificText() {
-        nameLabel.text = CLPUser.shared().name
-        let userScore = (CLPUser.shared().savedContent?.count ?? 0) + (CLPUser.shared().answeredPolls?.count ?? 0)
+        nameLabel.text = CLPProfile.shared.name
+        let userScore = (CLPProfile.shared.savedContent?.count ?? 0) + (CLPProfile.shared.answeredPolls?.count ?? 0)
         collectionSizeLabel.text = String(userScore)
     }
 
@@ -145,8 +145,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         //cell.showShadow()
         switch indexPath.section {
-        case 0: (cell as? ProfilableCell)?.setHas(to: CLPUser.shared().values?.contains(VALUE_LIST[indexPath.row].name) ?? false)
-        case 1: (cell as? ProfilableCell)?.setHas(to: CLPUser.shared().strengths?.contains(STRENGTH_LIST[indexPath.row].name) ?? false)
+        case 0: (cell as? ProfilableCell)?.setHas(to: CLPProfile.shared.values?.contains(VALUE_LIST[indexPath.row].name) ?? false)
+        case 1: (cell as? ProfilableCell)?.setHas(to: CLPProfile.shared.strengths?.contains(STRENGTH_LIST[indexPath.row].name) ?? false)
         default: break
         }
     }
