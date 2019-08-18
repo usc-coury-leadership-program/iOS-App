@@ -13,11 +13,8 @@ import GoogleSignIn
 class FeedViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-
+    
     internal var currentOrder: [Int]?
-    var handle: AuthStateDidChangeListenerHandle?
-
-    var feedFetchingTimers: [Timer] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +48,13 @@ class FeedViewController: UIViewController {
 
     func updatePolls() {self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
     func updateSaved() {self.tableView.layoutSubviews()}
+    
+    @IBAction func onSafeboxButtonClick(_ sender: UIButton) {
+        sender.showsTouchWhenHighlighted = false
+        sender.isSelected = !sender.isSelected
+        sender.backgroundColor = sender.isSelected ? .blue : .white
+    }
+    
 }
 
 

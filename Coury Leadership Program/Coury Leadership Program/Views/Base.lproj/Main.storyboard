@@ -33,15 +33,19 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="3GG-QD-akW"/>
-                                    <constraint firstAttribute="height" constant="60" id="hEa-nk-KQP"/>
+                                    <constraint firstAttribute="width" secondItem="cho-TO-I82" secondAttribute="height" multiplier="1:1" id="iS1-Aa-Shc"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="-:|"/>
+                                <state key="normal" image="Safebox Icon"/>
+                                <state key="selected" image="Safebox Icon"/>
+                                <state key="highlighted" image="Safebox Icon"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onSafeboxButtonClick:" destination="9pv-A4-QxB" eventType="touchUpInside" id="LWn-fw-BOT"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -293,7 +297,8 @@
                                 <string key="text">Icon Attributions:
 Feed - Icon Made by Freepic from www.flaticon.com
 Improve - Icon made by Good Ware from www.flaticon.com
-Profile - Icon made by Lucy G from www.flaticon.com</string>
+Profile - Icon made by Lucy G from www.flaticon.com
+Safebox - Icon made by Freepic from www.flaticon.com</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -639,6 +644,7 @@ Profile - Icon made by Lucy G from www.flaticon.com</string>
     <resources>
         <image name="Feed Icon" width="22" height="22"/>
         <image name="Profile Icon" width="22" height="22"/>
+        <image name="Safebox Icon" width="22" height="22"/>
         <image name="Wall Icon" width="22" height="22"/>
     </resources>
 </document>
