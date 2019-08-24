@@ -20,7 +20,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xsa-OG-cBN">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <sections/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="I9f-Kj-fy1" appends="YES" id="G1V-EM-rCU"/>
@@ -28,15 +28,22 @@
                                     <outletCollection property="gestureRecognizers" destination="eqa-bw-xtW" appends="YES" id="elq-WQ-ARX"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cho-TO-I82">
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="cho-TO-I82">
                                 <rect key="frame" x="157.66666666666666" y="649" width="60" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="3GG-QD-akW"/>
                                     <constraint firstAttribute="width" secondItem="cho-TO-I82" secondAttribute="height" multiplier="1:1" id="iS1-Aa-Shc"/>
                                 </constraints>
-                                <state key="normal" image="Safebox Icon"/>
-                                <state key="selected" image="Safebox Icon"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                <state key="normal" image="Safebox Icon">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected" image="Safebox Icon">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <state key="highlighted" image="Safebox Icon"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -47,12 +54,24 @@
                                     <action selector="onSafeboxButtonClick:" destination="9pv-A4-QxB" eventType="touchUpInside" id="LWn-fw-BOT"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't saved anything! Tap and hold on a post to save it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r7S-la-Zu7">
+                                <rect key="frame" x="30" y="365.66666666666669" width="315" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="yIt-yG-UV6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="r7S-la-Zu7" firstAttribute="centerY" secondItem="PQr-Ze-W5v" secondAttribute="centerY" id="7bW-Dt-eNp"/>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="9kc-u6-oTD"/>
+                            <constraint firstItem="r7S-la-Zu7" firstAttribute="width" secondItem="PQr-Ze-W5v" secondAttribute="width" constant="-60" id="CqN-qw-MPM"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="xsa-OG-cBN" secondAttribute="bottom" id="KIz-U6-f8V"/>
+                            <constraint firstItem="r7S-la-Zu7" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="blJ-4y-naW"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="cho-TO-I82" secondAttribute="bottom" constant="20" id="fCc-3R-in6"/>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" id="hFU-SK-y7r"/>
                             <constraint firstItem="cho-TO-I82" firstAttribute="centerX" secondItem="xsa-OG-cBN" secondAttribute="centerX" id="umD-z0-M5w"/>
@@ -62,6 +81,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Feed" image="Feed Icon" id="acW-dT-cKf" userLabel="Feed"/>
                     <connections>
+                        <outlet property="nothingSavedMessage" destination="r7S-la-Zu7" id="cbg-dW-nBH"/>
+                        <outlet property="safeboxButton" destination="cho-TO-I82" id="hlp-5O-QPG"/>
                         <outlet property="tableView" destination="xsa-OG-cBN" id="PPy-jX-wQn"/>
                         <segue destination="FeX-Ig-enU" kind="presentation" identifier="SignInSegue" id="818-gU-nKK"/>
                     </connections>

@@ -13,12 +13,25 @@ import GoogleSignIn
 class FeedViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var safeboxButton: UIButton!
+    @IBOutlet weak var nothingSavedMessage: UILabel!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return isJustShowingSaved ? .lightContent : .default
+    }
     
     internal var currentOrder: [Int]?
+    internal var isJustShowingSaved: Bool = false {
+        didSet {indexPathMapping = isJustShowingSaved ? self.saved : self.shuffled}
+    }
+    internal var indexPathMapping: ((IndexPath) -> Int)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        indexPathMapping = self.shuffled
+        safeboxButton.isEnabled = false
+        setupSafeboxButton()
         engageTableView()
     }
 
@@ -47,13 +60,7 @@ class FeedViewController: UIViewController {
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updatePolls() {self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
-    func updateSaved() {self.tableView.layoutSubviews()}
-    
-    @IBAction func onSafeboxButtonClick(_ sender: UIButton) {
-        sender.showsTouchWhenHighlighted = false
-        sender.isSelected = !sender.isSelected
-        sender.backgroundColor = sender.isSelected ? .blue : .white
-    }
+    func updateSaved() {self.tableView.layoutSubviews(); self.safeboxButton.isEnabled = true}
     
 }
 

@@ -20,12 +20,11 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
         case 2:
-            let content = Database.shared.content[shuffled(indexPath)]
+            let content = Database.shared.content[indexPathMapping?(indexPath) ?? indexPath.row]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
             else if let _ = content as? Quote {return QuoteCell.HEIGHT}
             else {return 30}
-
         default: return 30
         }
     }
@@ -43,7 +42,10 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         switch (section) {
         case 0: return 1
         case 1: return Database.shared.polls.thatNeedAnswering.count
-        case 2: return Database.shared.content.count
+        case 2:
+            let count = isJustShowingSaved ? (CLPProfile.shared.savedContent?.count ?? 0) : Database.shared.content.count
+            nothingSavedMessage.isHidden = !(isJustShowingSaved && count == 0)
+            return count
         default: return 0
         }
     }
@@ -53,13 +55,13 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         switch (indexPath.section) {
         case 0: return Database.shared.calendar.generateCellFor(tableView, at: indexPath)
         case 1: return Database.shared.polls.thatNeedAnswering[indexPath.row].generateCellFor(tableView, at: indexPath)// TODO if one of the polls gets answered, but then the user scrolls down and back up, the tableView will try to regenerate it. But it wont find it in this array, resulting in array out of bounds.
-        case 2: return Database.shared.content[shuffled(indexPath)].generateCellFor(tableView, at: indexPath)
+        case 2: return Database.shared.content[indexPathMapping?(indexPath) ?? indexPath.row].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as? FeedViewCell)?.showShadow()
-        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.savedContent?.contains(shuffled(indexPath)) ?? false)
+        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.savedContent?.contains(indexPathMapping?(indexPath) ?? indexPath.row) ?? false)
     }
 
     //MARK: - convenience functions
@@ -87,5 +89,9 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
 
     func shuffled(_ indexPath: IndexPath) -> Int {
         return currentOrder?[indexPath.row] ?? indexPath.row
+    }
+    
+    func saved(_ indexPath: IndexPath) -> Int {
+        return CLPProfile.shared.savedContent?[indexPath.row] ?? indexPath.row
     }
 }
