@@ -179,14 +179,26 @@ public class Database {
                         }
                     }
                     
-                    var answeredPolls: [Int]? = []
+                    var answeredPolls: [Int]? = nil
                     if let rawAnsweredPolls: String = data["answered polls"] as? String {
                         if rawAnsweredPolls.count > 0 {
                             answeredPolls = rawAnsweredPolls.components(separatedBy: ",").map({Int($0)!})
                         }
                     }
                     
-                    let serverData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls)
+                    var goals: [[String]]? = nil
+                    if let rawGoals: String = data["goals"] as? String {
+                        if rawGoals.count > 0 {
+                            goals = []
+                            let bigArrayGoals = rawGoals.components(separatedBy: ",")
+                            for i in 0..<bigArrayGoals.count {
+                                if i%3 == 0 {goals!.append([])}
+                                goals![goals!.count - 1].append(bigArrayGoals[i])
+                            }
+                        }
+                    }
+                    
+                    let serverData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls, goals: goals)
                     for callback in self.profileGotSetCallbacks {
                         callback(serverData)
                     }

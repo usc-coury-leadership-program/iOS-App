@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct Value: ProfilableData {
+public struct Value: ProfilableData, Named {
     let name: String
     let image: UIImage
     let motto: String

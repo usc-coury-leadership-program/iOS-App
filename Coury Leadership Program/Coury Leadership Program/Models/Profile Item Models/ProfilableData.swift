@@ -11,3 +11,7 @@ import UIKit
 public protocol ProfilableData {
     func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell
 }
+
+protocol Named {
+    var name: String { get }
+}

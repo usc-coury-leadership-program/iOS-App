@@ -20,7 +20,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var visualEffectForPPC: UIVisualEffectView!
     
     let collectionViewColumnCount: CGFloat = 3
-    var handle: AuthStateDidChangeListenerHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,17 +32,13 @@ class ProfileViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            self.updateUserSpecificText()
-            self.collectionView.reloadData()
-        }
-        //engageMotionShadows()
+        CLPProfile.shared.onFetchSuccess {self.updateUserSpecificText(); self.collectionView.reloadData()}
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if handle != nil {Auth.auth().removeStateDidChangeListener(handle!)}
-//        disengageMotionShadows()
+        // Profile
+        CLPProfile.shared.clearFetchSuccessCallbacks()
     }
 
     func updateUserSpecificText() {
@@ -62,14 +57,6 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
     }
 
     @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
-//        if sender.state == .began {
-//            let touchPoint = sender.location(in: self.collectionView)
-//            if let indexPath = collectionView.indexPathForItem(at: touchPoint) {
-//                let cell = collectionView.cellForItem(at: indexPath) as! StrengthCell
-//                print(cell.strengthName.text)
-//                performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
-//            }
-//        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -150,7 +137,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         default: break
         }
     }
-
+    // cell selection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else {return}
         switch indexPath.section{
@@ -175,20 +162,4 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         collectionView.allowsSelection = true
         collectionView.reloadData()
     }
-}
-
-extension ProfileViewController {
-
-//    private func engageMotionShadows() {
-//        if motionManager.isDeviceMotionAvailable {
-//            motionManager.deviceMotionUpdateInterval = 0.02
-//            motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-//                guard let motion = motion else {return}
-//                for cell in self.collectionView.visibleCells {cell.adjustShadow(pitch: motion.attitude.pitch, roll: motion.attitude.roll)}
-//            }
-//        }
-//    }
-//
-//    private func disengageMotionShadows() {motionManager.stopDeviceMotionUpdates()}
-
 }

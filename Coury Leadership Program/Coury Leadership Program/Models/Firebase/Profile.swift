@@ -17,6 +17,7 @@ public struct CLPProfileData {
     let strengths: [String]?
     let savedContent: [Int]?
     let answeredPolls: [Int]?
+    let goals: [[String]]?
     
     func toDict() -> [String : String] {
         var dict: [String : String] = [:]
@@ -27,6 +28,7 @@ public struct CLPProfileData {
         dict["strengths"] = strengths?.joined(separator: ",") ?? ""
         dict["saved content"] = savedContent?.map({String($0)}).joined(separator: ",") ?? ""
         dict["answered polls"] = answeredPolls?.map({String($0)}).joined(separator: ",") ?? ""
+        dict["goals"] = goals?.map({$0.joined(separator: ",")}).joined(separator: ",") ?? ""
         
         return dict
     }
@@ -40,6 +42,7 @@ public struct CLPProfileData {
         if strengths != nil {fullFields.append("strengths")}
         if savedContent != nil {fullFields.append("saved content")}
         if answeredPolls != nil {fullFields.append("answered polls")}
+        if goals != nil {fullFields.append("goals")}
         
         return fullFields
     }
@@ -59,8 +62,8 @@ public class CLPProfile {
     private var activeProcesses: [Timer] = []
     private var codeToRunAfterFetching: [() -> Void] = []
     
-    private var cachedServerData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
-    private var localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil) {
+    private var cachedServerData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil, goals: nil)
+    private var localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil, goals: nil) {
         didSet {flushDataToServer()}
     }
     
@@ -68,19 +71,23 @@ public class CLPProfile {
     public var uid: String? {return Auth.auth().currentUser?.uid}
     public private(set) var values: [String]? {
         get {return localData.values ?? cachedServerData.values}
-        set {localData = CLPProfileData(name: name, uid: uid, values: newValue, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls)}
+        set {localData = CLPProfileData(name: name, uid: uid, values: newValue, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls, goals: goals)}
     }
     public private(set) var strengths: [String]? {
         get {return localData.strengths ?? cachedServerData.strengths}
-        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: newValue, savedContent: savedContent, answeredPolls: answeredPolls)}
+        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: newValue, savedContent: savedContent, answeredPolls: answeredPolls, goals: goals)}
     }
     public private(set) var savedContent: [Int]? {
         get {return localData.savedContent ?? cachedServerData.savedContent}
-        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: newValue, answeredPolls: answeredPolls)}
+        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: newValue, answeredPolls: answeredPolls, goals: goals)}
     }
     public private(set) var answeredPolls: [Int]? {
         get {return localData.answeredPolls ?? cachedServerData.answeredPolls}
-        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: newValue)}
+        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: newValue, goals: goals)}
+    }
+    public private(set) var goals: [[String]]? {
+        get {return localData.goals ?? cachedServerData.goals}
+        set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls, goals: newValue)}
     }
 
     private init() {
@@ -92,7 +99,7 @@ public class CLPProfile {
     }
 
     public func deleteLocalCopy() {
-        localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil)
+        localData = CLPProfileData(name: nil, uid: nil, values: nil, strengths: nil, savedContent: nil, answeredPolls: nil, goals: nil)
         cachedServerData = localData
     }
 
@@ -127,10 +134,36 @@ public class CLPProfile {
     public func addToAnsweredPolls(poll number: Int) {
         if answeredPolls == nil {answeredPolls = [number]}
         else if answeredPolls!.firstIndex(of: number) == nil {
-            answeredPolls?.append(number)
+            answeredPolls!.append(number)
         }
     }
     
+    public func addNew(goal: Goal) {
+        
+        let strengthString = String(STRENGTH_LIST.firstIndex(where: {$0.name == goal.strength?.name ?? ""}) ?? -1)
+        let valueString = String(VALUE_LIST.firstIndex(where: {$0.name == goal.value?.name ?? ""}) ?? -1)
+        let goalAsArray = [goal.text, strengthString, valueString]
+        if goals == nil {goals = [goalAsArray]}
+        else {
+            goals!.append(goalAsArray)
+        }
+    }
+    
+    public func removeGoal(at index: Int) {
+        if goals == nil || index > goals!.count {return}
+        goals!.remove(at: index)
+    }
+    
+    public func goal(at index: Int) -> Goal {
+        guard let rawGoal = goals?[index] else {return Goal(text: "", strength: nil, value: nil)}
+        let text = rawGoal[0]
+        let strengthIndex = Int(rawGoal[1])
+        let strength: Strength? = strengthIndex == -1 ? nil : STRENGTH_LIST[strengthIndex!]
+        let valueIndex = Int(rawGoal[2])
+        let value: Value? = valueIndex == -1 ? nil : VALUE_LIST[valueIndex!]
+        
+        return Goal(text: text, strength: strength, value: value)
+    }
 }
 
 
@@ -144,6 +177,10 @@ extension CLPProfile: Fetchable {
         resetState()
         activeProcesses += [dataProcess]
         for process in activeProcesses {RunLoop.current.add(process, forMode: .common)}
+    }
+    
+    public func isFetching() -> Bool {
+        return activeProcesses.count > 0
     }
     
     public func stopFetching() {

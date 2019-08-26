@@ -22,52 +22,64 @@ class SavedViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
     }
+}
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
-        tableView.beginUpdates()
-        tableView.endUpdates()
+
+extension SavedViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        let toVC = segue.destination
+        
+        switch segue.identifier {
+        case "AddGoalSegue": toVC.preferredContentSize = CGSize(width: view.bounds.width, height: 300)
+        default: break
+        }
+        
+        let ppc = toVC.popoverPresentationController!
+        ppc.delegate = self
+        ppc.sourceView = view
+        ppc.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY - 150, width: view.bounds.width, height: 300)
+        ppc.backgroundColor = .clear
+    }
+    
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {}
+    @IBAction func unwindToGoals(_ unwindSegue: UIStoryboardSegue) {
+        guard let addGoalController = unwindSegue.source as? AddGoalViewController else {return}
+        
+        let text = addGoalController.textView.text ?? ""
+        let strengthIndex = addGoalController.strengthPicker.selectedRow(inComponent: 0)
+        let strength = strengthIndex == 0 ? nil : STRENGTH_LIST[strengthIndex]
+        let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
+        let value = valueIndex == 0 ? nil : VALUE_LIST[valueIndex]
+        let goal = Goal(text: text, strength: strength, value: value)
+        
+        CLPProfile.shared.addNew(goal: goal)
+        tableView.reloadData()
+    }
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {}
 }
 
 
 extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
 
     /*header height*/func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
-    /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            let contentIndex = CLPProfile.shared.savedContent![indexPath.row]
-            let content = Database.shared.content[contentIndex]
-            if let _ = content as? Link {return LinkCell.HEIGHT}
-            else if let _ = content as? Image {return ImageCell.HEIGHT}
-            else if let _ = content as? Quote {return QuoteCell.HEIGHT}
-            else {return 30}
-
-        default: return 30
-        }
-    }
+    /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {return GoalCell.HEIGHT}
     /*footer height*/func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
 
     /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 1}
     /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch (section) {
-        case 0:
-            let savedCount = CLPProfile.shared.savedContent?.count ?? 0
-            return savedCount <= Database.shared.content.count ? savedCount : 0
-        default: return 0
-        }
+        return CLPProfile.shared.goals?.count ?? 0
     }
 
     //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch (indexPath.section) {
-        case 0:
-            let contentIndex = CLPProfile.shared.savedContent![indexPath.row]//TODO can be index out of range
-            return Database.shared.content[contentIndex].generateCellFor(tableView, at: indexPath)
-        default: fatalError("Saved feed's TableView has more sections than expected.")
-        }
+        return CLPProfile.shared.goal(at: indexPath.row).generateCellFor(tableView, at: indexPath)
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as? FeedViewCell)?.showShadow()
@@ -78,12 +90,10 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
 
-        LinkCell.registerWith(tableView)
-        ImageCell.registerWith(tableView)
-        QuoteCell.registerWith(tableView)
+        GoalCell.registerWith(tableView)
 
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 12.0, right: 0.0)
-        tableView.estimatedRowHeight = QuoteCell.HEIGHT
+        tableView.estimatedRowHeight = GoalCell.HEIGHT
     }
 }

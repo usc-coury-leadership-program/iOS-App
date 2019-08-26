@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct Strength: ProfilableData {
+public struct Strength: ProfilableData, Named {
     let name: String
     let domain: Domain
     let description: String

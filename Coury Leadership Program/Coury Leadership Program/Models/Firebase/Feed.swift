@@ -46,6 +46,10 @@ public class Feed: Fetchable {
         activeProcesses += [calendarProcess, pollsProcess, contentProcess]
         for process in activeProcesses {RunLoop.current.add(process, forMode: .common)}
     }
+    
+    public func isFetching() -> Bool {
+        return activeProcesses.count > 0
+    }
 
     public func stopFetching() {
         for process in activeProcesses {process.invalidate()}

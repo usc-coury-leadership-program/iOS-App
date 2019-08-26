@@ -51,10 +51,10 @@ class FeedViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // Profile
-        CLPProfile.shared.clearFetchSuccessCallbacks()
-        // Feed
-        Feed.shared.clearFetchSuccessCallbacks()
+//        // Profile
+//        CLPProfile.shared.clearFetchSuccessCallbacks()
+//        // Feed
+//        Feed.shared.clearFetchSuccessCallbacks()
     }
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
