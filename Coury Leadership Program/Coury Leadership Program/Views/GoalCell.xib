@@ -47,6 +47,17 @@
                                 <color key="textColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🗑" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="py5-a4-OUq">
+                                <rect key="frame" x="-24" y="34.5" width="16" height="16"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="1q4-4U-ukC"/>
+                                    <constraint firstAttribute="height" constant="16" id="6WP-QY-ifB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
@@ -55,12 +66,14 @@
                             <constraint firstAttribute="trailing" secondItem="8gC-Gi-LzQ" secondAttribute="trailing" constant="8" id="43f-z4-Kcl"/>
                             <constraint firstItem="9lV-8W-h3h" firstAttribute="height" secondItem="A1p-gC-ti0" secondAttribute="height" id="5qF-fp-61R"/>
                             <constraint firstItem="9lV-8W-h3h" firstAttribute="centerY" secondItem="A1p-gC-ti0" secondAttribute="centerY" id="ZS0-p8-1En"/>
+                            <constraint firstItem="py5-a4-OUq" firstAttribute="centerY" secondItem="NRw-CF-zNZ" secondAttribute="centerY" id="cv3-5H-gk2"/>
                             <constraint firstAttribute="bottom" secondItem="9lV-8W-h3h" secondAttribute="bottom" constant="8" id="eRL-0J-AgO"/>
                             <constraint firstItem="A1p-gC-ti0" firstAttribute="leading" secondItem="9lV-8W-h3h" secondAttribute="trailing" constant="16" id="gQd-Jd-jje"/>
                             <constraint firstItem="9lV-8W-h3h" firstAttribute="leading" secondItem="NRw-CF-zNZ" secondAttribute="leading" constant="8" id="ihn-ZM-hYQ"/>
                             <constraint firstItem="9lV-8W-h3h" firstAttribute="top" secondItem="8gC-Gi-LzQ" secondAttribute="bottom" constant="8" id="nNG-fe-a9P"/>
                             <constraint firstItem="8gC-Gi-LzQ" firstAttribute="leading" secondItem="NRw-CF-zNZ" secondAttribute="leading" constant="8" id="oWs-CD-DQW"/>
                             <constraint firstAttribute="trailing" secondItem="A1p-gC-ti0" secondAttribute="trailing" constant="8" id="q0k-11-2Sw"/>
+                            <constraint firstItem="py5-a4-OUq" firstAttribute="leading" secondItem="NRw-CF-zNZ" secondAttribute="leading" constant="-24" id="rjB-GD-nJY"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -78,6 +91,7 @@
                 <outlet property="insetView" destination="NRw-CF-zNZ" id="Zkg-a2-2ei"/>
                 <outlet property="strengthLabel" destination="9lV-8W-h3h" id="LG0-sR-fg5"/>
                 <outlet property="textView" destination="8gC-Gi-LzQ" id="xpE-XM-gzG"/>
+                <outlet property="trashIndicator" destination="py5-a4-OUq" id="kjR-oh-9zx"/>
                 <outlet property="valueLabel" destination="A1p-gC-ti0" id="uyN-8I-yMB"/>
             </connections>
             <point key="canvasLocation" x="47.826086956521742" y="54.575892857142854"/>

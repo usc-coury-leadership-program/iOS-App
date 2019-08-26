@@ -17,6 +17,7 @@ class GoalCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var strengthLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var trashIndicator: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,8 +38,10 @@ class GoalCell: AUITableViewCell, FeedViewCell {
     func onLongPress(began: Bool) {
         if began {
             insetView.transform = CGAffineTransform(translationX: 10.0, y: 0.0)
+            trashIndicator.isHidden = false
         }else {
             insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
+            trashIndicator.isHidden = true
         }
     }
     

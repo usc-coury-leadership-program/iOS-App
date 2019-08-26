@@ -30,15 +30,9 @@ class ProfileViewController: UIViewController {
         updateUserSpecificText()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         CLPProfile.shared.onFetchSuccess {self.updateUserSpecificText(); self.collectionView.reloadData()}
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // Profile
-        CLPProfile.shared.clearFetchSuccessCallbacks()
     }
 
     func updateUserSpecificText() {

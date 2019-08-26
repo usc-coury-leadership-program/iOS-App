@@ -106,10 +106,10 @@
             </objects>
             <point key="canvasLocation" x="784.79999999999995" y="0.0"/>
         </scene>
-        <!--Saved-->
+        <!--Goals-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController title="Saved" id="8rJ-Kc-sve" customClass="SavedViewController" customModule="Coury_Leadership_Program" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Saved" id="8rJ-Kc-sve" userLabel="Goals" customClass="SavedViewController" customModule="Coury_Leadership_Program" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -162,7 +162,7 @@
                             <outletCollection property="gestureRecognizers" destination="hCu-cw-5NN" appends="YES" id="OUy-FH-wlR"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Improve" image="Wall Icon" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Goals" image="Wall Icon" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="tableView" destination="VT6-Dd-Mv7" id="mx9-jA-iaN"/>
                     </connections>

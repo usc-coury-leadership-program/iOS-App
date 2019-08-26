@@ -135,13 +135,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BE4CFB0623120C1F0029A1D2 /* Improve */ = {
+		BE4CFB0623120C1F0029A1D2 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
 				C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */,
 				BE4CFB0723120CFD0029A1D2 /* AddGoalViewController.swift */,
 			);
-			name = Improve;
+			name = Goals;
 			sourceTree = "<group>";
 		};
 		BE8346C72303CDB800A9A66D /* Firebase */ = {
@@ -273,7 +273,7 @@
 			children = (
 				C44E818322EE8E1B0091D2B2 /* Feed */,
 				C45B75DA225998DA006ACDA0 /* SignInViewController.swift */,
-				BE4CFB0623120C1F0029A1D2 /* Improve */,
+				BE4CFB0623120C1F0029A1D2 /* Goals */,
 				C4ADBE4B22E2754C007F8BC0 /* Profile */,
 				C4ADBE4922E27543007F8BC0 /* AboutViewController.swift */,
 			);
