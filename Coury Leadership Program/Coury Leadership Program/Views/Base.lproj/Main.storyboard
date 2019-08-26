@@ -148,6 +148,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="YIW-cv-PFz" firstAttribute="centerX" secondItem="O1u-W8-tvY" secondAttribute="centerX" id="KUG-3z-1ey"/>
                             <constraint firstItem="VT6-Dd-Mv7" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="Mdg-jM-mSq"/>
@@ -157,6 +158,9 @@
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="YIW-cv-PFz" secondAttribute="bottom" constant="20" id="lFr-X8-Y2e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="hCu-cw-5NN" appends="YES" id="OUy-FH-wlR"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Improve" image="Wall Icon" id="cPa-gy-q4n"/>
                     <connections>
@@ -165,6 +169,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
                 <exit id="kQq-Qc-Q3J" userLabel="Exit" sceneMemberID="exit"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="hCu-cw-5NN">
+                    <connections>
+                        <action selector="onLongPress:" destination="8rJ-Kc-sve" id="wEG-FF-g2b"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1605.5999999999999" y="0.0"/>
         </scene>

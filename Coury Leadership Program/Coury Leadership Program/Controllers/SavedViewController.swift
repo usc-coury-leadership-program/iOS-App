@@ -22,6 +22,31 @@ class SavedViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
     }
+    
+    @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
+        let touchPoint = sender.location(in: tableView)
+        if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+            guard let cell = tableView.cellForRow(at: indexPath) as? InteractiveTableableCell else {return}
+            
+            switch sender.state {
+            case .began:
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                    cell.onLongPress(began: true)
+                }, completion: nil)
+                
+            case .ended:
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                    cell.onLongPress(began: false)
+                }, completion: nil)
+                CLPProfile.shared.removeGoal(at: indexPath.row)
+                tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                
+            default:
+                break
+            }
+        }
+
+    }
 }
 
 
