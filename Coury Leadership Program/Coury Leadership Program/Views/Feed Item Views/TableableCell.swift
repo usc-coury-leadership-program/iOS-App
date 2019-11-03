@@ -16,7 +16,6 @@ public protocol TableableCell {
     static func registerWith(_ tableView: UITableView)
     static func insideOf(_ tableView: UITableView, at indexPath: IndexPath) -> AUITableViewCell
 }
-
 extension TableableCell {
     public static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
     public static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
@@ -25,16 +24,23 @@ extension TableableCell {
     }
 }
 
+
+//=======================================================================
+
+
 public protocol InteractiveTableableCell: TableableCell {
     func onTap(inContext vc: UIViewController)
     func onLongPress(began: Bool)
 }
 
+
+//=======================================================================
+
+
 public protocol FeedViewCell: InteractiveTableableCell {
     var insetView: UIView! { get set }
     func setSaved(to: Bool)
 }
-
 extension FeedViewCell {
     func configureShadow() {
         insetView.layer.shadowRadius = 8
@@ -46,10 +52,13 @@ extension FeedViewCell {
 }
 
 
+//=======================================================================
 
 
 public class AUITableViewCell: UITableViewCell {
-    public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+    public var indexPath: IndexPath?
+    public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
+        self.indexPath = indexPath
         return self
     }
 }

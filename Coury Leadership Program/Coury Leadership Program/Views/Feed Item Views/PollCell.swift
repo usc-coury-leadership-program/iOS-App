@@ -39,7 +39,8 @@ class PollCell: AUITableViewCell, FeedViewCell {
     func onTap(inContext vc: UIViewController) {}
     func onLongPress(began: Bool) {}
 
-    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
+        super.populatedBy(data, at: indexPath)
         guard let pollModel = data as? Poll else {return self}
         questionText.text = pollModel.question
         poll = pollModel

@@ -9,7 +9,7 @@
 import UIKit
 
 class GoalCell: AUITableViewCell, FeedViewCell {
-    
+
     public static let HEIGHT: CGFloat = 100
     public static let REUSE_ID: String = "GoalCell"
 
@@ -45,7 +45,9 @@ class GoalCell: AUITableViewCell, FeedViewCell {
         }
     }
     
-    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
+        super.populatedBy(data, at: indexPath)
+        
         let goal = data as? Goal
         
         textView.text = goal?.text ?? ""

@@ -15,6 +15,6 @@ public protocol TableableCellData {
 
 extension TableableCellData {
     public func generateCellFor(_ tableView: UITableView, at indexPath: IndexPath) -> AUITableViewCell {
-        return CorrespondingView.insideOf(tableView, at: indexPath).populatedBy(self)
+        return CorrespondingView.insideOf(tableView, at: indexPath).populatedBy(self, at: indexPath)
     }
 }

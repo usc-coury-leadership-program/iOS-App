@@ -12,6 +12,8 @@ import GoogleSignIn
 
 class FeedViewController: UIViewController {
     
+    public static var indexPathMapping: ((IndexPath) -> Int)?
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var safeboxButton: UIButton!
     @IBOutlet weak var nothingSavedMessage: UILabel!
@@ -22,14 +24,13 @@ class FeedViewController: UIViewController {
     
     internal var currentOrder: [Int]?
     internal var isJustShowingSaved: Bool = false {
-        didSet {indexPathMapping = isJustShowingSaved ? self.saved : self.shuffled}
+        didSet {FeedViewController.indexPathMapping = isJustShowingSaved ? self.saved : self.shuffled}
     }
-    internal var indexPathMapping: ((IndexPath) -> Int)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        indexPathMapping = self.shuffled
+        FeedViewController.indexPathMapping = self.shuffled
         safeboxButton.isEnabled = false
         setupSafeboxButton()
         engageTableView()

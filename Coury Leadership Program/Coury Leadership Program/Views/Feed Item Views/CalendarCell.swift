@@ -9,10 +9,10 @@
 import UIKit
 
 class CalendarCell: AUITableViewCell, FeedViewCell {
-
+    
     public static let HEIGHT: CGFloat = 84
     public static let REUSE_ID: String = "CalendarCell"
-
+    
     public var calendar: Calendar? = nil {
         didSet {currentEvent = 0}
     }
@@ -47,7 +47,8 @@ class CalendarCell: AUITableViewCell, FeedViewCell {
     func onLongPress(began: Bool) {}
 
 
-    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
+        super.populatedBy(data, at: indexPath)
         calendar = data as? Calendar
         return self
     }

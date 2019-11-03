@@ -56,7 +56,8 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
         }
     }
 
-    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
+        super.populatedBy(data, at: indexPath)
         guard let quote = data as? Quote else {return self}
         quoteText.text = quote.quoteText//"“" + quoteText + "”"
         authorText.text = "- " + quote.author

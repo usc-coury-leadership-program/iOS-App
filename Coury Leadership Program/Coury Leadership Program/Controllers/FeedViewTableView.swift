@@ -20,7 +20,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
         case 2:
-            let content = Database.shared.content[indexPathMapping?(indexPath) ?? indexPath.row]
+            let content = Database.shared.content[FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row]
             if let _ = content as? Link {return LinkCell.HEIGHT}
             else if let _ = content as? Image {return ImageCell.HEIGHT}
             else if let _ = content as? Quote {return QuoteCell.HEIGHT}
@@ -55,13 +55,13 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         switch (indexPath.section) {
         case 0: return Database.shared.calendar.generateCellFor(tableView, at: indexPath)
         case 1: return Database.shared.polls.thatNeedAnswering[indexPath.row].generateCellFor(tableView, at: indexPath)// TODO if one of the polls gets answered, but then the user scrolls down and back up, the tableView will try to regenerate it. But it wont find it in this array, resulting in array out of bounds.
-        case 2: return Database.shared.content[indexPathMapping?(indexPath) ?? indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 2: return Database.shared.content[FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as? FeedViewCell)?.showShadow()
-        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.savedContent?.contains(indexPathMapping?(indexPath) ?? indexPath.row) ?? false)
+        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.savedContent?.contains(FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row) ?? false)
     }
 
     //MARK: - convenience functions

@@ -40,7 +40,7 @@ extension FeedViewController {
                     cell.onLongPress(began: true)
                 }, completion: nil)
 
-                if indexPath.section == 2 {CLPProfile.shared.toggleSavedContent(for: indexPathMapping?(indexPath) ?? indexPath.row)}
+                if indexPath.section == 2 {CLPProfile.shared.toggleSavedContent(for: FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row)}
 
             case .ended:
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
@@ -92,12 +92,12 @@ extension FeedViewController {
     
     //MARK: - convenience functions
     func setupSafeboxButton() {
-        let safeboxImage: UIImage = #imageLiteral(resourceName: "Safebox Icon")
-        let safeboxImageTinted = safeboxImage.withRenderingMode(.alwaysTemplate)
-        safeboxButton.setImage(safeboxImageTinted, for: .disabled)
-        safeboxButton.setImage(safeboxImageTinted, for: .normal)
-        safeboxButton.setImage(safeboxImageTinted, for: .highlighted)
-        safeboxButton.setImage(safeboxImageTinted, for: .selected)
+//        let safeboxImage: UIImage = #imageLiteral(resourceName: "Safebox Icon")
+//        let safeboxImageTinted = safeboxImage.withRenderingMode(.alwaysTemplate)
+//        safeboxButton.setImage(safeboxImageTinted, for: .disabled)
+//        safeboxButton.setImage(safeboxImageTinted, for: .normal)
+//        safeboxButton.setImage(safeboxImageTinted, for: .highlighted)
+//        safeboxButton.setImage(safeboxImageTinted, for: .selected)
         safeboxButton.tintColor = .white
         safeboxButton.showsTouchWhenHighlighted = false
     }

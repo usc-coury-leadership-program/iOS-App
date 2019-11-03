@@ -147,9 +147,9 @@
 		BE8346C72303CDB800A9A66D /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				BE8346C82303CDB800A9A66D /* Profile.swift */,
 				BE8346C92303CDB800A9A66D /* Fetchable.swift */,
 				BE8346CA2303CDB800A9A66D /* Database.swift */,
+				BE8346C82303CDB800A9A66D /* Profile.swift */,
 				BE8346CB2303CDB800A9A66D /* Feed.swift */,
 			);
 			path = Firebase;

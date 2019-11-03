@@ -12,16 +12,16 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     
     private static let BASE_THUMBNAIL_URL = "https://www.google.com/s2/favicons?domain="
 
-    public static let HEIGHT: CGFloat = 60
+    public static let HEIGHT: CGFloat = 100
     public static let REUSE_ID: String = "LinkCell"
 
     @IBOutlet weak var insetView: UIView!
-    @IBOutlet weak var savedIndicator: UIView!
     @IBOutlet weak var headlineText: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
-
+    @IBOutlet weak var favoriteHeart: UIImageView!
+    
     var isSaved: Bool = false {
-        didSet {savedIndicator.backgroundColor = isSaved ? insetView.backgroundColor : .clear}
+        didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
     }
     func setSaved(to: Bool) {
         isSaved = to
@@ -60,35 +60,32 @@ class LinkCell: AUITableViewCell, FeedViewCell {
         insetView.layer.cornerRadius = 8
         insetView.layer.masksToBounds = false
 
-        savedIndicator.layer.cornerRadius = savedIndicator.bounds.width/2.0
-        savedIndicator.layer.masksToBounds = true
-
         previewImage.layer.cornerRadius = 8
         previewImage.layer.masksToBounds = true
+        
+        favoriteHeart.isUserInteractionEnabled = true
+        favoriteHeart.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onHeartTap(_:))))
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         configureShadow()
     }
-
+    
+    @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
+        CLPProfile.shared.toggleSavedContent(for: FeedViewController.indexPathMapping?(indexPath!) ?? indexPath!.row)
+        isSaved = !isSaved
+    }
+    
     func onTap(inContext vc: UIViewController) {
         if url != nil {UIApplication.shared.open(url!)}
         else {print("That URL is nil and cannot be opened")}
     }
 
-    func onLongPress(began: Bool) {
-        if began {
-            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 1.0, 0.0, 0.0);
-            insetView.transform = CGAffineTransform(translationX: 10.0, y: 0.0)
-            isSaved = !isSaved
-        }else {
-            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);
-            insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
-        }
-    }
+    func onLongPress(began: Bool) {}
 
-    override public func populatedBy(_ data: TableableCellData) -> AUITableViewCell {
+    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
+        super.populatedBy(data, at: indexPath)
         url = (data as? Link)?.url
         return self
     }

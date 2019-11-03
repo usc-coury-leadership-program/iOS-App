@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,14 +14,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="319.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Z8-YL-5GC">
-                        <rect key="frame" x="16" y="8" width="288" height="303.5"/>
+                        <rect key="frame" x="16" y="8" width="288" height="263"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-0h-dAi">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="303.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="263"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
@@ -34,33 +32,47 @@
                             <constraint firstItem="a1M-0h-dAi" firstAttribute="leading" secondItem="5Z8-YL-5GC" secondAttribute="leading" id="ekm-fW-eGb"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GD6-m4-h27">
-                        <rect key="frame" x="-8" y="152" width="16" height="16"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obh-tf-0X6">
+                        <rect key="frame" x="15" y="271" width="290" height="30"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart" translatesAutoresizingMaskIntoConstraints="NO" id="Dal-l1-wWH">
+                                <rect key="frame" x="270" y="10" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Z1W-Rc-xr7"/>
+                                    <constraint firstAttribute="width" constant="20" id="wki-r4-jxm"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="GD6-m4-h27" secondAttribute="height" multiplier="1:1" id="eKT-nn-CXN"/>
-                            <constraint firstAttribute="height" constant="16" id="p5d-Q6-7QB"/>
+                            <constraint firstAttribute="trailing" secondItem="Dal-l1-wWH" secondAttribute="trailing" id="LPX-Q5-8E4"/>
+                            <constraint firstAttribute="height" constant="30" id="bYG-cx-KNX"/>
+                            <constraint firstAttribute="bottom" secondItem="Dal-l1-wWH" secondAttribute="bottom" id="yhT-pP-33k"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="5Z8-YL-5GC" secondAttribute="bottom" constant="8" id="KCJ-9o-71j"/>
-                    <constraint firstItem="GD6-m4-h27" firstAttribute="centerY" secondItem="5Z8-YL-5GC" secondAttribute="centerY" id="Q5Y-dC-kDj"/>
+                    <constraint firstItem="Obh-tf-0X6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0Eq-xy-CCo"/>
+                    <constraint firstItem="Obh-tf-0X6" firstAttribute="top" secondItem="5Z8-YL-5GC" secondAttribute="bottom" id="AoQ-zs-Ant"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Obh-tf-0X6" secondAttribute="bottom" constant="8" id="JFQ-2i-kp9"/>
                     <constraint firstAttribute="trailing" secondItem="5Z8-YL-5GC" secondAttribute="trailing" constant="16" id="VBF-2b-BdS"/>
                     <constraint firstItem="5Z8-YL-5GC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="aFW-bq-ZfN"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Obh-tf-0X6" secondAttribute="trailing" id="blK-oV-9gc"/>
                     <constraint firstItem="5Z8-YL-5GC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u9b-9O-UYE"/>
-                    <constraint firstItem="GD6-m4-h27" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-8" id="zMN-mb-YZM"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="favoriteHeart" destination="Dal-l1-wWH" id="VSb-Pf-8lL"/>
                 <outlet property="insetView" destination="5Z8-YL-5GC" id="7Z0-aG-kJl"/>
-                <outlet property="savedIndicator" destination="GD6-m4-h27" id="4Ax-yP-YH4"/>
                 <outlet property="squareImage" destination="a1M-0h-dAi" id="Q1o-pE-Bdw"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="278.86056971514245"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Heart" width="550" height="550"/>
+    </resources>
 </document>
