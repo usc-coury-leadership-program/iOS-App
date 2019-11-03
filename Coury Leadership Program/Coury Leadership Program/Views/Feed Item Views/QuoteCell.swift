@@ -10,16 +10,16 @@ import UIKit
 
 class QuoteCell: AUITableViewCell, FeedViewCell {
 
-    public static let HEIGHT: CGFloat = 156
+    public static let HEIGHT: CGFloat = 186
     public static let REUSE_ID: String = "QuoteCell"
 
     @IBOutlet weak var insetView: UIView!
-    @IBOutlet weak var savedIndicator: UIView!
     @IBOutlet weak var quoteText: UILabel!
     @IBOutlet weak var authorText: UILabel!
-
+    @IBOutlet weak var favoriteHeart: UIImageView!
+    
     var isSaved: Bool = false {
-        didSet {savedIndicator.backgroundColor = isSaved ? insetView.backgroundColor : .clear}
+        didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
     }
     func setSaved(to: Bool) {
         isSaved = to
@@ -32,29 +32,25 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
         insetView.layer.cornerRadius = 8
         insetView.layer.masksToBounds = false
 
-        savedIndicator.layer.cornerRadius = savedIndicator.bounds.width/2.0
-        savedIndicator.layer.masksToBounds = true
-
         quoteText.adjustsFontSizeToFitWidth = true
+        
+        favoriteHeart.isUserInteractionEnabled = true
+        favoriteHeart.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onHeartTap(_:))))
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         configureShadow()
     }
+    
+    @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
+        CLPProfile.shared.toggleSavedContent(for: FeedViewController.indexPathMapping?(indexPath!) ?? indexPath!.row)
+        isSaved = !isSaved
+    }
 
     func onTap(inContext vc: UIViewController) {
     }
-    func onLongPress(began: Bool) {
-        if began {
-            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 1.0, 0.0, 0.0);
-            insetView.transform = CGAffineTransform(translationX: 10.0, y: 0.0)
-            isSaved = !isSaved
-        }else {
-            //insetView.layer.transform = CATransform3DMakeRotation(CGFloat.pi, 0.0, 0.0, 0.0);
-            insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
-        }
-    }
+    func onLongPress(began: Bool) {}
 
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
