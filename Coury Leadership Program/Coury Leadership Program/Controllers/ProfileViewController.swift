@@ -13,6 +13,7 @@ import GoogleSignIn
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionSizeLabel: UILabel!
@@ -25,6 +26,8 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         engageCollectionView()
+        hideTableView(true)
+        engageTableView()
         nameLabel.adjustsFontSizeToFitWidth = true
 
         updateUserSpecificText()
@@ -40,18 +43,24 @@ class ProfileViewController: UIViewController {
         let userScore = (CLPProfile.shared.savedContent?.count ?? 0) + (CLPProfile.shared.answeredPolls?.count ?? 0)
         collectionSizeLabel.text = String(userScore)
     }
-
+    
+    @IBAction func onViewSwitch(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            hideCollectionView(false)
+            hideTableView(true)
+        }else {
+            hideCollectionView(true)
+            hideTableView(false)
+        }
+    }
+    
     @IBAction func onSettingsClick(_ sender: Any) {AppDelegate.signOut()}
 }
 
 extension ProfileViewController: UIPopoverPresentationControllerDelegate {
 
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
-    }
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {return .none}
+    @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {}
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -85,75 +94,3 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {visualEffectForPPC.isHidden = true}
 }
 
-extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
-    //cell spacing x
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {return 20}
-    //cell spacing y
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {return 20}
-    //cell size
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let interitemSpacing = self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: indexPath.section)
-        let sumWhitespace = (collectionViewColumnCount - 1)*interitemSpacing
-        let cellEdgeLength = (collectionView.bounds.width - 2*collectionView.contentInset.left - sumWhitespace)/collectionViewColumnCount
-        return CGSize(width: cellEdgeLength, height: cellEdgeLength)
-    }
-    //footer size
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 20)
-    }
-
-    //number of sections
-    func numberOfSections(in collectionView: UICollectionView) -> Int {return 2}
-    //number of rows
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0: return VALUE_LIST.count
-        case 1: return STRENGTH_LIST.count
-        default: return 0
-        }
-    }
-
-    //cell generation
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0: return VALUE_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
-        case 1: return STRENGTH_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
-        default: fatalError("Profile's CollectionView has more sections than expected.")
-        }
-    }
-    //cell view
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        //cell.showShadow()
-        switch indexPath.section {
-        case 0: (cell as? ProfilableCell)?.setHas(to: CLPProfile.shared.values?.contains(VALUE_LIST[indexPath.row].name) ?? false)
-        case 1: (cell as? ProfilableCell)?.setHas(to: CLPProfile.shared.strengths?.contains(STRENGTH_LIST[indexPath.row].name) ?? false)
-        default: break
-        }
-    }
-    // cell selection
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) else {return}
-        switch indexPath.section{
-        case 0: performSegue(withIdentifier: "ValueDetailSegue", sender: cell)
-        case 1: performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
-        default: fatalError("Profile's CollectionView has more sections than expected.")
-        }
-
-    }
-
-    //MARK: - convenience functions
-    func engageCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-
-        ValueCell.registerWith(collectionView)
-        StrengthCell.registerWith(collectionView)
-
-        collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.contentInset = UIEdgeInsets(top: visualEffectHeader.frame.maxY + 20.0, left: 16.0, bottom: 20.0, right: 16.0)
-
-        collectionView.allowsSelection = true
-        collectionView.reloadData()
-    }
-}

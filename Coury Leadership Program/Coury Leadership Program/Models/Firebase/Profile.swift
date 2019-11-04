@@ -130,6 +130,26 @@ public class CLPProfile {
             savedContent!.append(index)
         }
     }
+    
+    public func toggleSavedContent(for item: TableableCellData) {
+        let item = item as Any as! AnyHashable
+        if savedContent == nil {
+            savedContent = [Database.shared.runtimeHashDict[item.hashValue]!]
+        }else if let existingLocation = savedContent!.firstIndex(of: Database.shared.runtimeHashDict[item.hashValue]!) {
+            savedContent!.remove(at: existingLocation)
+        }else {
+            savedContent!.append(Database.shared.runtimeHashDict[item.hashValue]!)
+        }
+    }
+    
+    public func hasSavedContent(for index: Int) -> Bool {
+        return savedContent?.contains(index) ?? false
+    }
+    
+    public func hasSavedContent(for item: TableableCellData) -> Bool {
+        let item = item as Any as! AnyHashable
+        return savedContent?.contains(Database.shared.runtimeHashDict[item.hashValue] ?? -1) ?? false
+    }
 
     public func addToAnsweredPolls(poll number: Int) {
         if answeredPolls == nil {answeredPolls = [number]}

@@ -21,10 +21,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 1: return PollCell.HEIGHT
         case 2:
             let content = Database.shared.content[FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row]
-            if let _ = content as? Link {return LinkCell.HEIGHT}
-            else if let _ = content as? Image {return ImageCell.HEIGHT}
-            else if let _ = content as? Quote {return QuoteCell.HEIGHT}
-            else {return 30}
+            return content.CorrespondingView.HEIGHT
         default: return 30
         }
     }
@@ -32,7 +29,6 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
-
     // Number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -42,10 +38,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         switch (section) {
         case 0: return 1
         case 1: return Database.shared.polls.thatNeedAnswering.count
-        case 2:
-            let count = isJustShowingSaved ? (CLPProfile.shared.savedContent?.count ?? 0) : Database.shared.content.count
-            nothingSavedMessage.isHidden = !(isJustShowingSaved && count == 0)
-            return count
+        case 2: return Database.shared.content.count
         default: return 0
         }
     }
@@ -60,8 +53,10 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if Database.shared.content.count == 0 {return}
+        let content = Database.shared.content[FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row]
         (cell as? FeedViewCell)?.showShadow()
-        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.savedContent?.contains(FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row) ?? false)
+        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.hasSavedContent(for: content))
     }
 
     //MARK: - convenience functions
@@ -89,9 +84,5 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
 
     func shuffled(_ indexPath: IndexPath) -> Int {
         return currentOrder?[indexPath.row] ?? indexPath.row
-    }
-    
-    func saved(_ indexPath: IndexPath) -> Int {
-        return CLPProfile.shared.savedContent?[indexPath.row] ?? indexPath.row
     }
 }

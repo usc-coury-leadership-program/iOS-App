@@ -11,6 +11,8 @@
 		66EB55172211306F004FF186 /* ValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* ValueCell.swift */; };
 		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
+		BE47F12D236FFF2800528E26 /* ProfileViewTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE47F12C236FFF2800528E26 /* ProfileViewTableView.swift */; };
+		BE47F12F237000AD00528E26 /* ProfileViewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE47F12E237000AD00528E26 /* ProfileViewCollectionView.swift */; };
 		BE4CFB0823120CFD0029A1D2 /* AddGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4CFB0723120CFD0029A1D2 /* AddGoalViewController.swift */; };
 		BE4CFB0B231359340029A1D2 /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4CFB09231359340029A1D2 /* GoalCell.swift */; };
 		BE4CFB0C231359340029A1D2 /* GoalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE4CFB0A231359340029A1D2 /* GoalCell.xib */; };
@@ -65,6 +67,8 @@
 		66EB55162211306F004FF186 /* ValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCell.xib; sourceTree = "<group>"; };
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
+		BE47F12C236FFF2800528E26 /* ProfileViewTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTableView.swift; sourceTree = "<group>"; };
+		BE47F12E237000AD00528E26 /* ProfileViewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCollectionView.swift; sourceTree = "<group>"; };
 		BE4CFB0723120CFD0029A1D2 /* AddGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalViewController.swift; sourceTree = "<group>"; };
 		BE4CFB09231359340029A1D2 /* GoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
 		BE4CFB0A231359340029A1D2 /* GoalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalCell.xib; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				C4CA5AA3220E0F9000ECF768 /* ProfileViewController.swift */,
+				BE47F12E237000AD00528E26 /* ProfileViewCollectionView.swift */,
+				BE47F12C236FFF2800528E26 /* ProfileViewTableView.swift */,
 				C4D12129229DFF8300064544 /* ValueDetailViewController.swift */,
 				C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */,
 			);
@@ -474,6 +480,7 @@
 				C4561F2322B0A20E00358678 /* StrengthCell.swift in Sources */,
 				C4561F1C22B09A9900358678 /* Strengths.swift in Sources */,
 				C4CA5AAB220E178700ECF768 /* PollCell.swift in Sources */,
+				BE47F12F237000AD00528E26 /* ProfileViewCollectionView.swift in Sources */,
 				C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */,
 				C4CE85F3220E454F00D5570A /* Content.swift in Sources */,
 				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
@@ -495,6 +502,7 @@
 				BE8346CC2303CDB800A9A66D /* Profile.swift in Sources */,
 				BE8346CD2303CDB800A9A66D /* Fetchable.swift in Sources */,
 				BE4CFB0B231359340029A1D2 /* GoalCell.swift in Sources */,
+				BE47F12D236FFF2800528E26 /* ProfileViewTableView.swift in Sources */,
 				C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */,
 				C44E818722EE8E8D0091D2B2 /* FeedViewInteraction.swift in Sources */,
 				BE8346CE2303CDB800A9A66D /* Database.swift in Sources */,

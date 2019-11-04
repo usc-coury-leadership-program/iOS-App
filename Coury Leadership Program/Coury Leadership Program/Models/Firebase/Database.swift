@@ -34,6 +34,7 @@ public class Database {
     public private(set) var content: [TableableCellData] = [] {
         didSet {for callback in contentGotSetCallbacks {callback()}}
     }
+    public var runtimeHashDict: [Int : Int] = [:]
 
     // private constructor
     private init() {
@@ -155,6 +156,10 @@ public class Database {
                     result.append(quoteStruct)
                 }
 
+                // obtain hashes
+                for i in 0..<result.count {
+                    self.runtimeHashDict[(result[i] as Any as! AnyHashable).hashValue] = i
+                }
                 self.content = result
             }
         }

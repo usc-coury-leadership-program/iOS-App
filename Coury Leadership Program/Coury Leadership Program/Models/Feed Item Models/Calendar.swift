@@ -8,10 +8,24 @@
 
 import UIKit
 
-public struct Calendar: TableableCellData {
+public struct Calendar: TableableCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = CalendarCell.self
 
     let events: [(name: String, date: Date)]
+    
+    public static func == (lhs: Calendar, rhs: Calendar) -> Bool {
+        return lhs.events.elementsEqual(rhs.events) {(arg0, arg1) in
+            let (name0, date0) = arg0
+            let (name1, date1) = arg1
+            return (name0 == name1) && (date0 == date1)
+        }
+    }
+    public func hash(into hasher: inout Hasher) {
+        for event in events {
+            hasher.combine(event.name)
+            hasher.combine(event.date)
+        }
+    }
 }
 
 extension Date {

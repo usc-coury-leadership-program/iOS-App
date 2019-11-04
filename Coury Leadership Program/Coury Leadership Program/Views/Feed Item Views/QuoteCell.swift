@@ -10,13 +10,15 @@ import UIKit
 
 class QuoteCell: AUITableViewCell, FeedViewCell {
 
-    public static let HEIGHT: CGFloat = 186
+    public static let HEIGHT: CGFloat = 206
     public static let REUSE_ID: String = "QuoteCell"
 
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var quoteText: UILabel!
     @IBOutlet weak var authorText: UILabel!
     @IBOutlet weak var favoriteHeart: UIImageView!
+    
+    private var data: TableableCellData? = nil
     
     var isSaved: Bool = false {
         didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
@@ -44,7 +46,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
     }
     
     @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
-        CLPProfile.shared.toggleSavedContent(for: FeedViewController.indexPathMapping?(indexPath!) ?? indexPath!.row)
+        CLPProfile.shared.toggleSavedContent(for: self.data!)
         isSaved = !isSaved
     }
 
@@ -54,6 +56,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
 
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
+        self.data = data
         guard let quote = data as? Quote else {return self}
         quoteText.text = quote.quoteText//"“" + quoteText + "”"
         authorText.text = "- " + quote.author

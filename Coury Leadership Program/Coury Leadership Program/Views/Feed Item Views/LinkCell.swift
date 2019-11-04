@@ -12,13 +12,15 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     
     private static let BASE_THUMBNAIL_URL = "https://www.google.com/s2/favicons?domain="
 
-    public static let HEIGHT: CGFloat = 100
+    public static let HEIGHT: CGFloat = 120
     public static let REUSE_ID: String = "LinkCell"
 
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var headlineText: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
     @IBOutlet weak var favoriteHeart: UIImageView!
+    
+    private var data: TableableCellData? = nil
     
     var isSaved: Bool = false {
         didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
@@ -29,10 +31,11 @@ class LinkCell: AUITableViewCell, FeedViewCell {
 
     var url: URL? = nil {
         didSet {
-
+            //TODO loading these images causes feed to hang. have images saved elsewhere
             headlineText.text = url?.absoluteString
             guard let urlhost = url?.host else {return}
             let thumbnailURL = URL(string: LinkCell.BASE_THUMBNAIL_URL + urlhost)
+            
             do {
                 let thumbnailData = try Data.init(contentsOf: thumbnailURL!)
                 previewImage.image = UIImage(data: thumbnailData)
@@ -73,19 +76,22 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     }
     
     @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
-        CLPProfile.shared.toggleSavedContent(for: FeedViewController.indexPathMapping?(indexPath!) ?? indexPath!.row)
+        CLPProfile.shared.toggleSavedContent(for: self.data!)
         isSaved = !isSaved
     }
     
-    func onTap(inContext vc: UIViewController) {
+    @IBAction func onReadMoreTap(_ sender: UIButton) {
         if url != nil {UIApplication.shared.open(url!)}
         else {print("That URL is nil and cannot be opened")}
     }
+    
+    func onTap(inContext vc: UIViewController) {}
 
     func onLongPress(began: Bool) {}
 
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
+        self.data = data
         url = (data as? Link)?.url
         return self
     }

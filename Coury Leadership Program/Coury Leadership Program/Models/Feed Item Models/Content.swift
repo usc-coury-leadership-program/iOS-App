@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-public class Image: TableableCellData {
+public class Image: TableableCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = ImageCell.self
 
     let reference: StorageReference
@@ -30,18 +30,36 @@ public class Image: TableableCellData {
             }
         }
     }
+    
+    public static func == (lhs: Image, rhs: Image) -> Bool {return lhs.reference == rhs.reference}
+    public func hash(into hasher: inout Hasher) {hasher.combine(reference)}
 }
 
-public struct Link: TableableCellData {
+public struct Link: TableableCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = LinkCell.self
 
     let url: URL
     let squareImage: UIImage
+    
+    public static func == (lhs: Link, rhs: Link) -> Bool {return lhs.url == rhs.url}
+    public func hash(into hasher: inout Hasher) {hasher.combine(url)}
 }
 
-public struct Quote: TableableCellData {
+public struct Quote: TableableCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = QuoteCell.self
 
     let quoteText: String
     let author: String
+    
+    public static func == (lhs: Quote, rhs: Quote) -> Bool {return (lhs.quoteText == rhs.quoteText) && (lhs.author == rhs.author)}
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(quoteText)
+        hasher.combine(author)
+    }
+}
+
+extension Array where Element == TableableCellData {
+    var thatsBeenLiked: [TableableCellData] {
+        return self.filter({CLPProfile.shared.hasSavedContent(for: $0)})
+    }
 }

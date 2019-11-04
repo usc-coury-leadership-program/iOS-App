@@ -18,17 +18,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKI-dz-eJ4">
-                        <rect key="frame" x="16" y="8" width="319" height="104"/>
+                        <rect key="frame" x="16" y="8" width="319" height="84"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbW-Xt-OgN">
-                                <rect key="frame" x="4" y="4" width="96" height="96"/>
+                                <rect key="frame" x="4" y="4" width="76" height="76"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FbW-Xt-OgN" secondAttribute="height" multiplier="1:1" id="mVN-C1-yzR"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline from website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K68-ev-qnA">
-                                <rect key="frame" x="108" y="30.5" width="203" height="43"/>
+                                <rect key="frame" x="88" y="20.5" width="223" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="lK2-kC-gGA"/>
                                 </constraints>
@@ -48,22 +48,45 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZYQ-8I-ssq">
-                        <rect key="frame" x="15" y="112" width="321" height="30"/>
+                        <rect key="frame" x="15" y="92" width="321" height="50"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart" translatesAutoresizingMaskIntoConstraints="NO" id="Se9-i4-bRJ">
-                                <rect key="frame" x="301" y="10" width="20" height="20"/>
+                                <rect key="frame" x="0.0" y="8" width="30" height="30"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="ObP-is-JUx"/>
-                                    <constraint firstAttribute="width" constant="20" id="wVh-Dg-9ru"/>
+                                    <constraint firstAttribute="height" constant="30" id="ObP-is-JUx"/>
+                                    <constraint firstAttribute="width" constant="30" id="wVh-Dg-9ru"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMd-qo-2aX">
+                                <rect key="frame" x="221" y="8" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="eIs-vF-xMT"/>
+                                    <constraint firstAttribute="width" constant="100" id="q2O-0N-wxe"/>
+                                </constraints>
+                                <state key="normal" title="Read More">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onReadMoreTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="F6L-ky-xt4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="JNm-uB-CFC"/>
-                            <constraint firstAttribute="trailing" secondItem="Se9-i4-bRJ" secondAttribute="trailing" id="ZSj-6y-eGD"/>
-                            <constraint firstAttribute="bottom" secondItem="Se9-i4-bRJ" secondAttribute="bottom" id="tQg-F1-n83"/>
+                            <constraint firstItem="Se9-i4-bRJ" firstAttribute="top" secondItem="ZYQ-8I-ssq" secondAttribute="top" constant="8" id="E6k-iF-xyP"/>
+                            <constraint firstAttribute="height" constant="50" id="JNm-uB-CFC"/>
+                            <constraint firstItem="aMd-qo-2aX" firstAttribute="top" secondItem="ZYQ-8I-ssq" secondAttribute="top" constant="8" id="L44-UV-1WB"/>
+                            <constraint firstItem="Se9-i4-bRJ" firstAttribute="leading" secondItem="ZYQ-8I-ssq" secondAttribute="leading" id="SDn-su-9Gw"/>
+                            <constraint firstAttribute="trailing" secondItem="aMd-qo-2aX" secondAttribute="trailing" id="rfV-jb-DrH"/>
                         </constraints>
                     </view>
                 </subviews>
