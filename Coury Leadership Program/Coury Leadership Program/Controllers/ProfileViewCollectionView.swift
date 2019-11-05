@@ -80,6 +80,10 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         collectionView.reloadData()
     }
     
+    func updateCollectionView() {
+        collectionView.reloadData()
+    }
+    
     func hideCollectionView(_ shouldHide: Bool) {
         collectionView.isHidden = shouldHide
         collectionView.isUserInteractionEnabled = !shouldHide
