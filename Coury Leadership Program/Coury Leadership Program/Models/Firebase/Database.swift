@@ -138,7 +138,7 @@ public class Database {
                     return
                 }
                 for link in links {
-                    let linkStruct: Link = Link(url: URL(string: link)!, squareImage: UIImage(color: .black)!)
+                    let linkStruct: Link = Link(url: URL(string: link)!)
                     result.append(linkStruct)
                 }
 
