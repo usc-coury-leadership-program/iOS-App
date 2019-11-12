@@ -122,15 +122,12 @@ extension AppDelegate: GIDSignInDelegate {
 
     func handleAsFirebase(_ url: URL, with options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         let sourceApp = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
-        return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
+        return GIDSignIn.sharedInstance().handle(url/*, sourceApplication: sourceApp, annotation: [:]*/)
     }
 
     public static func signIn(allowingInteraction: Bool = true) {
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            CLPProfile.shared.isSigningIn = true
-            GIDSignIn.sharedInstance().signInSilently()
-        }
-        else if allowingInteraction {
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        if allowingInteraction {
             CLPProfile.shared.isSigningIn = true
             GIDSignIn.sharedInstance().signIn()
         }

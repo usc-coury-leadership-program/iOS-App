@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class SignInViewController: UIViewController, GIDSignInUIDelegate {
+class SignInViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var helpText: UILabel!
@@ -23,7 +23,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         engageCollectionView()
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
     }
 
     private enum SelectingType {case values, strengths}
