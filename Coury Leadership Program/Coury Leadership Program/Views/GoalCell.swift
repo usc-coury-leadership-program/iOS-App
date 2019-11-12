@@ -34,7 +34,7 @@ class GoalCell: AUITableViewCell, FeedViewCell {
     
     func setSaved(to: Bool) {}
     
-    func onTap(inContext vc: UIViewController) {}
+    func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {}
     func onLongPress(began: Bool) {
         if began {
             insetView.transform = CGAffineTransform(translationX: 10.0, y: 0.0)

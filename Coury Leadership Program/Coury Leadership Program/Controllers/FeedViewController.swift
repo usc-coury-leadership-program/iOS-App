@@ -44,6 +44,8 @@ class FeedViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    
+    @IBAction func unwindToFeed(_ unwindSegue: UIStoryboardSegue) {}
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 

@@ -29,7 +29,7 @@ extension TableableCell {
 
 
 public protocol InteractiveTableableCell: TableableCell {
-    func onTap(inContext vc: UIViewController)
+    func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer)
     func onLongPress(began: Bool)
 }
 

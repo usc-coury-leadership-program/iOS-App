@@ -70,22 +70,26 @@ public class Database {
                     return
                 }
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMM d yyyy h:mma"
                 var events: [(name: String, date: Date)] = []
                 
                 for entry in data {
                     let dateString = (entry.value as! String)
+                    
+                    dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
                     if let date = dateFormatter.date(from: dateString) {
                         events.append((name: entry.key, date: date))
                     }else {
-                        dateFormatter.dateFormat = "MMM d yyyy"
+                        dateFormatter.dateFormat = "MM/dd/yyyy"
                         if let date = dateFormatter.date(from: dateString) {
                             events.append((name: entry.key, date: date))
                         }else {
                             dateFormatter.dateFormat = "MMM yyyy"
                             if let date = dateFormatter.date(from: dateString) {
                                 events.append((name: entry.key, date: date))
-                            }else {continue}
+                            }else {
+                                print("Date formatting of \(entry.key) is not supported")
+                                continue
+                            }
                         }
                     }
                 }

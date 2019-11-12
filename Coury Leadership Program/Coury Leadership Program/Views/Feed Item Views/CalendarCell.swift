@@ -12,18 +12,6 @@ class CalendarCell: AUITableViewCell, FeedViewCell {
     
     public static let HEIGHT: CGFloat = 84
     public static let REUSE_ID: String = "CalendarCell"
-    
-    public var calendar: Calendar? = nil {
-        didSet {currentEvent = 0}
-    }
-    private var currentEvent: Int = 0 {
-        didSet {
-            guard let events = calendar?.events, events.count > 0 else {return}
-            if (currentEvent < 0) {currentEvent = events.count - 1}
-            let event = events[currentEvent % events.count]
-            eventText.text = event.name + " - " + event.date.month + " " + event.date.day + " " + event.date.time
-        }
-    }
 
     @IBOutlet public weak var insetView: UIView!
     @IBOutlet weak var eventText: UILabel!
@@ -42,14 +30,15 @@ class CalendarCell: AUITableViewCell, FeedViewCell {
         super.layoutSubviews()
         configureShadow()
     }
-
-    func onTap(inContext vc: UIViewController) {currentEvent += 1}
+    
+    func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {vc.performSegue(withIdentifier: "CalendarSegue", sender: vc)}
     func onLongPress(began: Bool) {}
-
 
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
-        calendar = data as? Calendar
+        if let event = (data as! Calendar).events.first {
+            eventText.text = event.name + " - " + event.date.month + " " + event.date.day + " " + event.date.time
+        }
         return self
     }
     

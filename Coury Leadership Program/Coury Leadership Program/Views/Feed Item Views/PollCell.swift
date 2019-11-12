@@ -36,7 +36,7 @@ class PollCell: AUITableViewCell, FeedViewCell {
         configureShadow()
     }
 
-    func onTap(inContext vc: UIViewController) {}
+    func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {}
     func onLongPress(began: Bool) {}
 
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {

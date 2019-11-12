@@ -56,6 +56,7 @@
                         <outlet property="nothingSavedMessage" destination="r7S-la-Zu7" id="cbg-dW-nBH"/>
                         <outlet property="tableView" destination="xsa-OG-cBN" id="PPy-jX-wQn"/>
                         <segue destination="FeX-Ig-enU" kind="presentation" identifier="SignInSegue" id="818-gU-nKK"/>
+                        <segue destination="uvk-uN-FeR" kind="presentation" identifier="CalendarSegue" id="bPJ-iy-sOp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -116,7 +117,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="onSafeboxButtonClick:" destination="9pv-A4-QxB" eventType="touchUpInside" id="FwI-Hj-wZl"/>
                                     <segue destination="riO-Ap-qAo" kind="popoverPresentation" identifier="AddGoalSegue" popoverAnchorView="YIW-cv-PFz" id="snm-Uf-L5z">
                                         <popoverArrowDirection key="popoverArrowDirection"/>
                                     </segue>
@@ -586,6 +586,73 @@ Heart - Icon made by Google from www.flaticon.com</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1159" y="0.0"/>
+        </scene>
+        <!--Calendar View Controller-->
+        <scene sceneID="oTy-fX-mqg">
+            <objects>
+                <viewController id="uvk-uN-FeR" customClass="CalendarViewController" customModule="Coury_Leadership_Program" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pcX-NG-X7b">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coury Calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pV-Ay-9Vf">
+                                <rect key="frame" x="16" y="32" width="343" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="2Pn-n4-IoS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="29"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v3Q-uj-xuE">
+                                <rect key="frame" x="0.0" y="75" width="375" height="587"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1nk-jw-Dmn">
+                                <rect key="frame" x="16" y="662" width="343" height="46"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="TXX-wc-hwP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="CLOSE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onReadMoreButtonPress:" destination="REo-dz-LoZ" eventType="touchUpInside" id="Idy-64-tO3"/>
+                                    <segue destination="VG8-TH-z0C" kind="unwind" unwindAction="unwindToFeed:" id="Lr1-M9-9IS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Pgy-Qn-Kpv" firstAttribute="trailing" secondItem="v3Q-uj-xuE" secondAttribute="trailing" id="FzA-ad-Pd6"/>
+                            <constraint firstItem="Pgy-Qn-Kpv" firstAttribute="trailing" secondItem="1nk-jw-Dmn" secondAttribute="trailing" constant="16" id="PBx-az-EAE"/>
+                            <constraint firstItem="v3Q-uj-xuE" firstAttribute="leading" secondItem="Pgy-Qn-Kpv" secondAttribute="leading" id="Rg1-cY-P7l"/>
+                            <constraint firstItem="1nk-jw-Dmn" firstAttribute="leading" secondItem="Pgy-Qn-Kpv" secondAttribute="leading" constant="16" id="S5g-zK-DhL"/>
+                            <constraint firstItem="1nk-jw-Dmn" firstAttribute="top" secondItem="v3Q-uj-xuE" secondAttribute="bottom" id="SqF-73-MKu"/>
+                            <constraint firstItem="v3Q-uj-xuE" firstAttribute="top" secondItem="5pV-Ay-9Vf" secondAttribute="bottom" constant="8" id="XdA-s8-oKr"/>
+                            <constraint firstItem="Pgy-Qn-Kpv" firstAttribute="bottom" secondItem="1nk-jw-Dmn" secondAttribute="bottom" constant="16" id="kMJ-dm-azt"/>
+                            <constraint firstItem="5pV-Ay-9Vf" firstAttribute="top" secondItem="Pgy-Qn-Kpv" secondAttribute="top" constant="32" id="la1-kV-Ymf"/>
+                            <constraint firstItem="5pV-Ay-9Vf" firstAttribute="leading" secondItem="Pgy-Qn-Kpv" secondAttribute="leading" constant="16" id="mKg-GX-sac"/>
+                            <constraint firstItem="Pgy-Qn-Kpv" firstAttribute="trailing" secondItem="5pV-Ay-9Vf" secondAttribute="trailing" constant="16" id="vn1-lq-tM4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Pgy-Qn-Kpv"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="v3Q-uj-xuE" id="cLZ-eM-xdu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pdR-6n-LN1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="VG8-TH-z0C" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="784.79999999999995" y="-757.38916256157643"/>
         </scene>
         <!--Add Goal View Controller-->
         <scene sceneID="1d9-qY-SVs">

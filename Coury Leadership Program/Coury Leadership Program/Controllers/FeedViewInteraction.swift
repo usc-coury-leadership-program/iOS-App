@@ -15,18 +15,7 @@ extension FeedViewController {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 let cell = tableView.cellForRow(at: indexPath)!
-                (cell as? InteractiveTableableCell)?.onTap(inContext: self)
-                
-                if indexPath.section == 0 {
-                    UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
-                        UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
-                            cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-                        }
-                        UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
-                            cell.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                        }
-                    }, completion: nil)
-                }
+                (cell as? InteractiveTableableCell)?.onTap(inContext: self, sender)
             }
         }
     }
@@ -57,9 +46,7 @@ extension FeedViewController {
         }
     }
 
-    @IBAction func onLongPressGesture(_ sender: UILongPressGestureRecognizer) {
-    }
+    @IBAction func onLongPressGesture(_ sender: UILongPressGestureRecognizer) {}
 
-    @IBAction func onSwipeGesture(_ sender: UISwipeGestureRecognizer) {
-    }
+    @IBAction func onSwipeGesture(_ sender: UISwipeGestureRecognizer) {}
 }

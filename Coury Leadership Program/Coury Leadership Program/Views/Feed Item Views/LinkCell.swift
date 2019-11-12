@@ -85,7 +85,7 @@ class LinkCell: AUITableViewCell, FeedViewCell {
         else {print("That URL is nil and cannot be opened")}
     }
     
-    func onTap(inContext vc: UIViewController) {}
+    func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {}
 
     func onLongPress(began: Bool) {}
 
