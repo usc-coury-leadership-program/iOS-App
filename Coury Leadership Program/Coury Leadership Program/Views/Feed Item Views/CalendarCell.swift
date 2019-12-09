@@ -37,7 +37,7 @@ class CalendarCell: AUITableViewCell, FeedViewCell {
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
         if let event = (data as! Calendar).events.first {
-            eventText.text = event.name + " - " + event.date.month + " " + event.date.day + " " + event.date.time
+            eventText.text = event.name + " - " + event.start.month + " " + event.start.day + " " + event.start.time
         }
         return self
     }

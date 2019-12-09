@@ -49,7 +49,7 @@ class FeedViewController: UIViewController {
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
-    func updatePolls() {self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
+    func updatePolls() {self.updateTableView()}//self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
     func updateSaved() {self.tableView.layoutSubviews()}
     
 }

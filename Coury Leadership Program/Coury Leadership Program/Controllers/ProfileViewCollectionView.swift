@@ -28,7 +28,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 
     //number of sections
     func numberOfSections(in collectionView: UICollectionView) -> Int {return 2}
-    //number of rows
+    //number of cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return VALUE_LIST.count

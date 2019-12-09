@@ -41,8 +41,8 @@ class CalendarViewController: UIViewController {
         
         let iosevent: EKEvent = EKEvent(eventStore: store)
         iosevent.title = event.name
-        iosevent.startDate = event.date
-        iosevent.endDate = Date(timeInterval: 3600, since: event.date)
+        iosevent.startDate = event.start
+        iosevent.endDate = event.end ?? Date(timeInterval: 3600, since: event.start)
 //        iosevent.notes = "This is a note"
         iosevent.calendar = store.defaultCalendarForNewEvents
         
@@ -76,7 +76,7 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "CalendarTableViewCell")
         
         let event = Database.shared.calendar.events[indexPath.row]
-        cell.textLabel?.text = event.name + " - " + event.date.month + " " + event.date.day + " " + event.date.time
+        cell.textLabel?.text = event.name + " - " + event.start.month + " " + event.start.day + " " + event.start.time
         
         return cell
     }

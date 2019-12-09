@@ -25,7 +25,7 @@ public class Database {
     private var contentGotSetCallbacks: [() -> Void] = []
     private var profileGotSetCallbacks: [(CLPProfileData) -> Void] = []
     // public instance properties
-    public private(set) var calendar = Calendar(events: []) {
+    public private(set) var calendar: Calendar = Calendar(events: []) {
         didSet {for callback in calendarGotSetCallbacks {callback()}}
     }
     public private(set) var polls: [Poll] = [] {
@@ -62,40 +62,39 @@ public class Database {
     }
     
     public func fetchCalendar() {
-        Firestore.firestore().collection("Feed").document("Calendar").getDocument { (document, error) in
-            
-            if let document = document, document.exists {
-                guard let data = document.data() else {
-                    print("Calendar document has no data")
-                    return
-                }
-                let dateFormatter = DateFormatter()
-                var events: [(name: String, date: Date)] = []
+        Firestore.firestore().collection("Calendar").getDocuments() { (snapshot, error) in
+            if let snapshot = snapshot {
                 
-                for entry in data {
-                    let dateString = (entry.value as! String)
+                var events: [(name: String, start: Date, end: Date?, location: String?)] = []
+                
+                for document in snapshot.documents {
+                    // each document should represent an event
+                    let event = document.data()
                     
-                    dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
-                    if let date = dateFormatter.date(from: dateString) {
-                        events.append((name: entry.key, date: date))
-                    }else {
-                        dateFormatter.dateFormat = "MM/dd/yyyy"
-                        if let date = dateFormatter.date(from: dateString) {
-                            events.append((name: entry.key, date: date))
-                        }else {
-                            dateFormatter.dateFormat = "MMM yyyy"
-                            if let date = dateFormatter.date(from: dateString) {
-                                events.append((name: entry.key, date: date))
-                            }else {
-                                print("Date formatting of \(entry.key) is not supported")
-                                continue
-                            }
+                    var name: String = ""
+                    var startTime: Timestamp = Timestamp()
+                    var endTime: Timestamp?
+                    var location: String?
+                    
+                    for entry in event {
+                        switch entry.key {
+                        case "name":
+                            name = entry.value as! String
+                        case "start_time":
+                            startTime = entry.value as! Timestamp
+                        case "end_time":
+                            endTime = entry.value as? Timestamp
+                        case location:
+                            location = entry.value as? String
+                        default:
+                            break
                         }
                     }
+                    events.append((name, startTime.dateValue(), endTime?.dateValue(), location))
                 }
-
+                
                 let sorted = events.sorted() {(event0, event1) -> Bool in
-                    event0.date.compare(event1.date) == .orderedAscending
+                    event0.start.compare(event1.start) == .orderedAscending
                 }
                 self.calendar = Calendar(events: sorted)
             }
