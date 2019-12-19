@@ -15,37 +15,37 @@ public struct CLPProfileData {
     let uid: String?
     let values: [String]?
     let strengths: [String]?
-    let savedContent: [Int]?
-    let answeredPolls: [Int]?
+    let savedContent: [String]?
+    let answeredPolls: [String]?
     let goals: [[String]]?
     
-    func toDict() -> [String : String] {
-        var dict: [String : String] = [:]
-        
-        dict["name"] = name ?? ""
-        dict["id"] = uid ?? ""
-        dict["values"] = values?.joined(separator: ",") ?? ""
-        dict["strengths"] = strengths?.joined(separator: ",") ?? ""
-        dict["saved content"] = savedContent?.map({String($0)}).joined(separator: ",") ?? ""
-        dict["answered polls"] = answeredPolls?.map({String($0)}).joined(separator: ",") ?? ""
-        dict["goals"] = goals?.map({$0.joined(separator: ",")}).joined(separator: ",") ?? ""
-        
-        return dict
-    }
-    
-    func listOfFullFields() -> [String] {
-        var fullFields: [String] = []
-        
-        if name != nil {fullFields.append("name")}
-        if uid != nil {fullFields.append("id")}
-        if values != nil {fullFields.append("values")}
-        if strengths != nil {fullFields.append("strengths")}
-        if savedContent != nil {fullFields.append("saved content")}
-        if answeredPolls != nil {fullFields.append("answered polls")}
-        if goals != nil {fullFields.append("goals")}
-        
-        return fullFields
-    }
+//    func toDict() -> [String : String] {
+//        var dict: [String : String] = [:]
+//
+//        dict["name"] = name ?? ""
+//        dict["id"] = uid ?? ""
+//        dict["values"] = values?.joined(separator: ",") ?? ""
+//        dict["strengths"] = strengths?.joined(separator: ",") ?? ""
+//        dict["saved content"] = savedContent?.map({String($0)}).joined(separator: ",") ?? ""
+//        dict["answered polls"] = answeredPolls?.map({String($0)}).joined(separator: ",") ?? ""
+//        dict["goals"] = goals?.map({$0.joined(separator: ",")}).joined(separator: ",") ?? ""
+//
+//        return dict
+//    }
+//
+//    func listOfFullFields() -> [String] {
+//        var fullFields: [String] = []
+//
+//        if name != nil {fullFields.append("name")}
+//        if uid != nil {fullFields.append("id")}
+//        if values != nil {fullFields.append("values")}
+//        if strengths != nil {fullFields.append("strengths")}
+//        if savedContent != nil {fullFields.append("saved content")}
+//        if answeredPolls != nil {fullFields.append("answered polls")}
+//        if goals != nil {fullFields.append("goals")}
+//
+//        return fullFields
+//    }
 }
 
 public class CLPProfile {
@@ -77,11 +77,11 @@ public class CLPProfile {
         get {return localData.strengths ?? cachedServerData.strengths}
         set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: newValue, savedContent: savedContent, answeredPolls: answeredPolls, goals: goals)}
     }
-    public private(set) var savedContent: [Int]? {
+    public private(set) var savedContent: [String]? {
         get {return localData.savedContent ?? cachedServerData.savedContent}
         set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: newValue, answeredPolls: answeredPolls, goals: goals)}
     }
-    public private(set) var answeredPolls: [Int]? {
+    public private(set) var answeredPolls: [String]? {
         get {return localData.answeredPolls ?? cachedServerData.answeredPolls}
         set {localData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: newValue, goals: goals)}
     }
@@ -121,13 +121,13 @@ public class CLPProfile {
         self.strengths = strengths
     }
 
-    public func toggleSavedContent(for index: Int) {
+    public func toggleSavedContent(for uid: String) {
         if savedContent == nil {
-            savedContent = [index]
-        }else if let existingLocation = savedContent!.firstIndex(of: index) {
+            savedContent = [uid]
+        }else if let existingLocation = savedContent!.firstIndex(of: uid) {
             savedContent!.remove(at: existingLocation)
         }else {
-            savedContent!.append(index)
+            savedContent!.append(uid)
         }
     }
     

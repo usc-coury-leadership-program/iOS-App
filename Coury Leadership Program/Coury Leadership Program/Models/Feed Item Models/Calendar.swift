@@ -10,28 +10,22 @@ import UIKit
 
 public struct Calendar: TableableCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = CalendarCell.self
-
-    let events: [(name: String, start: Date, end: Date?, location: String?)]
     
-    public static func == (lhs: Calendar, rhs: Calendar) -> Bool {
-        return lhs.events.elementsEqual(rhs.events) {(arg0, arg1) in
-            let (name0, start0, end0, loc0) = arg0
-            let (name1, start1, end1, loc1) = arg1
-            return (name0 == name1) && (start0 == start1) && (end0 == end1) && (loc0 == loc1)
-        }
+    struct Event: Identifiable, Hashable {
+        let name: String
+        let start: Date
+        let end: Date?
+        let location: String?
+        public let uid: String
     }
-    public func hash(into hasher: inout Hasher) {
-        for event in events {
-            hasher.combine(event.name)
-            hasher.combine(event.start)
-            hasher.combine(event.end)
-            hasher.combine(event.location)
-        }
-    }
+
+    let events: [Event]
+    
+    public static func == (lhs: Calendar, rhs: Calendar) -> Bool {return lhs.events == rhs.events}
+    public func hash(into hasher: inout Hasher) {hasher.combine(events)}
 }
 
 extension Date {
-
     var month: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM"
@@ -49,5 +43,4 @@ extension Date {
         dateFormatter.dateFormat = "h:mma"
         return dateFormatter.string(from: self)
     }
-    
 }

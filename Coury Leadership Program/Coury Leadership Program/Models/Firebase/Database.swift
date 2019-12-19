@@ -19,7 +19,8 @@ public class Database {
     // private static properties
     private static let storage = Storage.storage()
     // private instance properties
-    private var lastUploadedProfile: [String : Any] = [:]
+    private let db = Firestore.firestore()
+    
     private var calendarGotSetCallbacks: [() -> Void] = []
     private var pollsGotSetCallbacks: [() -> Void] = []
     private var contentGotSetCallbacks: [() -> Void] = []
@@ -34,11 +35,9 @@ public class Database {
     public private(set) var content: [TableableCellData] = [] {
         didSet {for callback in contentGotSetCallbacks {callback()}}
     }
-    public var runtimeHashDict: [Int : Int] = [:]
 
     // private constructor
-    private init() {
-    }
+    private init() {}
 
     public func registerCalendarCallback(_ callback: @escaping () -> Void) {
         calendarGotSetCallbacks.append(callback)
@@ -62,13 +61,14 @@ public class Database {
     }
     
     public func fetchCalendar() {
-        Firestore.firestore().collection("Calendar").getDocuments() { (snapshot, error) in
+        db.collection("Calendar").getDocuments() { (snapshot, error) in
             if let snapshot = snapshot {
                 
-                var events: [(name: String, start: Date, end: Date?, location: String?)] = []
+                var events: [Calendar.Event] = []
                 
                 for document in snapshot.documents {
                     // each document should represent an event
+                    let uid = document.documentID
                     let event = document.data()
                     
                     var name: String = ""
@@ -90,7 +90,7 @@ public class Database {
                             break
                         }
                     }
-                    events.append((name, startTime.dateValue(), endTime?.dateValue(), location))
+                    events.append(Calendar.Event(name: name, start: startTime.dateValue(), end: endTime?.dateValue(), location: location, uid: uid))
                 }
                 
                 let sorted = events.sorted() {(event0, event1) -> Bool in
@@ -102,79 +102,50 @@ public class Database {
     }
     
     public func fetchPolls() {
-        Firestore.firestore().collection("Feed").document("Polls").getDocument { (document, error) in
-            
-            if let document = document, document.exists {
-                guard let data = document.data() else {
-                    print("Polls document has no data")
-                    return
+        db.collection("Polls").getDocuments() { (snapshot, error) in
+            if let snapshot = snapshot {
+                
+                var polls: [(Date, Poll)] = []
+                
+                for document in snapshot.documents {
+                    // each document should represent a poll
+                    let uid = document.documentID
+                    let poll = document.data()
+                    
+                    var title: String = ""
+                    var timestamp: Timestamp = Timestamp()
+                    var options: [String] = []
+                    
+                    for entry in poll {
+                        switch entry.key {
+                        case "title":
+                            title = entry.value as! String
+                        case "timestamp":
+                            timestamp = entry.value as! Timestamp
+                        case "Options":
+                            let option_arr = entry.value as! [[String : Int]]
+                            options = option_arr.map({$0.keys.first!})
+                        default:
+                            break
+                        }
+                    }
+                    polls.append((timestamp.dateValue(), Poll(question: title, answers: options, uid: uid)))
                 }
-                var polls: [Poll] = []
-
-                for (i, question) in data.enumerated() {
-                    let answers = (question.value as! [String]).map({$0.retrievePeriods()})
-                    polls.append(Poll(question: question.key.retrievePeriods(), answers: answers, id: i))
+                
+                let sorted = polls.sorted() {(poll0, poll1) -> Bool in
+                    poll0.0.compare(poll1.0) == .orderedAscending
                 }
-
-                self.polls = polls
+                self.polls = sorted.map({$0.1})
             }
         }
     }
 
-    public func fetchContent() {
-        print("Fetching content from Firebase")
-        Firestore.firestore().collection("Feed").document("Content").getDocument { (document, error) in
-
-            if let document = document, document.exists {
-                guard let data = document.data() else {
-                    print("Content document has no data")
-                    return
-                }
-                var result: [TableableCellData] = []
-
-                guard let links: [String] = data["Links"] as? [String] else {
-                    print("Could not find links!")
-                    return
-                }
-                for link in links {
-                    let linkStruct: Link = Link(url: URL(string: link)!)
-                    result.append(linkStruct)
-                }
-
-                guard let images: [String] = data["Images"] as? [String] else {
-                    print("Could not find images!")
-                    return
-                }
-                for image in images {
-                    let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
-                    result.append(Image(imageReference: storageRef))
-                }
-
-                guard let quotes: [Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
-                    print("Could not finds quotes")
-                    return
-                }
-                for quote in quotes {
-                    let quoteStruct: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
-                    result.append(quoteStruct)
-                }
-
-                // obtain hashes
-                for i in 0..<result.count {
-                    self.runtimeHashDict[(result[i] as Any as! AnyHashable).hashValue] = i
-                }
-                self.content = result
-            }
-        }
-    }
-    
     public func fetchProfile() {
-        print("Fetching profile from Firebase")
         if let googleUser = Auth.auth().currentUser {
             let name = googleUser.displayName
             let uid = googleUser.uid
             
-            Firestore.firestore().collection("Users").document(uid).getDocument { (document, error) in
+            db.collection("Users").document(uid).getDocument { (document, error) in
                 
                 if let document = document, document.exists, let data = document.data() {
                     let values: [String]? = (data["values"] as? String)?.components(separatedBy: ",")
@@ -225,27 +196,42 @@ public class Database {
             let uploadedString = uploadedElement.value as! String
             return (newElement.key == uploadedElement.key) && (newElement.value == uploadedString)
         }) {
-            Firestore.firestore().collection("Users").document(uid).setData(profileToUpload, mergeFields: profile.listOfFullFields())
+            db.collection("Users").document(uid).setData(profileToUpload, mergeFields: profile.listOfFullFields())
             lastUploadedProfile = profileToUpload
         }
         print("Did run Database.updateUserProfile()")
     }
-
-
-    public func sendPollResults(_ poll: Poll, response: String) {
-        if !poll.answers.contains(response) {fatalError("That's not a valid response to the poll. Aborting upload to database.")}
-        Firestore.firestore().collection("Analytics").document("Polls").getDocument { (document, error) in
-            if let document = document, document.exists, let data = document.data() {
-
-                var responseMap: [String : Int] = data[poll.question.noPeriods()] as! [String : Int]? ?? [:]
-                let currentVotes: Int = responseMap[response.noPeriods()] ?? 0
-                responseMap[response.noPeriods()] = currentVotes + 1
-
-                Firestore.firestore().collection("Analytics").document("Polls").updateData([poll.question.noPeriods() : responseMap])
-
-            }else {print("Polls document does not exist")}
+    
+    private func sendPollResponse(_ poll: Poll, choice: Int) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let pollDoc = db.collection("Polls").document(poll.uid)
+        
+        let responseDoc = pollDoc.collection("Responses").document(uid)
+        responseDoc.setData([
+            "choice": choice,
+            "timestamp": Timestamp(date: Date(timeIntervalSinceNow: 0.0))
+        ], merge: true)
+        
+        pollDoc.getDocument() { (docSnapshot, error) in
+            if let error = error {
+                print("Failed to get poll \(poll.uid): \(error)")
+                return
+            }
+            guard let data = docSnapshot?.data() else {
+                print("Data from poll \(poll.uid) was nil")
+                return
+            }
+            
+            var options: [[String : Int]] = data["Options"] as! [[String : Int]]
+            let responses = options[choice].first!
+            // NOTE: adding 1 here means that users could potentially vote more than once
+            // Thus, we're relying on the UI to hide it from them
+            options[choice] = [responses.key : responses.value + 1]
+            
+            pollDoc.setData([
+                "Options": options
+            ], merge: true)
         }
-
     }
 }
 

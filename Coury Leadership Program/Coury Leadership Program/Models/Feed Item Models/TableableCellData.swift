@@ -18,3 +18,13 @@ extension TableableCellData {
         return CorrespondingView.insideOf(tableView, at: indexPath).populatedBy(self, at: indexPath)
     }
 }
+
+extension Array where Element == TableableCellData {
+    var thatsBeenLiked: [TableableCellData] {
+        return self.filter({CLPProfile.shared.hasSavedContent(for: $0)})
+    }
+}
+
+public protocol Identifiable {
+    var uid: String { get }
+}

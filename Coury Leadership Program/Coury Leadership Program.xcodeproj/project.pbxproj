@@ -17,6 +17,8 @@
 		BE4CFB0B231359340029A1D2 /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4CFB09231359340029A1D2 /* GoalCell.swift */; };
 		BE4CFB0C231359340029A1D2 /* GoalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE4CFB0A231359340029A1D2 /* GoalCell.xib */; };
 		BE4CFB0E23135B2B0029A1D2 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4CFB0D23135B2B0029A1D2 /* Goal.swift */; };
+		BE5F628823AAD9D100B0C85B /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F628723AAD9D100B0C85B /* Link.swift */; };
+		BE5F628A23AADA4500B0C85B /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F628923AADA4500B0C85B /* Quote.swift */; };
 		BE8346CC2303CDB800A9A66D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346C82303CDB800A9A66D /* Profile.swift */; };
 		BE8346CD2303CDB800A9A66D /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346C92303CDB800A9A66D /* Fetchable.swift */; };
 		BE8346CE2303CDB800A9A66D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346CA2303CDB800A9A66D /* Database.swift */; };
@@ -57,7 +59,7 @@
 		C4CA5ABB220E18E100ECF768 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABA220E18E100ECF768 /* Calendar.swift */; };
 		C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5ABC220E18EB00ECF768 /* Poll.swift */; };
 		C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5AC7220E1A0700ECF768 /* Values.swift */; };
-		C4CE85F3220E454F00D5570A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F2220E454F00D5570A /* Content.swift */; };
+		C4CE85F3220E454F00D5570A /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE85F2220E454F00D5570A /* Image.swift */; };
 		C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D12129229DFF8300064544 /* ValueDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +76,8 @@
 		BE4CFB09231359340029A1D2 /* GoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
 		BE4CFB0A231359340029A1D2 /* GoalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalCell.xib; sourceTree = "<group>"; };
 		BE4CFB0D23135B2B0029A1D2 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		BE5F628723AAD9D100B0C85B /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		BE5F628923AADA4500B0C85B /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		BE8346C82303CDB800A9A66D /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BE8346C92303CDB800A9A66D /* Fetchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
 		BE8346CA2303CDB800A9A66D /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -117,7 +121,7 @@
 		C4CA5ABA220E18E100ECF768 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		C4CA5ABC220E18EB00ECF768 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
 		C4CA5AC7220E1A0700ECF768 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
-		C4CE85F2220E454F00D5570A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		C4CE85F2220E454F00D5570A /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		C4D12129229DFF8300064544 /* ValueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -310,7 +314,9 @@
 			children = (
 				C4CA5ABA220E18E100ECF768 /* Calendar.swift */,
 				C4CA5ABC220E18EB00ECF768 /* Poll.swift */,
-				C4CE85F2220E454F00D5570A /* Content.swift */,
+				C4CE85F2220E454F00D5570A /* Image.swift */,
+				BE5F628723AAD9D100B0C85B /* Link.swift */,
+				BE5F628923AADA4500B0C85B /* Quote.swift */,
 			);
 			path = "Feed Item Models";
 			sourceTree = "<group>";
@@ -485,7 +491,7 @@
 				C4CA5AAB220E178700ECF768 /* PollCell.swift in Sources */,
 				BE47F12F237000AD00528E26 /* ProfileViewCollectionView.swift in Sources */,
 				C4CA5ABD220E18EB00ECF768 /* Poll.swift in Sources */,
-				C4CE85F3220E454F00D5570A /* Content.swift in Sources */,
+				C4CE85F3220E454F00D5570A /* Image.swift in Sources */,
 				BEC495DF237A439C0022250E /* CalendarViewController.swift in Sources */,
 				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
@@ -494,6 +500,7 @@
 				BE4CFB0E23135B2B0029A1D2 /* Goal.swift in Sources */,
 				C45B75DB225998DA006ACDA0 /* SignInViewController.swift in Sources */,
 				C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */,
+				BE5F628823AAD9D100B0C85B /* Link.swift in Sources */,
 				C44E818522EE8E480091D2B2 /* FeedViewTableView.swift in Sources */,
 				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
@@ -503,6 +510,7 @@
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
 				C4759FC82224C58C002F27AF /* TableableCellData.swift in Sources */,
 				66EB55172211306F004FF186 /* ValueCell.swift in Sources */,
+				BE5F628A23AADA4500B0C85B /* Quote.swift in Sources */,
 				BE8346CC2303CDB800A9A66D /* Profile.swift in Sources */,
 				BE8346CD2303CDB800A9A66D /* Fetchable.swift in Sources */,
 				BE4CFB0B231359340029A1D2 /* GoalCell.swift in Sources */,

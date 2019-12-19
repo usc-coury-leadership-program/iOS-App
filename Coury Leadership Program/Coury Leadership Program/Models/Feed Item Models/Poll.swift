@@ -8,29 +8,25 @@
 
 import UIKit
 
-public struct Poll: TableableCellData, Hashable {
+public struct Poll: TableableCellData, Identifiable, Hashable {
     public let CorrespondingView: TableableCell.Type = PollCell.self
 
     let question: String
     let answers: [String]
-    let id: Int
+    public let uid: String
 
     public func needsToBeAnswered() -> Bool {
-        let didFindID = CLPProfile.shared.answeredPolls?.contains(self.id) ?? false
+        let didFindID = CLPProfile.shared.answeredPolls?.contains(self.uid) ?? false
         return !didFindID
     }
 
     public func markAsAnswered(with response: String) {
-        CLPProfile.shared.addToAnsweredPolls(poll: id)
+        CLPProfile.shared.addToAnsweredPolls(poll: uid)
         Database.shared.sendPollResults(self, response: response)
     }
     
-    public static func == (lhs: Poll, rhs: Poll) -> Bool {return (lhs.question == rhs.question) && (lhs.answers == rhs.answers) && (lhs.id == rhs.id)}
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(question)
-        hasher.combine(answers)
-        hasher.combine(id)
-    }
+    public static func == (lhs: Poll, rhs: Poll) -> Bool {return lhs.uid == rhs.uid}
+    public func hash(into hasher: inout Hasher) {hasher.combine(uid)}
 }
 
 extension Array where Element == Poll {

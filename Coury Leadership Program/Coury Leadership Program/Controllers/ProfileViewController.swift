@@ -86,7 +86,7 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
         let ppc = toVC.popoverPresentationController!
         ppc.delegate = self
         ppc.sourceView = collectionView
-        ppc.sourceRect = CGRect(x: collectionView.bounds.midX, y: collectionView.bounds.midY/* + collectionView.contentInset.top/2.0*/, width: 0, height: 0)
+        ppc.sourceRect = CGRect(x: collectionView.bounds.midX, y: collectionView.bounds.midY, width: 0, height: 0)
         ppc.backgroundColor = .clear
     }
 
