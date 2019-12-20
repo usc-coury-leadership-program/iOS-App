@@ -26,7 +26,7 @@ extension FeedViewController {
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 
                 if indexPath.section == 2 {
-                    let content = Database.shared.content[FeedViewController.indexPathMapping?(indexPath) ?? indexPath.row]
+                    let content = Database.shared.content[indexPath.row]
                     CLPProfile.shared.toggleSavedContent(for: content)
                     let isSaved = CLPProfile.shared.hasSavedContent(for: content)
                     

@@ -12,7 +12,7 @@ import GoogleSignIn
 
 class FeedViewController: UIViewController {
     
-    public static var indexPathMapping: ((IndexPath) -> Int)?
+    //public static var indexPathMapping: ((IndexPath) -> Int)?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var safeboxButton: UIButton!
@@ -23,7 +23,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        FeedViewController.indexPathMapping = self.shuffled
+        //FeedViewController.indexPathMapping = nil
         engageTableView()
     }
 

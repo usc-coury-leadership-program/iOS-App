@@ -120,51 +120,74 @@ public class Database {
             }
         }
     }
-
+    
     public func fetchContent() {
         print("Fetching content from Firebase")
-        Firestore.firestore().collection("Feed").document("Content").getDocument { (document, error) in
-
-            if let document = document, document.exists {
-                guard let data = document.data() else {
-                    print("Content document has no data")
+        // TODO: paginate data past the 30 most recent posts
+        Firestore.firestore().collection("FeedContent").order(by: "timestamp").limit(to: 30)
+            .getDocuments { (query, error) in
+                
+                if let err = error {
+                    print(err.localizedDescription)
                     return
                 }
+                
+                guard let items = query?.documents else {
+                    print("Unable to load feed content.")
+                    return
+                }
+                
                 var result: [TableableCellData] = []
-
-                guard let links: [String] = data["Links"] as? [String] else {
-                    print("Could not find links!")
-                    return
+                
+                items.forEach { (document) in
+                    let data = document.data()
+                    switch data["type"] as? String {
+                    case "Quote":
+                        print("Found quote")
+                        
+                        guard let author = data["author"] as? String else {
+                            print("Could not retrieve author from quote.")
+                            return
+                        }
+                        
+                        guard let text = data["text"] as? String else {
+                            print("Could not retrieve quote text")
+                            return
+                        }
+                        
+                        let quoteStruct: Quote = Quote(quoteText: text, author: author)
+                        result.append(quoteStruct)
+                        
+                    case "Link":
+                        print("Found link")
+                        // Right now, not handling optional value "Title"
+                        guard let linkString = data["link"] as? String else {
+                            print("Could not parse link string")
+                            return
+                        }
+                        // Add protocol - this could be more fleshed out, or dropped altogether
+                        let linkUrlString = "https://" + linkString
+                        let linkStruct: Link = Link(url: URL(string: linkUrlString)!)
+                        result.append(linkStruct)
+                    case "Image":
+                        print("Found image")
+                        
+                        guard let image = data["path"] as? String else {
+                            print("Could not retrieve image path.")
+                            return
+                        }
+                        let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
+                        result.append(Image(imageReference: storageRef))
+                    default:
+                        print("Unrecognized feed item type")
+                    }
                 }
-                for link in links {
-                    let linkStruct: Link = Link(url: URL(string: link)!)
-                    result.append(linkStruct)
-                }
-
-                guard let images: [String] = data["Images"] as? [String] else {
-                    print("Could not find images!")
-                    return
-                }
-                for image in images {
-                    let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
-                    result.append(Image(imageReference: storageRef))
-                }
-
-                guard let quotes: [Dictionary<String, String>] = data["Quotes"] as? [Dictionary<String, String>] else {
-                    print("Could not finds quotes")
-                    return
-                }
-                for quote in quotes {
-                    let quoteStruct: Quote = Quote(quoteText: quote["text"]!, author: quote["author"]!)
-                    result.append(quoteStruct)
-                }
-
-                // obtain hashes
+                
                 for i in 0..<result.count {
                     self.runtimeHashDict[(result[i] as Any as! AnyHashable).hashValue] = i
                 }
+                
                 self.content = result
-            }
         }
     }
     
