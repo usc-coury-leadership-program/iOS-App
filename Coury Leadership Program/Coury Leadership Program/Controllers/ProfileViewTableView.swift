@@ -16,7 +16,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // Cell height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let content = Database.shared.content.thatsBeenLiked[indexPath.row]
+        let content = Database.shared.content.shouldBeShown.thatsBeenLiked[indexPath.row]
         return (content as TableableCellData).CorrespondingView.HEIGHT
     }
     // Footer height
@@ -29,20 +29,20 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = Database.shared.content.thatsBeenLiked.count
+        let count = Database.shared.content.shouldBeShown.thatsBeenLiked.count
         return count
     }
 
     // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let content = Database.shared.content.thatsBeenLiked[indexPath.row]
+        let content = Database.shared.content.shouldBeShown.thatsBeenLiked[indexPath.row]
         return (content as TableableCellData).generateCellFor(tableView, at: indexPath)
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if Database.shared.content.thatsBeenLiked.count == 0 {return}
-        let content = Database.shared.content.thatsBeenLiked[indexPath.row]
+        if Database.shared.content.shouldBeShown.thatsBeenLiked.count == 0 {return}
+        let content = Database.shared.content.shouldBeShown.thatsBeenLiked[indexPath.row]
         (cell as? FeedViewCell)?.showShadow()
-        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.has(savedContent: content.uid))
+        (cell as? FeedViewCell)?.setSaved(to: content.isLiked)
     }
 
     //MARK: - convenience functions

@@ -71,7 +71,7 @@ public class Feed: Fetchable {
         }
     }
 
-    private func registerCallbacks() {// TODO only set has___ to true if the result meets certain criteria?
+    private func registerCallbacks() {
         Database.shared.registerCalendarCallback {self.hasCalendar = true}
         Database.shared.registerPollsCallback {self.hasPolls = true}
         Database.shared.registerContentCallback {self.hasContent = true}

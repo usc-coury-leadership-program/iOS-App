@@ -37,7 +37,22 @@ public class CLPProfile {
     }
     
     public func flushDataToServer() {
-//        Database.shared.updateProfile(self)
+        if strengths != nil {
+            for strength in strengths! {
+                Messaging.messaging().subscribe(toTopic: strength) { error in
+                    print("Subscribed to \(strength) notification topic")
+                }
+            }
+        }
+        if values != nil {
+            for value in values! {
+                Messaging.messaging().subscribe(toTopic: value) { error in
+                    print("Subscribed to \(value) notification topic")
+                }
+            }
+        }
+        
+        Database.shared.upload(profile: self)
     }
 
     public func deleteLocalCopy() {
@@ -49,22 +64,8 @@ public class CLPProfile {
     }
     
     // MARK: Set functions
-    public func set(values: [String]) {
-        for value in values {
-            Messaging.messaging().subscribe(toTopic: value) { error in
-                print("Subscribed to \(value) notification topic")
-            }
-        }
-        self.values = values
-    }
-    public func set(strengths: [String]) {
-        for strength in strengths {
-            Messaging.messaging().subscribe(toTopic: strength) { error in
-                print("Subscribed to \(strength) notification topic")
-            }
-        }
-        self.strengths = strengths
-    }
+    public func set(values: [String]) {self.values = values}
+    public func set(strengths: [String]) {self.strengths = strengths}
     public func set(savedContent: [String]) {self.savedContent = savedContent}
     public func set(answeredPolls: [String]) {self.answeredPolls = answeredPolls}
     

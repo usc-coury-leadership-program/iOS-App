@@ -27,11 +27,10 @@ extension FeedViewController {
 
                 if indexPath.section == 2 {
                     let content = Database.shared.content[indexPath.row]
-                    CLPProfile.shared.toggle(savedContent: content.uid)
-                    let isSaved = CLPProfile.shared.has(savedContent: content.uid)
+                    content.toggleLike()
 
                     let cell = tableView.cellForRow(at: indexPath)!
-                    (cell as? FeedViewCell)?.setSaved(to: isSaved)
+                    (cell as? FeedViewCell)?.setSaved(to: content.isLiked)
 
                     UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                         UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Quote: TableableCellData, Hashable {
+public struct Quote: ContentCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = QuoteCell.self
 
     let quoteText: String

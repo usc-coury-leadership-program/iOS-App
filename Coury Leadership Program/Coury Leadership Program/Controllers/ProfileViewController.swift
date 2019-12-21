@@ -36,7 +36,20 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Profile
-        CLPProfile.shared.onFetchSuccess {self.updateUserSpecificText(); self.updateCollectionView(); self.updateTableView()}
+        CLPProfile.shared.onFetchSuccess {
+            self.updateUserSpecificText()
+            self.updateCollectionView()
+            self.updateTableView()
+        }
+        updateUserSpecificText()
+        updateCollectionView()
+        updateTableView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Profile
+        CLPProfile.shared.clearFetchSuccessCallbacks()
     }
 
     func updateUserSpecificText() {

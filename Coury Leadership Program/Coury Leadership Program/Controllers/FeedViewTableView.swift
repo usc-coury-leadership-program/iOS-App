@@ -81,14 +81,6 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func updateTableView() {
-        if currentOrder == nil {
-            if Database.shared.content.count == 0 {
-                currentOrder = []
-            } else {
-                currentOrder = ([Int](0...Database.shared.content.count - 1)).shuffled()
-            }
-
-        }
         tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()

@@ -95,5 +95,7 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
         
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 12.0, right: 0.0)
+        
+        tableView.allowsSelection = false
     }
 }

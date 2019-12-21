@@ -15,7 +15,7 @@ public struct Poll: TableableCellData, Hashable {
     let answers: [String]
     public let uid: String
     public var shouldDisplay: Bool {
-        get {return CLPProfile.shared.has(savedContent: uid)}
+        get {return !CLPProfile.shared.has(answeredPoll: uid)}
     }
 
     public func markAsAnswered(with choice: Int) {
@@ -24,7 +24,7 @@ public struct Poll: TableableCellData, Hashable {
     }
     
     public func togglePollAnsweredStatus() {
-        CLPProfile.shared.toggle(savedContent: uid)
+        CLPProfile.shared.add(answeredPoll: uid)
     }
     
     public static func == (lhs: Poll, rhs: Poll) -> Bool {return lhs.uid == rhs.uid}

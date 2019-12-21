@@ -156,14 +156,13 @@ public class Database {
                     return
                 }
 
-                var result: [TableableCellData] = []
+                var result: [ContentCellData] = []
 
                 items.forEach { (document) in
+                    let uid = document.documentID
                     let data = document.data()
                     switch data["type"] as? String {
                     case "Quote":
-                        print("Found quote")
-
                         guard let author = data["author"] as? String else {
                             print("Could not retrieve author from quote.")
                             return
@@ -174,36 +173,29 @@ public class Database {
                             return
                         }
 
-                        let quoteStruct: Quote = Quote(quoteText: text, author: author)
+                        let quoteStruct: Quote = Quote(quoteText: text, author: author, uid: uid)
                         result.append(quoteStruct)
 
                     case "Link":
-                        print("Found link")
-                        // Right now, not handling optional value "Title"
                         guard let linkString = data["link"] as? String else {
                             print("Could not parse link string")
                             return
                         }
-                        // Add protocol - this could be more fleshed out, or dropped altogether
-                        let linkUrlString = "https://" + linkString
-                        let linkStruct: Link = Link(url: URL(string: linkUrlString)!)
-                        result.append(linkStruct)
-                    case "Image":
-                        print("Found image")
 
+                        let linkStruct: Link = Link(url: URL(string: linkString)!, uid: uid)
+                        result.append(linkStruct)
+                        
+                    case "Image":
                         guard let image = data["path"] as? String else {
                             print("Could not retrieve image path.")
                             return
                         }
                         let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
-                        result.append(Image(imageReference: storageRef))
+                        result.append(Image(imageReference: storageRef, uid: uid))
+                    
                     default:
                         print("Unrecognized feed item type")
                     }
-                }
-
-                for i in 0..<result.count {
-                    self.runtimeHashDict[(result[i] as Any as! AnyHashable).hashValue] = i
                 }
 
                 self.content = result
@@ -248,20 +240,23 @@ public class Database {
             }
         }
     }
-
-//    public func updateProfile(_ profile: CLPProfileData) {
-//
-//        guard let uid = Auth.auth().currentUser?.uid else {return}
-//        let profileToUpload = profile.toDict()
-//        if !profileToUpload.elementsEqual(lastUploadedProfile, by: { (newElement, uploadedElement) in
-//            let uploadedString = uploadedElement.value as! String
-//            return (newElement.key == uploadedElement.key) && (newElement.value == uploadedString)
-//        }) {
-//            db.collection("Users").document(uid).setData(profileToUpload, mergeFields: profile.listOfFullFields())
-//            lastUploadedProfile = profileToUpload
-//        }
-//        print("Did run Database.updateUserProfile()")
-//    }
+    
+    public func upload(profile: CLPProfile) {
+        guard let uid = profile.uid else {return}
+        
+        let userDoc = db.collection("Users").document(uid)
+        userDoc.setData([
+            "strengths": profile.strengths ?? [],
+            "values": profile.values ?? []
+        ])
+        
+        profile.answeredPolls?.forEach { (pollUID) in
+            userDoc.collection("AnsweredPolls").document(pollUID).setData(["Status":1])
+        }
+        profile.savedContent?.forEach { (pollUID) in
+            userDoc.collection("SavedContent").document(pollUID).setData(["Status":1])
+        }
+    }
 
     public func sendPollResponse(_ poll: Poll, choice: Int) {
         guard let uid = Auth.auth().currentUser?.uid else {return}

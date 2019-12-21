@@ -32,12 +32,19 @@ class FeedViewController: UIViewController {
         // Profile
         if (CLPProfile.shared.uid == nil) && !CLPProfile.shared.isSigningIn {presentSignInVC()}
         CLPProfile.shared.onFetchSuccess {self.updatePolls(); self.updateSaved()}
+        updatePolls()
+        updateSaved()
         // Feed
         Feed.shared.onFetchSuccess {self.updateTableView()}
+        updateTableView()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // Profile
+        CLPProfile.shared.clearFetchSuccessCallbacks()
+        // Feed
+        Feed.shared.clearFetchSuccessCallbacks()
     }
 
     @IBAction func unwindToFeed(_ unwindSegue: UIStoryboardSegue) {}
