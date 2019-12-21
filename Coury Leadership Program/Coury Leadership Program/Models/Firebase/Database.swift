@@ -206,24 +206,36 @@ public class Database {
         if let googleUser = Auth.auth().currentUser {
             let name = googleUser.displayName
             let uid = googleUser.uid
-
+            
+            // download strengths and values
             let userDoc = db.collection("Users").document(uid)
             userDoc.getDocument { (document, error) in
                 if let error = error {print("Failed to get user document: \(error)")}
                 if let document = document, document.exists, let profile = document.data() {
+                    
+                    var strengths: [String] = []
+                    var values: [String] = []
 
                     for entry in profile {
                         switch entry.key {
                         case "strengths":
-                            CLPProfile.shared.set(strengths: entry.value as! [String])
+                            strengths = entry.value as! [String]
                         case "values":
-                            CLPProfile.shared.set(values: entry.value as! [String])
+                            values = entry.value as! [String]
                         default: break
                         }
                     }
+                    // this check is important
+                    // if we just set CLPProfile immediately, we overwrite whatever the user chose while signing in
+                    // only matters the first time the user opens the app
+                    if strengths.count == 5 && values.count == 5 {
+                        CLPProfile.shared.set(strengths: strengths)
+                        CLPProfile.shared.set(values: values)
+                        for callback in self.profileGotSetCallbacks {callback()}
+                    }
                 }
-                for callback in self.profileGotSetCallbacks {callback()}
             }
+            // download answered polls
             userDoc.collection("AnsweredPolls").getDocuments { (snapshot, error) in
                 if let error = error {print("Failed to get user's AnsweredPolls collection: \(error)")}
                 if let snapshot = snapshot {
@@ -231,10 +243,38 @@ public class Database {
                 }
                 for callback in self.profileGotSetCallbacks {callback()}
             }
+            // download saved content
             userDoc.collection("SavedContent").getDocuments { (snapshot, error) in
                 if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
                 if let snapshot = snapshot {
                     CLPProfile.shared.set(savedContent: snapshot.documents.map({$0.documentID}))
+                }
+                for callback in self.profileGotSetCallbacks {callback()}
+            }
+            // download goals
+            userDoc.collection("Goals").getDocuments { (snapshot, error) in
+                if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
+                if let snapshot = snapshot {
+                    
+                    var goals: [Goal] = []
+                    
+                    for document in snapshot.documents {
+                        let uid = document.documentID
+                        var text: String?, strength: String?, value: String?
+                        
+                        let goal = document.data()
+                        for entry in goal {
+                            switch entry.key {
+                            case "text": text = (entry.value as! String)
+                            case "strength": strength = (entry.value as! String)
+                            case "value": value = (entry.value as! String)
+                            default: break
+                            }
+                        }
+                        
+                        goals.append(Goal(text: text ?? "", strengthStr: strength, valueStr: value, uid: uid))
+                    }
+                    CLPProfile.shared.set(goals: goals)
                 }
                 for callback in self.profileGotSetCallbacks {callback()}
             }
@@ -244,18 +284,56 @@ public class Database {
     public func upload(profile: CLPProfile) {
         guard let uid = profile.uid else {return}
         
+        // upload strengths and values
         let userDoc = db.collection("Users").document(uid)
         userDoc.setData([
             "strengths": profile.strengths ?? [],
             "values": profile.values ?? []
         ])
         
+        // upload answered polls
         profile.answeredPolls?.forEach { (pollUID) in
-            userDoc.collection("AnsweredPolls").document(pollUID).setData(["Status":1])
+            userDoc.collection("AnsweredPolls").document(pollUID).setData(["Status": true])
         }
-        profile.savedContent?.forEach { (pollUID) in
-            userDoc.collection("SavedContent").document(pollUID).setData(["Status":1])
+        // upload saved content
+        userDoc.collection("SavedContent").getDocuments { (snapshot, error) in
+            if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
+            if let snapshot = snapshot {
+                for document in snapshot.documents {
+                    let contentUID = document.documentID
+                    if !(profile.savedContent?.contains(contentUID) ?? false) {
+                        // could also just set status to false and then modify fetchProfile code accordingly
+                        userDoc.collection("SavedContent").document(contentUID).delete()
+                    }
+                }
+            }
         }
+        profile.savedContent?.forEach { (contentUID) in
+            userDoc.collection("SavedContent").document(contentUID).setData(["Status": true])
+        }
+        // upload goals
+        // note that completed goals are deleted
+        // in the future, could keep a record of them
+        userDoc.collection("Goals").getDocuments { (snapshot, error) in
+            if let error = error {print("Failed to get user's Goals collection: \(error)")}
+            if let snapshot = snapshot {
+                for document in snapshot.documents {
+                    let goalUID = document.documentID
+                    if !(profile.goals?.map({$0.uid}).contains(goalUID) ?? false) {
+                        userDoc.collection("Goals").document(goalUID).delete()
+                    }
+                }
+            }
+        }
+        profile.goals?.forEach { (goal) in
+            userDoc.collection("Goals").document(goal.uid).setData(goal.dict())
+        }
+    }
+    
+    public func generateGoalUID() -> String {
+        guard let uid = CLPProfile.shared.uid else {fatalError("Cannot generate goal UID until signed in")}
+        let userDoc = db.collection("Users").document(uid)
+        return userDoc.collection("Goals").addDocument(data: ["text":""]).documentID
     }
 
     public func sendPollResponse(_ poll: Poll, choice: Int) {

@@ -29,8 +29,12 @@ public class CLPProfile {
     public private(set) var values: [String]?
     public private(set) var strengths: [String]?
     public private(set) var savedContent: [String]?
-    public private(set) var answeredPolls: [String]?
-    public private(set) var goals: [[String]]?
+    public private(set) var answeredPolls: [String]? {
+        didSet {for callback in codeToRunAfterAnsweringPoll {callback()}}
+    }
+    public private(set) var goals: [Goal]?
+    
+    private var codeToRunAfterAnsweringPoll: [() -> Void] = []
 
     private init() {
         registerCallbacks()
@@ -63,16 +67,28 @@ public class CLPProfile {
         goals = nil
     }
     
+    public func onAnswerPoll(run block: @escaping () -> Void) {
+        codeToRunAfterAnsweringPoll.append(block)
+    }
+    public func clearAnswerPollCallbacks() {
+        codeToRunAfterAnsweringPoll = []
+    }
+    
     // MARK: Set functions
     public func set(values: [String]) {self.values = values}
     public func set(strengths: [String]) {self.strengths = strengths}
     public func set(savedContent: [String]) {self.savedContent = savedContent}
     public func set(answeredPolls: [String]) {self.answeredPolls = answeredPolls}
+    public func set(goals: [Goal]) {self.goals = goals}
     
     // MARK: Add functions
     public func add(answeredPoll uid: String) {
         if answeredPolls == nil {answeredPolls = [uid]}
         else {answeredPolls!.append(uid)}
+    }
+    public func add(goal: Goal) {
+        if goals == nil {goals = [goal]}
+        else {goals!.append(goal)}
     }
     
     // MARK: Toggle functions
@@ -86,39 +102,20 @@ public class CLPProfile {
         }
     }
     
+    // MARK: remove functions
+    public func remove(goal: Goal) {
+        goals?.remove(at: (goals?.firstIndex(where: {$0.uid == goal.uid}))!)
+    }
+    public func remove(goalAt index: Int) {
+        goals?.remove(at: index)
+    }
+    
     // MARK: Read functions
     public func has(savedContent uid: String) -> Bool {
         return savedContent?.contains(uid) ?? false
     }
     public func has(answeredPoll uid: String) -> Bool {
         return answeredPolls?.contains(uid) ?? false
-    }
-    
-    public func addNew(goal: Goal) {
-        
-        let strengthString = String(STRENGTH_LIST.firstIndex(where: {$0.name == goal.strength?.name ?? ""}) ?? -1)
-        let valueString = String(VALUE_LIST.firstIndex(where: {$0.name == goal.value?.name ?? ""}) ?? -1)
-        let goalAsArray = [goal.text, strengthString, valueString]
-        if goals == nil {goals = [goalAsArray]}
-        else {
-            goals!.append(goalAsArray)
-        }
-    }
-    
-    public func removeGoal(at index: Int) {
-        if goals == nil || index > goals!.count {return}
-        goals!.remove(at: index)
-    }
-    
-    public func goal(at index: Int) -> Goal {
-        guard let rawGoal = goals?[index] else {return Goal(text: "", strength: nil, value: nil)}
-        let text = rawGoal[0]
-        let strengthIndex = Int(rawGoal[1])
-        let strength: Strength? = strengthIndex == -1 ? nil : STRENGTH_LIST[strengthIndex!]
-        let valueIndex = Int(rawGoal[2])
-        let value: Value? = valueIndex == -1 ? nil : VALUE_LIST[valueIndex!]
-        
-        return Goal(text: text, strength: strength, value: value)
     }
 }
 

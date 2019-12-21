@@ -32,6 +32,7 @@ class FeedViewController: UIViewController {
         // Profile
         if (CLPProfile.shared.uid == nil) && !CLPProfile.shared.isSigningIn {presentSignInVC()}
         CLPProfile.shared.onFetchSuccess {self.updatePolls(); self.updateSaved()}
+        CLPProfile.shared.onAnswerPoll {self.updatePolls()}
         updatePolls()
         updateSaved()
         // Feed
@@ -43,6 +44,7 @@ class FeedViewController: UIViewController {
         super.viewWillDisappear(animated)
         // Profile
         CLPProfile.shared.clearFetchSuccessCallbacks()
+        CLPProfile.shared.clearAnswerPollCallbacks()
         // Feed
         Feed.shared.clearFetchSuccessCallbacks()
     }
@@ -51,7 +53,7 @@ class FeedViewController: UIViewController {
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
-    func updatePolls() {self.updateTableView()}
-    func updateSaved() {self.tableView.layoutSubviews()}
+    func updatePolls() {updateTableView()}//tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
+    func updateSaved() {updateTableView()}//tableView.reloadSections(IndexSet(integer: 2), with: .none)}
 
 }

@@ -98,7 +98,6 @@ extension AppDelegate: GIDSignInDelegate {
             
             CLPProfile.shared.stopFetching()
             CLPProfile.shared.beginFetching()
-            CLPProfile.shared.flushDataToServer()
             Feed.shared.stopFetching()
             Feed.shared.beginFetching()
         }
@@ -106,7 +105,7 @@ extension AppDelegate: GIDSignInDelegate {
 
     // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-//        CLPProfile.shared.flushDataToServer()
+        CLPProfile.shared.flushDataToServer()
         CLPProfile.shared.deleteLocalCopy()
 
         do {try Auth.auth().signOut()}
@@ -134,7 +133,7 @@ extension AppDelegate: GIDSignInDelegate {
     }
 
     public static func signOut() {
-//        CLPProfile.shared.flushDataToServer()
+        CLPProfile.shared.flushDataToServer()
         CLPProfile.shared.deleteLocalCopy()
         GIDSignIn.sharedInstance()?.signOut()
         GIDSignIn.sharedInstance()?.disconnect()

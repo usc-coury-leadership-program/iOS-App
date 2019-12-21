@@ -43,7 +43,7 @@ class SavedViewController: UIViewController {
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                     cell.onLongPress(began: false)
                 }, completion: nil)
-                CLPProfile.shared.removeGoal(at: indexPath.row)
+                CLPProfile.shared.remove(goalAt: indexPath.row)
                 tableView.reloadSections(IndexSet(integer: 0), with: .fade)
                 
             default:
@@ -89,7 +89,7 @@ extension SavedViewController: UIPopoverPresentationControllerDelegate {
         let value = valueIndex == 0 ? nil : VALUE_LIST[valueIndex]
         let goal = Goal(text: text, strength: strength, value: value)
         
-        CLPProfile.shared.addNew(goal: goal)
+        CLPProfile.shared.add(goal: goal)
         tableView.reloadData()
     }
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {}
@@ -109,7 +109,7 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
 
     //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return CLPProfile.shared.goal(at: indexPath.row).generateCellFor(tableView, at: indexPath)
+        return CLPProfile.shared.goals![indexPath.row].generateCellFor(tableView, at: indexPath)
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as? FeedViewCell)?.showShadow()

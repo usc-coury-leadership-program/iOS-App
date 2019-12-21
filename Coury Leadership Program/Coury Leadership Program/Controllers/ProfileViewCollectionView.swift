@@ -82,6 +82,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func updateCollectionView() {
         collectionView.reloadData()
+        collectionView.layoutSubviews()
     }
     
     func hideCollectionView(_ shouldHide: Bool) {

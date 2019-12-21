@@ -100,6 +100,19 @@ let VALUE_LIST: [Value] = [
     """)
 ]
 
+let BEAUTY_LIBRARY = [
+"Under what conditions (people, places, activities) are you most appreciative of beauty and excellence?",
+"How does appreciation of beauty or appreciation of excellence affect your work, relationships, use of leisure time, and community involvement?",
+"To what extent do you appreciate beauty versus appreciating excellence?",
+"Observe one tree branch, root, flower, or leaf and see the fullness of life in it",
+"Notice the good feelings in seeing someone give a donation to support a good cause",
+"See the excellence in a child learning to play baseball and slowly building his or her skill",
+"Keep a ‘beauty log.’ When you believe you are seeing something beautiful-whether it is from nature, is human-made (e.g.,artwork) or is the virtuous behavior of others-write it down. Describe the beauty in a few sentences",
+"Get regular exposure to green space in your environment, especially if you live or work in an urban setting",
+"Pause to appreciate your inner beauty. One way to do this is to see your character strengths and recall how you have used them to bring benefit to others"
+]
+
+
 let CURIOSITY_LIBRARY = [
 "What are you most curious about? Were you a curious child and adolescent?",
 "How has your curiosity been affected growing up? If it has changed over time, why is that?",
