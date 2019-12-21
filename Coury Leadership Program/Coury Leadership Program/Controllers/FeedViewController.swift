@@ -11,7 +11,7 @@ import Firebase
 import GoogleSignIn
 
 class FeedViewController: UIViewController {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var safeboxButton: UIButton!
     @IBOutlet weak var nothingSavedMessage: UILabel!
@@ -39,14 +39,12 @@ class FeedViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
+
     @IBAction func unwindToFeed(_ unwindSegue: UIStoryboardSegue) {}
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func updatePolls() {self.updateTableView()}
     func updateSaved() {self.tableView.layoutSubviews()}
-    
+
 }
-
-

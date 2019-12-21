@@ -62,12 +62,6 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
             (cell as? FeedViewCell)?.setSaved(to: content.isLiked)
         default: break
         }
-        
-        if indexPath.section == 2 {
-            let content = Database.shared.content[indexPath.row]
-            (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.has(savedContent: content.uid))
-        }
-        
     }
 
     //MARK: - convenience functions
@@ -87,13 +81,16 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func updateTableView() {
-//        if currentOrder == nil {currentOrder = ([Int](0...Database.shared.content.count - 1)).shuffled()}
+        if currentOrder == nil {
+            if Database.shared.content.count == 0 {
+                currentOrder = []
+            } else {
+                currentOrder = ([Int](0...Database.shared.content.count - 1)).shuffled()
+            }
+
+        }
         tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-
-//    func shuffled(_ indexPath: IndexPath) -> Int {
-//        return currentOrder?[indexPath.row] ?? indexPath.row
-//    }
 }
