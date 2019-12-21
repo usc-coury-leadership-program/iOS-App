@@ -68,7 +68,6 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(Database.shared.calendar.events.count)
         return Database.shared.calendar.events.count
     }
     // Cell generation

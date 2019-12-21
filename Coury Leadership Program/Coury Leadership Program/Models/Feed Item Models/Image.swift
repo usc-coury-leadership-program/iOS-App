@@ -9,12 +9,13 @@
 import UIKit
 import Firebase
 
-public class Image: TableableCellData, Identifiable, Hashable {
+public class Image: ContentCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = ImageCell.self
 
     let reference: StorageReference
     private(set) var squareImage: UIImage?
     public let uid: String
+    public let shouldDisplay: Bool = true
 
     init(imageReference: StorageReference, uid: String) {
         self.reference = imageReference

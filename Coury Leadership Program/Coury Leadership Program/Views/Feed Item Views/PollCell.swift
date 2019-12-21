@@ -81,7 +81,7 @@ extension PollCell: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         cell.contentView.backgroundColor = .black
         cell.answerText.textColor = .white
         
-        poll?.markAsAnswered(with: cell.answerText.text ?? "")
+        poll?.markAsAnswered(with: indexPath.item)
     }
 
     //MARK: - convenience functions

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class Link: TableableCellData, Identifiable, Hashable {
+public class Link: TableableCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = LinkCell.self
 
     private static let BASE_THUMBNAIL_URL = "https://www.google.com/s2/favicons?domain="
@@ -17,6 +17,7 @@ public class Link: TableableCellData, Identifiable, Hashable {
     private(set) var headline: String?
     private(set) var favicon: UIImage?
     public let uid: String
+    public let shouldDisplay: Bool = true
     
     init(url: URL, uid: String) {
         self.url = url

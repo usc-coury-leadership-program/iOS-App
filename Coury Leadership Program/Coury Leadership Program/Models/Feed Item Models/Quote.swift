@@ -8,12 +8,13 @@
 
 import Foundation
 
-public struct Quote: TableableCellData, Identifiable, Hashable {
+public struct Quote: TableableCellData, Hashable {
     public let CorrespondingView: TableableCell.Type = QuoteCell.self
 
     let quoteText: String
     let author: String
     public let uid: String
+    public let shouldDisplay: Bool = true
     
     public static func == (lhs: Quote, rhs: Quote) -> Bool {return lhs.uid == rhs.uid}
     public func hash(into hasher: inout Hasher) {hasher.combine(uid)}

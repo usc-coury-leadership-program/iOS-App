@@ -18,7 +18,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var authorText: UILabel!
     @IBOutlet weak var favoriteHeart: UIImageView!
     
-    private var data: TableableCellData? = nil
+    private var data: ContentCellData? = nil
     
     var isSaved: Bool = false {
         didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
@@ -46,7 +46,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
     }
     
     @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
-        CLPProfile.shared.toggleSavedContent(for: self.data!)
+        data!.toggleLike()
         isSaved = !isSaved
     }
 
@@ -55,7 +55,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
 
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
-        self.data = data
+        self.data = (data as! ContentCellData)
         guard let quote = data as? Quote else {return self}
         quoteText.text = quote.quoteText//"“" + quoteText + "”"
         authorText.text = "- " + quote.author

@@ -14,4 +14,6 @@ public struct Goal: TableableCellData {
     let text: String
     let strength: Strength?
     let value: Value?
+    public let uid: String = ""
+    public let shouldDisplay: Bool = true
 }

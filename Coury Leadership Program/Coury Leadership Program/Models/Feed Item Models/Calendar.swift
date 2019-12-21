@@ -9,17 +9,20 @@
 import UIKit
 
 public struct Calendar: TableableCellData, Hashable {
+    
     public let CorrespondingView: TableableCell.Type = CalendarCell.self
     
-    struct Event: Identifiable, Hashable {
+    struct Event: Hashable {
         let name: String
         let start: Date
         let end: Date?
         let location: String?
-        public let uid: String
+        let uid: String
     }
 
     let events: [Event]
+    public let uid: String = ""
+    public let shouldDisplay: Bool = true
     
     public static func == (lhs: Calendar, rhs: Calendar) -> Bool {return lhs.events == rhs.events}
     public func hash(into hasher: inout Hasher) {hasher.combine(events)}

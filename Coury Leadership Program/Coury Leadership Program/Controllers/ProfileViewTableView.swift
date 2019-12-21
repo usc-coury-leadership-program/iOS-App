@@ -17,7 +17,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     // Cell height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let content = Database.shared.content.thatsBeenLiked[indexPath.row]
-        return content.CorrespondingView.HEIGHT
+        return (content as TableableCellData).CorrespondingView.HEIGHT
     }
     // Footer height
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -36,13 +36,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let content = Database.shared.content.thatsBeenLiked[indexPath.row]
-        return content.generateCellFor(tableView, at: indexPath)
+        return (content as TableableCellData).generateCellFor(tableView, at: indexPath)
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if Database.shared.content.thatsBeenLiked.count == 0 {return}
         let content = Database.shared.content.thatsBeenLiked[indexPath.row]
         (cell as? FeedViewCell)?.showShadow()
-        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.hasSavedContent(for: content))
+        (cell as? FeedViewCell)?.setSaved(to: CLPProfile.shared.has(savedContent: content.uid))
     }
 
     //MARK: - convenience functions

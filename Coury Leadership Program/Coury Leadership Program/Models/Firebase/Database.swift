@@ -24,15 +24,15 @@ public class Database {
     private var calendarGotSetCallbacks: [() -> Void] = []
     private var pollsGotSetCallbacks: [() -> Void] = []
     private var contentGotSetCallbacks: [() -> Void] = []
-    private var profileGotSetCallbacks: [(CLPProfileData) -> Void] = []
+    private var profileGotSetCallbacks: [() -> Void] = []
     // public instance properties
     public private(set) var calendar: Calendar = Calendar(events: []) {
         didSet {for callback in calendarGotSetCallbacks {callback()}}
     }
-    public private(set) var polls: [Poll] = [] {
+    public private(set) var polls: [TableableCellData] = [] {
         didSet {for callback in pollsGotSetCallbacks {callback()}}
     }
-    public private(set) var content: [TableableCellData] = [] {
+    public private(set) var content: [ContentCellData] = [] {
         didSet {for callback in contentGotSetCallbacks {callback()}}
     }
 
@@ -48,7 +48,7 @@ public class Database {
     public func registerContentCallback(_ callback: @escaping () -> Void) {
         contentGotSetCallbacks.append(callback)
     }
-    public func registerProfileCallback(_ callback: @escaping (CLPProfileData) -> Void) {
+    public func registerProfileCallback(_ callback: @escaping () -> Void) {
         profileGotSetCallbacks.append(callback)
     }
 
@@ -140,69 +140,64 @@ public class Database {
         }
     }
 
+    public func fetchContent() {
+        
+    }
+    
     public func fetchProfile() {
         if let googleUser = Auth.auth().currentUser {
             let name = googleUser.displayName
             let uid = googleUser.uid
             
-            db.collection("Users").document(uid).getDocument { (document, error) in
-                
-                if let document = document, document.exists, let data = document.data() {
-                    let values: [String]? = (data["values"] as? String)?.components(separatedBy: ",")
-                    let strengths: [String]? = (data["strengths"] as? String)?.components(separatedBy: ",")
+            let userDoc = db.collection("Users").document(uid)
+            userDoc.getDocument { (document, error) in
+                if let error = error {print("Failed to get user document: \(error)")}
+                if let document = document, document.exists, let profile = document.data() {
                     
-                    var savedContent: [Int]? = nil
-                    if let rawSavedContent: String = data["saved content"] as? String {
-                        if rawSavedContent.count > 0 {
-                            savedContent = rawSavedContent.components(separatedBy: ",").map({Int($0)!})
+                    for entry in profile {
+                        switch entry.key {
+                        case "strengths":
+                            CLPProfile.shared.set(strengths: entry.value as! [String])
+                        case "values":
+                            CLPProfile.shared.set(values: entry.value as! [String])
+                        default: break
                         }
                     }
-                    
-                    var answeredPolls: [Int]? = nil
-                    if let rawAnsweredPolls: String = data["answered polls"] as? String {
-                        if rawAnsweredPolls.count > 0 {
-                            answeredPolls = rawAnsweredPolls.components(separatedBy: ",").map({Int($0)!})
-                        }
-                    }
-                    
-                    var goals: [[String]]? = nil
-                    if let rawGoals: String = data["goals"] as? String {
-                        if rawGoals.count > 0 {
-                            goals = []
-                            let bigArrayGoals = rawGoals.components(separatedBy: ",")
-                            for i in 0..<bigArrayGoals.count {
-                                if i%3 == 0 {goals!.append([])}
-                                goals![goals!.count - 1].append(bigArrayGoals[i])
-                            }
-                        }
-                    }
-                    
-                    let serverData = CLPProfileData(name: name, uid: uid, values: values, strengths: strengths, savedContent: savedContent, answeredPolls: answeredPolls, goals: goals)
-                    for callback in self.profileGotSetCallbacks {
-                        callback(serverData)
-                    }
-                    
-                    
-                }else {print("User document \(uid) does not exist")}
+                }
+                for callback in self.profileGotSetCallbacks {callback()}
+            }
+            userDoc.collection("AnsweredPolls").getDocuments { (snapshot, error) in
+                if let error = error {print("Failed to get user's AnsweredPolls collection: \(error)")}
+                if let snapshot = snapshot {
+                    CLPProfile.shared.set(answeredPolls: snapshot.documents.map({$0.documentID}))
+                }
+                for callback in self.profileGotSetCallbacks {callback()}
+            }
+            userDoc.collection("SavedContent").getDocuments { (snapshot, error) in
+                if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
+                if let snapshot = snapshot {
+                    CLPProfile.shared.set(savedContent: snapshot.documents.map({$0.documentID}))
+                }
+                for callback in self.profileGotSetCallbacks {callback()}
             }
         }
     }
 
-    public func updateProfile(_ profile: CLPProfileData) {
-
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        let profileToUpload = profile.toDict()
-        if !profileToUpload.elementsEqual(lastUploadedProfile, by: { (newElement, uploadedElement) in
-            let uploadedString = uploadedElement.value as! String
-            return (newElement.key == uploadedElement.key) && (newElement.value == uploadedString)
-        }) {
-            db.collection("Users").document(uid).setData(profileToUpload, mergeFields: profile.listOfFullFields())
-            lastUploadedProfile = profileToUpload
-        }
-        print("Did run Database.updateUserProfile()")
-    }
+//    public func updateProfile(_ profile: CLPProfileData) {
+//
+//        guard let uid = Auth.auth().currentUser?.uid else {return}
+//        let profileToUpload = profile.toDict()
+//        if !profileToUpload.elementsEqual(lastUploadedProfile, by: { (newElement, uploadedElement) in
+//            let uploadedString = uploadedElement.value as! String
+//            return (newElement.key == uploadedElement.key) && (newElement.value == uploadedString)
+//        }) {
+//            db.collection("Users").document(uid).setData(profileToUpload, mergeFields: profile.listOfFullFields())
+//            lastUploadedProfile = profileToUpload
+//        }
+//        print("Did run Database.updateUserProfile()")
+//    }
     
-    private func sendPollResponse(_ poll: Poll, choice: Int) {
+    public func sendPollResponse(_ poll: Poll, choice: Int) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let pollDoc = db.collection("Polls").document(poll.uid)
         

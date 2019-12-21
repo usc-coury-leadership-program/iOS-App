@@ -12,18 +12,13 @@ import GoogleSignIn
 
 class FeedViewController: UIViewController {
     
-    public static var indexPathMapping: ((IndexPath) -> Int)?
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var safeboxButton: UIButton!
     @IBOutlet weak var nothingSavedMessage: UILabel!
-    
-    internal var currentOrder: [Int]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        FeedViewController.indexPathMapping = self.shuffled
         engageTableView()
     }
 
@@ -49,7 +44,7 @@ class FeedViewController: UIViewController {
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
-    func updatePolls() {self.updateTableView()}//self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
+    func updatePolls() {self.updateTableView()}
     func updateSaved() {self.tableView.layoutSubviews()}
     
 }

@@ -18,7 +18,7 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var previewImage: UIImageView!
     @IBOutlet weak var favoriteHeart: UIImageView!
     
-    private var data: TableableCellData? = nil
+    private var data: ContentCellData? = nil
     
     var isSaved: Bool = false {
         didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
@@ -47,7 +47,7 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     }
     
     @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
-        CLPProfile.shared.toggleSavedContent(for: self.data!)
+        data!.toggleLike()
         isSaved = !isSaved
     }
     
@@ -61,7 +61,7 @@ class LinkCell: AUITableViewCell, FeedViewCell {
 
     override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
-        self.data = data
+        self.data = (data as! ContentCellData)
         (data as? Link)?.retrieveDetails {headline, image in
             self.headlineText.text = headline
             self.previewImage.image = image
