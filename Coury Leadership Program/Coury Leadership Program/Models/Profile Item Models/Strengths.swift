@@ -28,10 +28,14 @@ public struct Strength: ProfilableData, Named {
 
         public func color() -> UIColor {
             switch self {
-            case .executing: return UIColor(red: 62/255.0, green: 11/255.0, blue: 66/255.0, alpha: 1.0)
-            case .influencing: return UIColor(red: 229/255.0, green: 124/255.0, blue: 35/255.0, alpha: 1.0)
-            case .relationship_building: return UIColor(red: 15/255.0, green: 54/255.0, blue: 95/255.0, alpha: 1.0)
-            case .strategic_thinking: return UIColor(red: 108/255.0, green: 2/255.0, blue: 33/255.0, alpha: 1.0)
+//            case .executing: return UIColor(red: 62/255.0, green: 11/255.0, blue: 66/255.0, alpha: 1.0)
+//            case .influencing: return UIColor(red: 229/255.0, green: 124/255.0, blue: 35/255.0, alpha: 1.0)
+//            case .relationship_building: return UIColor(red: 15/255.0, green: 54/255.0, blue: 95/255.0, alpha: 1.0)
+//            case .strategic_thinking: return UIColor(red: 108/255.0, green: 2/255.0, blue: 33/255.0, alpha: 1.0)
+            case .executing: return .systemPurple
+            case .influencing: return .systemOrange
+            case .relationship_building: return .systemBlue
+            case .strategic_thinking: return .systemRed
             }
         }
 

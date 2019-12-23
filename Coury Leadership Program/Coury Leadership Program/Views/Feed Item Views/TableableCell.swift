@@ -45,7 +45,12 @@ extension FeedViewCell {
     func configureShadow() {
         insetView.layer.shadowRadius = 8
         insetView.layer.shadowOffset = CGSize.zero
-        insetView.layer.shadowColor = UIColor.black.cgColor
+        if #available(iOS 13.0, *) {
+            insetView.layer.shadowColor = UIColor.label.cgColor
+        } else {
+            // Fallback on earlier versions
+            insetView.layer.shadowColor = UIColor.black.cgColor
+        }
     }
     func showShadow() {insetView.layer.shadowOpacity = 0.4}
     func hideShadow() {insetView.layer.shadowOpacity = 0.0}

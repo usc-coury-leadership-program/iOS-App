@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SavedViewController: UIViewController {
+class GoalViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -55,7 +55,7 @@ class SavedViewController: UIViewController {
 }
 
 
-extension SavedViewController: UIPopoverPresentationControllerDelegate {
+extension GoalViewController: UIPopoverPresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
@@ -96,7 +96,7 @@ extension SavedViewController: UIPopoverPresentationControllerDelegate {
 }
 
 
-extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
+extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
 
     /*header height*/func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
     /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {return GoalCell.HEIGHT}
@@ -110,9 +110,6 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
     //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return CLPProfile.shared.goals![indexPath.row].generateCellFor(tableView, at: indexPath)
-    }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        (cell as? FeedViewCell)?.showShadow()
     }
 
     //MARK: - convenience functions

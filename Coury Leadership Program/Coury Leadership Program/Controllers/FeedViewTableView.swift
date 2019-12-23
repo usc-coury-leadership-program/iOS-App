@@ -53,7 +53,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        (cell as? FeedViewCell)?.showShadow()
+//        (cell as? FeedViewCell)?.showShadow()
         switch indexPath.section {
         case 0: break
         case 1: break

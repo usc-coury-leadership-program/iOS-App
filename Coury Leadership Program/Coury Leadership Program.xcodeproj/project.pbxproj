@@ -41,7 +41,7 @@
 		C4ADBE4A22E27543007F8BC0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADBE4922E27543007F8BC0 /* AboutViewController.swift */; };
 		C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */; };
 		C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */; };
-		C4CA5A91220E0DB900ECF768 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */; };
+		C4CA5A91220E0DB900ECF768 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA5A90220E0DB900ECF768 /* GoalViewController.swift */; };
 		C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A92220E0DB900ECF768 /* Main.storyboard */; };
 		C4CA5A96220E0DBA00ECF768 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A95220E0DBA00ECF768 /* Assets.xcassets */; };
 		C4CA5A99220E0DBA00ECF768 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CA5A97220E0DBA00ECF768 /* LaunchScreen.storyboard */; };
@@ -102,7 +102,7 @@
 		C4CA5A89220E0DB900ECF768 /* Coury Leadership Program.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coury Leadership Program.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4CA5A8C220E0DB900ECF768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4CA5A8E220E0DB900ECF768 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
+		C4CA5A90220E0DB900ECF768 /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
 		C4CA5A93220E0DB900ECF768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4CA5A95220E0DBA00ECF768 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4CA5A98220E0DBA00ECF768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 		BE4CFB0623120C1F0029A1D2 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
-				C4CA5A90220E0DB900ECF768 /* SavedViewController.swift */,
+				C4CA5A90220E0DB900ECF768 /* GoalViewController.swift */,
 				BE4CFB0723120CFD0029A1D2 /* AddGoalViewController.swift */,
 			);
 			name = Goals;
@@ -483,7 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE4CFB0823120CFD0029A1D2 /* AddGoalViewController.swift in Sources */,
-				C4CA5A91220E0DB900ECF768 /* SavedViewController.swift in Sources */,
+				C4CA5A91220E0DB900ECF768 /* GoalViewController.swift in Sources */,
 				C4561F2822B0A3DB00358678 /* ProfilableData.swift in Sources */,
 				C4CA5A8D220E0DB900ECF768 /* AppDelegate.swift in Sources */,
 				C4561F2322B0A20E00358678 /* StrengthCell.swift in Sources */,
@@ -670,7 +670,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Coury Leadership Program/Coury Leadership Program.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RK53TB8S9L;
 				INFOPLIST_FILE = "Coury Leadership Program/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -678,6 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.usc.marshall.couryleadershipprogram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -692,7 +693,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Coury Leadership Program/Coury Leadership Program.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RK53TB8S9L;
 				INFOPLIST_FILE = "Coury Leadership Program/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -700,6 +701,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.usc.marshall.couryleadershipprogram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

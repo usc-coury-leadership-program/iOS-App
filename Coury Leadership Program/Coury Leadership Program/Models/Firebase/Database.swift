@@ -143,62 +143,51 @@ public class Database {
     public func fetchContent() {
         print("Fetching content from Firebase")
         // TODO: paginate data past the 30 most recent posts
-        Firestore.firestore().collection("FeedContent").order(by: "timestamp").limit(to: 30)
-            .getDocuments { (query, error) in
-
-                if let err = error {
-                    print(err.localizedDescription)
-                    return
-                }
-
-                guard let items = query?.documents else {
-                    print("Unable to load feed content.")
-                    return
-                }
-
-                var result: [ContentCellData] = []
-
-                items.forEach { (document) in
-                    let uid = document.documentID
-                    let data = document.data()
-                    switch data["type"] as? String {
-                    case "Quote":
-                        guard let author = data["author"] as? String else {
-                            print("Could not retrieve author from quote.")
-                            return
+        db.collection("FeedContent").order(by: "timestamp", descending: true).limit(to: 30).getDocuments { (query, error) in
+            if let error = error {
+                print("Failed to fetch FeedContent: \(error.localizedDescription)")
+                return
+            }
+            guard let posts = query?.documents else {
+                print("Failed to fetch FeedContent: Query was nil")
+                return
+            }
+            
+            var content: [ContentCellData] = []
+            for post in posts {
+                let uid = post.documentID
+                let data = post.data()
+//                let date: Timestamp = (data["timestamp"] as? Timestamp) ?? Timestamp()
+                
+                var contentItem: ContentCellData
+                
+                switch data["type"] as? String {
+                case "Quote":
+                    var author: String = "Unknown"
+                    var text: String = ""
+                    for entry in data {
+                        switch entry.key {
+                        case "author": author = entry.value as! String
+                        case "text": text = entry.value as! String
+                        default: break
                         }
-
-                        guard let text = data["text"] as? String else {
-                            print("Could not retrieve quote text")
-                            return
-                        }
-
-                        let quoteStruct: Quote = Quote(quoteText: text, author: author, uid: uid)
-                        result.append(quoteStruct)
-
-                    case "Link":
-                        guard let linkString = data["link"] as? String else {
-                            print("Could not parse link string")
-                            return
-                        }
-
-                        let linkStruct: Link = Link(url: URL(string: linkString)!, uid: uid)
-                        result.append(linkStruct)
-                        
-                    case "Image":
-                        guard let image = data["path"] as? String else {
-                            print("Could not retrieve image path.")
-                            return
-                        }
-                        let storageRef = Database.storage.reference(withPath: "Feed/Images/" + image)
-                        result.append(Image(imageReference: storageRef, uid: uid))
-                    
-                    default:
-                        print("Unrecognized feed item type")
                     }
+                    contentItem = Quote(quoteText: text, author: author, uid: uid)
+                    
+                case "Link":
+                    guard let link = data["link"] as? String, let url = URL(string: link) else {continue}
+                    contentItem = Link(url: url, uid: uid)
+                    
+                case "Image":
+                    guard let image = data["path"] as? String else {continue}
+                    let ref = Database.storage.reference(withPath: "Feed/Images/" + image)
+                    contentItem = Image(imageReference: ref, uid: uid)
+                    
+                default: continue
                 }
-
-                self.content = result
+                content.append(contentItem)
+            }
+            self.content = content
         }
     }
 

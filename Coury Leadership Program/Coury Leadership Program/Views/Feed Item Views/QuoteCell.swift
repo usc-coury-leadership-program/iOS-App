@@ -16,12 +16,12 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var quoteText: UILabel!
     @IBOutlet weak var authorText: UILabel!
-    @IBOutlet weak var favoriteHeart: UIImageView!
+    @IBOutlet weak var favoriteHeart: UIButton!
     
     private var data: ContentCellData? = nil
     
     var isSaved: Bool = false {
-        didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
+        didSet {favoriteHeart.isSelected = isSaved}
     }
     func setSaved(to: Bool) {
         isSaved = to
@@ -35,9 +35,6 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
         insetView.layer.masksToBounds = false
 
         quoteText.adjustsFontSizeToFitWidth = true
-        
-        favoriteHeart.isUserInteractionEnabled = true
-        favoriteHeart.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onHeartTap(_:))))
     }
 
     override func layoutSubviews() {
@@ -45,7 +42,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
         configureShadow()
     }
     
-    @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
+    @IBAction func onHeartTap(_ sender: UIButton) {
         data!.toggleLike()
         isSaved = !isSaved
     }
@@ -58,7 +55,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
         self.data = (data as! ContentCellData)
         guard let quote = data as? Quote else {return self}
         quoteText.text = quote.quoteText//"“" + quoteText + "”"
-        authorText.text = "- " + quote.author
+        authorText.text = quote.author
         return self
     }
 }

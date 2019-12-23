@@ -15,12 +15,13 @@ class ImageCell: AUITableViewCell, FeedViewCell {
 
     @IBOutlet weak var insetView: UIView!
     @IBOutlet weak var squareImage: UIImageView!
-    @IBOutlet weak var favoriteHeart: UIImageView!
+    @IBOutlet weak var favoriteHeart: UIButton!
+    @IBOutlet weak var saveImageButton: UIButton!
     
     private var data: ContentCellData? = nil
     
     var isSaved: Bool = false {
-        didSet {favoriteHeart.image = isSaved ? #imageLiteral(resourceName: "Image") : #imageLiteral(resourceName: "Heart")}
+        didSet {favoriteHeart.isSelected = isSaved}
     }
     func setSaved(to: Bool) {
         isSaved = to
@@ -36,8 +37,12 @@ class ImageCell: AUITableViewCell, FeedViewCell {
         squareImage.layer.cornerRadius = 8
         squareImage.layer.masksToBounds = true
         
-        favoriteHeart.isUserInteractionEnabled = true
-        favoriteHeart.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onHeartTap(_:))))
+        if #available(iOS 13.0, *) {
+            saveImageButton.layer.borderColor = UIColor.label.cgColor
+        } else {
+            // Fallback on earlier versions
+            saveImageButton.layer.borderColor = UIColor.black.cgColor
+        }
     }
 
     override func layoutSubviews() {
@@ -50,7 +55,7 @@ class ImageCell: AUITableViewCell, FeedViewCell {
         squareImage.image = nil
     }
     
-    @objc func onHeartTap(_ sender: UITapGestureRecognizer) {
+    @IBAction func onHeartTap(_ sender: UIButton) {
         data!.toggleLike()
         isSaved = !isSaved
     }

@@ -56,7 +56,7 @@ let VALUE_LIST: [Value] = [
     Value(name: "Appreciation of Beauty and Excellence", image: #imageLiteral(resourceName: "appreciation-of-beauty"), motto: "Find beauty in nature, art, ideas, and people", description: """
     If Appreciation of Beauty and Excellence is your strength you notice and appreciate beauty, excellence, and/or skilled performance in all domains of life, from nature to art to mathematics to science to everyday experience.
     """),
-    Value(name: "Judgement", image: #imageLiteral(resourceName: "judgment"), motto: "Examine the details", description: """
+    Value(name: "Judgment Critical Thinking", image: #imageLiteral(resourceName: "judgment"), motto: "Examine the details", description: """
     If Judgment is your strength, thinking things through and examining them from all sides are important aspects of who you are. You do not jump to conclusions, and you rely only on solid evidence to make your decisions. You are able to change your mind.
     """),
     Value(name: "Creativity", image: #imageLiteral(resourceName: "creativity"), motto: "Do things in a different way", description: """

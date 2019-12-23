@@ -88,7 +88,7 @@ extension AppDelegate: GIDSignInDelegate {
         }
 
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+        Auth.auth().signIn(with: credential) { (authResult, error) in
             if error != nil {
                 print("There was an error while authenticating with Firebase: " + String(describing: error))
                 CLPProfile.shared.isSigningIn = false

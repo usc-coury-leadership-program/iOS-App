@@ -39,9 +39,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return (content as TableableCellData).generateCellFor(tableView, at: indexPath)
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if Database.shared.content.shouldBeShown.thatsBeenLiked.count == 0 {return}
         let content = Database.shared.content.shouldBeShown.thatsBeenLiked[indexPath.row]
-        (cell as? FeedViewCell)?.showShadow()
         (cell as? FeedViewCell)?.setSaved(to: content.isLiked)
     }
 
