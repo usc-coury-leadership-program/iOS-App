@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        print("Application did launch")
         engageFirebase()
         AppDelegate.signIn(allowingInteraction: false)
         CLPProfile.shared.beginFetching()
@@ -66,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CLPProfile.shared.flushDataToServer()
         Feed.shared.clearFetchSuccessCallbacks()
         Feed.shared.stopFetching()
-        Database.shared.clearCallbacks()
     }
 }
 
@@ -115,6 +115,7 @@ extension AppDelegate: GIDSignInDelegate {
     //MARK: - convenience functions
     func engageFirebase() {
         FirebaseApp.configure()
+        print("Configured FirebaseApp")
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
     }

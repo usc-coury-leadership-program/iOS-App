@@ -24,10 +24,8 @@ class AddGoalViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         textView.text = AddGoalViewController.PLACEHOLDER
-        textView.textColor = .lightGray
         textView.delegate = self
         textView.becomeFirstResponder()
-        
         
         strengthPicker.delegate = strengthPickerHooks
         strengthPicker.dataSource = strengthPickerHooks
@@ -44,16 +42,11 @@ extension AddGoalViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == AddGoalViewController.PLACEHOLDER {
             textView.text = ""
-            textView.textColor = .black
         }
         textView.becomeFirstResponder()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text == "" {
-            textView.text = AddGoalViewController.PLACEHOLDER
-            textView.textColor = .lightGray
-        }
         textView.resignFirstResponder()
     }
     

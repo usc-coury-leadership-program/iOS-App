@@ -81,16 +81,21 @@ extension GoalViewController: UIPopoverPresentationControllerDelegate {
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {}
     @IBAction func unwindToGoals(_ unwindSegue: UIStoryboardSegue) {
         guard let addGoalController = unwindSegue.source as? AddGoalViewController else {return}
-        
-        let text = addGoalController.textView.text ?? ""
-        let strengthIndex = addGoalController.strengthPicker.selectedRow(inComponent: 0)
-        let strength = strengthIndex == 0 ? nil : STRENGTH_LIST[strengthIndex]
-        let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
-        let value = valueIndex == 0 ? nil : VALUE_LIST[valueIndex]
-        let goal = Goal(text: text, strength: strength, value: value)
-        
-        CLPProfile.shared.add(goal: goal)
-        tableView.reloadData()
+        // Obtain the text of the goal from VC's UITextView
+        let text = addGoalController.textView.text!
+        if text != "" {
+            // Obtain strength (if selected)
+            let strengthIndex = addGoalController.strengthPicker.selectedRow(inComponent: 0)
+            let strength = strengthIndex == 0 ? nil : STRENGTH_LIST[strengthIndex - 1]
+            // Obtain value (if selected)
+            let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
+            let value = valueIndex == 0 ? nil : VALUE_LIST[valueIndex - 1]
+            // Create goal
+            let goal = Goal(text: text, strength: strength, value: value)
+            CLPProfile.shared.add(goal: goal)
+            
+            updateTableView()
+        }
     }
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {}
 }
@@ -98,16 +103,20 @@ extension GoalViewController: UIPopoverPresentationControllerDelegate {
 
 extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
 
-    /*header height*/func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
-    /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {return GoalCell.HEIGHT}
-    /*footer height*/func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
+    // header height
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
+    // cell height
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {return GoalCell.HEIGHT}
+    // footer height
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
 
-    /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 1}
-    /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // number of sections
+    func numberOfSections(in tableView: UITableView) -> Int {return 1}
+    // number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CLPProfile.shared.goals?.count ?? 0
     }
-
-    //cell generation
+    // cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return CLPProfile.shared.goals![indexPath.row].generateCellFor(tableView, at: indexPath)
     }
@@ -122,5 +131,11 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 12.0, right: 0.0)
         tableView.estimatedRowHeight = GoalCell.HEIGHT
+    }
+    
+    func updateTableView() {
+        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }

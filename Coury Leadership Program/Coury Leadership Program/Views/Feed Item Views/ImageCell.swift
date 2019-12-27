@@ -42,6 +42,9 @@ class ImageCell: AUITableViewCell, FeedViewCell {
         } else {
             // Fallback on earlier versions
             saveImageButton.layer.borderColor = UIColor.black.cgColor
+            
+            favoriteHeart.setImage(#imageLiteral(resourceName: "Heart"), for: .normal)
+            favoriteHeart.setImage(#imageLiteral(resourceName: "HeartFilled"), for: [.highlighted, .selected])
         }
     }
 

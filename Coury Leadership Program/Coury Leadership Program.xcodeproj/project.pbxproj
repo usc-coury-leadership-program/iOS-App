@@ -23,6 +23,7 @@
 		BE8346CD2303CDB800A9A66D /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346C92303CDB800A9A66D /* Fetchable.swift */; };
 		BE8346CE2303CDB800A9A66D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346CA2303CDB800A9A66D /* Database.swift */; };
 		BE8346CF2303CDB800A9A66D /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8346CB2303CDB800A9A66D /* Feed.swift */; };
+		BE901FBA23B5F17B00311659 /* Database2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE901FB923B5F17B00311659 /* Database2.swift */; };
 		BEC495DF237A439C0022250E /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC495DE237A439C0022250E /* CalendarViewController.swift */; };
 		C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */; };
 		C420C3E122C407DF00D2E8A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */; };
@@ -82,6 +83,7 @@
 		BE8346C92303CDB800A9A66D /* Fetchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
 		BE8346CA2303CDB800A9A66D /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		BE8346CB2303CDB800A9A66D /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		BE901FB923B5F17B00311659 /* Database2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database2.swift; sourceTree = "<group>"; };
 		BEC495DE237A439C0022250E /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthDetailViewController.swift; sourceTree = "<group>"; };
 		C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				BE8346CA2303CDB800A9A66D /* Database.swift */,
 				BE8346C82303CDB800A9A66D /* Profile.swift */,
 				BE8346CB2303CDB800A9A66D /* Feed.swift */,
+				BE901FB923B5F17B00311659 /* Database2.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				BE47F12D236FFF2800528E26 /* ProfileViewTableView.swift in Sources */,
 				C4D1212A229DFF8300064544 /* ValueDetailViewController.swift in Sources */,
 				C44E818722EE8E8D0091D2B2 /* FeedViewInteraction.swift in Sources */,
+				BE901FBA23B5F17B00311659 /* Database2.swift in Sources */,
 				BE8346CE2303CDB800A9A66D /* Database.swift in Sources */,
 				BE8346CF2303CDB800A9A66D /* Feed.swift in Sources */,
 				C4ADBE4A22E27543007F8BC0 /* AboutViewController.swift in Sources */,

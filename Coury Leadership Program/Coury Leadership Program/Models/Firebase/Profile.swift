@@ -18,7 +18,16 @@ public class CLPProfile {
     
     public var isSigningIn = false
     
-    private var hasData = 0 {didSet {self.checkFetchSuccess()}}
+    // private instance propertoes
+    private var hasStrengthsAndValues = false {didSet {self.checkFetchSuccess()}}
+    private var hasAnsweredPolls = false {didSet {self.checkFetchSuccess()}}
+    private var hasSavedContent = false {didSet {self.checkFetchSuccess()}}
+    private var hasGoals = false {didSet {self.checkFetchSuccess()}}
+    
+    private let strengthsAndValuesClosure: (Timer) -> Void = {_ in Database.shared.fetchStrengthsAndValues(userDoc: Database.db.collection("Users").document(uid))}
+    private let pollsClosure: (Timer) -> Void = {_ in Database.shared.fetchPolls()}
+    private let contentClosure: (Timer) -> Void = {_ in Database.shared.fetchContent()}
+    
     private let dataClosure: (Timer) -> Void = {_ in Database.shared.fetchProfile()}
     private var dataProcess: Timer {return Timer(timeInterval: 2.0, repeats: true, block: dataClosure)}
     private var activeProcesses: [Timer] = []
@@ -43,14 +52,14 @@ public class CLPProfile {
     public func flushDataToServer() {
         if strengths != nil {
             for strength in strengths! {
-                Messaging.messaging().subscribe(toTopic: strength) { error in
+                Messaging.messaging().subscribe(toTopic: strength.replacingOccurrences(of: " ", with: "-")) { error in
                     print("Subscribed to \(strength) notification topic")
                 }
             }
         }
         if values != nil {
             for value in values! {
-                Messaging.messaging().subscribe(toTopic: value) { error in
+                Messaging.messaging().subscribe(toTopic: value.replacingOccurrences(of: " ", with: "-")) { error in
                     print("Subscribed to \(value) notification topic")
                 }
             }
@@ -126,6 +135,10 @@ extension CLPProfile: Fetchable {
         hasData = 0
     }
     
+    public func ensureExistence() {
+        if hasData < 4 {beginFetching()}
+    }
+    
     public func beginFetching() {
         resetState()
         activeProcesses += [dataProcess]
@@ -150,7 +163,7 @@ extension CLPProfile: Fetchable {
     }
     
     private func checkFetchSuccess() {
-        if (hasData >= 3) {
+        if (hasData >= 4) {
             stopFetching()
             for block in codeToRunAfterFetching {block()}
         }

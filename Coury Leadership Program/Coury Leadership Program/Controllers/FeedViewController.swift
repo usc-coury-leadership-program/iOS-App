@@ -13,8 +13,9 @@ import GoogleSignIn
 class FeedViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var safeboxButton: UIButton!
-    @IBOutlet weak var nothingSavedMessage: UILabel!
+    
+    private var hasProfile: Bool = false
+    private var hasContent: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +32,11 @@ class FeedViewController: UIViewController {
         super.viewDidAppear(animated)
         // Profile
         if (CLPProfile.shared.uid == nil) && !CLPProfile.shared.isSigningIn {presentSignInVC()}
-        CLPProfile.shared.onFetchSuccess {self.updatePolls(); self.updateSaved()}
-        CLPProfile.shared.onAnswerPoll {self.updatePolls()}
-        updatePolls()
-        updateSaved()
+        CLPProfile.shared.onFetchSuccess {self.possiblyUpdate()}
+        CLPProfile.shared.onAnswerPoll {self.possiblyUpdate()}
         // Feed
-        Feed.shared.onFetchSuccess {self.updateTableView()}
-        updateTableView()
+        Feed.shared.onFetchSuccess {self.possiblyUpdate()}
+        possiblyUpdate()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -53,7 +52,11 @@ class FeedViewController: UIViewController {
 
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
-    func updatePolls() {updateTableView()}//tableView.reloadSections(IndexSet(integer: 1), with: .fade)}
-    func updateSaved() {updateTableView()}//tableView.reloadSections(IndexSet(integer: 2), with: .none)}
-
+    func possiblyUpdate() {
+        hasProfile = CLPProfile.shared.savedContent != nil
+        hasContent = Database.shared.content.count > 0
+        if hasProfile && hasContent {
+            updateTableView()
+        }
+    }
 }

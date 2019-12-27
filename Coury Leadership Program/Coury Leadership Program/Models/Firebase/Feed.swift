@@ -40,6 +40,10 @@ public class Feed: Fetchable {
         hasPolls = false
         hasContent = false
     }
+    
+    public func ensureExistence() {
+        <#code#>
+    }
 
     public func beginFetching() {
         resetState()

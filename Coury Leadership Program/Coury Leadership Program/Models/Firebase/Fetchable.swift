@@ -10,6 +10,7 @@ import Foundation
 
 public protocol Fetchable {
     func beginFetching()
+    func ensureExistence()
     func isFetching() -> Bool
     func stopFetching()
     func onFetchSuccess(run block: @escaping () -> Void)

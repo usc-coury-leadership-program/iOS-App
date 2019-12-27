@@ -35,6 +35,13 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
         insetView.layer.masksToBounds = false
 
         quoteText.adjustsFontSizeToFitWidth = true
+        
+        if #available(iOS 13.0, *) {
+        } else {
+            // Fallback on earlier versions
+            favoriteHeart.setImage(#imageLiteral(resourceName: "Heart"), for: .normal)
+            favoriteHeart.setImage(#imageLiteral(resourceName: "HeartFilled"), for: [.highlighted, .selected])
+        }
     }
 
     override func layoutSubviews() {

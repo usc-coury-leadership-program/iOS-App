@@ -24,7 +24,10 @@ public class Database {
     private var calendarGotSetCallbacks: [() -> Void] = []
     private var pollsGotSetCallbacks: [() -> Void] = []
     private var contentGotSetCallbacks: [() -> Void] = []
-    private var profileGotSetCallbacks: [() -> Void] = []
+    private var strengthsAndValuesGotSetCallbacks: [() -> Void] = []
+    private var answeredPollsGotSetCallbacks: [() -> Void] = []
+    private var savedContentGotSetCallbacks: [() -> Void] = []
+    private var goalsGotSetCallbacks: [() -> Void] = []
     // public instance properties
     public private(set) var calendar: Calendar = Calendar(events: []) {
         didSet {for callback in calendarGotSetCallbacks {callback()}}
@@ -34,6 +37,18 @@ public class Database {
     }
     public private(set) var content: [ContentCellData] = [] {
         didSet {for callback in contentGotSetCallbacks {callback()}}
+    }
+    public private(set) var strengthsAndValues: [[String]] = [] {
+        didSet {for callback in strengthsAndValuesGotSetCallbacks {callback()}}
+    }
+    public private(set) var answeredPolls: [String] = [] {
+        didSet {for callback in answeredPollsGotSetCallbacks {callback()}}
+    }
+    public private(set) var savedContent: [String] = [] {
+        didSet {for callback in savedContentGotSetCallbacks {callback()}}
+    }
+    public private(set) var goals: [Goal] = [] {
+        didSet {for callback in goalsGotSetCallbacks {callback()}}
     }
 
     // private constructor
@@ -48,8 +63,17 @@ public class Database {
     public func registerContentCallback(_ callback: @escaping () -> Void) {
         contentGotSetCallbacks.append(callback)
     }
-    public func registerProfileCallback(_ callback: @escaping () -> Void) {
-        profileGotSetCallbacks.append(callback)
+    public func registerStrengthsAndValuesCallback(_ callback: @escaping () -> Void) {
+        strengthsAndValuesGotSetCallbacks.append(callback)
+    }
+    public func registerAnsweredPollsCallback(_ callback: @escaping () -> Void) {
+        answeredPollsGotSetCallbacks.append(callback)
+    }
+    public func registerSavedContentCallback(_ callback: @escaping () -> Void) {
+        savedContentGotSetCallbacks.append(callback)
+    }
+    public func registerGoalsCallback(_ callback: @escaping () -> Void) {
+        goalsGotSetCallbacks.append(callback)
     }
 
     public func clearCallbacks() {
@@ -57,7 +81,10 @@ public class Database {
         calendarGotSetCallbacks = []
         pollsGotSetCallbacks = []
         contentGotSetCallbacks = []
-        profileGotSetCallbacks = []
+        strengthsAndValuesGotSetCallbacks = []
+        answeredPollsGotSetCallbacks = []
+        savedContentGotSetCallbacks = []
+        goalsGotSetCallbacks = []
     }
 
     public func fetchCalendar() {
@@ -190,83 +217,105 @@ public class Database {
             self.content = content
         }
     }
+    
+    public func fetchStrengthsAndValues(userDoc: DocumentReference?) {
+        // download strengths and values
+        userDoc?.getDocument { (document, error) in
+            if let error = error {print("Failed to get user document: \(error)")}
+            if let document = document, document.exists, let profile = document.data() {
+                
+                var strengths: [String] = []
+                var values: [String] = []
 
-    public func fetchProfile() {
-        if let googleUser = Auth.auth().currentUser {
-            let name = googleUser.displayName
-            let uid = googleUser.uid
-            
-            // download strengths and values
-            let userDoc = db.collection("Users").document(uid)
-            userDoc.getDocument { (document, error) in
-                if let error = error {print("Failed to get user document: \(error)")}
-                if let document = document, document.exists, let profile = document.data() {
+                for entry in profile {
+                    switch entry.key {
+                    case "strengths":
+                        strengths = entry.value as! [String]
+                    case "values":
+                        values = entry.value as! [String]
+                    default: break
+                    }
+                }
+                self.strengthsAndValues = [strengths, values]
+                // this check is important
+                // if we just set CLPProfile immediately, we overwrite whatever the user chose while signing in
+                // only matters the first time the user opens the app
+//                if strengths.count == 5 && values.count == 5 {
+//                    CLPProfile.shared.set(strengths: strengths)
+//                    CLPProfile.shared.set(values: values)
+//                    for callback in self.profileGotSetCallbacks {callback()}
+//                }
+            }
+        }
+    }
+    
+    public func fetchAnsweredPolls(userDoc: DocumentReference?) {
+        // download answered polls
+        userDoc?.collection("AnsweredPolls").getDocuments { (snapshot, error) in
+            if let error = error {print("Failed to get user's AnsweredPolls collection: \(error)")}
+            if let snapshot = snapshot {
+//                CLPProfile.shared.set(answeredPolls: snapshot.documents.map({$0.documentID}))
+                self.answeredPolls = snapshot.documents.map({$0.documentID})
+            }
+//            for callback in self.profileGotSetCallbacks {callback()}
+        }
+    }
+    
+    public func fetchSavedContent(userDoc: DocumentReference?) {
+        // download saved content
+        userDoc?.collection("SavedContent").getDocuments { (snapshot, error) in
+            if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
+            if let snapshot = snapshot {
+//                CLPProfile.shared.set(savedContent: snapshot.documents.map({$0.documentID}))
+                self.savedContent = snapshot.documents.map({$0.documentID})
+            }
+//            for callback in self.profileGotSetCallbacks {callback()}
+        }
+    }
+    
+    public func fetchGoals(userDoc: DocumentReference?) {
+        // download goals
+        userDoc?.collection("Goals").getDocuments { (snapshot, error) in
+            if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
+            if let snapshot = snapshot {
+                
+                var goals: [Goal] = []
+                
+                for document in snapshot.documents {
+                    let uid = document.documentID
+                    var text: String?, strength: String?, value: String?
                     
-                    var strengths: [String] = []
-                    var values: [String] = []
-
-                    for entry in profile {
+                    let goal = document.data()
+                    for entry in goal {
                         switch entry.key {
-                        case "strengths":
-                            strengths = entry.value as! [String]
-                        case "values":
-                            values = entry.value as! [String]
+                        case "text": text = (entry.value as! String)
+                        case "strength": strength = (entry.value as! String)
+                        case "value": value = (entry.value as! String)
                         default: break
                         }
                     }
-                    // this check is important
-                    // if we just set CLPProfile immediately, we overwrite whatever the user chose while signing in
-                    // only matters the first time the user opens the app
-                    if strengths.count == 5 && values.count == 5 {
-                        CLPProfile.shared.set(strengths: strengths)
-                        CLPProfile.shared.set(values: values)
-                        for callback in self.profileGotSetCallbacks {callback()}
-                    }
-                }
-            }
-            // download answered polls
-            userDoc.collection("AnsweredPolls").getDocuments { (snapshot, error) in
-                if let error = error {print("Failed to get user's AnsweredPolls collection: \(error)")}
-                if let snapshot = snapshot {
-                    CLPProfile.shared.set(answeredPolls: snapshot.documents.map({$0.documentID}))
-                }
-                for callback in self.profileGotSetCallbacks {callback()}
-            }
-            // download saved content
-            userDoc.collection("SavedContent").getDocuments { (snapshot, error) in
-                if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
-                if let snapshot = snapshot {
-                    CLPProfile.shared.set(savedContent: snapshot.documents.map({$0.documentID}))
-                }
-                for callback in self.profileGotSetCallbacks {callback()}
-            }
-            // download goals
-            userDoc.collection("Goals").getDocuments { (snapshot, error) in
-                if let error = error {print("Failed to get user's SavedContent collection: \(error)")}
-                if let snapshot = snapshot {
                     
-                    var goals: [Goal] = []
-                    
-                    for document in snapshot.documents {
-                        let uid = document.documentID
-                        var text: String?, strength: String?, value: String?
-                        
-                        let goal = document.data()
-                        for entry in goal {
-                            switch entry.key {
-                            case "text": text = (entry.value as! String)
-                            case "strength": strength = (entry.value as! String)
-                            case "value": value = (entry.value as! String)
-                            default: break
-                            }
-                        }
-                        
-                        goals.append(Goal(text: text ?? "", strengthStr: strength, valueStr: value, uid: uid))
-                    }
-                    CLPProfile.shared.set(goals: goals)
+                    goals.append(Goal(text: text ?? "", strengthStr: strength, valueStr: value, uid: uid))
                 }
-                for callback in self.profileGotSetCallbacks {callback()}
+//                CLPProfile.shared.set(goals: goals)
+                self.goals = goals
             }
+//            for callback in self.profileGotSetCallbacks {callback()}
+        }
+    }
+
+    public func fetchProfile() {
+        // NOTE: constant in Profile class is 4 because callbacks get called in 4 places in this function
+        // TODO: this shouldn't be hard coded. already messed it up once
+        if let googleUser = Auth.auth().currentUser {
+            let name = googleUser.displayName
+            let uid = googleUser.uid
+            let userDoc = db.collection("Users").document(uid)
+            
+            fetchStrengthsAndValues(userDoc: userDoc)
+            fetchAnsweredPolls(userDoc: userDoc)
+            fetchSavedContent(userDoc: userDoc)
+            fetchGoals(userDoc: userDoc)
         }
     }
     

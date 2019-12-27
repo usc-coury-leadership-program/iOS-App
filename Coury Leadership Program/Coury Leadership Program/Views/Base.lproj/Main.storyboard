@@ -28,24 +28,12 @@
                                     <outletCollection property="gestureRecognizers" destination="gxW-5Y-dzM" appends="YES" id="ebA-8O-Pmz"/>
                                 </connections>
                             </tableView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't saved anything! Tap and hold on a post to save it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r7S-la-Zu7">
-                                <rect key="frame" x="30" y="365.66666666666669" width="315" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="yIt-yG-UV6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="r7S-la-Zu7" firstAttribute="centerY" secondItem="PQr-Ze-W5v" secondAttribute="centerY" id="7bW-Dt-eNp"/>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="9kc-u6-oTD"/>
-                            <constraint firstItem="r7S-la-Zu7" firstAttribute="width" secondItem="PQr-Ze-W5v" secondAttribute="width" constant="-60" id="CqN-qw-MPM"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="xsa-OG-cBN" secondAttribute="bottom" id="KIz-U6-f8V"/>
-                            <constraint firstItem="r7S-la-Zu7" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="blJ-4y-naW"/>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" id="hFU-SK-y7r"/>
                             <constraint firstItem="xsa-OG-cBN" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="zhA-Qr-LfH"/>
                         </constraints>
@@ -53,7 +41,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Feed" image="Feed Icon" id="acW-dT-cKf" userLabel="Feed"/>
                     <connections>
-                        <outlet property="nothingSavedMessage" destination="r7S-la-Zu7" id="cbg-dW-nBH"/>
                         <outlet property="tableView" destination="xsa-OG-cBN" id="PPy-jX-wQn"/>
                         <segue destination="FeX-Ig-enU" kind="presentation" identifier="SignInSegue" id="818-gU-nKK"/>
                         <segue destination="uvk-uN-FeR" kind="presentation" identifier="CalendarSegue" id="bPJ-iy-sOp"/>
