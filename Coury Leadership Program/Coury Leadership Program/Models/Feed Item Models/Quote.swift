@@ -7,15 +7,37 @@
 //
 
 import Foundation
+import Firebase
 
-public struct Quote: ContentCellData, Hashable {
-    public let CorrespondingView: TableableCell.Type = QuoteCell.self
-
-    let quoteText: String
-    let author: String
-    public let uid: String
-    public let shouldDisplay: Bool = true
-    
-    public static func == (lhs: Quote, rhs: Quote) -> Bool {return lhs.uid == rhs.uid}
-    public func hash(into hasher: inout Hasher) {hasher.combine(uid)}
+extension Posts {
+    public class Quote: Post {
+        let quoteText: String
+        let author: String
+        
+        init(quoteText: String, author: String, uid: String) {
+            super.init(correspondingView: QuoteCell.self, uid: uid)
+            self.quoteText = quoteText
+            self.author = author
+        }
+        
+        public required convenience init(dbDocument: QueryDocumentSnapshot) {
+            let uid = dbDocument.documentID
+            let data = dbDocument.data()
+            
+            var author: String = "Unknown"
+            var text: String = ""
+            for entry in data {
+                switch entry.key {
+                case "author":
+                    author = entry.value as! String
+                case "text":
+                    text = entry.value as! String
+                default:
+                    break
+                }
+            }
+            
+            self.init(quoteText: text, author: author, uid: uid)
+        }
+    }
 }

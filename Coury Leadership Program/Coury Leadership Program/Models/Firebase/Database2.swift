@@ -15,50 +15,62 @@ public class Database2 {
         return Database2()
     }()
     
-    private static let storage = Storage.storage()
-    private let db = Firestore.firestore()
+    public static let storage = Storage.storage()
+    public static let db = Firestore.firestore()
     
-    private var callbacks: [HashableType<Fetchable2> : [() -> Void]] = [:]
+    private var callbacks: [HashableType<HashableTypeSeed> : [() -> Void]] = [:]
     /*
      * EXAMPLE
      * callbacks[SomeFetchableClass.self] = []
      */
-    public private(set) var data: [HashableType<Fetchable2> : Fetchable2] = [:]
+    public private(set) var data: [HashableType<HashableTypeSeed> : HashableTypeSeed] = [:]
     
     // private constructor
     private init() {}
     
+//    // TODO item isn't really necessary in theory
+//    public func register<T: HashableTypeSeed>(_ item: T, callback: @escaping () -> Void) {
+//        callbacks[T.typehash] = (callbacks[T.typehash] ?? []) + [callback]
+//    }
     // TODO item isn't really necessary in theory
     public func register<T: Fetchable2>(_ item: T, callback: @escaping () -> Void) {
-        callbacks[T.hashable] = (callbacks[T.hashable] ?? []) + [callback]
+        callbacks[T.Fetched.typehash] = (callbacks[T.Fetched.typehash] ?? []) + [callback]
     }
     
     public func clear() {
         callbacks = [:]
     }
     
+//    private func save<T: HashableTypeSeed>(_ item: T) {
+//        data[T.typehash] = item
+//        callbacks[T.typehash]?.forEach({$0()})
+//    }
     private func save<T: Fetchable2>(_ item: T) {
-        data[T.hashable] = item
-        callbacks[T.hashable]?.forEach({$0()})
+        data[T.Fetched.typehash] = item.localValue
+        callbacks[T.Fetched.typehash]?.forEach({$0()})
+    }
+    
+    public func fetch<T: Fetchable2>(_ item: inout T, count: Int = 30) {
+        Database2.db.collection(T.queryPath).order(by: T.queryOrderField, descending: T.queryShouldDescend).limit(to: count).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Failed to fetch \(item.self): \(error.localizedDescription)")
+                return
+            }
+            
+            var documents: [T.Document] = []
+            // the snapshot is the database's representation of T.Fetched
+            snapshot?.documents.forEach { (dbDocument) in
+                // the document is the database's representation of T.Document
+                documents.append(T.Document(dbDocument: dbDocument))
+            }
+            
+            self.save(T(documents: documents))
+        }
     }
 }
 
-public class Fetchable2 {
-    static var hashable: HashableType<Fetchable2> = HashableType(Fetchable2.self)
-    static var databaseValue: Fetchable2? {
-        get {return Database2.shared.data[hashable]}
-    }
-}
-public protocol Fetchable2Requirements {
-    associatedtype T: Fetchable2
-}
-/*
- * EXAMPLE
- * class Calendar: Fetchable2, Fetchable2Requirements {
- *  typealias T = Calendar
- *  //...
- * }
- */
+
+
 
 
 // wrapper that makes metatypes hashable
@@ -78,7 +90,11 @@ public struct HashableType<T>: Hashable {
         return lhs.base == rhs.base
     }
 }
-
+// provides a variable, solely dependent on the Type, that can be interpreted as the key of a dictionary
+// carries negligible performance penalty
+public class HashableTypeSeed {
+    static var typehash: HashableType<HashableTypeSeed> = HashableType(HashableTypeSeed.self)
+}
 // allows dictionary to interpret keys of type metatype (using HashableType wrapper)
 // carries a performance penalty (O(n) copy) if Dictionary values are arrays (which they are)
 // https://stackoverflow.com/questions/42459484/make-a-swift-dictionary-where-the-key-is-type

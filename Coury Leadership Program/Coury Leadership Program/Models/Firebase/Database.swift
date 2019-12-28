@@ -110,9 +110,9 @@ public class Database {
                         case "start_time":
                             startTime = entry.value as! Timestamp
                         case "end_time":
-                            endTime = entry.value as? Timestamp
-                        case location:
-                            location = entry.value as? String
+                            endTime = (entry.value as! Timestamp)
+                        case "location":
+                            location = (entry.value as! String)
                         default:
                             break
                         }
