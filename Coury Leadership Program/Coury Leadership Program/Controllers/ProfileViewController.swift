@@ -45,16 +45,10 @@ class ProfileViewController: UIViewController {
         updateCollectionView()
         updateTableView()
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // Profile
-        CLPProfile.shared.clearFetchSuccessCallbacks()
-    }
 
     func updateUserSpecificText() {
         nameLabel.text = BasicInformation.name
-        let userScore = CLPProfile.shared.savedContent.savedPosts.count + CLPProfile.shared.answeredPolls.answeredPolls.count
+        let userScore = CLPProfile.shared.savedContent.posts.count + CLPProfile.shared.answeredPolls.polls.count
         collectionSizeLabel.text = String(userScore)
     }
     

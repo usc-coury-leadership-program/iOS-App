@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 public class Goals: TimestampedClass {
-    private(set) var goals: [Goal] {
+    public var goals: [Goal] {
         didSet {
             lastModified = Date()
         }
@@ -19,12 +19,15 @@ public class Goals: TimestampedClass {
     public init(goals: [Goal]) {
         self.goals = goals
         super.init()
+        // Self.self is equivalent to Goals.self
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        if !overwriteLocalWithDatabase() {
+            Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
+        }
     }
     
     public required convenience init(documents: [Goal]) {
         self.init(goals: documents)
-        // Self.self is equivalent to Goals.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
     }
 }
 
@@ -39,7 +42,7 @@ extension Goals: Fetchable2 {
     }
     
     public static var callbacks: [() -> Void] = []
-    public static var activeProcesses: [Timer] = []
+    public static var process: Timer? = nil
 }
 
 extension Goals: Hashable {
@@ -66,7 +69,7 @@ extension Goals {
             self.strength = strength
             self.value = value
             self.achieved = achieved
-            self.uid = uid ?? "{NewDoc}\(String(Float.random(in: 0..<1)).prefix(10))"
+            self.uid = uid ?? "{NewDoc}\(String(format: "%.10f", Float.random(in: 0..<1)).suffix(10))"
         }
         
         public static func create(from dbDocument: DocumentSnapshot) -> DBDocumentParser {
@@ -90,6 +93,8 @@ extension Goals {
         public var uploadPath: String {return "Users/{UserID}/Goals/\(uid)"}
         
         public func inject(into dbDocument: DocumentReference) {
+            uid = dbDocument.documentID// must update, since it could be {NewDoc}...
+            
             var dict: [String: Any] = ["text": text, "achieved": achieved]
             if let strength = strength {dict["strength"] = strength}
             if let value = value {dict["value"] = value}

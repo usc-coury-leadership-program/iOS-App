@@ -50,7 +50,7 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
     }
     
     @IBAction func onHeartTap(_ sender: UIButton) {
-//        data!.toggleLike()
+        CLPProfile.shared.toggleLike(data as! Posts.Post, sync: true)
         isSaved = !isSaved
     }
     

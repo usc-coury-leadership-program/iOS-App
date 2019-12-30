@@ -29,14 +29,19 @@ public class Database2 {
         callbacks[hash] = (callbacks[hash] ?? []) + [callback]
     }
     
-    public func clear() {
+    public func clearCallbacks() {
         callbacks = [:]
+    }
+    public func clearCallbacks<T: Fetchable2>(_ item: T.Type) {
+        let hash = HashableType<T.CollectionEquivalent>(T.CollectionEquivalent.self).hashValue
+        callbacks[hash] = []
     }
     
     private func save<T: Fetchable2>(_ item: T) {
         let hash = HashableType<T.CollectionEquivalent>(T.CollectionEquivalent.self).hashValue
         data[hash] = item.localValue
         callbacks[hash]?.forEach({$0()})
+//        clearCallbacks(T.self)
     }
     
     public func read<T: Fetchable2>(_ item: T.Type) -> T.CollectionEquivalent? {
@@ -104,8 +109,9 @@ public class Database2 {
     }
     
     public func upload<T: Uploadable>(_ item: T) {
+        print("\(T.self): Database.upload did begin")
         guard let path = Self.parsePath(item.uploadPath) else {
-            print("\(item): Database.upload did fail. Path could not be parsed (likely due to lack of sign in)")
+            print("\(T.self): Database.upload did fail. Path could not be parsed (likely due to lack of sign in)")
             return
         }
         let document = Self.db.document(path)

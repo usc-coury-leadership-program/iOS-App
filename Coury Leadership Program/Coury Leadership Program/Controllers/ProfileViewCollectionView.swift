@@ -49,8 +49,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         //cell.showShadow()
         switch indexPath.section {
-        case 0: (cell as? ProfileViewCell)?.setHas(to: CLPProfile.shared.basicInformation.values.contains(VALUE_LIST[indexPath.row].name))
-        case 1: (cell as? ProfileViewCell)?.setHas(to: CLPProfile.shared.basicInformation.strengths.contains(STRENGTH_LIST[indexPath.row].name))
+        case 0: (cell as? ProfileViewCell)?.setHas(to: CLPProfile.shared.has(value: VALUE_LIST[indexPath.row]))
+        case 1: (cell as? ProfileViewCell)?.setHas(to: CLPProfile.shared.has(strength: STRENGTH_LIST[indexPath.row]))
         default: break
         }
     }

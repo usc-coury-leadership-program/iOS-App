@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 public class CLPProfile {
     //shared instance
@@ -20,8 +21,8 @@ public class CLPProfile {
     // their local values will be set to the database values
     // (see Fetchable extensions)
     public let basicInformation = BasicInformation(strengths: [], values: [])
-    public let answeredPolls = AnsweredPolls(answeredPolls: [])
-    public let savedContent = SavedContent(savedPosts: [])
+    public let answeredPolls = AnsweredPolls(polls: [])
+    public let savedContent = SavedContent(posts: [])
     public let goals = Goals(goals: [])
     
     private var callbacks: [() -> Void] = []
@@ -35,55 +36,69 @@ public class CLPProfile {
         Goals.onFetchSuccess {self.checkFetchSuccess()}
     }
     
-    // MARK: Set functions
-    public func set(values: [String]) {basicInformation.values = values}
-    public func set(strengths: [String]) {basicInformation.strengths = strengths}
-    public func set(answeredPolls: [AnsweredPolls.AnsweredPoll]) {self.answeredPolls.answeredPolls = answeredPolls}
-    public func set(answeredPollsUIDs: [String]) {self.set(answeredPolls: answeredPollsUIDs.map({AnsweredPolls.AnsweredPoll($0)}))}
-    public func set(savedPosts: [SavedContent.SavedPost]) {self.savedContent.savedPosts = savedPosts}
-    public func set(savedPostsUIDs: [String]) {self.set(savedPosts: savedPostsUIDs.map({SavedContent.SavedPost($0)}))}
-    public func set(goals: [Goals.Goal]) {self.goals.goals = goals}
-    
-    public func like(_ post: Posts.Post) {
-        //TODO
-//        savedContent.savedPosts.map({$0.uid}).
+    // MARK: BasicInformation
+    public func has(value: Value) -> Bool {
+        return basicInformation.values.contains(value.name)
+    }
+    public func set(values: [String], sync immediately: Bool = false) {
+        basicInformation.values = values
+        if immediately {basicInformation.startUploading()}
+    }
+    public func has(strength: Strength) -> Bool {
+        return basicInformation.strengths.contains(strength.name)
+    }
+    public func set(strengths: [String], sync immediately: Bool = false) {
+        basicInformation.strengths = strengths
+        if immediately {basicInformation.startUploading()}
     }
     
-    public func answer(_ poll: Polls.Poll) {
-        
+    // MARK: Answered
+    public func hasAnswered(_ poll: Polls.Poll) -> Bool {
+        return answeredPolls.polls[poll.uid] != nil
+    }
+    public func answer(_ poll: Polls.Poll, sync immediately: Bool = false) {
+        guard let selection = poll.selectedAnswer else {
+            print("Profile.answer did fail. The referenced poll hasn't been answered yet")
+            return
+        }
+        answeredPolls.polls[poll.uid] = AnsweredPolls.Poll(uid: poll.uid, selection: selection, timestamp: Timestamp())
+        if immediately {answeredPolls.polls[poll.uid]!.startUploading()}
+    }
+    
+    // MARK: Liked
+    public func hasLiked(_ post: Posts.Post) -> Bool {
+        return savedContent.posts[post.uid]?.status ?? false
+    }
+    public func like(_ post: Posts.Post, sync immediately: Bool = false) {
+        savedContent.posts[post.uid] = SavedContent.Post(uid: post.uid, status: true)
+        if immediately {savedContent.posts[post.uid]!.startUploading()}
+    }
+    public func unlike(_ post: Posts.Post, sync immediately: Bool = false) {
+        savedContent.posts[post.uid] = SavedContent.Post(uid: post.uid, status: false)
+        if immediately {savedContent.posts[post.uid]!.startUploading()}
+    }
+    public func toggleLike(_ post: Posts.Post, sync immediately: Bool = false) {
+        hasLiked(post) ? unlike(post, sync: immediately) : like(post, sync: immediately)
+    }
+    
+    // MARK: Goals
+    // note that they're done differently (no dictionary) because an array must be available to the TableView that displays them, and it's nice if they stay in the same order
+    public func hasAccomplished(_ goal: Goals.Goal) -> Bool {
+        guard let i = goals.goals.map({$0.uid}).firstIndex(of: goal.uid) else {return false}
+        return goals.goals[i].achieved
+    }
+    public func set(goal: Goals.Goal, sync immediately: Bool = false) {
+        if let i = goals.goals.map({$0.uid}).firstIndex(of: goal.uid) {
+            goals.goals[i] = goal
+            if immediately {goals.goals[i].startUploading()}
+        }else {
+            goals.goals.append(goal)
+            goals.goals.last!.startUploading()
+        }
     }
     
     
-
-//    // MARK: Add functions
-//    public func add(answeredPoll uid: String) {
-//        if answeredPolls == nil {answeredPolls = [uid]}
-//        else {answeredPolls!.append(uid)}
-//    }
-//    public func add(goal: Goal) {
-//        if goals == nil {goals = [goal]}
-//        else {goals!.append(goal)}
-//    }
-//
-//    // MARK: Toggle functions
-//    public func toggle(savedContent uid: String) {
-//        if savedContent == nil {
-//            savedContent = [uid]
-//        }else if let existingLocation = savedContent!.firstIndex(of: uid) {
-//            savedContent!.remove(at: existingLocation)
-//        }else {
-//            savedContent!.append(uid)
-//        }
-//    }
-//
-//    // MARK: remove functions
-//    public func remove(goal: Goal) {
-//        goals?.remove(at: (goals?.firstIndex(where: {$0.uid == goal.uid}))!)
-//    }
-//    public func remove(goalAt index: Int) {
-//        goals?.remove(at: index)
-//    }
-    
+    // MARK: Fetching
     public func startFetching() {
         fetchStartTime = Date()
         BasicInformation.startFetching()
@@ -109,11 +124,15 @@ public class CLPProfile {
     }
     
     private func checkFetchSuccess() {
-        print("Profile checking fetch success")
-        print([basicInformation.lastModified, answeredPolls.lastModified, savedContent.lastModified, goals.lastModified].map({$0.compare(fetchStartTime!)}))
         let leastRecentModification = [basicInformation.lastModified, answeredPolls.lastModified, savedContent.lastModified, goals.lastModified].min()!
         if leastRecentModification > fetchStartTime! {
             callbacks.forEach({$0()})
         }
+    }
+}
+
+extension Array where Element == Goals.Goal {
+    var unachieved: [Element] {
+        return self.filter({!$0.achieved})
     }
 }

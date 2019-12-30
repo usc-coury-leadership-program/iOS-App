@@ -20,7 +20,7 @@ class ValueCell: AUICollectionViewCell, ProfileViewCell {
     override internal var data: CollectionableCellData? {
         didSet {
             if let value = data as? Value {
-                valueName.text = value.name
+                valueName.text = value.shortName
                 image.image = value.image
             }
         }

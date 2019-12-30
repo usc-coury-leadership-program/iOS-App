@@ -10,21 +10,26 @@ import Foundation
 import Firebase
 
 public class AnsweredPolls: TimestampedClass {
-    public var answeredPolls: [AnsweredPoll] {
+    public var polls: [String : Poll] {
         didSet {
             lastModified = Date()
         }
     }
 
-    public init(answeredPolls: [AnsweredPoll]) {
-        self.answeredPolls = answeredPolls
+    public init(polls: [Poll]) {
+        self.polls = polls.reduce(into: [String : Poll]()) {
+            $0[$1.uid] = $1
+        }
         super.init()
+        // Self.self is equivalent to AnsweredPolls.self
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        if !overwriteLocalWithDatabase() {
+            Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
+        }
     }
  
-    public required convenience init(documents: [AnsweredPoll]) {
-        self.init(answeredPolls: documents)
-        // Self.self is equivalent to AnsweredPolls.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
+    public required convenience init(documents: [Poll]) {
+        self.init(polls: documents)
     }
 }
 
@@ -35,35 +40,38 @@ extension AnsweredPolls: Fetchable2 {
     
     public var localValue: AnsweredPolls {
         get {return self}
-        set {answeredPolls = newValue.answeredPolls}
+        set {polls = newValue.polls}
     }
     
     public static var callbacks: [() -> Void] = []
-    public static var activeProcesses: [Timer] = []
+    public static var process: Timer? = nil
 }
 
 extension AnsweredPolls: Hashable {
     public static func == (lhs: AnsweredPolls, rhs: AnsweredPolls) -> Bool {
-        return lhs.answeredPolls == rhs.answeredPolls
+        return lhs.polls == rhs.polls
     }
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(answeredPolls)
+        hasher.combine(polls)
     }
 }
 
 extension AnsweredPolls {
-    public struct AnsweredPoll: DBDocumentParser, Uploadable, Hashable {
+    public struct Poll: DBDocumentParser, Uploadable, Hashable {
         public let uid: String
+        public let selection: Int
+        public let timestamp: Timestamp
         
         public static func create(from dbDocument: DocumentSnapshot) -> DBDocumentParser {
-            return AnsweredPoll(uid: dbDocument.documentID)
+            return Poll(uid: dbDocument.documentID, selection: dbDocument.data()!["selection"] as! Int, timestamp: dbDocument.data()!["timestamp"] as! Timestamp)
         }
         
         public var uploadPath: String {return "Users/{UserID}/AnsweredPolls/\(uid)"}
         
         public func inject(into dbDocument: DocumentReference) {
             dbDocument.setData([
-                "Status": true
+                "selection": selection,
+                "timestamp": timestamp
             ])
         }
     }

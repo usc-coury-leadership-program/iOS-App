@@ -15,7 +15,8 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var hasProfile: Bool = false
-    private var hasContent: Bool = false
+    private var hasFeed: Bool = false
+    internal var lastUpdated: Date = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,42 +31,35 @@ class FeedViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Profile
-        if (BasicInformation.uid == nil) && !CLPProfile.shared.isSigningIn {presentSignInVC()}
+        
+        if (BasicInformation.uid == nil) && !CLPProfile.shared.isSigningIn {
+            // stop fetching CLPProfile so that user's selections don't get overwritten by empty database documents
+            CLPProfile.shared.stopFetching()
+            presentSignInVC()
+        }
+        
         CLPProfile.shared.onFetchSuccess {
-            print("Got profile")
+            print("FeedViewController received CLPProfile callback")
             self.hasProfile = true
             self.possiblyUpdate()
         }
-//        CLPProfile.shared.onAnswerPoll {self.possiblyUpdate()}
-        
-        // Feed
         Feed.shared.onFetchSuccess {
-            print("Got feed")
-            self.hasContent = true
+            print("FeedViewController received Feed callback")
+            self.hasFeed = true
             self.possiblyUpdate()
         }
-        possiblyUpdate()
+        
+        if Feed.shared.posts.lastModified > lastUpdated {
+            possiblyUpdate()
+        }
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // Profile
-        CLPProfile.shared.clearFetchSuccessCallbacks()
-//        CLPProfile.shared.clearAnswerPollCallbacks()
-        // Feed
-        Calendar.clearFetchSuccessCallbacks()
-        Polls.clearFetchSuccessCallbacks()
-        Posts.clearFetchSuccessCallbacks()
-    }
-
-    @IBAction func unwindToFeed(_ unwindSegue: UIStoryboardSegue) {}
-
-    func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
-
+    
     func possiblyUpdate() {
-        if hasProfile && hasContent {
+        if hasProfile && hasFeed {
             updateTableView()
         }
     }
+
+    @IBAction func unwindToFeed(_ unwindSegue: UIStoryboardSegue) {}
+    func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 }

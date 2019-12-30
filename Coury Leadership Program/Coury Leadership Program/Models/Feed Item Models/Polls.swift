@@ -20,7 +20,10 @@ public class Polls: TimestampedClass {
         self.polls = documents
         super.init()
         // Self.self is equivalent to Polls.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        if !overwriteLocalWithDatabase() {
+            Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
+        }
     }
 }
 
@@ -35,7 +38,7 @@ extension Polls: Fetchable2 {
     }
     
     public static var callbacks: [() -> Void] = []
-    public static var activeProcesses: [Timer] = []
+    public static var process: Timer? = nil
 }
 
 extension Polls: Hashable {

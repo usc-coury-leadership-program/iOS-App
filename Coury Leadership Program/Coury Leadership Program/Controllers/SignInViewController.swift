@@ -68,24 +68,19 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         cell.setHas(to: true)
 
         if (isSelectionCount(of: collectionView, 5)) {
-            // TODO
-//            switch selectingType {
-//            case .values:
-//                CLPProfile.shared.set(values: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
-//                    return VALUE_LIST[indexPath.row].name
-//                })
-//                selectingType = .strengths
-//                helpText.text = "Great! Now your top 5 Clifton Strengths:"
-//                collectionView.reloadData()
-//
-//
-//            case .strengths:
-//                CLPProfile.shared.set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
-//                    return STRENGTH_LIST[indexPath.row].name
-//                })
-//                AppDelegate.signIn()
-//                self.dismiss(animated: true, completion: nil)
-//            }
+            switch selectingType {
+            case .values:
+                CLPProfile.shared.set(values: collectionView.indexPathsForSelectedItems!.map({VALUE_LIST[$0.row].name}))
+                selectingType = .strengths
+                helpText.text = "Great! Now your top 5 Clifton Strengths:"
+                collectionView.reloadData()
+
+
+            case .strengths:
+                CLPProfile.shared.set(strengths: collectionView.indexPathsForSelectedItems!.map({STRENGTH_LIST[$0.row].name}))
+                AppDelegate.signIn()
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     //deselecting

@@ -10,21 +10,26 @@ import Foundation
 import Firebase
 
 public class SavedContent: TimestampedClass {
-    private(set) var savedPosts: [SavedPost] {
+    public var posts: [String : Post] {
         didSet {
             lastModified = Date()
         }
     }
     
-    public init(savedPosts: [SavedPost]) {
-        self.savedPosts = savedPosts
+    public init(posts: [Post]) {
+        self.posts = posts.reduce(into: [String : Post]()) {
+            $0[$1.uid] = $1
+        }
         super.init()
+        // Self.self is equivalent to SavedContent.self
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        if !overwriteLocalWithDatabase() {
+            Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
+        }
     }
     
-    public required convenience init(documents: [SavedPost]) {
-        self.init(savedPosts: documents)
-        // Self.self is equivalent to SavedContent.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
+    public required convenience init(documents: [Post]) {
+        self.init(posts: documents)
     }
 }
 
@@ -35,35 +40,36 @@ extension SavedContent: Fetchable2 {
     
     public var localValue: SavedContent {
         get {return self}
-        set {savedPosts = newValue.savedPosts}
+        set {posts = newValue.posts}
     }
     
     public static var callbacks: [() -> Void] = []
-    public static var activeProcesses: [Timer] = []
+    public static var process: Timer? = nil
 }
 
 extension SavedContent: Hashable {
     public static func == (lhs: SavedContent, rhs: SavedContent) -> Bool {
-        return lhs.savedPosts == rhs.savedPosts
+        return lhs.posts == rhs.posts
     }
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(savedPosts)
+        hasher.combine(posts)
     }
 }
 
 extension SavedContent {
-    public struct SavedPost: DBDocumentParser, Uploadable, Hashable {
+    public struct Post: DBDocumentParser, Uploadable, Hashable {
         public let uid: String
+        public let status: Bool
         
         public static func create(from dbDocument: DocumentSnapshot) -> DBDocumentParser {
-            return SavedPost(uid: dbDocument.documentID)
+            return Post(uid: dbDocument.documentID, status: dbDocument.data()!["status"] as! Bool)
         }
         
         public var uploadPath: String {return "Users/{UserID}/SavedContent/\(uid)"}
         
         public func inject(into dbDocument: DocumentReference) {
             dbDocument.setData([
-                "Status": true
+                "status": status
             ])
         }
     }

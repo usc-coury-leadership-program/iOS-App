@@ -23,9 +23,9 @@ public protocol Fetchable2: class {
     
     var localValue: CollectionEquivalent { get set }
     static var databaseValue: CollectionEquivalent? { get }
+    func overwriteLocalWithDatabase() -> Bool
     
-    static var newProcess: Timer { get }
-    static var activeProcesses: [Timer] { get set }
+    static var process: Timer? { get set }
     static var callbacks: [() -> Void] { get set }
     static func startFetching()
     static func stopFetching()
@@ -39,24 +39,31 @@ extension Fetchable2 {
         return Database2.shared.read(Self.self)
     }
     
-    // ideally would be internal
-    public static var newProcess: Timer {
-        return Timer(timeInterval: 2.0, repeats: true) { _ in
+    public static func startFetching() {
+        stopFetching()
+        process = Timer(timeInterval: 2.0, repeats: true) { _ in
             Database2.shared.fetch(Self.self, count: 30)
         }
+        RunLoop.current.add(process!, forMode: .common)
     }
-    public static func startFetching()                                  {activeProcesses.append(newProcess); RunLoop.current.add(activeProcesses.last!, forMode: .common)}
-    public static func stopFetching()                                   {activeProcesses.forEach({$0.invalidate()})}
+    public static func stopFetching()                                   {process?.invalidate()}
     public static func onFetchSuccess(callback: @escaping () -> Void)   {callbacks.append(callback)}
     public static func clearFetchSuccessCallbacks()                     {callbacks = []}
-    // ideally would be internal
+    
     public func checkFetchSuccess() {
-        if let databaseValue = Self.databaseValue {
+        print("\(Self.self): Fetchable.checkFetchSuccess did begin")
+        if Self.databaseValue != nil {
+            print("\(Self.self): Fetchable.checkFetchSuccess did enter success clause")
             Self.stopFetching()
-            localValue = databaseValue
             Self.callbacks.forEach({$0()})
-            // TODO possibly clearFetchSuccessCallbacks() here?
+            Self.clearFetchSuccessCallbacks()
         }
+    }
+    
+    public func overwriteLocalWithDatabase() -> Bool {
+        guard let databaseValue = Self.databaseValue else {return false}
+        localValue = databaseValue
+        return true
     }
 }
 

@@ -28,19 +28,23 @@ public class BasicInformation: TimestampedClass, DBDocumentParser {
         self.strengths = strengths
         self.values = values
         super.init()
+        // Self.self is equivalent to BasicInformation.self
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        if !overwriteLocalWithDatabase() {
+            Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
+        }
     }
     
     public required convenience init(documents: [BasicInformation]) {
-        if documents.count != 1 {fatalError("BasicInformation should never be initialized with an array containing multiple BasicInformation's")}
-        self.init(strengths: documents.first!.strengths, values: documents.first!.values)
-        // Self.self is equivalent to BasicInformation.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
+        if documents.count > 1 {fatalError("BasicInformation should never be initialized with an array containing multiple BasicInformation's")}
+        self.init(strengths: documents.first?.strengths ?? [], values: documents.first?.values ?? [])
     }
     
     public static func create(from dbDocument: DocumentSnapshot) -> DBDocumentParser {
         if BasicInformation.uid != dbDocument.documentID {fatalError("uid mismatch  while parsing BasicInformation. This implies a failure of Firebase rules online")}
-        let data = dbDocument.data()!
-        
+        guard let data = dbDocument.data() else {
+            return BasicInformation(strengths: [], values: [])
+        }
         
         var strengths: [String] = [], values: [String] = []
         for entry in data {
@@ -72,7 +76,7 @@ extension BasicInformation: Fetchable2 {
     }
     
     public static var callbacks: [() -> Void] = []
-    public static var activeProcesses: [Timer] = []
+    public static var process: Timer? = nil
 }
 
 extension BasicInformation: Uploadable {

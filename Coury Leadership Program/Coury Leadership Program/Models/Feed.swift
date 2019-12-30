@@ -63,21 +63,19 @@ public class Feed {
 
 extension Polls.Poll {
     var answered: Bool {
-        return CLPProfile.shared.answeredPolls.answeredPolls.map({$0.uid}).contains(uid)
+        return CLPProfile.shared.hasAnswered(self)
     }
 }
 
 extension Posts.Post {
     var liked: Bool {
-        return CLPProfile.shared.savedContent.savedPosts.map({$0.uid}).contains(uid)
+        return CLPProfile.shared.hasLiked(self)
     }
 }
 
 extension Array where Element == Polls.Poll {
     var unanswered: [Element] {
-        return self.filter({$0.selectedAnswer == nil})
-        // should always be equivalent to:
-        // return self.filter(!$0.answered)
+        return self.filter({!$0.answered})
     }
 }
 

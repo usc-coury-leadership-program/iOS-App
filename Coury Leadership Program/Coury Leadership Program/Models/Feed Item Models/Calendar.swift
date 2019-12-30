@@ -22,7 +22,10 @@ public class Calendar: TimestampedClass, TableableCellData {
         self.events = documents
         super.init()
         // Self.self is equivalent to Calendar.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        if !overwriteLocalWithDatabase() {
+            Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
+        }
     }
 }
 
@@ -37,7 +40,7 @@ extension Calendar: Fetchable2 {
     }
     
     public static var callbacks: [() -> Void] = []
-    public static var activeProcesses: [Timer] = []
+    public static var process: Timer? = nil
 }
 
 extension Calendar: Hashable {

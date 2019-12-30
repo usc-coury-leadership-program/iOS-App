@@ -21,9 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         engageFirebase()
         AppDelegate.signIn(allowingInteraction: false)
         
-        CLPProfile.shared.startFetching()
-        Feed.shared.startFetching()
-        
         engagePushNotifications(application)
         return true
     }
@@ -43,23 +40,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        CLPProfile.shared.clearFetchSuccessCallbacks()
-        CLPProfile.shared.stopFetching()
-        // TODO
-//        CLPProfile.shared.flushDataToServer()
         
-        Feed.shared.clearFetchSuccessCallbacks()
-        Feed.shared.stopFetching()// TODO stopFetching of Feed should call clearCallbacks on Posts, Calendar, and Polls
+        CLPProfile.shared.stopFetching()
+        Feed.shared.stopFetching()
+        
+        //        CLPProfile.shared.flushDataToServer()// TODO
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
         CLPProfile.shared.startFetching()
         Feed.shared.startFetching()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
         CLPProfile.shared.startFetching()
         Feed.shared.startFetching()
         
@@ -68,12 +65,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        CLPProfile.shared.clearFetchSuccessCallbacks()
-        CLPProfile.shared.stopFetching()
-//        CLPProfile.shared.flushDataToServer()// TODO
         
-        Feed.shared.clearFetchSuccessCallbacks()
+        CLPProfile.shared.stopFetching()
         Feed.shared.stopFetching()
+        
+        //        CLPProfile.shared.flushDataToServer()// TODO
     }
 }
 
@@ -82,39 +78,41 @@ extension AppDelegate: GIDSignInDelegate {
 
     // sign in
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser?, withError error: Error!) {
-        if error != nil {
-            print("There was an error while signing in with Google: " + String(describing: error))
+        if let error = error {
+            print("AppDelegate.sign did fail. Error: \(error.localizedDescription)")
             CLPProfile.shared.isSigningIn = false
             return
         }
 
         guard let authentication = user?.authentication else {
-            print("No authentication available after signing in with Google!")
+            print("AppDelegate.sign did fail. Authentication was nil even after signing in with Google")
             CLPProfile.shared.isSigningIn = false
             return
         }
 
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { (authResult, error) in
-            if error != nil {
-                print("There was an error while authenticating with Firebase: " + String(describing: error))
+            if let error = error {
+                print("AppDelegate.sign did fail. Auth.auth().signIn callback had error: \(error.localizedDescription)")
                 CLPProfile.shared.isSigningIn = false
                 return
             }
+            
             CLPProfile.shared.isSigningIn = false
             
-            CLPProfile.shared.stopFetching()
+            // if this is the first sign in, we'll have local strengths and values but nothing in the database:
+            if (CLPProfile.shared.basicInformation.strengths.count == 5 && CLPProfile.shared.basicInformation.values.count == 5) {
+                CLPProfile.shared.basicInformation.startUploading()
+            }
+            
             CLPProfile.shared.startFetching()
-            Feed.shared.stopFetching()
             Feed.shared.startFetching()
         }
     }
 
     // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // TODO
-//        CLPProfile.shared.flushDataToServer()
-//        CLPProfile.shared.deleteLocalCopy()
+        //        CLPProfile.shared.flushDataToServer()// TODO
 
         do {try Auth.auth().signOut()}
         catch {print(error)}
@@ -129,7 +127,7 @@ extension AppDelegate: GIDSignInDelegate {
     }
 
     func handleAsFirebase(_ url: URL, with options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        let sourceApp = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+//        let sourceApp = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
         return GIDSignIn.sharedInstance().handle(url/*, sourceApplication: sourceApp, annotation: [:]*/)
     }
 
@@ -142,9 +140,6 @@ extension AppDelegate: GIDSignInDelegate {
     }
 
     public static func signOut() {
-        // TODO
-//        CLPProfile.shared.flushDataToServer()
-//        CLPProfile.shared.deleteLocalCopy()
         GIDSignIn.sharedInstance()?.signOut()
         GIDSignIn.sharedInstance()?.disconnect()
     }

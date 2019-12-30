@@ -80,7 +80,9 @@ extension PollCell: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         cell.contentView.backgroundColor = .black
         cell.answerText.textColor = .white
         
-//        poll?.markAsAnswered(with: indexPath.item)
+        poll!.selectedAnswer = indexPath.item
+        poll!.startUploading()// sums up response counts
+        CLPProfile.shared.answer(poll!, sync: true)// notes that the user has answered this poll
     }
 
     //MARK: - convenience functions

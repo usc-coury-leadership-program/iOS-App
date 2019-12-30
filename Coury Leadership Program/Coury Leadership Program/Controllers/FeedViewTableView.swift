@@ -20,8 +20,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
         case 2:
-            let content = Feed.shared.posts.posts[indexPath.row]
-            return content.CorrespondingView.HEIGHT
+            let post = Feed.shared.posts.posts[indexPath.row]
+            return post.CorrespondingView.HEIGHT
         default: return 30
         }
     }
@@ -49,17 +49,17 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return Feed.shared.calendar.generateCellFor(tableView, at: indexPath)
         case 1: return Feed.shared.polls.polls.unanswered[indexPath.row].generateCellFor(tableView, at: indexPath)
         case 2: return Feed.shared.posts.posts[indexPath.row].generateCellFor(tableView, at: indexPath)
-        default: fatalError("Feed's TableView has more sections than expected.")
+        default: fatalError("TableView @ FeedViewController has more sections than expected")
         }
     }
+    // Cell display
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        (cell as? FeedViewCell)?.showShadow()
         switch indexPath.section {
         case 0: break
         case 1: break
         case 2:
-            let content = Feed.shared.posts.posts[indexPath.row]
-            (cell as? FeedViewCell)?.setSaved(to: content.liked)
+            let post = Feed.shared.posts.posts[indexPath.row]
+            (cell as? FeedViewCell)?.setSaved(to: post.liked)
         default: break
         }
     }
@@ -84,5 +84,6 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()
+        lastUpdated = Date()
     }
 }

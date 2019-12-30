@@ -43,8 +43,10 @@ class GoalViewController: UIViewController {
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                     cell.onLongPress(began: false)
                 }, completion: nil)
-                //TODO
-//                CLPProfile.shared.remove(GOAL)
+                
+                let goal = CLPProfile.shared.goals.goals.unachieved[indexPath.row]
+                goal.achieved = true
+                goal.startUploading()
                 tableView.reloadSections(IndexSet(integer: 0), with: .fade)
                 
             default:
@@ -87,15 +89,14 @@ extension GoalViewController: UIPopoverPresentationControllerDelegate {
         if text != "" {
             // Obtain strength (if selected)
             let strengthIndex = addGoalController.strengthPicker.selectedRow(inComponent: 0)
-            let strength = strengthIndex == 0 ? nil : STRENGTH_LIST[strengthIndex - 1]
+            let strength = strengthIndex == 0 ? "" : STRENGTH_LIST[strengthIndex - 1].name
             // Obtain value (if selected)
             let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
-            let value = valueIndex == 0 ? nil : VALUE_LIST[valueIndex - 1]
-            // Create goal
+            let value = valueIndex == 0 ? "" : VALUE_LIST[valueIndex - 1].name
             
-            // TODO
-//            let goal = Goals.Goal(text: text, strength: strength, value: value, achieved: false, uid: nil)
-//            CLPProfile.shared.add(goal: goal)
+            // Create goal
+            let goal = Goals.Goal(text: text, strength: strength, value: value, achieved: false, uid: nil)
+            CLPProfile.shared.set(goal: goal, sync: true)
             
             updateTableView()
         }
@@ -117,11 +118,11 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {return 1}
     // number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CLPProfile.shared.goals.goals.count
+        return CLPProfile.shared.goals.goals.unachieved.count
     }
     // cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return CLPProfile.shared.goals.goals[indexPath.row].generateCellFor(tableView, at: indexPath)
+        return CLPProfile.shared.goals.goals.unachieved[indexPath.row].generateCellFor(tableView, at: indexPath)
     }
 
     //MARK: - convenience functions
