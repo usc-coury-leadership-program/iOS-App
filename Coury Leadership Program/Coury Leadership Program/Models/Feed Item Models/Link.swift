@@ -18,14 +18,14 @@ extension Posts {
         private(set) var favicon: UIImage?
         
         init(url: URL, uid: String) {
-            super.init(correspondingView: LinkCell.self, uid: uid)
             self.url = url
-            headline = url.absoluteString
+            self.headline = self.url.absoluteString
+            super.init(correspondingView: LinkCell.self, uid: uid)
         }
         
-        public required convenience init(dbDocument: QueryDocumentSnapshot) {
+        public required convenience init(dbDocument: DocumentSnapshot) {
             let uid = dbDocument.documentID
-            let data = dbDocument.data()
+            let data = dbDocument.data()!
             
             let link: String = (data["link"] as? String) ?? "https://www.usc.edu/"
             let url: URL = URL(string: link)!

@@ -16,7 +16,13 @@ class CalendarCell: AUITableViewCell, FeedViewCell {
     @IBOutlet public weak var insetView: UIView!
     @IBOutlet weak var eventText: UILabel!
     
-    func setSaved(to: Bool) {}
+    override internal var data: TableableCellData? {
+        didSet {
+            if let event = (data as? Calendar)?.events.first {
+                eventText.text = "\(event.name) - \(event.start.month) \(event.start.day) \(event.start.time)"
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,15 +37,25 @@ class CalendarCell: AUITableViewCell, FeedViewCell {
         configureShadow()
     }
     
+    func setSaved(to: Bool) {}
     func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {vc.performSegue(withIdentifier: "CalendarSegue", sender: vc)}
     func onLongPress(began: Bool) {}
+}
 
-    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
-        super.populatedBy(data, at: indexPath)
-        if let event = (data as! Calendar).events.first {
-            eventText.text = event.name + " - " + event.start.month + " " + event.start.day + " " + event.start.time
-        }
-        return self
+extension Date {
+    var month: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        return dateFormatter.string(from: self)
     }
-    
+    var day: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d"
+        return dateFormatter.string(from: self)
+    }
+    var time: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mma"
+        return dateFormatter.string(from: self)
+    }
 }

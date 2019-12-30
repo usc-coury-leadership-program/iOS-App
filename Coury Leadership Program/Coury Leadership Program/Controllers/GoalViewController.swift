@@ -43,7 +43,8 @@ class GoalViewController: UIViewController {
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                     cell.onLongPress(began: false)
                 }, completion: nil)
-                CLPProfile.shared.remove(goalAt: indexPath.row)
+                //TODO
+//                CLPProfile.shared.remove(GOAL)
                 tableView.reloadSections(IndexSet(integer: 0), with: .fade)
                 
             default:
@@ -91,8 +92,10 @@ extension GoalViewController: UIPopoverPresentationControllerDelegate {
             let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
             let value = valueIndex == 0 ? nil : VALUE_LIST[valueIndex - 1]
             // Create goal
-            let goal = Goal(text: text, strength: strength, value: value)
-            CLPProfile.shared.add(goal: goal)
+            
+            // TODO
+//            let goal = Goals.Goal(text: text, strength: strength, value: value, achieved: false, uid: nil)
+//            CLPProfile.shared.add(goal: goal)
             
             updateTableView()
         }
@@ -114,11 +117,11 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {return 1}
     // number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CLPProfile.shared.goals?.count ?? 0
+        return CLPProfile.shared.goals.goals.count
     }
     // cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return CLPProfile.shared.goals![indexPath.row].generateCellFor(tableView, at: indexPath)
+        return CLPProfile.shared.goals.goals[indexPath.row].generateCellFor(tableView, at: indexPath)
     }
 
     //MARK: - convenience functions

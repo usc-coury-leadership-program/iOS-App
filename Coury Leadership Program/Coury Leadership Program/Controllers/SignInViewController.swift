@@ -59,37 +59,38 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        (cell as? ProfilableCell)?.setHas(to: cell.isSelected)
+        (cell as? ProfileViewCell)?.setHas(to: cell.isSelected)
     }
 
     //selecting
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ProfilableCell
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfileViewCell
         cell.setHas(to: true)
 
         if (isSelectionCount(of: collectionView, 5)) {
-            switch selectingType {
-            case .values:
-                CLPProfile.shared.set(values: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
-                    return VALUE_LIST[indexPath.row].name
-                })
-                selectingType = .strengths
-                helpText.text = "Great! Now your top 5 Clifton Strengths:"
-                collectionView.reloadData()
-
-
-            case .strengths:
-                CLPProfile.shared.set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
-                    return STRENGTH_LIST[indexPath.row].name
-                })
-                AppDelegate.signIn()
-                self.dismiss(animated: true, completion: nil)
-            }
+            // TODO
+//            switch selectingType {
+//            case .values:
+//                CLPProfile.shared.set(values: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
+//                    return VALUE_LIST[indexPath.row].name
+//                })
+//                selectingType = .strengths
+//                helpText.text = "Great! Now your top 5 Clifton Strengths:"
+//                collectionView.reloadData()
+//
+//
+//            case .strengths:
+//                CLPProfile.shared.set(strengths: collectionView.indexPathsForSelectedItems!.map() { (indexPath) -> String in
+//                    return STRENGTH_LIST[indexPath.row].name
+//                })
+//                AppDelegate.signIn()
+//                self.dismiss(animated: true, completion: nil)
+//            }
         }
     }
     //deselecting
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ProfilableCell
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfileViewCell
         cell.setHas(to: false)
     }
 

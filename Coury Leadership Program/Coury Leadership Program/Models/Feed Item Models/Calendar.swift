@@ -9,33 +9,36 @@
 import Foundation
 import Firebase
 
-public class Calendar: HashableTypeSeed, TableableCellData {
+public class Calendar: TimestampedClass, TableableCellData {
     public let CorrespondingView: TableableCell.Type = CalendarCell.self
     
-    private(set) var events: [Event]
-    // uid is just here to conform to TableableCellData
-    // could combine Event uid's to create a real one
-    public let uid: String = ""
-    public let shouldDisplay: Bool = true
+    private(set) var events: [Event] {
+        didSet {
+            lastModified = Date()
+        }
+    }
     
     required public init(documents: [Event]) {
-        super.init()
         self.events = documents
+        super.init()
+        // Self.self is equivalent to Calendar.self
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
     }
 }
 
-
 extension Calendar: Fetchable2 {
     public static let queryPath: String = "Calendar"
-    public static let queryOrderField: String = "start_time"
-    public static let queryShouldDescend: Bool = true
+    public static let queryOrderField: String? = "start_time"
+    public static let queryShouldDescend: Bool? = false
     
     public var localValue: Calendar {
         get {return self}
         set {events = newValue.events}
     }
+    
+    public static var callbacks: [() -> Void] = []
+    public static var activeProcesses: [Timer] = []
 }
-
 
 extension Calendar: Hashable {
     public static func == (lhs: Calendar, rhs: Calendar) -> Bool {
@@ -46,9 +49,8 @@ extension Calendar: Hashable {
     }
 }
 
-
 extension Calendar {
-    public struct Event: Hashable, QueryDocumentConverter {
+    public struct Event: DBDocumentParser, Hashable {
         let name: String
         let start: Date
         let end: Date?
@@ -63,9 +65,9 @@ extension Calendar {
             self.uid = uid
         }
         
-        public init(dbDocument: QueryDocumentSnapshot) {
+        public static func create(from dbDocument: DocumentSnapshot) -> DBDocumentParser {
             let uid = dbDocument.documentID
-            let data = dbDocument.data()
+            let data = dbDocument.data()!
             
             var name: String = ""
             var startTime: Timestamp = Timestamp()
@@ -87,7 +89,7 @@ extension Calendar {
                 }
             }
             
-            self.init(name: name, start: startTime.dateValue(), end: endTime?.dateValue(), location: location, uid: uid)
+            return Event(name: name, start: startTime.dateValue(), end: endTime?.dateValue(), location: location, uid: uid)
         }
     }
 }

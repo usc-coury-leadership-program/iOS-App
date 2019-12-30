@@ -9,24 +9,33 @@
 import Foundation
 import Firebase
 
-public class Posts: HashableTypeSeed {
-    private(set) var posts: [Post]
+public class Posts: TimestampedClass {
+    private(set) var posts: [Post] {
+        didSet {
+            lastModified = Date()
+        }
+    }
     
     required public init(documents: [Post]) {
-        super.init()
         self.posts = documents
+        super.init()
+        // Self.self is equivalent to Posts.self
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
     }
 }
 
 extension Posts: Fetchable2 {
     public static let queryPath: String = "FeedContent"
-    public static let queryOrderField: String = "timestamp"
-    public static let queryShouldDescend: Bool = true
+    public static let queryOrderField: String? = "timestamp"
+    public static let queryShouldDescend: Bool? = true
     
     public var localValue: Posts {
         get {return self}
         set {posts = newValue.posts}
     }
+    
+    public static var callbacks: [() -> Void] = []
+    public static var activeProcesses: [Timer] = []
 }
 
 extension Posts: Hashable {
@@ -40,22 +49,19 @@ extension Posts: Hashable {
 
 
 extension Posts {
-    public class Post: Hashable, QueryDocumentConverter, ContentCellData {
+    public class Post: DBDocumentParser, TableableCellData, Hashable {
         public let CorrespondingView: TableableCell.Type
         
         public let uid: String
-        public var shouldDisplay: Bool {return CLPProfile.shared.has(savedContent: uid)}
         
         init(correspondingView: TableableCell.Type, uid: String) {
             CorrespondingView = correspondingView
             self.uid = uid
         }
-        public required init(dbDocument: QueryDocumentSnapshot) {
-            fatalError("Posts is essentially an abstract class; this initializaer has not been implemented.")
-        }
         
-        public static func createPost(from dbDocument: QueryDocumentSnapshot) -> Post {
-            let data = dbDocument.data()
+        public static func create(from dbDocument: DocumentSnapshot) -> DBDocumentParser {
+            let data = dbDocument.data()!
+
             switch data["type"] as? String {
             case "Quote": return Posts.Quote(dbDocument: dbDocument)
             case "Link": return Posts.Link(dbDocument: dbDocument)

@@ -23,7 +23,7 @@ class ValueDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        valueName.text = value?.shortName()
+        valueName.text = value?.shortName
         mottoText.text = value?.motto
         textView.text = value?.description
 

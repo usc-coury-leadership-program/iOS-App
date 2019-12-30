@@ -62,8 +62,10 @@ extension FeedViewCell {
 
 public class AUITableViewCell: UITableViewCell {
     public var indexPath: IndexPath?
+    internal var data: TableableCellData?
     public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         self.indexPath = indexPath
+        self.data = data
         return self
     }
 }

@@ -12,14 +12,21 @@ class PollCell: AUITableViewCell, FeedViewCell {
 
     public static let HEIGHT: CGFloat = 104
     public static let REUSE_ID: String = "PollCell"
-
-    public var poll: Poll? = nil
     
     @IBOutlet public weak var insetView: UIView!
     @IBOutlet weak var questionText: UILabel!
     @IBOutlet weak var answersView: UICollectionView!
-
-    func setSaved(to: Bool) {}
+    
+    override internal var data: TableableCellData? {
+        didSet {
+            if let poll = data as? Polls.Poll {
+                questionText.text = poll.question
+            }
+        }
+    }
+    private var poll: Polls.Poll? {
+        return data as? Polls.Poll
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,17 +43,9 @@ class PollCell: AUITableViewCell, FeedViewCell {
         configureShadow()
     }
 
+    func setSaved(to: Bool) {}
     func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {}
     func onLongPress(began: Bool) {}
-
-    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
-        super.populatedBy(data, at: indexPath)
-        guard let pollModel = data as? Poll else {return self}
-        questionText.text = pollModel.question
-        poll = pollModel
-        return self
-    }
-    
 }
 
 extension PollCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -81,7 +80,7 @@ extension PollCell: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         cell.contentView.backgroundColor = .black
         cell.answerText.textColor = .white
         
-        poll?.markAsAnswered(with: indexPath.item)
+//        poll?.markAsAnswered(with: indexPath.item)
     }
 
     //MARK: - convenience functions

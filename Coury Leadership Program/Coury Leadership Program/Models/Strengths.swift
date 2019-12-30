@@ -8,20 +8,13 @@
 
 import UIKit
 
-public struct Strength: ProfilableData, Named {
+public struct Strength: Named, CollectionableCellData {
+    public var CorrespondingView: CollectionableCell.Type = StrengthCell.self
+    
     let name: String
     let domain: Domain
     let description: String
     let url: String
-
-    public func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = StrengthCell.generateCellFor(collectionView, at: indexPath) as! StrengthCell
-        cell.strength = self
-        cell.strengthName.text = name
-        cell.contentView.backgroundColor = domain.color()
-        cell.contentView.layer.borderColor = domain.color().cgColor
-        return cell
-    }
 
     public enum Domain {
         case executing, influencing, relationship_building, strategic_thinking

@@ -18,13 +18,13 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var authorText: UILabel!
     @IBOutlet weak var favoriteHeart: UIButton!
     
-    private var data: ContentCellData? = nil
-    
-    var isSaved: Bool = false {
-        didSet {favoriteHeart.isSelected = isSaved}
-    }
-    func setSaved(to: Bool) {
-        isSaved = to
+    override internal var data: TableableCellData? {
+        didSet {
+            if let quote = data as? Posts.Quote {
+                quoteText.text = quote.quoteText//"“" + quoteText + "”"
+                authorText.text = quote.author
+            }
+        }
     }
     
     override func awakeFromNib() {
@@ -50,19 +50,16 @@ class QuoteCell: AUITableViewCell, FeedViewCell {
     }
     
     @IBAction func onHeartTap(_ sender: UIButton) {
-        data!.toggleLike()
+//        data!.toggleLike()
         isSaved = !isSaved
     }
-
+    
+    var isSaved: Bool = false {
+        didSet {favoriteHeart.isSelected = isSaved}
+    }
+    func setSaved(to: Bool) {
+        isSaved = to
+    }
     func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {}
     func onLongPress(began: Bool) {}
-
-    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
-        super.populatedBy(data, at: indexPath)
-        self.data = (data as! ContentCellData)
-        guard let quote = data as? Quote else {return self}
-        quoteText.text = quote.quoteText//"“" + quoteText + "”"
-        authorText.text = quote.author
-        return self
-    }
 }

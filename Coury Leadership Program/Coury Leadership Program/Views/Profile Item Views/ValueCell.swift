@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ValueCell: UICollectionViewCell, ProfilableCell {
+class ValueCell: AUICollectionViewCell, ProfileViewCell {
 
     public static let REUSE_ID: String = "ValueCell"
     public static let prettyBlueColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 0.75)
@@ -17,7 +17,17 @@ class ValueCell: UICollectionViewCell, ProfilableCell {
     @IBOutlet weak var valueName: UILabel!
     @IBOutlet weak var image: UIImageView!
 
-    public var value: Value? = nil
+    override internal var data: CollectionableCellData? {
+        didSet {
+            if let value = data as? Value {
+                valueName.text = value.name
+                image.image = value.image
+            }
+        }
+    }
+    public var value: Value? {
+        return data as? Value
+    }
 
     public var hasThisValue: Bool = false {
         didSet {
@@ -40,10 +50,4 @@ class ValueCell: UICollectionViewCell, ProfilableCell {
 
         valueName.adjustsFontSizeToFitWidth = true
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureShadow()
-    }
-
 }

@@ -15,14 +15,15 @@ extension Posts {
         let author: String
         
         init(quoteText: String, author: String, uid: String) {
-            super.init(correspondingView: QuoteCell.self, uid: uid)
             self.quoteText = quoteText
             self.author = author
+            
+            super.init(correspondingView: QuoteCell.self, uid: uid)
         }
         
-        public required convenience init(dbDocument: QueryDocumentSnapshot) {
+        public required convenience init(dbDocument: DocumentSnapshot) {
             let uid = dbDocument.documentID
-            let data = dbDocument.data()
+            let data = dbDocument.data()!
             
             var author: String = "Unknown"
             var text: String = ""

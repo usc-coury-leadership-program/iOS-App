@@ -18,7 +18,13 @@ class ImageCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var favoriteHeart: UIButton!
     @IBOutlet weak var saveImageButton: UIButton!
     
-    private var data: ContentCellData? = nil
+    override internal var data: TableableCellData? {
+        didSet {
+            (data as? Posts.Image)?.downloadImage {image in
+                self.squareImage.image = image
+            }
+        }
+    }
     
     var isSaved: Bool = false {
         didSet {favoriteHeart.isSelected = isSaved}
@@ -59,7 +65,7 @@ class ImageCell: AUITableViewCell, FeedViewCell {
     }
     
     @IBAction func onHeartTap(_ sender: UIButton) {
-        data!.toggleLike()
+//        data!.toggleLike()
         isSaved = !isSaved
     }
     
@@ -76,13 +82,4 @@ class ImageCell: AUITableViewCell, FeedViewCell {
     
     func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {}
     func onLongPress(began: Bool) {}
-
-    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
-        super.populatedBy(data, at: indexPath)
-        self.data = (data as! ContentCellData)
-        (data as? Image)?.downloadImage {image in
-            self.squareImage.image = image
-        }
-        return self
-    }
 }

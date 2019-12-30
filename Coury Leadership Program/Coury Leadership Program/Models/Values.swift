@@ -6,23 +6,18 @@
 //  Copyright © 2019 USC Marshall School of Business. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import Firebase
 
-public struct Value: ProfilableData, Named {
+public struct Value: Named, CollectionableCellData {
+    public var CorrespondingView: CollectionableCell.Type = ValueCell.self
+    
     let name: String
     let image: UIImage
     let motto: String
     let description: String
 
-    public func shortName() -> String {return self.name.components(separatedBy: " ").prefix(3).joined(separator: " ")}
-
-    public func generateCellFor(_ collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = ValueCell.generateCellFor(collectionView, at: indexPath) as! ValueCell
-        cell.value = self
-        cell.valueName.text = shortName()
-        cell.image.image = image
-        return cell
-    }
+    public var shortName: String {return name.components(separatedBy: " ").prefix(3).joined(separator: " ")}
 }
 
 let VALUE_LIST: [Value] = [

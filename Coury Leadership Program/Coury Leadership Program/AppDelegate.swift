@@ -20,8 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Application did launch")
         engageFirebase()
         AppDelegate.signIn(allowingInteraction: false)
-        CLPProfile.shared.beginFetching()
-        Feed.shared.beginFetching()
+        
+        CLPProfile.shared.startFetching()
+        Feed.shared.startFetching()
+        
         engagePushNotifications(application)
         return true
     }
@@ -33,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        
         CLPProfile.shared.stopFetching()
         Feed.shared.stopFetching()
     }
@@ -42,21 +45,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         CLPProfile.shared.clearFetchSuccessCallbacks()
         CLPProfile.shared.stopFetching()
-        CLPProfile.shared.flushDataToServer()
+        // TODO
+//        CLPProfile.shared.flushDataToServer()
+        
         Feed.shared.clearFetchSuccessCallbacks()
-        Feed.shared.stopFetching()
+        Feed.shared.stopFetching()// TODO stopFetching of Feed should call clearCallbacks on Posts, Calendar, and Polls
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        CLPProfile.shared.beginFetching()
-        Feed.shared.beginFetching()
+        CLPProfile.shared.startFetching()
+        Feed.shared.startFetching()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        CLPProfile.shared.beginFetching()
-        Feed.shared.beginFetching()
+        CLPProfile.shared.startFetching()
+        Feed.shared.startFetching()
+        
         application.applicationIconBadgeNumber = 0
     }
 
@@ -64,7 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         CLPProfile.shared.clearFetchSuccessCallbacks()
         CLPProfile.shared.stopFetching()
-        CLPProfile.shared.flushDataToServer()
+//        CLPProfile.shared.flushDataToServer()// TODO
+        
         Feed.shared.clearFetchSuccessCallbacks()
         Feed.shared.stopFetching()
     }
@@ -97,16 +104,17 @@ extension AppDelegate: GIDSignInDelegate {
             CLPProfile.shared.isSigningIn = false
             
             CLPProfile.shared.stopFetching()
-            CLPProfile.shared.beginFetching()
+            CLPProfile.shared.startFetching()
             Feed.shared.stopFetching()
-            Feed.shared.beginFetching()
+            Feed.shared.startFetching()
         }
     }
 
     // sign out
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        CLPProfile.shared.flushDataToServer()
-        CLPProfile.shared.deleteLocalCopy()
+        // TODO
+//        CLPProfile.shared.flushDataToServer()
+//        CLPProfile.shared.deleteLocalCopy()
 
         do {try Auth.auth().signOut()}
         catch {print(error)}
@@ -134,8 +142,9 @@ extension AppDelegate: GIDSignInDelegate {
     }
 
     public static func signOut() {
-        CLPProfile.shared.flushDataToServer()
-        CLPProfile.shared.deleteLocalCopy()
+        // TODO
+//        CLPProfile.shared.flushDataToServer()
+//        CLPProfile.shared.deleteLocalCopy()
         GIDSignIn.sharedInstance()?.signOut()
         GIDSignIn.sharedInstance()?.disconnect()
     }

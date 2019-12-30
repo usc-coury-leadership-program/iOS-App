@@ -37,7 +37,7 @@ class CalendarViewController: UIViewController {
     }
     
     func export(event i: Int, to store: EKEventStore) {
-        let event = Database.shared.calendar.events[i]
+        let event = Feed.shared.calendar.events[i]
         
         let iosevent: EKEvent = EKEvent(eventStore: store)
         iosevent.title = event.name
@@ -68,13 +68,13 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Database.shared.calendar.events.count
+        return Feed.shared.calendar.events.count
     }
     // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "CalendarTableViewCell")
         
-        let event = Database.shared.calendar.events[indexPath.row]
+        let event = Feed.shared.calendar.events[indexPath.row]
         cell.textLabel?.text = event.name + " - " + event.start.month + " " + event.start.day + " " + event.start.time
         
         return cell

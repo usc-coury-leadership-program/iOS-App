@@ -53,8 +53,8 @@ class ProfileViewController: UIViewController {
     }
 
     func updateUserSpecificText() {
-        nameLabel.text = CLPProfile.shared.name
-        let userScore = (CLPProfile.shared.savedContent?.count ?? 0) + (CLPProfile.shared.answeredPolls?.count ?? 0)
+        nameLabel.text = BasicInformation.name
+        let userScore = CLPProfile.shared.savedContent.savedPosts.count + CLPProfile.shared.answeredPolls.answeredPolls.count
         collectionSizeLabel.text = String(userScore)
     }
     

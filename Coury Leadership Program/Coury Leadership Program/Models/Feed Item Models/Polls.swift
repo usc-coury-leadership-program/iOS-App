@@ -9,24 +9,33 @@
 import Foundation
 import Firebase
 
-public class Polls: HashableTypeSeed {
-    private(set) var polls: [Poll]
+public class Polls: TimestampedClass {
+    private(set) var polls: [Poll] {
+        didSet {
+            lastModified = Date()
+        }
+    }
     
     required public init(documents: [Poll]) {
-        super.init()
         self.polls = documents
+        super.init()
+        // Self.self is equivalent to Polls.self
+        Database2.shared.register(Self.self) {self.checkFetchSuccess()}
     }
 }
 
 extension Polls: Fetchable2 {
     public static let queryPath: String = "Polls"
-    public static let queryOrderField: String = "timestamp"
-    public static let queryShouldDescend: Bool = true
+    public static let queryOrderField: String? = "timestamp"
+    public static let queryShouldDescend: Bool? = true
     
     public var localValue: Polls {
         get {return self}
         set {polls = newValue.polls}
     }
+    
+    public static var callbacks: [() -> Void] = []
+    public static var activeProcesses: [Timer] = []
 }
 
 extension Polls: Hashable {
@@ -38,25 +47,24 @@ extension Polls: Hashable {
     }
 }
 
-
 extension Polls {
-    public struct Poll: Hashable, QueryDocumentConverter, TableableCellData {
+    public class Poll: DBDocumentParser, Uploadable, TableableCellData, Hashable {
         public let CorrespondingView: TableableCell.Type = PollCell.self
 
         let question: String
         let answers: [String]
+        var selectedAnswer: Int?
         public let uid: String
-        public var shouldDisplay: Bool {return !CLPProfile.shared.has(answeredPoll: uid)}
         
-        init(question: String, answers: [String], uid: String) {
+        required init(question: String, answers: [String], uid: String) {
             self.question = question
             self.answers = answers
             self.uid = uid
         }
         
-        public init(dbDocument: QueryDocumentSnapshot) {
+        public static func create(from dbDocument: DocumentSnapshot) -> DBDocumentParser {
             let uid = dbDocument.documentID
-            let data = dbDocument.data()
+            let data = dbDocument.data()!
             
             var title: String = ""
             var options: [String] = []
@@ -73,16 +81,37 @@ extension Polls {
                 }
             }
             
-            self.init(question: title, answers: options, uid: uid)
-        }
-
-        public func markAsAnswered(with choice: Int) {
-            togglePollAnsweredStatus()
-            Database.shared.sendPollResponse(self, choice: choice)
+            return Poll(question: title, answers: options, uid: uid)
         }
         
-        public func togglePollAnsweredStatus() {
-            CLPProfile.shared.add(answeredPoll: uid)
+        public var uploadPath: String {return "Polls/\(uid)"}
+        
+        public func inject(into dbDocument: DocumentReference) {
+            guard let selectedAnswer = selectedAnswer else {
+                print("Failed to updae poll counts: ID: \(uid), no answer has been selected yet")
+                return
+            }
+            
+            dbDocument.getDocument { (snapshot, error) in
+                if let error = error {
+                    print("Failed to update poll counts: ID: \(self.uid), \(error.localizedDescription)")
+                    return
+                }
+                guard let data = snapshot?.data() else {
+                    print("Failed to update poll counts: ID: \(self.uid), snapshot was nil")
+                    return
+                }
+                
+                var options: [[String : Int]] = data["Options"] as! [[String : Int]]
+                let responses = options[selectedAnswer].first!
+                // NOTE: adding 1 here means that users could potentially vote more than once
+                // Thus, we're relying on the UI to hide poll from them
+                options[selectedAnswer] = [responses.key : responses.value + 1]
+                
+                dbDocument.setData([
+                    "Options": options
+                ], merge: true)
+            }
         }
         
         // MARK: Hashable

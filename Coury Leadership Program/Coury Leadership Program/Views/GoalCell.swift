@@ -19,6 +19,16 @@ class GoalCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var trashIndicator: UILabel!
     
+    override internal var data: TableableCellData? {
+        didSet {
+            if let goal = data as? Goals.Goal {
+                textView.text = goal.text
+                strengthLabel.text = goal.strength ?? ""
+                valueLabel.text = goal.value ?? ""
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,17 +53,5 @@ class GoalCell: AUITableViewCell, FeedViewCell {
             insetView.transform = CGAffineTransform(translationX: 0.0, y: 0.0)
             trashIndicator.isHidden = true
         }
-    }
-    
-    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
-        super.populatedBy(data, at: indexPath)
-        
-        let goal = data as? Goal
-        
-        textView.text = goal?.text ?? ""
-        strengthLabel.text = goal?.strength?.name ?? ""
-        valueLabel.text = goal?.value?.name ?? ""
-        
-        return self
     }
 }

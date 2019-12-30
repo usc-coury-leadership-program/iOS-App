@@ -8,13 +8,20 @@
 
 import UIKit
 
-class StrengthCell: UICollectionViewCell, ProfilableCell {
+class StrengthCell: AUICollectionViewCell, ProfileViewCell {
 
     public static let REUSE_ID: String = "StrengthCell"
 
     @IBOutlet weak var strengthName: UILabel!
 
-    public var strength: Strength? = nil
+    override internal var data: CollectionableCellData? {
+        didSet {
+            strengthName.text = (data as? Strength)?.name
+        }
+    }
+    public var strength: Strength? {
+        return data as? Strength
+    }
 
     public var hasThisStrength: Bool = false {
         didSet {
@@ -33,10 +40,4 @@ class StrengthCell: UICollectionViewCell, ProfilableCell {
 
         strengthName.adjustsFontSizeToFitWidth = true
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureShadow()
-    }
-
 }

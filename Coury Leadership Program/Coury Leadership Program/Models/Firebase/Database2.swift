@@ -18,54 +18,98 @@ public class Database2 {
     public static let storage = Storage.storage()
     public static let db = Firestore.firestore()
     
-    private var callbacks: [HashableType<HashableTypeSeed> : [() -> Void]] = [:]
-    /*
-     * EXAMPLE
-     * callbacks[SomeFetchableClass.self] = []
-     */
-    public private(set) var data: [HashableType<HashableTypeSeed> : HashableTypeSeed] = [:]
+    private var callbacks: [Int : [() -> Void]] = [:]
+    public private(set) var data: [Int : TimestampedClass] = [:]
     
     // private constructor
     private init() {}
     
-//    // TODO item isn't really necessary in theory
-//    public func register<T: HashableTypeSeed>(_ item: T, callback: @escaping () -> Void) {
-//        callbacks[T.typehash] = (callbacks[T.typehash] ?? []) + [callback]
-//    }
-    // TODO item isn't really necessary in theory
-    public func register<T: Fetchable2>(_ item: T, callback: @escaping () -> Void) {
-        callbacks[T.Fetched.typehash] = (callbacks[T.Fetched.typehash] ?? []) + [callback]
+    public func register<T: Fetchable2>(_ item: T.Type, callback: @escaping () -> Void) {
+        let hash = HashableType<T.CollectionEquivalent>(T.CollectionEquivalent.self).hashValue
+        callbacks[hash] = (callbacks[hash] ?? []) + [callback]
     }
     
     public func clear() {
         callbacks = [:]
     }
     
-//    private func save<T: HashableTypeSeed>(_ item: T) {
-//        data[T.typehash] = item
-//        callbacks[T.typehash]?.forEach({$0()})
-//    }
     private func save<T: Fetchable2>(_ item: T) {
-        data[T.Fetched.typehash] = item.localValue
-        callbacks[T.Fetched.typehash]?.forEach({$0()})
+        let hash = HashableType<T.CollectionEquivalent>(T.CollectionEquivalent.self).hashValue
+        data[hash] = item.localValue
+        callbacks[hash]?.forEach({$0()})
     }
     
-    public func fetch<T: Fetchable2>(_ item: inout T, count: Int = 30) {
-        Database2.db.collection(T.queryPath).order(by: T.queryOrderField, descending: T.queryShouldDescend).limit(to: count).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Failed to fetch \(item.self): \(error.localizedDescription)")
-                return
+    public func read<T: Fetchable2>(_ item: T.Type) -> T.CollectionEquivalent? {
+        let hash = HashableType<T.CollectionEquivalent>(T.CollectionEquivalent.self).hashValue
+        return data[hash] as? T.CollectionEquivalent
+    }
+    
+    public static func parsePath(_ path: String) -> String? {
+        var path = path
+        if path.contains("{UserID}") {
+            guard let uid = BasicInformation.uid else {
+                print("Database.parsePath will return nil. Path contained {UserID} but UserID is nil")
+                return nil
             }
-            
-            var documents: [T.Document] = []
-            // the snapshot is the database's representation of T.Fetched
-            snapshot?.documents.forEach { (dbDocument) in
-                // the document is the database's representation of T.Document
-                documents.append(T.Document(dbDocument: dbDocument))
-            }
-            
-            self.save(T(documents: documents))
+            path = path.replacingOccurrences(of: "{UserID}", with: uid)
         }
+        if path.contains("{NewDoc}") && path.hasSuffix("{NewDoc}" + path.suffix(10)) {
+            let collectionPath = path.components(separatedBy: "/").dropLast().joined(separator: "/")
+            let uid = Self.db.collection(collectionPath).addDocument(data: [:]).documentID
+            path = collectionPath + "/\(uid)"
+        }
+        return path
+    }
+    
+    public func fetch<T: Fetchable2>(_ item: T.Type, count: Int = 30) {
+        print("\(item): Database.fetch did begin")
+        guard let path = Self.parsePath(T.queryPath) else {
+            print("\(item): Database.fetch did fail")
+            return
+        }
+        
+        let pathDepth = path.components(separatedBy: "/").count
+        if pathDepth % 2 == 1 {
+            var query = Self.db.collection(path).limit(to: count)
+            if let orderField = T.queryOrderField {
+                query = query.order(by: orderField, descending: T.queryShouldDescend ?? false)
+            }
+            
+            query.getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("\(item): Database.fetch did fail. \(error.localizedDescription)")
+                    return
+                }
+                
+                var documents: [T.DocumentEquivalent] = []
+                snapshot?.documents.forEach { (dbDocument) in
+                    documents.append(T.DocumentEquivalent.create(from: dbDocument) as! T.DocumentEquivalent)
+                }
+                
+                self.save(T(documents: documents))
+            }
+        }else {
+            let ref = Self.db.document(path)
+            ref.getDocument { (snapshot, error) in
+                if let error = error {
+                    print("\(item): Database.fetch did fail. \(error.localizedDescription)")
+                }
+                if let snapshot = snapshot {
+                    let document: T.DocumentEquivalent = T.DocumentEquivalent.create(from: snapshot) as! T.DocumentEquivalent
+                    self.save(T(documents: [document]))
+                }
+            }
+        }
+        print("\(item): Database.fetch did succeed")
+    }
+    
+    public func upload<T: Uploadable>(_ item: T) {
+        guard let path = Self.parsePath(item.uploadPath) else {
+            print("\(item): Database.upload did fail. Path could not be parsed (likely due to lack of sign in)")
+            return
+        }
+        let document = Self.db.document(path)
+        item.inject(into: document)
     }
 }
 
@@ -81,19 +125,12 @@ public struct HashableType<T>: Hashable {
     public init(_ base: T.Type) {
         self.base = base
     }
-    
     public func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(base))
     }
-    
     public static func == (lhs: HashableType, rhs: HashableType) -> Bool {
         return lhs.base == rhs.base
     }
-}
-// provides a variable, solely dependent on the Type, that can be interpreted as the key of a dictionary
-// carries negligible performance penalty
-public class HashableTypeSeed {
-    static var typehash: HashableType<HashableTypeSeed> = HashableType(HashableTypeSeed.self)
 }
 // allows dictionary to interpret keys of type metatype (using HashableType wrapper)
 // carries a performance penalty (O(n) copy) if Dictionary values are arrays (which they are)
@@ -104,3 +141,10 @@ public class HashableTypeSeed {
 //        set {self[HashableType(key)] = newValue}
 //    }
 //}
+public protocol Timestamped {
+    var lastModified: Date { get set }
+}
+
+public class TimestampedClass: Timestamped {
+    public var lastModified: Date = Date()
+}

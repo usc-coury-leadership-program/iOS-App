@@ -21,3 +21,7 @@ public extension UIImage {
         self.init(cgImage: cgImage)
     }
 }
+
+protocol Named {
+    var name: String { get }
+}

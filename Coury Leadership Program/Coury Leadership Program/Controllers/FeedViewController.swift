@@ -31,11 +31,20 @@ class FeedViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Profile
-        if (CLPProfile.shared.uid == nil) && !CLPProfile.shared.isSigningIn {presentSignInVC()}
-        CLPProfile.shared.onFetchSuccess {self.possiblyUpdate()}
-        CLPProfile.shared.onAnswerPoll {self.possiblyUpdate()}
+        if (BasicInformation.uid == nil) && !CLPProfile.shared.isSigningIn {presentSignInVC()}
+        CLPProfile.shared.onFetchSuccess {
+            print("Got profile")
+            self.hasProfile = true
+            self.possiblyUpdate()
+        }
+//        CLPProfile.shared.onAnswerPoll {self.possiblyUpdate()}
+        
         // Feed
-        Feed.shared.onFetchSuccess {self.possiblyUpdate()}
+        Feed.shared.onFetchSuccess {
+            print("Got feed")
+            self.hasContent = true
+            self.possiblyUpdate()
+        }
         possiblyUpdate()
     }
 
@@ -43,9 +52,11 @@ class FeedViewController: UIViewController {
         super.viewWillDisappear(animated)
         // Profile
         CLPProfile.shared.clearFetchSuccessCallbacks()
-        CLPProfile.shared.clearAnswerPollCallbacks()
+//        CLPProfile.shared.clearAnswerPollCallbacks()
         // Feed
-        Feed.shared.clearFetchSuccessCallbacks()
+        Calendar.clearFetchSuccessCallbacks()
+        Polls.clearFetchSuccessCallbacks()
+        Posts.clearFetchSuccessCallbacks()
     }
 
     @IBAction func unwindToFeed(_ unwindSegue: UIStoryboardSegue) {}
@@ -53,8 +64,6 @@ class FeedViewController: UIViewController {
     func presentSignInVC() {self.performSegue(withIdentifier: "SignInSegue", sender: self)}
 
     func possiblyUpdate() {
-        hasProfile = CLPProfile.shared.savedContent != nil
-        hasContent = Database.shared.content.count > 0
         if hasProfile && hasContent {
             updateTableView()
         }

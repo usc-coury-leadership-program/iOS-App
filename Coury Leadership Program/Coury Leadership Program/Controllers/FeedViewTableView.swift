@@ -20,7 +20,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: return CalendarCell.HEIGHT
         case 1: return PollCell.HEIGHT
         case 2:
-            let content = Database.shared.content.shouldBeShown[indexPath.row]
+            let content = Feed.shared.posts.posts[indexPath.row]
             return content.CorrespondingView.HEIGHT
         default: return 30
         }
@@ -37,8 +37,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return 1
-        case 1: return Database.shared.polls.shouldBeShown.count
-        case 2: return Database.shared.content.shouldBeShown.count
+        case 1: return Feed.shared.polls.polls.unanswered.count
+        case 2: return Feed.shared.posts.posts.count
         default: return 0
         }
     }
@@ -46,9 +46,9 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
-        case 0: return Database.shared.calendar.generateCellFor(tableView, at: indexPath)
-        case 1: return Database.shared.polls.shouldBeShown[indexPath.row].generateCellFor(tableView, at: indexPath)// TODO if one of the polls gets answered, but then the user scrolls down and back up, the tableView will try to regenerate it. But it wont find it in this array, resulting in array out of bounds.
-        case 2: return Database.shared.content.shouldBeShown[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 0: return Feed.shared.calendar.generateCellFor(tableView, at: indexPath)
+        case 1: return Feed.shared.polls.polls.unanswered[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 2: return Feed.shared.posts.posts[indexPath.row].generateCellFor(tableView, at: indexPath)
         default: fatalError("Feed's TableView has more sections than expected.")
         }
     }
@@ -58,8 +58,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         case 0: break
         case 1: break
         case 2:
-            let content = Database.shared.content.shouldBeShown[indexPath.row]
-            (cell as? FeedViewCell)?.setSaved(to: content.isLiked)
+            let content = Feed.shared.posts.posts[indexPath.row]
+            (cell as? FeedViewCell)?.setSaved(to: content.liked)
         default: break
         }
     }

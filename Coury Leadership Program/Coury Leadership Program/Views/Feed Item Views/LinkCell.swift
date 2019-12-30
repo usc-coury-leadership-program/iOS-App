@@ -19,7 +19,14 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     @IBOutlet weak var favoriteHeart: UIButton!
     @IBOutlet weak var readMoreButton: UIButton!
     
-    private var data: ContentCellData? = nil
+    override internal var data: TableableCellData? {
+        didSet {
+            (data as? Posts.Link)?.retrieveDetails {headline, image in
+                self.headlineText.text = headline
+                self.previewImage.image = image
+            }
+        }
+    }
     
     var isSaved: Bool = false {
         didSet {favoriteHeart.isSelected = isSaved}
@@ -55,25 +62,15 @@ class LinkCell: AUITableViewCell, FeedViewCell {
     }
     
     @IBAction func onHeartTap(_ sender: UIButton) {
-        data!.toggleLike()
+//        data!.toggleLike()
         isSaved = !isSaved
     }
     
     @IBAction func onReadMoreTap(_ sender: UIButton) {
-        if let url = (data as? Link)?.url {UIApplication.shared.open(url)}
+        if let url = (data as? Posts.Link)?.url {UIApplication.shared.open(url)}
         else {print("Something's wrong with that link. It can't be opened")}
     }
     
     func onTap(inContext vc: UIViewController, _ sender: UITapGestureRecognizer) {}
     func onLongPress(began: Bool) {}
-
-    override public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
-        super.populatedBy(data, at: indexPath)
-        self.data = (data as! ContentCellData)
-        (data as? Link)?.retrieveDetails {headline, image in
-            self.headlineText.text = headline
-            self.previewImage.image = image
-        }
-        return self
-    }
 }
