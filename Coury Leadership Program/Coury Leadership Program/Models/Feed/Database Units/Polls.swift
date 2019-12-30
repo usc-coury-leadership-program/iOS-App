@@ -20,14 +20,14 @@ public class Polls: TimestampedClass {
         self.polls = documents
         super.init()
         // Self.self is equivalent to Polls.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        Database.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
         if !overwriteLocalWithDatabase() {
             Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
         }
     }
 }
 
-extension Polls: Fetchable2 {
+extension Polls: Fetchable {
     public static let queryPath: String = "Polls"
     public static let queryOrderField: String? = "timestamp"
     public static let queryShouldDescend: Bool? = true

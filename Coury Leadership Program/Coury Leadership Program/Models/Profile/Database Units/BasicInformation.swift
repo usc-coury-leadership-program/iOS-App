@@ -29,7 +29,7 @@ public class BasicInformation: TimestampedClass, DBDocumentParser {
         self.values = values
         super.init()
         // Self.self is equivalent to BasicInformation.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        Database.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
         if !overwriteLocalWithDatabase() {
             Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
         }
@@ -62,7 +62,7 @@ public class BasicInformation: TimestampedClass, DBDocumentParser {
     }
 }
 
-extension BasicInformation: Fetchable2 {
+extension BasicInformation: Fetchable {
     public static var queryPath: String {return "Users/{UserID}"}
     public static let queryOrderField: String? = nil
     public static let queryShouldDescend: Bool? = nil

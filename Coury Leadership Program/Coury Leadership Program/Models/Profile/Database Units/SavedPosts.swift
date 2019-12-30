@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-public class SavedContent: TimestampedClass {
+public class SavedPosts: TimestampedClass {
     public var posts: [String : Post] {
         didSet {
             lastModified = Date()
@@ -22,7 +22,7 @@ public class SavedContent: TimestampedClass {
         }
         super.init()
         // Self.self is equivalent to SavedContent.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        Database.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
         if !overwriteLocalWithDatabase() {
             Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
         }
@@ -33,12 +33,12 @@ public class SavedContent: TimestampedClass {
     }
 }
 
-extension SavedContent: Fetchable2 {
+extension SavedPosts: Fetchable {
     public static var queryPath: String {return "Users/{UserID}/SavedContent"}
     public static let queryOrderField: String? = nil
     public static let queryShouldDescend: Bool? = nil
     
-    public var localValue: SavedContent {
+    public var localValue: SavedPosts {
         get {return self}
         set {posts = newValue.posts}
     }
@@ -47,8 +47,8 @@ extension SavedContent: Fetchable2 {
     public static var process: Timer? = nil
 }
 
-extension SavedContent: Hashable {
-    public static func == (lhs: SavedContent, rhs: SavedContent) -> Bool {
+extension SavedPosts: Hashable {
+    public static func == (lhs: SavedPosts, rhs: SavedPosts) -> Bool {
         return lhs.posts == rhs.posts
     }
     public func hash(into hasher: inout Hasher) {
@@ -56,7 +56,7 @@ extension SavedContent: Hashable {
     }
 }
 
-extension SavedContent {
+extension SavedPosts {
     public struct Post: DBDocumentParser, Uploadable, Hashable {
         public let uid: String
         public let status: Bool

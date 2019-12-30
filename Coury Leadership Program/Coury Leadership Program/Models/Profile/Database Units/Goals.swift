@@ -20,7 +20,7 @@ public class Goals: TimestampedClass {
         self.goals = goals
         super.init()
         // Self.self is equivalent to Goals.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        Database.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
         if !overwriteLocalWithDatabase() {
             Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
         }
@@ -31,7 +31,7 @@ public class Goals: TimestampedClass {
     }
 }
 
-extension Goals: Fetchable2 {
+extension Goals: Fetchable {
     public static var queryPath: String {return "Users/{UserID}/Goals"}
     public static let queryOrderField: String? = nil
     public static let queryShouldDescend: Bool? = nil

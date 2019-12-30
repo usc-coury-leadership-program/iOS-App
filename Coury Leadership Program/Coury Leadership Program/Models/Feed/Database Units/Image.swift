@@ -24,7 +24,7 @@ extension Posts {
             let data = dbDocument.data()!
             
             let path: String = (data["path"] as? String) ?? ""
-            let reference: StorageReference = Database2.storage.reference(withPath: "Feed/Images/\(path)")
+            let reference: StorageReference = Database.storage.reference(withPath: "Feed/Images/\(path)")
             
             self.init(reference: reference, uid: uid)
         }

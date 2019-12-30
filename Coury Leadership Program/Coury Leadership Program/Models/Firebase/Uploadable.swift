@@ -18,6 +18,6 @@ public protocol Uploadable {
 
 extension Uploadable {
     public func startUploading() {
-        Database2.shared.upload(self)
+        Database.shared.upload(self)
     }
 }

@@ -22,14 +22,14 @@ public class Calendar: TimestampedClass, TableableCellData {
         self.events = documents
         super.init()
         // Self.self is equivalent to Calendar.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        Database.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
         if !overwriteLocalWithDatabase() {
             Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
         }
     }
 }
 
-extension Calendar: Fetchable2 {
+extension Calendar: Fetchable {
     public static let queryPath: String = "Calendar"
     public static let queryOrderField: String? = "start_time"
     public static let queryShouldDescend: Bool? = false

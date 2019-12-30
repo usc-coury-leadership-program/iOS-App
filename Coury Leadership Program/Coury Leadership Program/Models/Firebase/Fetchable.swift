@@ -1,5 +1,5 @@
 //
-//  Fetchable2.swift
+//  Fetchable.swift
 //  Coury Leadership Program
 //
 //  Created by Hayden Shively on 12/27/19.
@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-public protocol Fetchable2: class {
+public protocol Fetchable: class {
     // the class that stores and organizes fetched data
     // constrained to be a subclass of HashableTypeSeed so that it can be put in the database's data dictionary
     associatedtype CollectionEquivalent: TimestampedClass
@@ -34,15 +34,15 @@ public protocol Fetchable2: class {
     func checkFetchSuccess()
 }
 
-extension Fetchable2 {
+extension Fetchable {
     public static var databaseValue: CollectionEquivalent? {
-        return Database2.shared.read(Self.self)
+        return Database.shared.read(Self.self)
     }
     
     public static func startFetching() {
         stopFetching()
         process = Timer(timeInterval: 2.0, repeats: true) { _ in
-            Database2.shared.fetch(Self.self, count: 30)
+            Database.shared.fetch(Self.self, count: 30)
         }
         RunLoop.current.add(process!, forMode: .common)
     }

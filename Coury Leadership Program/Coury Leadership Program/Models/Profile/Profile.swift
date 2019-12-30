@@ -17,12 +17,16 @@ public class CLPProfile {
     
     public var isSigningIn: Bool = false
     
+    public var score: Int {
+        return answeredPolls.polls.count + savedContent.posts.count + goals.goals.count
+    }
+    
     // As long as these are instantiated prior to a successfull fetch,
     // their local values will be set to the database values
     // (see Fetchable extensions)
     public let basicInformation = BasicInformation(strengths: [], values: [])
     public let answeredPolls = AnsweredPolls(polls: [])
-    public let savedContent = SavedContent(posts: [])
+    public let savedContent = SavedPosts(posts: [])
     public let goals = Goals(goals: [])
     
     private var callbacks: [() -> Void] = []
@@ -32,7 +36,7 @@ public class CLPProfile {
     private init() {
         BasicInformation.onFetchSuccess {self.checkFetchSuccess()}
         AnsweredPolls.onFetchSuccess {self.checkFetchSuccess()}
-        SavedContent.onFetchSuccess {self.checkFetchSuccess()}
+        SavedPosts.onFetchSuccess {self.checkFetchSuccess()}
         Goals.onFetchSuccess {self.checkFetchSuccess()}
     }
     
@@ -70,11 +74,11 @@ public class CLPProfile {
         return savedContent.posts[post.uid]?.status ?? false
     }
     public func like(_ post: Posts.Post, sync immediately: Bool = false) {
-        savedContent.posts[post.uid] = SavedContent.Post(uid: post.uid, status: true)
+        savedContent.posts[post.uid] = SavedPosts.Post(uid: post.uid, status: true)
         if immediately {savedContent.posts[post.uid]!.startUploading()}
     }
     public func unlike(_ post: Posts.Post, sync immediately: Bool = false) {
-        savedContent.posts[post.uid] = SavedContent.Post(uid: post.uid, status: false)
+        savedContent.posts[post.uid] = SavedPosts.Post(uid: post.uid, status: false)
         if immediately {savedContent.posts[post.uid]!.startUploading()}
     }
     public func toggleLike(_ post: Posts.Post, sync immediately: Bool = false) {
@@ -103,14 +107,14 @@ public class CLPProfile {
         fetchStartTime = Date()
         BasicInformation.startFetching()
         AnsweredPolls.startFetching()
-        SavedContent.startFetching()
+        SavedPosts.startFetching()
         Goals.startFetching()
     }
     
     public func stopFetching() {
         BasicInformation.stopFetching()
         AnsweredPolls.stopFetching()
-        SavedContent.stopFetching()
+        SavedPosts.stopFetching()
         Goals.stopFetching()
         fetchStartTime = nil
     }

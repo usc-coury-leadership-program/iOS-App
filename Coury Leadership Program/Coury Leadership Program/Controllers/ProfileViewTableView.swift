@@ -60,6 +60,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()
+        lastUpdated = Date()
     }
     
     func hideTableView(_ shouldHide: Bool) {

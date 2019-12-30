@@ -22,7 +22,7 @@ public class AnsweredPolls: TimestampedClass {
         }
         super.init()
         // Self.self is equivalent to AnsweredPolls.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        Database.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
         if !overwriteLocalWithDatabase() {
             Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
         }
@@ -33,7 +33,7 @@ public class AnsweredPolls: TimestampedClass {
     }
 }
 
-extension AnsweredPolls: Fetchable2 {
+extension AnsweredPolls: Fetchable {
     public static var queryPath: String {return "Users/{UserID}/AnsweredPolls"}
     public static let queryOrderField: String? = nil
     public static let queryShouldDescend: Bool? = nil

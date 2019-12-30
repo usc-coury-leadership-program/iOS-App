@@ -20,14 +20,14 @@ public class Posts: TimestampedClass {
         self.posts = documents
         super.init()
         // Self.self is equivalent to Posts.self
-        Database2.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
+        Database.shared.register(Self.self) {self.checkFetchSuccess()}// gets called every fetch
         if !overwriteLocalWithDatabase() {
             Self.onFetchSuccess {self.overwriteLocalWithDatabase()}// gets called first fetch
         }
     }
 }
 
-extension Posts: Fetchable2 {
+extension Posts: Fetchable {
     public static let queryPath: String = "FeedContent"
     public static let queryOrderField: String? = "timestamp"
     public static let queryShouldDescend: Bool? = true

@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var visualEffectForPPC: UIVisualEffectView!
     
     let collectionViewColumnCount: CGFloat = 3
+    internal var lastUpdated: Date = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,21 +36,24 @@ class ProfileViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Profile
+        
         CLPProfile.shared.onFetchSuccess {
             self.updateUserSpecificText()
             self.updateCollectionView()
             self.updateTableView()
         }
-        updateUserSpecificText()
-        updateCollectionView()
-        updateTableView()
+        
+        if [CLPProfile.shared.basicInformation.lastModified, CLPProfile.shared.savedContent.lastModified].max()! > lastUpdated {
+            updateUserSpecificText()
+            updateCollectionView()
+            updateTableView()
+        }
     }
 
     func updateUserSpecificText() {
         nameLabel.text = BasicInformation.name
-        let userScore = CLPProfile.shared.savedContent.posts.count + CLPProfile.shared.answeredPolls.polls.count
-        collectionSizeLabel.text = String(userScore)
+        collectionSizeLabel.text = String(CLPProfile.shared.score)
+        lastUpdated = Date()
     }
     
     @IBAction func onViewSwitch(_ sender: UISegmentedControl) {
