@@ -37,7 +37,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return Feed.shared.calendar.events.isEmpty ? 0 : 1
-        case 1: return Feed.shared.polls.polls.unanswered.count
+        // we use the database value (instead of Feed.shared.polls.polls.unanswered) so that when a poll gets answered locally, the TableView doesn't blow up
+        case 1: return pollsThisSession.count
         case 2: return Feed.shared.posts.posts.count
         default: return 0
         }
@@ -47,7 +48,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.section) {
         case 0: return Feed.shared.calendar.generateCellFor(tableView, at: indexPath)
-        case 1: return Feed.shared.polls.polls.unanswered[indexPath.row].generateCellFor(tableView, at: indexPath)
+        case 1: return pollsThisSession[indexPath.row].generateCellFor(tableView, at: indexPath)
         case 2: return Feed.shared.posts.posts[indexPath.row].generateCellFor(tableView, at: indexPath)
         default: fatalError("TableView @ FeedViewController has more sections than expected")
         }

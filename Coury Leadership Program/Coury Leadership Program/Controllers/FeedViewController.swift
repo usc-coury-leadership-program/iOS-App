@@ -18,6 +18,10 @@ class FeedViewController: UIViewController {
     private var hasProfile: Bool = false
     private var hasFeed: Bool = false
     internal var lastUpdated: Date = Date()
+    
+    // Use these rather than Feed.shared.polls.polls.unanswered
+    // Prevents TableView from getting confused about indices when a poll gets answered
+    internal var pollsThisSession: [Polls.Poll] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +67,7 @@ class FeedViewController: UIViewController {
     
     func possiblyUpdate() {
         if hasProfile && hasFeed {
+            self.pollsThisSession = Feed.shared.polls.polls.unanswered
             updateTableView()
         }
     }
