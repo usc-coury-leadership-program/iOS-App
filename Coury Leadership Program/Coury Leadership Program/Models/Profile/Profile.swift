@@ -17,10 +17,6 @@ public class CLPProfile {
     
     public var isSigningIn: Bool = false
     
-    public var score: Int {
-        return answeredPolls.polls.count + savedContent.posts.count + goals.goals.count
-    }
-    
     // As long as these are instantiated prior to a successfull fetch,
     // their local values will be set to the database values
     // (see Fetchable extensions)
@@ -138,5 +134,25 @@ public class CLPProfile {
 extension Array where Element == Goals.Goal {
     var unachieved: [Element] {
         return self.filter({!$0.achieved})
+    }
+}
+
+extension Array where Element == Strength {
+    var owned: [Element] {
+        return self.filter({CLPProfile.shared.has(strength: $0)})
+    }
+    
+    var unowned: [Element] {
+        return self.filter({!CLPProfile.shared.has(strength: $0)})
+    }
+}
+
+extension Array where Element == Value {
+    var owned: [Element] {
+        return self.filter({CLPProfile.shared.has(value: $0)})
+    }
+    
+    var unowned: [Element] {
+        return self.filter({!CLPProfile.shared.has(value: $0)})
     }
 }

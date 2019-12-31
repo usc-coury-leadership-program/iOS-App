@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 public class Goals: TimestampedClass {
+    // TODO can only be sure that lastModified gets updated if Goal is a struct
     public var goals: [Goal] {
         didSet {
             lastModified = Date()

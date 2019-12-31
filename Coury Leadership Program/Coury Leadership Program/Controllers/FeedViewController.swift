@@ -12,6 +12,7 @@ import GoogleSignIn
 
 class FeedViewController: UIViewController {
 
+    @IBOutlet weak var headerView: HeaderView!
     @IBOutlet weak var tableView: UITableView!
     
     private var hasProfile: Bool = false
@@ -21,12 +22,18 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        headerView.leftButton.isHidden = true
+        headerView.rightButton.isHidden = true
+        headerView.leftButton.isEnabled = false
+        headerView.rightButton.isEnabled = false
+        headerView.title.text = "Coury Leadership Program"
         engageTableView()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
+        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + self.headerView.frame.height + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.headerView.frame.height, left: 0.0, bottom: 0.0, right: 0.0)
     }
 
     override func viewDidAppear(_ animated: Bool) {

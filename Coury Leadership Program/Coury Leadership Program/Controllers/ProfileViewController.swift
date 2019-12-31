@@ -11,25 +11,33 @@ import CoreMotion
 import Firebase
 import GoogleSignIn
 
-class ProfileViewController: UIViewController {
-
+class ProfileViewController: UIViewController, HeaderViewDelegate {
+    @IBOutlet weak var headerView: HeaderView!
+    @IBOutlet weak var answeredPollsCount: UILabel!
+    @IBOutlet weak var currentGoalsCount: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var collectionSizeLabel: UILabel!
     @IBOutlet weak var visualEffectHeader: UIVisualEffectView!
-    @IBOutlet weak var visualEffectForPPC: UIVisualEffectView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     let collectionViewColumnCount: CGFloat = 3
     internal var lastUpdated: Date = Date()
+    internal var selectedSegment: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        headerView.leftButton.setTitle("About", for: .normal)
+        headerView.leftButton.setTitle("About", for: .highlighted)
+        headerView.leftButton.setTitle("About", for: .selected)
+        headerView.rightButton.setTitle("Logout", for: .normal)
+        headerView.rightButton.setTitle("Logout", for: .highlighted)
+        headerView.rightButton.setTitle("Logout", for: .selected)
+        headerView.delegate = self
+        
         engageCollectionView()
         hideTableView(true)
         engageTableView()
-        nameLabel.adjustsFontSizeToFitWidth = true
 
         updateUserSpecificText()
     }
@@ -43,7 +51,9 @@ class ProfileViewController: UIViewController {
             self.updateTableView()
         }
         
-        if [CLPProfile.shared.basicInformation.lastModified, CLPProfile.shared.savedContent.lastModified].max()! > lastUpdated {
+        if [CLPProfile.shared.basicInformation.lastModified,
+            CLPProfile.shared.savedContent.lastModified,
+            CLPProfile.shared.goals.lastModified].max()! > lastUpdated {
             updateUserSpecificText()
             updateCollectionView()
             updateTableView()
@@ -51,27 +61,36 @@ class ProfileViewController: UIViewController {
     }
 
     func updateUserSpecificText() {
-        nameLabel.text = BasicInformation.name
-        collectionSizeLabel.text = String(CLPProfile.shared.score)
+        headerView.title.text = BasicInformation.name
+        answeredPollsCount.text = String(Feed.shared.polls.polls.answered.count)
+        currentGoalsCount.text = String(CLPProfile.shared.goals.goals.unachieved.count)
+//        segmentedControl.setTitle("Liked Posts - \(Feed.shared.posts.posts.liked.count)", forSegmentAt: 2)
+        
         lastUpdated = Date()
     }
     
     @IBAction func onViewSwitch(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            hideCollectionView(false)
-            hideTableView(true)
-        }else {
+        if sender.selectedSegmentIndex == 2 {
             hideCollectionView(true)
             hideTableView(false)
+        }else {
+            hideCollectionView(false)
+            hideTableView(true)
+            selectedSegment = sender.selectedSegmentIndex
+            updateCollectionView()
         }
     }
     
-    @IBAction func onSettingsClick(_ sender: Any) {AppDelegate.signOut()}
+    func onLeftButtonTap() {
+        performSegue(withIdentifier: "AboutSegue", sender: self)
+    }
+    
+    func onRightButtonTap() {
+        AppDelegate.signOut()
+    }
 }
 
 extension ProfileViewController: UIPopoverPresentationControllerDelegate {
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {return .none}
     @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {}
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -84,25 +103,15 @@ extension ProfileViewController: UIPopoverPresentationControllerDelegate {
         case "ValueDetailSegue":
             guard let cell = sender as? ValueCell else {return}
             (toVC as! ValueDetailViewController).value = cell.value
-            toVC.preferredContentSize = CGSize(width: collectionView.contentSize.width, height: 460)
 
         case "StrengthDetailSegue":
             guard let cell = sender as? StrengthCell else {return}
             (toVC as! StrengthDetailViewController).strength = cell.strength
-            toVC.preferredContentSize = CGSize(width: collectionView.contentSize.width, height: 400)
 
         default: break
         }
-
-        let ppc = toVC.popoverPresentationController!
-        ppc.delegate = self
-        ppc.sourceView = collectionView
-        ppc.sourceRect = CGRect(x: collectionView.bounds.midX, y: collectionView.bounds.midY, width: 0, height: 0)
-        ppc.backgroundColor = .clear
     }
 
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {visualEffectForPPC.isHidden = false}
-    @IBAction func unwindToProfile(_ unwindSegue: UIStoryboardSegue) {visualEffectForPPC.isHidden = true}
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {visualEffectForPPC.isHidden = true}
+    @IBAction func unwindToProfile(_ unwindSegue: UIStoryboardSegue) {}
 }
 

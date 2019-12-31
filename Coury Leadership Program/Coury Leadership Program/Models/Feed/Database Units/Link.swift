@@ -39,25 +39,29 @@ extension Posts {
             guard let urlhost = url.host else {return}
             let faviconURL = URL(string: Link.BASE_THUMBNAIL_URL + urlhost)
             
-            do {
-                let faviconData = try Data.init(contentsOf: faviconURL!)
-                favicon = UIImage(data: faviconData)
-            } catch {
-                print("Failed to load favicon at \(faviconURL!)")
-            }
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    let faviconData = try Data.init(contentsOf: faviconURL!)
+                    self.favicon = UIImage(data: faviconData)
+                } catch {
+                    print("Failed to load favicon at \(faviconURL!)")
+                }
 
-            do {
-                let htmlDoc = try String(contentsOf: url)
-                let range1 = htmlDoc.range(of: "<title>")
-                let range2 = htmlDoc.range(of: "</title>")
-                guard let start = range1, let end = range2 else {return}
-                let substr = htmlDoc[start.upperBound ..< end.lowerBound]
-                headline = String(substr)
-            } catch {
-                print("Failed to load html doc at \(url)")
+                do {
+                    let htmlDoc = try String(contentsOf: self.url)
+                    let range1 = htmlDoc.range(of: "<title>")
+                    let range2 = htmlDoc.range(of: "</title>")
+                    guard let start = range1, let end = range2 else {return}
+                    let substr = htmlDoc[start.upperBound ..< end.lowerBound]
+                    self.headline = String(substr)
+                } catch {
+                    print("Failed to load html doc at \(self.url)")
+                }
+                
+                DispatchQueue.main.async {
+                    completion(self.headline, self.favicon)
+                }
             }
-            
-            completion(headline, favicon)
         }
     }
 }

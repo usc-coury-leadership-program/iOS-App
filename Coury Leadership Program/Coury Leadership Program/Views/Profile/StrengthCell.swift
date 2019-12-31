@@ -26,7 +26,7 @@ class StrengthCell: AUICollectionViewCell, ProfileViewCell {
     public var hasThisStrength: Bool = false {
         didSet {
             contentView.backgroundColor = hasThisStrength ? strength?.domain.color() : strength?.domain.color().withAlphaComponent(0.5)
-            transform = hasThisStrength ? CGAffineTransform.identity : CGAffineTransform(scaleX: 0.9, y: 0.9)
+//            transform = hasThisStrength ? CGAffineTransform.identity : CGAffineTransform(scaleX: 0.9, y: 0.9)
         }
     }
     func setHas(to: Bool) {hasThisStrength = to}

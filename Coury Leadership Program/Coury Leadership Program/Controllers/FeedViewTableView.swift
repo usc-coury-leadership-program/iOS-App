@@ -36,7 +36,7 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
-        case 0: return 1
+        case 0: return Feed.shared.calendar.events.isEmpty ? 0 : 1
         case 1: return Feed.shared.polls.polls.unanswered.count
         case 2: return Feed.shared.posts.posts.count
         default: return 0
@@ -78,6 +78,8 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 12.0, right: 0.0)
         tableView.estimatedRowHeight = CalendarCell.HEIGHT
+        
+//        tableView.prefetchDataSource = self
     }
 
     func updateTableView() {
@@ -87,3 +89,9 @@ extension FeedViewController: UITableViewDataSource, UITableViewDelegate {
         lastUpdated = Date()
     }
 }
+
+//extension FeedViewController: UITableViewDataSourcePrefetching {
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        
+//    }
+//}

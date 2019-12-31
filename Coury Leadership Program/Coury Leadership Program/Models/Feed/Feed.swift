@@ -74,6 +74,9 @@ extension Posts.Post {
 }
 
 extension Array where Element == Polls.Poll {
+    var answered: [Element] {
+        return self.filter({$0.answered})
+    }
     var unanswered: [Element] {
         return self.filter({!$0.answered})
     }

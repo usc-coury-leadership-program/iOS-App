@@ -10,7 +10,8 @@ import UIKit
 
 class StrengthDetailViewController: UIViewController {
 
-    @IBOutlet weak var strengthName: UILabel!
+    @IBOutlet weak var headerView: HeaderView!
+    @IBOutlet weak var giganticLabel: UILabel!
     @IBOutlet weak var domainText: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var headerBackgroundView: UIView!
@@ -20,27 +21,27 @@ class StrengthDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        strengthName.text = strength?.name
+        headerView.leftButton.isHidden = true
+        headerView.rightButton.isHidden = true
+        headerView.leftButton.isEnabled = false
+        headerView.rightButton.isEnabled = false
+        headerView.title.text = strength?.name
+        
+        giganticLabel.text = String(repeating: (strength?.name ?? "") + " ", count: 60)
+        giganticLabel.textColor = strength?.domain.color() ?? UIColor.lightGray
+        giganticLabel.layer.borderColor = giganticLabel.textColor.cgColor
+
         domainText.text = "Domain: " + (strength?.domain.name() ?? "Error")
         textView.text = strength?.description
 
-//        headerBackgroundView.backgroundColor =
-//        readMoreButton.backgroundColor = headerBackgroundView.backgroundColor
-        self.view.backgroundColor = strength?.domain.color().withAlphaComponent(0.85)
-        strengthName.textColor = self.view.backgroundColor ?? .black
-        readMoreButton.setTitleColor(strengthName.textColor, for: .normal)
+        self.view.backgroundColor = strength?.domain.color().withAlphaComponent(0.5)
     }
 
     @IBAction func onReadMoreButtonPress(_ sender: Any) {
         guard let gallupURL = strength?.url else {return}
         UIApplication.shared.open(URL(string: gallupURL)!)
     }
-
-//    @IBAction func onCloseButtonPress(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
 
     /*
      // MARK: - Navigation

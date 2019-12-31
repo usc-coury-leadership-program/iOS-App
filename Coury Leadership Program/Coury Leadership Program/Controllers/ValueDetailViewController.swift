@@ -12,7 +12,8 @@ class ValueDetailViewController: UIViewController {
 
     private static let BASE_URL = "https://www.viacharacter.org/character-strengths/"
 
-    @IBOutlet weak var valueName: UILabel!
+    @IBOutlet weak var headerView: HeaderView!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mottoText: UITextView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var readMoreButton: UIButton!
@@ -21,15 +22,19 @@ class ValueDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        valueName.text = value?.shortName
+        headerView.leftButton.isHidden = true
+        headerView.rightButton.isHidden = true
+        headerView.leftButton.isEnabled = false
+        headerView.rightButton.isEnabled = false
+        headerView.title.text = value?.shortName
+        
+        imageView.image = value?.image
+
         mottoText.text = value?.motto
         textView.text = value?.description
 
-        self.view.backgroundColor = ValueCell.prettyBlueColor
-        valueName.textColor = ValueCell.prettyBlueColor
-        readMoreButton.setTitleColor(ValueCell.prettyBlueColor, for: .normal)
+        self.view.backgroundColor = ValueCell.prettyBlueColor.withAlphaComponent(0.5)
     }
 
     @IBAction func onReadMoreButtonPress(_ sender: Any) {
@@ -37,19 +42,4 @@ class ValueDetailViewController: UIViewController {
         let url = URL(string: ValueDetailViewController.BASE_URL + valueNameNoSpaces)
         UIApplication.shared.open(url!)
     }
-
-//    @IBAction func onCloseButtonPress(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

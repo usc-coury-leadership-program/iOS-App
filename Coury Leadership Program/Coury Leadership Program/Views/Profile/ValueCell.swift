@@ -31,10 +31,10 @@ class ValueCell: AUICollectionViewCell, ProfileViewCell {
 
     public var hasThisValue: Bool = false {
         didSet {
-            transform = hasThisValue ? CGAffineTransform.identity : CGAffineTransform(scaleX: 0.9, y: 0.9)
+//            transform = hasThisValue ? CGAffineTransform.identity : CGAffineTransform(scaleX: 0.9, y: 0.9)
             contentView.backgroundColor = hasThisValue ? ValueCell.prettyBlueColor : UIColor.lightGray.withAlphaComponent(0.5)
             valueName.backgroundColor = contentView.backgroundColor//?.withAlphaComponent(1.0)
-            contentView.layer.borderWidth = hasThisValue ? 4.0 : 0.0
+//            contentView.layer.borderWidth = hasThisValue ? 4.0 : 0.0
         }
     }
     func setHas(to: Bool) {hasThisValue = to}

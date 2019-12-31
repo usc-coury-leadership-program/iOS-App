@@ -32,8 +32,10 @@ class SignInViewController: UIViewController {
 
 extension SignInViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    /*cell spacing x*/func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {return 20}
-    /*cell spacing y*/func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {return 20}
+    //cell spacing x
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {return 20}
+    //cell spacing y
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {return 20}
     //cell size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let interitemSpacing = self.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: indexPath.section)
@@ -42,8 +44,10 @@ extension SignInViewController: UICollectionViewDataSource, UICollectionViewDele
         return CGSize(width: cellEdgeLength, height: cellEdgeLength)
     }
 
-    /*number of sections*/func numberOfSections(in collectionView: UICollectionView) -> Int {return 1}
-    /*number of rows    */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    //number of sections
+    func numberOfSections(in collectionView: UICollectionView) -> Int {return 1}
+    //number of rows
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch selectingType {
         case .values: return VALUE_LIST.count
         case .strengths: return STRENGTH_LIST.count

@@ -21,9 +21,16 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         let cellEdgeLength = (collectionView.bounds.width - 2*collectionView.contentInset.left - sumWhitespace)/collectionViewColumnCount
         return CGSize(width: cellEdgeLength, height: cellEdgeLength)
     }
+    //header size
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 2)
+    }
     //footer size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 20)
+        return CGSize(width: collectionView.bounds.width, height: 0)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
     }
 
     //number of sections
@@ -31,8 +38,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     //number of cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return VALUE_LIST.count
-        case 1: return STRENGTH_LIST.count
+        case 0: return (selectedSegment == 0) ? VALUE_LIST.owned.count : STRENGTH_LIST.owned.count
+        case 1: return (selectedSegment == 0) ? VALUE_LIST.unowned.count : STRENGTH_LIST.unowned.count
         default: return 0
         }
     }
@@ -40,29 +47,42 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     //cell generation
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case 0: return VALUE_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
-        case 1: return STRENGTH_LIST[indexPath.row].generateCellFor(collectionView, at: indexPath)
-        default: fatalError("Profile's CollectionView has more sections than expected.")
+        case 0:
+            let data: CollectionableCellData = (selectedSegment == 0) ? VALUE_LIST.owned[indexPath.row] : STRENGTH_LIST.owned[indexPath.row]
+            return data.generateCellFor(collectionView, at: indexPath)
+        case 1:
+            let data: CollectionableCellData = (selectedSegment == 0) ? VALUE_LIST.unowned[indexPath.row] : STRENGTH_LIST.unowned[indexPath.row]
+            return data.generateCellFor(collectionView, at: indexPath)
+        default:
+            fatalError("Profile's CollectionView has more sections than expected.")
         }
     }
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        //cell.showShadow()
         switch indexPath.section {
-        case 0: (cell as? ProfileViewCell)?.setHas(to: CLPProfile.shared.has(value: VALUE_LIST[indexPath.row]))
-        case 1: (cell as? ProfileViewCell)?.setHas(to: CLPProfile.shared.has(strength: STRENGTH_LIST[indexPath.row]))
+        case 0: (cell as? ProfileViewCell)?.setHas(to: true)
+        case 1: (cell as? ProfileViewCell)?.setHas(to: false)
         default: break
         }
     }
-    // cell selection
+    //cell selection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else {return}
-        switch indexPath.section{
-        case 0: performSegue(withIdentifier: "ValueDetailSegue", sender: cell)
-        case 1: performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
-        default: fatalError("Profile's CollectionView has more sections than expected.")
+        (selectedSegment == 0) ? performSegue(withIdentifier: "ValueDetailSegue", sender: cell) : performSegue(withIdentifier: "StrengthDetailSegue", sender: cell)
+    }
+    
+    //header and footer generation
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view: UICollectionReusableView
+        switch kind {
+        case "UICollectionElementKindSectionHeader":
+            view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+        case "UICollectionElementKindSectionFooter":
+            view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath)
+        default:
+            view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
         }
-
+        return view
     }
 
     //MARK: - convenience functions

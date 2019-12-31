@@ -10,22 +10,37 @@ import UIKit
 
 class GoalViewController: UIViewController {
 
+    @IBOutlet weak var headerView: HeaderView!
     @IBOutlet weak var tableView: UITableView!
+    
+    internal var lastUpdated: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        headerView.leftButton.isHidden = true
+        headerView.rightButton.isHidden = true
+        headerView.leftButton.isEnabled = false
+        headerView.rightButton.isEnabled = false
+        headerView.title.text = "Your Goals"
         engageTableView()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
+        tableView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + self.headerView.frame.height + 12.0, left: 0.0, bottom: 12.0, right: 0.0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.headerView.frame.height, left: 0.0, bottom: 0.0, right: 0.0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        CLPProfile.shared.onFetchSuccess {self.tableView.reloadData()}
+        
+        CLPProfile.shared.onFetchSuccess {
+            self.updateTableView()
+        }
+        if CLPProfile.shared.goals.lastModified > lastUpdated {
+            updateTableView()
+        }
     }
     
     @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
@@ -46,7 +61,8 @@ class GoalViewController: UIViewController {
                 
                 let goal = CLPProfile.shared.goals.goals.unachieved[indexPath.row]
                 goal.achieved = true
-                goal.startUploading()
+                //setting like this (rather than calling goal.startUploading()) ensures that lastModified gets updated
+                CLPProfile.shared.set(goal: goal, sync: true)
                 tableView.reloadSections(IndexSet(integer: 0), with: .fade)
                 
             default:
@@ -141,5 +157,6 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()
+        lastUpdated = Date()
     }
 }
