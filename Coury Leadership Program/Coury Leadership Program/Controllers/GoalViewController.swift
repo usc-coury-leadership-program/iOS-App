@@ -74,7 +74,7 @@ class GoalViewController: UIViewController {
 }
 
 
-extension GoalViewController: UIPopoverPresentationControllerDelegate {
+extension GoalViewController {
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
@@ -86,38 +86,30 @@ extension GoalViewController: UIPopoverPresentationControllerDelegate {
         let toVC = segue.destination
         
         switch segue.identifier {
-        case "AddGoalSegue": toVC.preferredContentSize = CGSize(width: view.bounds.width, height: 300)
+        case "AddGoalSegue": break
         default: break
         }
-        
-        let ppc = toVC.popoverPresentationController!
-        ppc.delegate = self
-        ppc.sourceView = view
-        ppc.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY - 150, width: view.bounds.width, height: 300)
-        ppc.backgroundColor = .clear
     }
-    
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {}
+
     @IBAction func unwindToGoals(_ unwindSegue: UIStoryboardSegue) {
         guard let addGoalController = unwindSegue.source as? AddGoalViewController else {return}
         // Obtain the text of the goal from VC's UITextView
-        let text = addGoalController.textView.text!
-        if text != "" {
-            // Obtain strength (if selected)
-            let strengthIndex = addGoalController.strengthPicker.selectedRow(inComponent: 0)
-            let strength = strengthIndex == 0 ? "" : STRENGTH_LIST[strengthIndex - 1].name
-            // Obtain value (if selected)
-            let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
-            let value = valueIndex == 0 ? "" : VALUE_LIST[valueIndex - 1].name
-            
-            // Create goal
-            let goal = Goals.Goal(text: text, strength: strength, value: value, achieved: false, uid: nil)
-            CLPProfile.shared.set(goal: goal, sync: true)
-            
-            updateTableView()
-        }
+//        let text = addGoalController.textView.text!
+//        if text != "" {
+//            // Obtain strength (if selected)
+//            let strengthIndex = addGoalController.strengthPicker.selectedRow(inComponent: 0)
+//            let strength = strengthIndex == 0 ? "" : STRENGTH_LIST[strengthIndex - 1].name
+//            // Obtain value (if selected)
+//            let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
+//            let value = valueIndex == 0 ? "" : VALUE_LIST[valueIndex - 1].name
+//            
+//            // Create goal
+//            let goal = Goals.Goal(text: text, strength: strength, value: value, achieved: false, uid: nil)
+//            CLPProfile.shared.set(goal: goal, sync: true)
+//            
+//            updateTableView()
+//        }
     }
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {}
 }
 
 

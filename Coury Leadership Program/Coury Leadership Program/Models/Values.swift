@@ -95,42 +95,41 @@ let VALUE_LIST: [Value] = [
     """)
 ]
 
-let BEAUTY_LIBRARY = [
-"Under what conditions (people, places, activities) are you most appreciative of beauty and excellence?",
-"How does appreciation of beauty or appreciation of excellence affect your work, relationships, use of leisure time, and community involvement?",
-"To what extent do you appreciate beauty versus appreciating excellence?",
-"Observe one tree branch, root, flower, or leaf and see the fullness of life in it",
-"Notice the good feelings in seeing someone give a donation to support a good cause",
-"See the excellence in a child learning to play baseball and slowly building his or her skill",
-"Keep a ‘beauty log.’ When you believe you are seeing something beautiful-whether it is from nature, is human-made (e.g.,artwork) or is the virtuous behavior of others-write it down. Describe the beauty in a few sentences",
-"Get regular exposure to green space in your environment, especially if you live or work in an urban setting",
-"Pause to appreciate your inner beauty. One way to do this is to see your character strengths and recall how you have used them to bring benefit to others"
+let VALUE_RECS: [String : [String]] = [
+    "Curiosity" : [
+        "What are you most curious about? Were you a curious child and adolescent?",
+        "How has your curiosity been affected growing up? If it has changed over time, why is that?",
+        "How does curiosity play out across the different domains of your life – family, socializing, work, school?",
+        "Try a new food or going to a new restaurant to explore different foods and places",
+        "Drive a different route home to explore a new area near where you live",
+        "Do an online search for community activities going on around you and take notice of what piques your curiosity most",
+        "Consider an activity you dislike. Pay attention to 3 novel features of this activity while you do it",
+        "Practice active curiosity and explore your current environment, paying attention to anything you may often ignore or take for granted",
+        "Try asking “why?” more often on your team or with your subordinates and supervisors to express more curiosity at work. Don’t take what you’re told at face value if it doesn’t make complete sense to you"
+    ],
+    "Appreciation of Beauty and Excellence" : [
+        "Under what conditions (people, places, activities) are you most appreciative of beauty and excellence?",
+        "How does appreciation of beauty or appreciation of excellence affect your work, relationships, use of leisure time, and community involvement?",
+        "To what extent do you appreciate beauty versus appreciating excellence?",
+        "Observe one tree branch, root, flower, or leaf and see the fullness of life in it",
+        "Notice the good feelings in seeing someone give a donation to support a good cause",
+        "See the excellence in a child learning to play baseball and slowly building his or her skill",
+        "Keep a ‘beauty log.’ When you believe you are seeing something beautiful-whether it is from nature, is human-made (e.g.,artwork) or is the virtuous behavior of others-write it down. Describe the beauty in a few sentences",
+        "Get regular exposure to green space in your environment, especially if you live or work in an urban setting",
+        "Pause to appreciate your inner beauty. One way to do this is to see your character strengths and recall how you have used them to bring benefit to others"
+    ],
+    "Creativity" : [
+        "What holds you back from trying to be creative?",
+        "How do real or anticipated reactions of other people affect your creative efforts?",
+        "How do you use creativity to help solve your own life problems or those of your family, friends, and colleagues?",
+        "Explore a creative solution to a life difficulty or challenge that’s expressed by a family member or a friend",
+        "At a work meeting, when a new topic comes up, brainstorm several ideas with the group to reflect on or discuss together",
+        "Write an article, essay, short story, or poem, make a drawing or painting, and share it with others",
+        "When facing a problem, define the issue clearly and then practice divergent thinking",
+        "Set time aside each day for creative thinking or creative activities",
+        "With one of your typical work tasks, think of a new and unique way to complete it"
+    ]
 ]
 
-
-let CURIOSITY_LIBRARY = [
-"What are you most curious about? Were you a curious child and adolescent?",
-"How has your curiosity been affected growing up? If it has changed over time, why is that?",
-"How does curiosity play out across the different domains of your life – family, socializing, work, school?",
-"Try a new food or going to a new restaurant to explore different foods and places",
-"Drive a different route home to explore a new area near where you live",
-"Do an online search for community activities going on around you and take notice of what piques your curiosity most",
-"Consider an activity you dislike. Pay attention to 3 novel features of this activity while you do it",
-"Practice active curiosity and explore your current environment, paying attention to anything you may often ignore or take for granted",
-"Try asking “why?” more often on your team or with your subordinates and supervisors to express more curiosity at work. Don’t take what you’re told at face value if it doesn’t make complete sense to you",
-]
 
 //TODO add all value libraries from via website
-
-
-let CREATIVITY_LIBRARY = [
-"What holds you back from trying to be creative?",
-"How do real or anticipated reactions of other people affect your creative efforts?",
-"How do you use creativity to help solve your own life problems or those of your family, friends, and colleagues?",
-"Explore a creative solution to a life difficulty or challenge that’s expressed by a family member or a friend",
-"At a work meeting, when a new topic comes up, brainstorm several ideas with the group to reflect on or discuss together",
-"Write an article, essay, short story, or poem, make a drawing or painting, and share it with others",
-"When facing a problem, define the issue clearly and then practice divergent thinking",
-"Set time aside each day for creative thinking or creative activities",
-"With one of your typical work tasks, think of a new and unique way to complete it"
-]

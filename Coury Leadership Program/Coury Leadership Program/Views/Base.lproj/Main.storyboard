@@ -29,9 +29,9 @@
                                 </connections>
                             </tableView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcO-sO-PbC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2FQ-A9-Hxs">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BD6-f0-iI6" customClass="HeaderView" customModule="Coury_Leadership_Program" customModuleProvider="target">
@@ -132,15 +132,13 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="riO-Ap-qAo" kind="popoverPresentation" identifier="AddGoalSegue" popoverAnchorView="YIW-cv-PFz" id="snm-Uf-L5z">
-                                        <popoverArrowDirection key="popoverArrowDirection"/>
-                                    </segue>
+                                    <segue destination="riO-Ap-qAo" kind="presentation" identifier="AddGoalSegue" id="snm-Uf-L5z"/>
                                 </connections>
                             </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVn-jK-ncP">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="81.333333333333329"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5f2-Oq-jEx">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="81.333333333333329"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjj-8r-h2Y" customClass="HeaderView" customModule="Coury_Leadership_Program" customModuleProvider="target">
@@ -186,7 +184,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
-                <exit id="kQq-Qc-Q3J" userLabel="Exit" sceneMemberID="exit"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="hCu-cw-5NN">
                     <connections>
                         <action selector="onLongPress:" destination="8rJ-Kc-sve" id="wEG-FF-g2b"/>
@@ -552,7 +549,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7me-5Q-IWL">
-                                <rect key="frame" x="16" y="116" width="343" height="608"/>
+                                <rect key="frame" x="16" y="104" width="343" height="620"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="0do-Wq-IzC">
                                     <size key="itemSize" width="161" height="161"/>
@@ -563,7 +560,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                                 <cells/>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbC-1u-IJ9">
-                                <rect key="frame" x="16" y="32" width="343" height="35"/>
+                                <rect key="frame" x="16" y="20" width="343" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="xCB-gM-0qw"/>
                                 </constraints>
@@ -571,7 +568,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your top 5 VIA Stengths:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGj-ES-Roo">
-                                <rect key="frame" x="16" y="75" width="343" height="21"/>
+                                <rect key="frame" x="16" y="63" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cbw-vq-Ald"/>
                                 </constraints>
@@ -588,7 +585,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                             <constraint firstItem="kbC-1u-IJ9" firstAttribute="leading" secondItem="ush-CQ-LdY" secondAttribute="leading" constant="16" id="PUa-eE-0Zk"/>
                             <constraint firstItem="kGj-ES-Roo" firstAttribute="leading" secondItem="ush-CQ-LdY" secondAttribute="leading" constant="16" id="Pzh-W1-Wg5"/>
                             <constraint firstItem="7me-5Q-IWL" firstAttribute="centerX" secondItem="ush-CQ-LdY" secondAttribute="centerX" id="ZXw-Js-NHS"/>
-                            <constraint firstItem="kbC-1u-IJ9" firstAttribute="top" secondItem="ush-CQ-LdY" secondAttribute="top" constant="32" id="ieR-Of-OrD"/>
+                            <constraint firstItem="kbC-1u-IJ9" firstAttribute="top" secondItem="ush-CQ-LdY" secondAttribute="top" constant="20" id="ieR-Of-OrD"/>
                             <constraint firstItem="7me-5Q-IWL" firstAttribute="top" secondItem="kGj-ES-Roo" secondAttribute="bottom" constant="20" id="kmV-Aq-VaK"/>
                             <constraint firstItem="ush-CQ-LdY" firstAttribute="trailing" secondItem="kGj-ES-Roo" secondAttribute="trailing" constant="16" id="lL1-FP-Ebn"/>
                             <constraint firstItem="7me-5Q-IWL" firstAttribute="bottom" secondItem="ush-CQ-LdY" secondAttribute="bottom" id="mvh-5d-bjO"/>
@@ -633,7 +630,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coury Calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pV-Ay-9Vf">
-                                <rect key="frame" x="16" y="32" width="343" height="35"/>
+                                <rect key="frame" x="16" y="20" width="343" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="2Pn-n4-IoS"/>
                                 </constraints>
@@ -642,7 +639,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v3Q-uj-xuE">
-                                <rect key="frame" x="0.0" y="104" width="375" height="620"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="632"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1nk-jw-Dmn">
@@ -668,7 +665,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe left to export event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmV-MA-ZKL">
-                                <rect key="frame" x="16" y="75" width="343" height="21"/>
+                                <rect key="frame" x="16" y="63" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="fNZ-YA-TT6"/>
                                 </constraints>
@@ -689,7 +686,7 @@ Heart - Icon made by Google from www.flaticon.com</string>
                             <constraint firstItem="v3Q-uj-xuE" firstAttribute="top" secondItem="lmV-MA-ZKL" secondAttribute="bottom" constant="8" id="hGZ-RI-kKb"/>
                             <constraint firstItem="Pgy-Qn-Kpv" firstAttribute="bottom" secondItem="1nk-jw-Dmn" secondAttribute="bottom" constant="16" id="kMJ-dm-azt"/>
                             <constraint firstItem="5pV-Ay-9Vf" firstAttribute="leading" secondItem="Pgy-Qn-Kpv" secondAttribute="leading" constant="16" id="mKg-GX-sac"/>
-                            <constraint firstItem="5pV-Ay-9Vf" firstAttribute="top" secondItem="Pgy-Qn-Kpv" secondAttribute="top" constant="32" id="sRU-V5-vf5"/>
+                            <constraint firstItem="5pV-Ay-9Vf" firstAttribute="top" secondItem="Pgy-Qn-Kpv" secondAttribute="top" constant="20" id="sRU-V5-vf5"/>
                             <constraint firstItem="Pgy-Qn-Kpv" firstAttribute="trailing" secondItem="lmV-MA-ZKL" secondAttribute="trailing" constant="16" id="tXQ-yi-1Wl"/>
                             <constraint firstItem="Pgy-Qn-Kpv" firstAttribute="trailing" secondItem="5pV-Ay-9Vf" secondAttribute="trailing" constant="16" id="vn1-lq-tM4"/>
                         </constraints>
@@ -712,73 +709,103 @@ Heart - Icon made by Google from www.flaticon.com</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGh-Up-TEq">
-                                <rect key="frame" x="16" y="662" width="343" height="46"/>
-                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="Uzs-pg-uW9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="DONE">
-                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                </state>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wIa-ag-U15">
+                                <rect key="frame" x="16" y="677" width="343" height="32"/>
+                                <segments>
+                                    <segment title="Guided"/>
+                                    <segment title="Manual"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cst-Do-OJx">
+                                <rect key="frame" x="16" y="92" width="343" height="490"/>
+                                <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="16"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="kQq-Qc-Q3J" kind="unwind" unwindAction="unwindToGoals:" id="77K-r3-9GT"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Odh-Yd-47O">
-                                <rect key="frame" x="16" y="16" width="343" height="544"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFU-7N-5cK" customClass="CubeView" customModule="Coury_Leadership_Program" customModuleProvider="target">
+                                <rect key="frame" x="16" y="598" width="64" height="63"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                            </textView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4x-iY-JIc">
-                                <rect key="frame" x="16" y="576" width="167.66666666666666" height="70"/>
-                                <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="A2R-cP-dXl"/>
+                                    <constraint firstAttribute="width" secondItem="nFU-7N-5cK" secondAttribute="height" multiplier="1:1" constant="1" id="NKo-xJ-b1T"/>
+                                    <constraint firstAttribute="width" constant="64" id="kn6-oE-DMx"/>
                                 </constraints>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HY8-do-0Zr">
-                                <rect key="frame" x="191.66666666666663" y="576" width="167.33333333333337" height="70"/>
-                                <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </pickerView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="XTN-48-924">
+                                <rect key="frame" x="96" y="590" width="263" height="79"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cY-Nk-9FT">
+                                <rect key="frame" x="16" y="20" width="343" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="gg3-v1-FR4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the dice, pick a prompt, and set a deadline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxb-9H-aN3">
+                                <rect key="frame" x="16" y="63" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="jK9-mu-4TB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OY-Rq-5Jr">
+                                <rect key="frame" x="284" y="20" width="75" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="T6K-QK-Etn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <state key="normal" title="Done ✓">
+                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="x4x-iY-JIc" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="0s3-qY-zEd"/>
-                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="HY8-do-0Zr" secondAttribute="trailing" constant="16" id="69E-7L-gu3"/>
-                            <constraint firstItem="x4x-iY-JIc" firstAttribute="top" secondItem="Odh-Yd-47O" secondAttribute="bottom" constant="16" id="Ea3-Hh-SVM"/>
-                            <constraint firstItem="DGh-Up-TEq" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="HQI-ZP-dMh"/>
-                            <constraint firstItem="x4x-iY-JIc" firstAttribute="width" secondItem="HY8-do-0Zr" secondAttribute="width" id="Qap-Em-5K2"/>
-                            <constraint firstItem="WN1-96-oyz" firstAttribute="bottom" secondItem="DGh-Up-TEq" secondAttribute="bottom" constant="16" id="UaB-Gu-E5m"/>
-                            <constraint firstItem="Odh-Yd-47O" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="Uxo-3l-8M5"/>
-                            <constraint firstItem="HY8-do-0Zr" firstAttribute="leading" secondItem="x4x-iY-JIc" secondAttribute="trailing" constant="8" id="WCB-i4-OCn"/>
-                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="DGh-Up-TEq" secondAttribute="trailing" constant="16" id="cv5-KH-qqf"/>
-                            <constraint firstItem="x4x-iY-JIc" firstAttribute="centerY" secondItem="HY8-do-0Zr" secondAttribute="centerY" id="fRL-wJ-4qJ"/>
-                            <constraint firstItem="HY8-do-0Zr" firstAttribute="height" secondItem="x4x-iY-JIc" secondAttribute="height" id="iiw-Z4-tp3"/>
-                            <constraint firstItem="Odh-Yd-47O" firstAttribute="top" secondItem="WN1-96-oyz" secondAttribute="top" constant="16" id="uDW-WZ-pSx"/>
-                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="Odh-Yd-47O" secondAttribute="trailing" constant="16" id="wE8-vn-mOG"/>
-                            <constraint firstItem="DGh-Up-TEq" firstAttribute="top" secondItem="x4x-iY-JIc" secondAttribute="bottom" constant="16" id="y7o-Nh-uOE"/>
+                            <constraint firstItem="Mxb-9H-aN3" firstAttribute="top" secondItem="6OY-Rq-5Jr" secondAttribute="bottom" constant="8" id="0mu-hH-fvB"/>
+                            <constraint firstItem="1cY-Nk-9FT" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="0vd-KN-875"/>
+                            <constraint firstItem="WN1-96-oyz" firstAttribute="bottom" secondItem="wIa-ag-U15" secondAttribute="bottom" constant="16" id="2yL-J6-4ed"/>
+                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="Cst-Do-OJx" secondAttribute="trailing" constant="16" id="9RE-kk-C2h"/>
+                            <constraint firstItem="1cY-Nk-9FT" firstAttribute="top" secondItem="WN1-96-oyz" secondAttribute="top" constant="20" id="Dal-X6-tBN"/>
+                            <constraint firstItem="nFU-7N-5cK" firstAttribute="top" secondItem="Cst-Do-OJx" secondAttribute="bottom" constant="16" id="GAW-0v-Ikb"/>
+                            <constraint firstItem="wIa-ag-U15" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="Ht0-8a-BgH"/>
+                            <constraint firstItem="XTN-48-924" firstAttribute="top" secondItem="Cst-Do-OJx" secondAttribute="bottom" constant="8" id="JEJ-ea-7Xy"/>
+                            <constraint firstItem="wIa-ag-U15" firstAttribute="top" secondItem="nFU-7N-5cK" secondAttribute="bottom" constant="16" id="K9p-nb-GhU"/>
+                            <constraint firstItem="Mxb-9H-aN3" firstAttribute="top" secondItem="1cY-Nk-9FT" secondAttribute="bottom" constant="8" id="MCl-qD-zUN"/>
+                            <constraint firstItem="wIa-ag-U15" firstAttribute="top" secondItem="XTN-48-924" secondAttribute="bottom" constant="8" id="Syc-sW-Xnk"/>
+                            <constraint firstItem="Mxb-9H-aN3" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="Ujv-Bp-RZe"/>
+                            <constraint firstItem="XTN-48-924" firstAttribute="leading" secondItem="nFU-7N-5cK" secondAttribute="trailing" constant="16" id="Vem-6a-CMM"/>
+                            <constraint firstItem="6OY-Rq-5Jr" firstAttribute="top" secondItem="WN1-96-oyz" secondAttribute="top" constant="20" id="Y9f-jn-GGt"/>
+                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="Mxb-9H-aN3" secondAttribute="trailing" constant="16" id="YWI-Wb-ncq"/>
+                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="wIa-ag-U15" secondAttribute="trailing" constant="16" id="b9d-3r-nBm"/>
+                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="1cY-Nk-9FT" secondAttribute="trailing" constant="16" id="beM-up-zFQ"/>
+                            <constraint firstItem="Cst-Do-OJx" firstAttribute="top" secondItem="Mxb-9H-aN3" secondAttribute="bottom" constant="8" id="bmx-EM-IPa"/>
+                            <constraint firstItem="Cst-Do-OJx" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="dYe-dT-h8O"/>
+                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="6OY-Rq-5Jr" secondAttribute="trailing" constant="16" id="fgF-aS-385"/>
+                            <constraint firstItem="nFU-7N-5cK" firstAttribute="leading" secondItem="WN1-96-oyz" secondAttribute="leading" constant="16" id="gez-dk-Aay"/>
+                            <constraint firstItem="WN1-96-oyz" firstAttribute="trailing" secondItem="XTN-48-924" secondAttribute="trailing" constant="16" id="oGm-bs-j5i"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WN1-96-oyz"/>
                     </view>
                     <connections>
-                        <outlet property="strengthPicker" destination="x4x-iY-JIc" id="6Vz-4v-j2h"/>
-                        <outlet property="textView" destination="Odh-Yd-47O" id="5v8-nm-G68"/>
-                        <outlet property="valuePicker" destination="HY8-do-0Zr" id="rB2-kh-Jv6"/>
+                        <outlet property="cubeView" destination="nFU-7N-5cK" id="zBK-8c-9Lw"/>
+                        <outlet property="tableView" destination="Cst-Do-OJx" id="Ofs-vu-wug"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RCb-Va-vqW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1157.5999999999999" y="784.72906403940885"/>
+            <point key="canvasLocation" x="605.60000000000002" y="1494.0886699507389"/>
         </scene>
         <!--Strength Detail View Controller-->
         <scene sceneID="itQ-ql-2YF">

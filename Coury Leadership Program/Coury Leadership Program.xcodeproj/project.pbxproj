@@ -10,6 +10,9 @@
 		66EB55172211306F004FF186 /* ValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* ValueCell.swift */; };
 		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
+		BE0AFA0D23C43EAE005CC6B2 /* CubeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0AFA0C23C43EAE005CC6B2 /* CubeView.xib */; };
+		BE0AFA0F23C43EB8005CC6B2 /* CubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0AFA0E23C43EB8005CC6B2 /* CubeView.swift */; };
+		BE0AFA1323C46B2B005CC6B2 /* AddGoalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */; };
 		BE0EC70F23B858150000C9C0 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EC70E23B858150000C9C0 /* Feed.swift */; };
 		BE0EC71123B8650F0000C9C0 /* CollectionableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EC71023B8650E0000C9C0 /* CollectionableCell.swift */; };
 		BE0EC71323B865230000C9C0 /* TableableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EC71223B865230000C9C0 /* TableableCell.swift */; };
@@ -24,6 +27,8 @@
 		BE5F628A23AADA4500B0C85B /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5F628923AADA4500B0C85B /* Quote.swift */; };
 		BE67C57F23B6D5DF00BE14C3 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C57E23B6D5DF00BE14C3 /* Fetchable.swift */; };
 		BE67C58123B6DA7700BE14C3 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C58023B6DA7700BE14C3 /* Posts.swift */; };
+		BE699F6E23C5380D001477F0 /* RecommendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE699F6C23C5380D001477F0 /* RecommendedCell.swift */; };
+		BE699F6F23C5380D001477F0 /* RecommendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE699F6D23C5380D001477F0 /* RecommendedCell.xib */; };
 		BE730DB123B83C1D0028AB44 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE730DB023B83C1D0028AB44 /* Profile.swift */; };
 		BE730DB323B83C3B0028AB44 /* BasicInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE730DB223B83C3B0028AB44 /* BasicInformation.swift */; };
 		BE730DB523B83C480028AB44 /* AnsweredPolls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE730DB423B83C480028AB44 /* AnsweredPolls.swift */; };
@@ -76,6 +81,9 @@
 		66EB55162211306F004FF186 /* ValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCell.xib; sourceTree = "<group>"; };
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
+		BE0AFA0C23C43EAE005CC6B2 /* CubeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CubeView.xib; sourceTree = "<group>"; };
+		BE0AFA0E23C43EB8005CC6B2 /* CubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeView.swift; sourceTree = "<group>"; };
+		BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalTableView.swift; sourceTree = "<group>"; };
 		BE0EC70E23B858150000C9C0 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		BE0EC71023B8650E0000C9C0 /* CollectionableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionableCell.swift; sourceTree = "<group>"; };
 		BE0EC71223B865230000C9C0 /* TableableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableableCell.swift; sourceTree = "<group>"; };
@@ -90,6 +98,8 @@
 		BE5F628923AADA4500B0C85B /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		BE67C57E23B6D5DF00BE14C3 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
 		BE67C58023B6DA7700BE14C3 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		BE699F6C23C5380D001477F0 /* RecommendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedCell.swift; sourceTree = "<group>"; };
+		BE699F6D23C5380D001477F0 /* RecommendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecommendedCell.xib; sourceTree = "<group>"; };
 		BE730DB023B83C1D0028AB44 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BE730DB223B83C3B0028AB44 /* BasicInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformation.swift; sourceTree = "<group>"; };
 		BE730DB423B83C480028AB44 /* AnsweredPolls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweredPolls.swift; sourceTree = "<group>"; };
@@ -164,6 +174,7 @@
 			children = (
 				C4CA5A90220E0DB900ECF768 /* GoalViewController.swift */,
 				BE4CFB0723120CFD0029A1D2 /* AddGoalViewController.swift */,
+				BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */,
 			);
 			name = Goals;
 			sourceTree = "<group>";
@@ -201,6 +212,10 @@
 			children = (
 				BE4CFB09231359340029A1D2 /* GoalCell.swift */,
 				BE4CFB0A231359340029A1D2 /* GoalCell.xib */,
+				BE0AFA0E23C43EB8005CC6B2 /* CubeView.swift */,
+				BE0AFA0C23C43EAE005CC6B2 /* CubeView.xib */,
+				BE699F6C23C5380D001477F0 /* RecommendedCell.swift */,
+				BE699F6D23C5380D001477F0 /* RecommendedCell.xib */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -452,9 +467,11 @@
 				C4CA5AB9220E189600ECF768 /* QuoteCell.xib in Resources */,
 				C4561F2422B0A20E00358678 /* StrengthCell.xib in Resources */,
 				C4783B2022DC325800483EC6 /* PollCellAnswerCell.xib in Resources */,
+				BE699F6F23C5380D001477F0 /* RecommendedCell.xib in Resources */,
 				66EB55182211306F004FF186 /* ValueCell.xib in Resources */,
 				C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */,
 				C420C3E122C407DF00D2E8A9 /* GoogleService-Info.plist in Resources */,
+				BE0AFA0D23C43EAE005CC6B2 /* CubeView.xib in Resources */,
 				BE4CFB0C231359340029A1D2 /* GoalCell.xib in Resources */,
 				C4CA5AB4220E17EA00ECF768 /* ImageCell.xib in Resources */,
 				C4CA5AA8220E175C00ECF768 /* CalendarCell.xib in Resources */,
@@ -544,6 +561,7 @@
 				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
 				BE0EC71523B8872E0000C9C0 /* Uploadable.swift in Sources */,
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
+				BE0AFA1323C46B2B005CC6B2 /* AddGoalTableView.swift in Sources */,
 				C4ADBE4822E2711B007F8BC0 /* Util.swift in Sources */,
 				C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */,
 				BE4CFB0E23135B2B0029A1D2 /* Goals.swift in Sources */,
@@ -555,11 +573,13 @@
 				BE730DB723B83C520028AB44 /* SavedPosts.swift in Sources */,
 				BE730DB323B83C3B0028AB44 /* BasicInformation.swift in Sources */,
 				C44E818522EE8E480091D2B2 /* FeedViewTableView.swift in Sources */,
+				BE0AFA0F23C43EB8005CC6B2 /* CubeView.swift in Sources */,
 				C4CA5AB3220E17EA00ECF768 /* ImageCell.swift in Sources */,
 				C4CA5A8F220E0DB900ECF768 /* FeedViewController.swift in Sources */,
 				C4CA5AAF220E17C900ECF768 /* LinkCell.swift in Sources */,
 				C4CA5AA7220E175C00ECF768 /* CalendarCell.swift in Sources */,
 				BE0EC71323B865230000C9C0 /* TableableCell.swift in Sources */,
+				BE699F6E23C5380D001477F0 /* RecommendedCell.swift in Sources */,
 				66EB55172211306F004FF186 /* ValueCell.swift in Sources */,
 				BE5F628A23AADA4500B0C85B /* Quote.swift in Sources */,
 				BE4CFB0B231359340029A1D2 /* GoalCell.swift in Sources */,

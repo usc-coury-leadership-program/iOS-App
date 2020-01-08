@@ -30,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="pwV-6U-NzG">
-                                <rect key="frame" x="8" y="50" width="272" height="26"/>
+                                <rect key="frame" x="0.0" y="50" width="288" height="26"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="rky-b0-JXl"/>
@@ -49,8 +49,8 @@
                             <constraint firstItem="D2v-qR-8gw" firstAttribute="top" secondItem="h7Q-sL-mEF" secondAttribute="top" constant="8" id="VkO-no-9Bo"/>
                             <constraint firstAttribute="trailing" secondItem="D2v-qR-8gw" secondAttribute="trailing" constant="8" id="amq-k6-33h"/>
                             <constraint firstItem="D2v-qR-8gw" firstAttribute="leading" secondItem="h7Q-sL-mEF" secondAttribute="leading" constant="8" id="dWg-1G-gdH"/>
-                            <constraint firstAttribute="trailing" secondItem="pwV-6U-NzG" secondAttribute="trailing" constant="8" id="fC2-2k-Fbr"/>
-                            <constraint firstItem="pwV-6U-NzG" firstAttribute="leading" secondItem="h7Q-sL-mEF" secondAttribute="leading" constant="8" id="go8-L8-jVZ"/>
+                            <constraint firstAttribute="trailing" secondItem="pwV-6U-NzG" secondAttribute="trailing" id="fC2-2k-Fbr"/>
+                            <constraint firstItem="pwV-6U-NzG" firstAttribute="leading" secondItem="h7Q-sL-mEF" secondAttribute="leading" id="go8-L8-jVZ"/>
                         </constraints>
                     </view>
                 </subviews>

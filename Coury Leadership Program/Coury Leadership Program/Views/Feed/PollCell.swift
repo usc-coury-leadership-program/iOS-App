@@ -91,7 +91,8 @@ extension PollCell: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         answersView.dataSource = self
 
         PollCellAnswerCell.registerWith(answersView)
-
+        
+        answersView.contentInset = UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 8.0)
         answersView.allowsSelection = true
     }
 }
