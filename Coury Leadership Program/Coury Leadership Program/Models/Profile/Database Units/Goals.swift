@@ -60,13 +60,15 @@ extension Goals {
         public let CorrespondingView: TableableCell.Type = GoalCell.self
         
         var text: String = ""
+        var due: Date = Date()
         var strength: String?
         var value: String?
         var achieved: Bool = false
         public var uid: String
     
-        init(text: String, strength: String?, value: String?, achieved: Bool, uid: String?) {
+        init(text: String, due: Date, strength: String?, value: String?, achieved: Bool, uid: String?) {
             self.text = text
+            self.due = due
             self.strength = strength
             self.value = value
             self.achieved = achieved
@@ -77,10 +79,11 @@ extension Goals {
             let uid = dbDocument.documentID
             let data = dbDocument.data()!
             
-            var text: String = "", strength: String?, value: String?, achieved: Bool = false
+            var text: String = "", due: Date = Date(), strength: String?, value: String?, achieved: Bool = false
             for entry in data {
                 switch entry.key {
                 case "text": text = (entry.value as! String)
+                case "due": due = (entry.value as! Timestamp).dateValue()
                 case "strength": strength = (entry.value as! String)
                 case "value": value = (entry.value as! String)
                 case "achieved": achieved = (entry.value as! Bool)
@@ -88,7 +91,7 @@ extension Goals {
                 }
             }
             
-            return Goal(text: text, strength: strength, value: value, achieved: achieved, uid: uid)
+            return Goal(text: text, due: due, strength: strength, value: value, achieved: achieved, uid: uid)
         }
         
         public var uploadPath: String {return "Users/{UserID}/Goals/\(uid)"}
@@ -96,7 +99,7 @@ extension Goals {
         public func inject(into dbDocument: DocumentReference) {
             uid = dbDocument.documentID// must update, since it could be {NewDoc}...
             
-            var dict: [String: Any] = ["text": text, "achieved": achieved]
+            var dict: [String: Any] = ["text": text, "due": Timestamp(date: due), "achieved": achieved]
             if let strength = strength {dict["strength"] = strength}
             if let value = value {dict["value"] = value}
             

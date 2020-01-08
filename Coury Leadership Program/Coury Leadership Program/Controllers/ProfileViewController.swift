@@ -90,7 +90,7 @@ class ProfileViewController: UIViewController, HeaderViewDelegate {
     }
 }
 
-extension ProfileViewController: UIPopoverPresentationControllerDelegate {
+extension ProfileViewController {
     @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {}
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

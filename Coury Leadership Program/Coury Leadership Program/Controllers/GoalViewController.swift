@@ -93,22 +93,35 @@ extension GoalViewController {
 
     @IBAction func unwindToGoals(_ unwindSegue: UIStoryboardSegue) {
         guard let addGoalController = unwindSegue.source as? AddGoalViewController else {return}
-        // Obtain the text of the goal from VC's UITextView
-//        let text = addGoalController.textView.text!
-//        if text != "" {
-//            // Obtain strength (if selected)
-//            let strengthIndex = addGoalController.strengthPicker.selectedRow(inComponent: 0)
-//            let strength = strengthIndex == 0 ? "" : STRENGTH_LIST[strengthIndex - 1].name
-//            // Obtain value (if selected)
-//            let valueIndex = addGoalController.valuePicker.selectedRow(inComponent: 0)
-//            let value = valueIndex == 0 ? "" : VALUE_LIST[valueIndex - 1].name
-//            
-//            // Create goal
-//            let goal = Goals.Goal(text: text, strength: strength, value: value, achieved: false, uid: nil)
-//            CLPProfile.shared.set(goal: goal, sync: true)
-//            
-//            updateTableView()
-//        }
+        
+        let value = AddGoalViewController.activeValueForRecs
+        let due = addGoalController.datePicker.date
+        
+        let text: String
+        switch addGoalController.selectedSegment {
+        case 0:
+            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
+                text = ""
+                break
+            }
+            text = AddGoalViewController.activeRecommendations[indexPath.row]
+        case 1:
+            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
+                text = ""
+                break
+            }
+            text = (addGoalController.tableView.cellForRow(at: indexPath) as! RecommendedCell).textView.text
+        default:
+            text = ""
+        }
+        
+        // Create goal
+        if text != "" {
+            let goal = Goals.Goal(text: text, due: due, strength: nil, value: value, achieved: false, uid: nil)
+            CLPProfile.shared.set(goal: goal, sync: true)
+
+            updateTableView()
+        }
     }
 }
 

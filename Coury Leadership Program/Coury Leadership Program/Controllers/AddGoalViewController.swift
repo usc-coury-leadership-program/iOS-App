@@ -10,7 +10,10 @@ import UIKit
 
 class AddGoalViewController: UIViewController {
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var cubeView: CubeView!
     internal var cubeFaces: [UIImageView] = []
@@ -21,6 +24,7 @@ class AddGoalViewController: UIViewController {
     public static var activeRecommendations: [String] = []
     
     internal var lastUpdated: Date = Date()
+    internal var selectedSegment: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,13 +64,25 @@ class AddGoalViewController: UIViewController {
         cubeView.trackMotion(false)
     }
     
+    @IBAction func onSegmentSwitch(_ sender: UISegmentedControl) {
+        selectedSegment = sender.selectedSegmentIndex
+        switch selectedSegment {
+        case 0: instructionLabel.text = "Tap the dice (bottom left), then tap a prompt"
+        case 1: instructionLabel.text = "Enter your goal and set a deadline"
+        default: break
+        }
+        updateTableView()
+    }
+    
     @objc func onCubeTap(_ sender: UITapGestureRecognizer? = nil) {
         cubeView.roll(randomness: 3)
         
-        let i = cubeView.topFaceIndex % CLPProfile.shared.basicInformation.values.count
-        Self.activeValueForRecs = VALUE_LIST.owned[i].name
-        
-        self.updateTableView()
+        if CLPProfile.shared.basicInformation.values.count > 0 {
+            let i = cubeView.topFaceIndex % CLPProfile.shared.basicInformation.values.count
+            Self.activeValueForRecs = VALUE_LIST.owned[i].name
+            
+            updateTableView()
+        }
     }
     
     private func setupCubeView() {
@@ -89,6 +105,7 @@ class AddGoalViewController: UIViewController {
             cubeFaces[i].layer.cornerRadius = 8
             cubeFaces[i].layer.masksToBounds = true
         }
+        
         lastUpdated = Date()
     }
 }
@@ -100,7 +117,7 @@ extension AddGoalViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let indexPath = tableView.indexPathForSelectedRow else {return}
-        Self.activeRecommendations[indexPath.row] = textView.text
+        if (selectedSegment == 0) {Self.activeRecommendations[indexPath.row] = textView.text}
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

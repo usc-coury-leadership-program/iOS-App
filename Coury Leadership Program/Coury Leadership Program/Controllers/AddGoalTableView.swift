@@ -24,17 +24,17 @@ extension AddGoalViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Self.activeRecommendations.count
+        return selectedSegment == 0 ? Self.activeRecommendations.count : 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Self.activeValueForRecs
+        return selectedSegment == 0 ? Self.activeValueForRecs : "Manual Entry"
     }
 
     // Cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = RecommendedCell.insideOf(tableView, at: indexPath) as! RecommendedCell
-        cell.textView.text = Self.activeRecommendations[indexPath.row]
+        cell.textView.text = selectedSegment == 0 ? Self.activeRecommendations[indexPath.row] : "What would you like to accomplish? Tap here to type"
         cell.textView.isUserInteractionEnabled = false
         return cell
     }
