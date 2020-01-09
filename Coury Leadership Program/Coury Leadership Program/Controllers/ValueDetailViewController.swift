@@ -39,7 +39,13 @@ class ValueDetailViewController: UIViewController {
 
     @IBAction func onReadMoreButtonPress(_ sender: Any) {
         guard let valueNameNoSpaces = value?.name.replacingOccurrences(of: " ", with: "-") else {return}
-        let url = URL(string: ValueDetailViewController.BASE_URL + valueNameNoSpaces)
+        let url: URL?
+        // weird exception on VIA's part. The judgement page has a URL that doesn't match the strength's name
+        if value?.name == "Judgment" {
+            url = URL(string: Self.BASE_URL + "judgment-critical-thinking")
+        }else {
+            url = URL(string: ValueDetailViewController.BASE_URL + valueNameNoSpaces)
+        }
         UIApplication.shared.open(url!)
     }
 }

@@ -51,7 +51,7 @@ let VALUE_LIST: [Value] = [
     Value(name: "Appreciation of Beauty and Excellence", image: #imageLiteral(resourceName: "appreciation-of-beauty"), motto: "Find beauty in nature, art, ideas, and people", description: """
     If Appreciation of Beauty and Excellence is your strength you notice and appreciate beauty, excellence, and/or skilled performance in all domains of life, from nature to art to mathematics to science to everyday experience.
     """),
-    Value(name: "Judgment Critical Thinking", image: #imageLiteral(resourceName: "judgment"), motto: "Examine the details", description: """
+    Value(name: "Judgment", image: #imageLiteral(resourceName: "judgment"), motto: "Examine the details", description: """
     If Judgment is your strength, thinking things through and examining them from all sides are important aspects of who you are. You do not jump to conclusions, and you rely only on solid evidence to make your decisions. You are able to change your mind.
     """),
     Value(name: "Creativity", image: #imageLiteral(resourceName: "creativity"), motto: "Do things in a different way", description: """
@@ -96,17 +96,6 @@ let VALUE_LIST: [Value] = [
 ]
 
 let VALUE_RECS: [String : [String]] = [
-    "Curiosity" : [
-        "What are you most curious about? Were you a curious child and adolescent?",
-        "How has your curiosity been affected growing up? If it has changed over time, why is that?",
-        "How does curiosity play out across the different domains of your life – family, socializing, work, school?",
-        "Try a new food or going to a new restaurant to explore different foods and places",
-        "Drive a different route home to explore a new area near where you live",
-        "Do an online search for community activities going on around you and take notice of what piques your curiosity most",
-        "Consider an activity you dislike. Pay attention to 3 novel features of this activity while you do it",
-        "Practice active curiosity and explore your current environment, paying attention to anything you may often ignore or take for granted",
-        "Try asking “why?” more often on your team or with your subordinates and supervisors to express more curiosity at work. Don’t take what you’re told at face value if it doesn’t make complete sense to you"
-    ],
     "Appreciation of Beauty and Excellence" : [
         "Under what conditions (people, places, activities) are you most appreciative of beauty and excellence?",
         "How does appreciation of beauty or appreciation of excellence affect your work, relationships, use of leisure time, and community involvement?",
@@ -118,6 +107,16 @@ let VALUE_RECS: [String : [String]] = [
         "Get regular exposure to green space in your environment, especially if you live or work in an urban setting",
         "Pause to appreciate your inner beauty. One way to do this is to see your character strengths and recall how you have used them to bring benefit to others"
     ],
+    "Bravery" : [
+        "How is your bravery expressed, for example, by taking physical risks, supporting unpopular positions, being emotionally vulnerable, or thinking unconventionally?",
+        "How does bravery cause people to admire you?",
+        "How does bravery exclude you from certain experiences or opportunities?",
+        "Stand up for someone who is being bullied",
+        "Take on more responsibiltiy with a project, or begin a new project that involves a difficult challenge for you",
+        "Tap into your personal bravery by attending something you are afraid of",
+        "Speak up at a community meeting or write about an unpopular idea on social media",
+        "Think of brave role models in your community in order to be inspired and to resist peer pressure"
+    ],
     "Creativity" : [
         "What holds you back from trying to be creative?",
         "How do real or anticipated reactions of other people affect your creative efforts?",
@@ -128,8 +127,214 @@ let VALUE_RECS: [String : [String]] = [
         "When facing a problem, define the issue clearly and then practice divergent thinking",
         "Set time aside each day for creative thinking or creative activities",
         "With one of your typical work tasks, think of a new and unique way to complete it"
+    ],
+    "Curiosity" : [
+        "What are you most curious about? Were you a curious child and adolescent?",
+        "How has your curiosity been affected growing up? If it has changed over time, why is that?",
+        "How does curiosity play out across the different domains of your life – family, socializing, work, school?",
+        "Try a new food or going to a new restaurant to explore different foods and places",
+        "Drive a different route home to explore a new area near where you live",
+        "Do an online search for community activities going on around you and take notice of what piques your curiosity most",
+        "Consider an activity you dislike. Pay attention to 3 novel features of this activity while you do it",
+        "Practice active curiosity and explore your current environment, paying attention to anything you may often ignore or take for granted",
+        "Try asking “why?” more often on your team or with your subordinates and supervisors to express more curiosity at work. Don’t take what you’re told at face value if it doesn’t make complete sense to you"
+    ],
+    "Fairness" : [
+        "How is your strength of fairness expressed at work, at home, and in the community?",
+        "In what situations have you received feedback that you have acted unfairly? How did you handle the situation?",
+        "How do you reconcile your sense of fairness with the reality that 'life is not fair'?",
+        "Support others in exploring their beliefs and perceptions about people from diverse backgrounds",
+        "Take steps to make your workplace more inclusive, encouraging, or supportive",
+        "Lead an organization that offers under-privileged people a level playing field",
+        "Self-monitor to see whether you think about or treat people of other ethnicities and cultures stereotypically",
+        "The next time you make a mistake, self-monitor to see whether you admit it",
+        "Involve others in decisions that affect them and allow them to disagree with your ideas and assumptions. Invite their ideas for other ways to approach the decision"
+    ],
+    "Forgiveness" : [
+        "What are the circumstances in which it is easy for you to be forgiving? Who is easiest in your life to forgive? Why?",
+        "How do you reconcile forgiving someone while holding the belief that people should be held accountable for transgressions?",
+        "Is it easier or more challenging to forgive someone at work or someone at home? Why?",
+        "If someone offends you at work, take the time to think about how they are a complex human being, rather than seeing them as 'all bad'",
+        "Let go of minor irritants in your life, such as someone cutting you off in traffic",
+        "Forgive those who you've held a grudge against for too long",
+        "Take 20 minutes and write about the personal benefits that resulted from a negative incident",
+        "Think of someone who wronged you recently. Put yourself in their shoes and try to understand their perspective",
+        "Make a list of individuals against whom you hold a grudge. Choose one person. Either meet with them personally, or visualize a conversation in which you practice forgiveness"
+    ],
+    "Gratitude" : [
+        "What circumstances make it most likely you will experience gratitude? What circumstances make it most likely you will express gratitude?",
+        "Are there people to whom you have not adequately expressed gratitude, as an oversight or intentionally holding it back?",
+        "To what degree do you express gratitude to others out of a deep feeling of appreciation as opposed to social convention?",
+        "Point out one small attribute or behavior to one of your close relationships that you appreciate but that typically goes unnoticed",
+        "Write down three good things that you are grateful for each day",
+        "Set aside at least ten minutes every day to savor a pleasant experience",
+        "Make a point to go out of your way to express thanks to someone at work who is not typically recognized. Be sure to offer a few sentences of explanation about why you are grateful to them and note the impact their actions have had on you"
+    ],
+    "Honesty" : [
+        "How well do you honor your commitments, agreements, and compromises in your personal and professional relationships?",
+        "How often do you neutralize guilt by making excuses, blaming, minimizing, or rationalizing the truth away? Are you aware of these processes when they are happening?",
+        "Who is one of your models of honesty? How might you improve on your own modeling of honesty to others?",
+        "When someone asks for your honest opinion, give it to them (with a dose of kindness too)",
+        "When you are speaking with your co-workers, use speech that is direct, clear, and specific",
+        "Be honest with yourself. Name a struggle, bad habit, or vice you have been avoiding then face or talk about this dilemma",
+        "The next time you are asked for advice, give constructive, direct and authentic feedback",
+        "Honor your commitments in all of your relationships. If you agree to do something or schedule a time to meet with someone, be reliable and follow through",
+        "Write about a community issue that you believe has not been dealt with directly and honestly. Consider sharing your writing with others"
+    ],
+    "Hope" : [
+        "What are the conditions that have led you to be hopeful in your life?",
+        "How do you balance what is realistic and what is unrealistic in terms of your expression of hope and optimism?",
+        "What role does hope play during challenging times in your life? How do you express hope at those times?",
+        "Notice accomplishments with your relationship partner",
+        "Set a goal at work for tasks you want to accomplish that day. For any goal you make, consider at least three pathways by which it could be achieved",
+        "Offer a friend the gift of hopeful comments and ideas",
+        "Write an internal movie that features one of your goals. Picture yourself overcoming the obstacles, developing pathways around and through problems, to reach your goal"
+    ],
+    "Humility" : [
+        "Where does your humility come from and how do you express it?",
+        "How does humility limit your life or get in your way?",
+        "How do you balance humility with a need for recognition and appreciation?",
+        "Express humility by listening attentively to your co-workers’ ideas, and compliment them when you feel they have good input without trying to add your ideas as well",
+        "Notice if you speak more than others in a group or team situation, and focus on the other people in the group",
+        "Prime yourself to be humble before interacting in one of your close relationships. This means spending a few minutes thinking about humility and how you could act modestly with the person in an upcoming situation",
+        "Resist showing off accomplishments for a week and notice the changes in your interpersonal relationships",
+        "Notice if you speak more than others in a group situation",
+        "Admit your mistakes and apologize even to those who are younger than you"
+    ],
+    "Humor" : [
+        "How do you initiate playfulness, and how does that change from situation to situation?",
+        "How do other people you know express playfulness? What can you learn from observing playfulness in others?",
+        "In what situations has humor been a barrier for you in connecting with others?",
+        "Watch a sitcom or funny movie with a friend or family member",
+        "Look for the lighter side of a difficult situation in your relationship. Bring appropriate pleasure and playfulness to the situation",
+        "Send a funny video from YouTube to several of your colleagues. You might consider the timing of this, and send the video when your co-workers or work team could use a break from a stressful situation",
+        "Think about a past event in which you used humor for your benefit and the benefit of others",
+        "Write down the humor of your everyday life. Each day make a conscious effort to be aware of your sense of humor, others' sense of humor, funny situations, and clever comments and record them in a daily journal",
+        "Watch a funny sitcom/movie or read a comic blog daily"
+    ],
+    "Judgment" : [
+        "How do you express your judgment/critical thinking to others?",
+        "With what people and in what circumstances is it difficult for you to think rationally without being confused by strong emotions?",
+        "As you gather information about a person, weigh it based on its merits, and analyze the information rationally so you can avoid jumping to conclusions",
+        "Consider a current work project. Express judgment by adding another angle or opinion to the project, maybe something new or an option that you may have rejected too quickly at first",
+        "Watch a political program that shares a very different or opposite point of view from your own, and try to understand how others could believe that position deeply",
+        "Play devil’s advocate on an issue that you have strong opinions about",
+        "Examine a past event that you are not happy with (not following through with a goal) and brainstorm ideas for other ways that you could have approached that event/activity",
+        "Choose a strong opinion you have and live briefly (in a positive way) as if you have the opposite opinion. If acting as if you hold that opinion is too challenging, then experiment with this as a mental activity"
+    ],
+    "Kindness" : [
+        "What are some way you have observed the expression of kindness and compassions by different people in different situations?",
+        "How are your kind acts received by others?",
+        "What character strengths best support your expressions of kindness?",
+        "Surprise someone with whom you are in a close relationship with a random act of kindness",
+        "While getting a morning cup of coffee at your local coffee shop, purchase a second cup 'to go' for one of your co-workers. Alternate the extra cup between your co-workers. If a co-worker has been unkind to you, consider including them in the rotation",
+        "Offer deliberate kind acts to neighbors in your community, such as helping a neighbor in need with their lawn, with snow on their driveway, with their groceries, or with their pet",
+        "Perform a random act of kindness each day (ex: slowing to allow a car in front of you, complimenting a co-worker, buying a treat for your partner)",
+        "Say kinder and softer words to people when interacting through email, writing letters, talking on phone. Smile when answering the phone and sound happy to hear from the person on the other end of the line",
+        "Take out a friend(s) on a surprise dinner and pay for it"
+    ],
+    "Leadership" : [
+        "What is the difference between how effective you have been as a leader and how much you enjoy being a leader? How can you bring them into better agreement?",
+        "How do you decide when to lead and when to allow others to lead?",
+        "How do you keep the two key tasks of leadership — getting things done and helping people get along — in mind while you are leading?",
+        "Organize a social event for some of your colleagues or a celebration for someone’s birthday, anniversary, or workplace accomplishment. Take charge by organizing the people, setting, activities, and logistics",
+        "Discuss with someone who reports to you about how they can align their top character strength more in their work",
+        "When two people are in an argument, mediate by inviting others to share their thoughts and emphasizing problem solving",
+        "Lead an activity, assignment or project and actively solicit opinions from group members",
+        "Read a biography and/or watch film of your favorite leader and evaluate how he/she inspires you in practical ways"
+    ],
+    "Love" : [
+        "Who are the people who matter most to you across each of the domains of your life (friends, family, partners, co-workers)? How do you express love in a healthy way with each group? How does your love express itself differently?",
+        "What are the ways in which you express love to others, and how is it received?",
+        "How well do you receive love? It is often easier to give than to receive, but good relationships are a two-way street. Do signs of love make you uncomfortable or afraid of what others may expect from you?",
+        "Carve out some time each week to experience uninterrupted quality time in your closest relationship",
+        "Convey love at work by making an effort to understand who you're working with, finding out what is important to them and engaging with them on the topic regularly",
+        "Engage in a favorite activity with a loved one (e.g., hiking, going to an amusement park, biking, walking in the park, swimming, camping, jogging)",
+        "Reflect on what it might look like to express more love to your community. Perhaps you already feel love for your neighborhood or city, but what might be one step forward to demonstrate that love by putting it into action?"
+    ],
+    "Love of Learning" : [
+        "What areas of learning (factual knowledge, people, skills, philosophy, or spirituality) do you find most interesting?",
+        "What is it that you love about learning?",
+        "How does the breadth and depth of your knowledge affect your relationships, from people recently met to people who are close to you?",
+        "Seek out someone with whom you can have an in-depth conversation on a topic of mutual interest or a topic you are interested in learning more about",
+        "During a work break, use 5–10 minutes to learn something new on a specific topic that interests you",
+        "Deliberately learn five new words, including their meaning and usage, at least twice a week",
+        "Read a non-fiction book monthly on a topic you find absorbing and engaging",
+        "Consider a community topic that is important to you. Spend time learning all you can about the topic, issue, phenomenon, or situation. Then think about how you can use that knowledge to contribute to the community"
+    ],
+    "Perserverance" : [
+        "When does persevering in a task feel engrossing to you as opposed to a chore?",
+        "What causes you to stop persevering?",
+        "When you succeed in persevering, how does that affect how you approach subsequent challenges?",
+        "When you experience a relationship setback and feel the urge to pull back from that person, instead you can use this opportunity to move the relationship forward by addressing it directly",
+        "Set small goals weekly. Break them into practical steps, and accomplish them on time",
+        "Keep a checklist of things to do and regularly update it",
+        "Select a role-model who exemplifies perseverance and determine how you can follow her/his footsteps"
+    ],
+    "Perspective" : [
+        "When has looking at a problem from another level been most helpful for you personally and for others around you?",
+        "What are examples of times when your perspective was easiest to share?",
+        "What have been one or two of your missed opportunities in sharing this strength?",
+        "Help a family member weigh all possibilities when they are dealing with a personal dilemma",
+        "When facing a conflict in your life, stop and access what your best option is going forward",
+        "For your next interaction, first focus on listening carefully and then focus on sharing your ideas and thoughts",
+        "Read quotes on wisdom, find one that resonates and then re-write it to make it your own and put it to memory. Try to think about ways that you can live truer to that quote",
+        "Find someone wise (alive or someone who has passed on), read or watch a film on their life, and identify how their life can guide your decisions and actions"
+    ],
+    "Prudence" : [
+        "What are the personal benefits you experience in being prudent?",
+        "How has prudence served you well over the years, in big and small ways?",
+        "What regrets do you have about times you held yourself back from taking a risk?",
+        "Organize and plan things before you act so that you minimize the risk of making mistakes or falling short of goals",
+        "Drive cautiously. Notice your mental activity and bodily sensations as you do so",
+        "Think twice before saying anything. Do this exercise at least ten times a week and note its effects",
+        "Remove all extraneous distractions before your make your next three important decisions",
+        "Visualize the consequences of your next decision in one, five, and ten years’ time"
+    ],
+    "Self Regulation" : [
+        "How does self-regulation play a role in your greatest successes in life?",
+        "What areas of your life are best regulated?",
+        "How does self-regulation affect your tolerance for situations that are vague or unpredictable?",
+        "Stick with an exercise or walking routine and involve one of your close relationships in the discipline",
+        "Make a to-do list for a neighborhood or community-oriented event, come up with an action plan, and carry it out",
+        "Next time you get upset, make a conscious effort to control your emotions and focus on positive attributes",
+        "Set goals to improve your everyday living (e.g., room cleaning, laundry, doing dishes, cleaning your desk) and make sure you complete the tasks",
+        "Pay close attentions to your biological clock. Do your most important tasks when you are most alert"
+    ],
+    "Social Intelligence" : [
+        "What are the social situations that have had the most positive outcomes for you, and how did you positively influence the interactions?",
+        "When has it been helpful for you to double-check your 'read' on situations? How did you do the double-check?",
+        "When has your social intelligence gotten in your way?",
+        "When you find yourself in a relational argument that you have been in before, attempt to find at least one positive element in the other person’s comments and opinions",
+        "Practice noticing, labeling and expressing emotions. After you become aware of an emotion, label it, and if appropriate, express it to another",
+        "Write five personal feelings daily for four weeks and monitor patterns",
+        "Watch a favorite TV program or film muted and write feelings observed"
+    ],
+    "Spirituality" : [
+        "What positive role (relationships, health, achievement, community involvement) does spirituality or a sense of meaning play in your life?",
+        "How is spirituality related to your religious practices or lack thereof?",
+        "To what extent do you feel that there is one true way to be spiritual for all people as opposed to people finding their own way?",
+        "Place a symbol or meaningful object at your desk that reminds you of the sacredness of life or reflects your spirituality or religion",
+        "Pause to connect with the sacred within, what some refer to as your inner spirit",
+        "Cultivate sacred moments in which you set aside time to 'just be' with a special/sacred object or space/environment",
+        "Build in spiritual tools as a regular practice (ex: prayer, meditation, exploring nature) or as a way of approaching life (ex: giving charity, showing compassion to less fortunate individuals)",
+        "When experiencing trauma or a difficult situation, look for the deeper meaning and purpose of the experience"
+    ],
+    "Teamwork" : [
+        "What is most gratifying to you about being part of a team?",
+        "How do you feel and act when you carry more than your fair share of the weight for a team?",
+        "How does teamwork extend into your personal life; for example, parenting, family, partner, friendship?",
+        "Examine the tasks facing your team at work. Offer to help with one of the elements of a task that seems to be overlooked or that a colleague is struggling with",
+        "Volunteer weekly for a community service project in your town"
+    ],
+    "Zest" : [
+        "What conditions (people, places, or activities) bring out your zest?",
+        "How does zest lead you, if at all, in directions that you later regret?",
+        "Zest is well described as a value-added strength, meaning that its moral nature is best revealed when it is combined with other character strengths. Which of your character strengths might combine best with zest?",
+        "Because zest is affected by exercise, go for periodic walks while you are at work, in between tasks",
+        "Approaching a task in your community with enthusiasm and energy",
+        "Improve your sleep hygiene by establishing regular sleep time, eating 3-4 hours before sleeping, avoiding doing any work in the bed, not taking caffeine late in the evening, etc. Notice changes in your energy level",
+        "Do a physically rigorous activity (bike riding, running, sports) that you always wanted to do but have not done yet",
+        "Call old friends and reminisce good old times"
     ]
 ]
-
-
-//TODO add all value libraries from via website

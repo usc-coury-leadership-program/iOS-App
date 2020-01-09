@@ -130,8 +130,6 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
 
     // header height
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {return 0}
-    // cell height
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {return GoalCell.HEIGHT}
     // footer height
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
 
@@ -156,6 +154,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0.0, bottom: 12.0, right: 0.0)
         tableView.estimatedRowHeight = GoalCell.HEIGHT
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     func updateTableView() {

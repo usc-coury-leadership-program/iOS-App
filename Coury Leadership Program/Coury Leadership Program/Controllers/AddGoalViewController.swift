@@ -117,7 +117,7 @@ extension AddGoalViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let indexPath = tableView.indexPathForSelectedRow else {return}
-        if (selectedSegment == 0) {Self.activeRecommendations[indexPath.row] = textView.text}
+        if (selectedSegment == 0 && Self.activeRecommendations.count > indexPath.row) {Self.activeRecommendations[indexPath.row] = textView.text}
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

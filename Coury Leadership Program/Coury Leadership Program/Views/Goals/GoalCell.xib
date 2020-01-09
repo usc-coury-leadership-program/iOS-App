@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRw-CF-zNZ" userLabel="Inset View">
                         <rect key="frame" x="16" y="8" width="288" height="152"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This is a reasonable length for a given goal. Maybe another sentence would be necessary, but not much more than that." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gC-Gi-LzQ">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="This is a reasonable length for a given goal. Maybe another sentence would be necessary, but not much more than that." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gC-Gi-LzQ">
                                 <rect key="frame" x="8" y="8" width="272" height="107"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
