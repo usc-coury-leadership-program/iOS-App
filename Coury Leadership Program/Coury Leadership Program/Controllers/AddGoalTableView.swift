@@ -55,20 +55,20 @@ extension AddGoalViewController: UITableViewDataSource, UITableViewDelegate {
 
     //MARK: - convenience functions
     func engageTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        RecommendedCell.registerWith(tableView)
-
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.contentInset = UIEdgeInsets.zero
-        tableView.estimatedRowHeight = RecommendedCell.HEIGHT
-        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        
+//        RecommendedCell.registerWith(tableView)
+//
+//        tableView.contentInsetAdjustmentBehavior = .never
+//        tableView.contentInset = UIEdgeInsets.zero
+//        tableView.estimatedRowHeight = RecommendedCell.HEIGHT
+//        tableView.rowHeight = UITableView.automaticDimension
     }
 
     func updateTableView() {
-        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-        tableView.beginUpdates()
-        tableView.endUpdates()
+//        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+//        tableView.beginUpdates()
+//        tableView.endUpdates()
     }
 }

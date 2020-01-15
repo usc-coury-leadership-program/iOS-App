@@ -99,18 +99,18 @@ extension GoalViewController {
         
         let text: String
         switch addGoalController.selectedSegment {
-        case 0:
-            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
-                text = ""
-                break
-            }
-            text = AddGoalViewController.activeRecommendations[indexPath.row]
-        case 1:
-            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
-                text = ""
-                break
-            }
-            text = (addGoalController.tableView.cellForRow(at: indexPath) as! RecommendedCell).textView.text
+//        case 0:
+//            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
+//                text = ""
+//                break
+//            }
+//            text = AddGoalViewController.activeRecommendations[indexPath.row]
+//        case 1:
+//            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
+//                text = ""
+//                break
+//            }
+//            text = (addGoalController.tableView.cellForRow(at: indexPath) as! RecommendedCell).textView.text
         default:
             text = ""
         }

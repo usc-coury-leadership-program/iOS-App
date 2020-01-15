@@ -10,6 +10,7 @@
 		66EB55172211306F004FF186 /* ValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB55152211306F004FF186 /* ValueCell.swift */; };
 		66EB55182211306F004FF186 /* ValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EB55162211306F004FF186 /* ValueCell.xib */; };
 		A7A6BA60A59C12E00B21CF61 /* Pods_Coury_Leadership_Program.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37243CE044B798F20A43F781 /* Pods_Coury_Leadership_Program.framework */; };
+		BE0593BE23CE9F2100B0CD3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0593BD23CE9F2100B0CD3B /* GoogleService-Info.plist */; };
 		BE0AFA0D23C43EAE005CC6B2 /* CubeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0AFA0C23C43EAE005CC6B2 /* CubeView.xib */; };
 		BE0AFA0F23C43EB8005CC6B2 /* CubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0AFA0E23C43EB8005CC6B2 /* CubeView.swift */; };
 		BE0AFA1323C46B2B005CC6B2 /* AddGoalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */; };
@@ -39,7 +40,6 @@
 		BEAA60E323BAB4CA003FDE45 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEAA60E223BAB4CA003FDE45 /* HeaderView.xib */; };
 		BEC495DF237A439C0022250E /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC495DE237A439C0022250E /* CalendarViewController.swift */; };
 		C420C3DF22C2DCE400D2E8A9 /* StrengthDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */; };
-		C420C3E122C407DF00D2E8A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */; };
 		C44E818522EE8E480091D2B2 /* FeedViewTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E818422EE8E480091D2B2 /* FeedViewTableView.swift */; };
 		C44E818722EE8E8D0091D2B2 /* FeedViewInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E818622EE8E8D0091D2B2 /* FeedViewInteraction.swift */; };
 		C4561F1C22B09A9900358678 /* Strengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4561F1B22B09A9900358678 /* Strengths.swift */; };
@@ -81,6 +81,7 @@
 		66EB55162211306F004FF186 /* ValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCell.xib; sourceTree = "<group>"; };
 		9AFECC340652BD6101F39D38 /* Pods-Coury Leadership Program.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.release.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.release.xcconfig"; sourceTree = "<group>"; };
 		B904C2F11EC965A6205812D6 /* Pods-Coury Leadership Program.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coury Leadership Program.debug.xcconfig"; path = "Target Support Files/Pods-Coury Leadership Program/Pods-Coury Leadership Program.debug.xcconfig"; sourceTree = "<group>"; };
+		BE0593BD23CE9F2100B0CD3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0AFA0C23C43EAE005CC6B2 /* CubeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CubeView.xib; sourceTree = "<group>"; };
 		BE0AFA0E23C43EB8005CC6B2 /* CubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeView.swift; sourceTree = "<group>"; };
 		BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalTableView.swift; sourceTree = "<group>"; };
@@ -110,7 +111,6 @@
 		BEAA60E223BAB4CA003FDE45 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		BEC495DE237A439C0022250E /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		C420C3DE22C2DCE400D2E8A9 /* StrengthDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthDetailViewController.swift; sourceTree = "<group>"; };
-		C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C420C3E222C4085500D2E8A9 /* Coury Leadership Program.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Coury Leadership Program.entitlements"; sourceTree = "<group>"; };
 		C44E818422EE8E480091D2B2 /* FeedViewTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewTableView.swift; sourceTree = "<group>"; };
 		C44E818622EE8E8D0091D2B2 /* FeedViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewInteraction.swift; sourceTree = "<group>"; };
@@ -308,7 +308,7 @@
 				C4ADBE4722E2711B007F8BC0 /* Util.swift */,
 				C4CA5A97220E0DBA00ECF768 /* LaunchScreen.storyboard */,
 				C4CA5A9A220E0DBA00ECF768 /* Info.plist */,
-				C420C3E022C407DF00D2E8A9 /* GoogleService-Info.plist */,
+				BE0593BD23CE9F2100B0CD3B /* GoogleService-Info.plist */,
 			);
 			path = "Coury Leadership Program";
 			sourceTree = "<group>";
@@ -469,8 +469,8 @@
 				C4783B2022DC325800483EC6 /* PollCellAnswerCell.xib in Resources */,
 				BE699F6F23C5380D001477F0 /* RecommendedCell.xib in Resources */,
 				66EB55182211306F004FF186 /* ValueCell.xib in Resources */,
+				BE0593BE23CE9F2100B0CD3B /* GoogleService-Info.plist in Resources */,
 				C4CA5A94220E0DB900ECF768 /* Main.storyboard in Resources */,
-				C420C3E122C407DF00D2E8A9 /* GoogleService-Info.plist in Resources */,
 				BE0AFA0D23C43EAE005CC6B2 /* CubeView.xib in Resources */,
 				BE4CFB0C231359340029A1D2 /* GoalCell.xib in Resources */,
 				C4CA5AB4220E17EA00ECF768 /* ImageCell.xib in Resources */,

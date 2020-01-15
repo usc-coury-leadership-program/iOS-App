@@ -12,8 +12,8 @@ class AddGoalViewController: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var instructionLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var goalWritingView: UITextView!
     
     @IBOutlet weak var cubeView: CubeView!
     internal var cubeFaces: [UIImageView] = []
@@ -30,7 +30,7 @@ class AddGoalViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        engageTableView()
+//        engageTableView()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(onCubeTap(_:)))
         cubeView.addGestureRecognizer(tap)
@@ -50,11 +50,11 @@ class AddGoalViewController: UIViewController {
         
         CLPProfile.shared.onFetchSuccess {
             self.setupCubeView()
-            self.updateTableView()
+//            self.updateTableView()
         }
         if CLPProfile.shared.basicInformation.lastModified > lastUpdated {
             self.setupCubeView()
-            self.updateTableView()
+//            self.updateTableView()
         }
     }
     
@@ -71,7 +71,7 @@ class AddGoalViewController: UIViewController {
         case 1: instructionLabel.text = "Enter your goal and set a deadline"
         default: break
         }
-        updateTableView()
+//        updateTableView()
     }
     
     @objc func onCubeTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -81,7 +81,7 @@ class AddGoalViewController: UIViewController {
             let i = cubeView.topFaceIndex % CLPProfile.shared.basicInformation.values.count
             Self.activeValueForRecs = VALUE_LIST.owned[i].name
             
-            updateTableView()
+//            updateTableView()
         }
     }
     
@@ -91,7 +91,7 @@ class AddGoalViewController: UIViewController {
         
         let backgroundColor: UIColor?
         // cannot use ternary operator because #available is special
-        if #available(iOS 13.0, *) {backgroundColor = .label} else {backgroundColor = view.backgroundColor}
+        if #available(iOS 13.0, *) {backgroundColor = .lightGray} else {backgroundColor = .lightGray}
         
         var images = VALUE_LIST.owned.map({$0.image})
         // one image will be duplicated because user has 5 strengths
@@ -116,8 +116,8 @@ extension AddGoalViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        guard let indexPath = tableView.indexPathForSelectedRow else {return}
-        if (selectedSegment == 0 && Self.activeRecommendations.count > indexPath.row) {Self.activeRecommendations[indexPath.row] = textView.text}
+//        guard let indexPath = tableView.indexPathForSelectedRow else {return}
+//        if (selectedSegment == 0 && Self.activeRecommendations.count > indexPath.row) {Self.activeRecommendations[indexPath.row] = textView.text}
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -131,23 +131,23 @@ extension AddGoalViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         UIView.setAnimationsEnabled(false)
         textView.sizeToFit()
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.endUpdates()
-            UIView.setAnimationsEnabled(true)
-        }
+//        DispatchQueue.main.async {
+//            self.tableView.beginUpdates()
+//            self.tableView.endUpdates()
+//            UIView.setAnimationsEnabled(true)
+//        }
     }
 }
 
 extension AddGoalViewController {
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+//            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         }
     }
     @objc func keyboardWillHide(_ notification: Notification) {
         if let _ = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            tableView.contentInset = UIEdgeInsets.zero
+//            tableView.contentInset = UIEdgeInsets.zero
         }
     }
 }
