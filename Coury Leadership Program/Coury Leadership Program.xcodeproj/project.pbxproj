@@ -13,7 +13,6 @@
 		BE0593BE23CE9F2100B0CD3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0593BD23CE9F2100B0CD3B /* GoogleService-Info.plist */; };
 		BE0AFA0D23C43EAE005CC6B2 /* CubeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0AFA0C23C43EAE005CC6B2 /* CubeView.xib */; };
 		BE0AFA0F23C43EB8005CC6B2 /* CubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0AFA0E23C43EB8005CC6B2 /* CubeView.swift */; };
-		BE0AFA1323C46B2B005CC6B2 /* AddGoalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */; };
 		BE0EC70F23B858150000C9C0 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EC70E23B858150000C9C0 /* Feed.swift */; };
 		BE0EC71123B8650F0000C9C0 /* CollectionableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EC71023B8650E0000C9C0 /* CollectionableCell.swift */; };
 		BE0EC71323B865230000C9C0 /* TableableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EC71223B865230000C9C0 /* TableableCell.swift */; };
@@ -84,7 +83,6 @@
 		BE0593BD23CE9F2100B0CD3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0AFA0C23C43EAE005CC6B2 /* CubeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CubeView.xib; sourceTree = "<group>"; };
 		BE0AFA0E23C43EB8005CC6B2 /* CubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeView.swift; sourceTree = "<group>"; };
-		BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalTableView.swift; sourceTree = "<group>"; };
 		BE0EC70E23B858150000C9C0 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		BE0EC71023B8650E0000C9C0 /* CollectionableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionableCell.swift; sourceTree = "<group>"; };
 		BE0EC71223B865230000C9C0 /* TableableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableableCell.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 			children = (
 				C4CA5A90220E0DB900ECF768 /* GoalViewController.swift */,
 				BE4CFB0723120CFD0029A1D2 /* AddGoalViewController.swift */,
-				BE0AFA1223C46B2B005CC6B2 /* AddGoalTableView.swift */,
 			);
 			name = Goals;
 			sourceTree = "<group>";
@@ -561,7 +558,6 @@
 				C4CA5AB8220E189600ECF768 /* QuoteCell.swift in Sources */,
 				BE0EC71523B8872E0000C9C0 /* Uploadable.swift in Sources */,
 				C4CA5AA4220E0F9000ECF768 /* ProfileViewController.swift in Sources */,
-				BE0AFA1323C46B2B005CC6B2 /* AddGoalTableView.swift in Sources */,
 				C4ADBE4822E2711B007F8BC0 /* Util.swift in Sources */,
 				C4CA5AC8220E1A0700ECF768 /* Values.swift in Sources */,
 				BE4CFB0E23135B2B0029A1D2 /* Goals.swift in Sources */,
@@ -750,7 +746,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.usc.marshall.couryleadershipprogram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -773,7 +769,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.usc.marshall.couryleadershipprogram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

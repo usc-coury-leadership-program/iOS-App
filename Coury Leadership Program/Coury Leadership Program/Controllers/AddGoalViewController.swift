@@ -10,10 +10,12 @@ import UIKit
 
 class AddGoalViewController: UIViewController {
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var promptView: UITextView!
     @IBOutlet weak var goalWritingView: UITextView!
+    
+    @IBOutlet weak var opaqueView: UIView!
+    @IBOutlet weak var opaqueViewYPosition: NSLayoutConstraint!
     
     @IBOutlet weak var cubeView: CubeView!
     internal var cubeFaces: [UIImageView] = []
@@ -24,54 +26,49 @@ class AddGoalViewController: UIViewController {
     public static var activeRecommendations: [String] = []
     
     internal var lastUpdated: Date = Date()
-    internal var selectedSegment: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-//        engageTableView()
+        opaqueView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(onCubeTap(_:)))
         cubeView.addGestureRecognizer(tap)
-        
         setupCubeView()
         cubeView.enableMotion()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        goalWritingView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        goalWritingView.becomeFirstResponder()
         
         cubeView.needsTaring = true
         cubeView.trackMotion(true)
         
         CLPProfile.shared.onFetchSuccess {
             self.setupCubeView()
-//            self.updateTableView()
+            self.onCubeTap()
         }
         if CLPProfile.shared.basicInformation.lastModified > lastUpdated {
             self.setupCubeView()
-//            self.updateTableView()
+            self.onCubeTap()
         }
+        self.onCubeTap()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+        goalWritingView.resignFirstResponder()
         cubeView.trackMotion(false)
     }
     
-    @IBAction func onSegmentSwitch(_ sender: UISegmentedControl) {
-        selectedSegment = sender.selectedSegmentIndex
-        switch selectedSegment {
-        case 0: instructionLabel.text = "Tap the dice (bottom left), then tap a prompt"
-        case 1: instructionLabel.text = "Enter your goal and set a deadline"
-        default: break
-        }
-//        updateTableView()
+    @IBAction func onModalViewTap(_ sender: UITapGestureRecognizer) {
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func onCubeTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -81,8 +78,23 @@ class AddGoalViewController: UIViewController {
             let i = cubeView.topFaceIndex % CLPProfile.shared.basicInformation.values.count
             Self.activeValueForRecs = VALUE_LIST.owned[i].name
             
-//            updateTableView()
+            updatePrompt()
         }
+    }
+    
+    private func updatePrompt() {
+        let prompt = Self.activeRecommendations.randomElement() ?? "What's something you've always wanted to do?"
+        if prompt.contains("?") {
+            promptView.text = prompt
+            goalWritingView.text = ""
+        }else {
+            promptView.text = "Personalize the given goal. It will be easier to accomplish if it's more specific."
+            goalWritingView.text = prompt
+        }
+        
+//        if !goalWritingView.isFirstResponder {
+//            goalWritingView.textColor = .lightGray
+//        }
     }
     
     private func setupCubeView() {
@@ -91,7 +103,7 @@ class AddGoalViewController: UIViewController {
         
         let backgroundColor: UIColor?
         // cannot use ternary operator because #available is special
-        if #available(iOS 13.0, *) {backgroundColor = .lightGray} else {backgroundColor = .lightGray}
+        if #available(iOS 13.0, *) {backgroundColor = .label} else {backgroundColor = .black}
         
         var images = VALUE_LIST.owned.map({$0.image})
         // one image will be duplicated because user has 5 strengths
@@ -112,12 +124,9 @@ class AddGoalViewController: UIViewController {
 
 extension AddGoalViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text.contains("?") {textView.clearsOnInsertion = true}
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-//        guard let indexPath = tableView.indexPathForSelectedRow else {return}
-//        if (selectedSegment == 0 && Self.activeRecommendations.count > indexPath.row) {Self.activeRecommendations[indexPath.row] = textView.text}
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -129,25 +138,24 @@ extension AddGoalViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        UIView.setAnimationsEnabled(false)
-        textView.sizeToFit()
-//        DispatchQueue.main.async {
-//            self.tableView.beginUpdates()
-//            self.tableView.endUpdates()
-//            UIView.setAnimationsEnabled(true)
-//        }
     }
 }
 
 extension AddGoalViewController {
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            self.opaqueViewYPosition.constant = keyboardSize.height
+            UIView.animate(withDuration: 0.1) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
     @objc func keyboardWillHide(_ notification: Notification) {
         if let _ = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            tableView.contentInset = UIEdgeInsets.zero
+            self.opaqueViewYPosition.constant = 0
+            UIView.animate(withDuration: 0.1) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
 }

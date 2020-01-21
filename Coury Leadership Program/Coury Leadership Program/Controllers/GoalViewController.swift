@@ -97,23 +97,7 @@ extension GoalViewController {
         let value = AddGoalViewController.activeValueForRecs
         let due = addGoalController.datePicker.date
         
-        let text: String
-        switch addGoalController.selectedSegment {
-//        case 0:
-//            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
-//                text = ""
-//                break
-//            }
-//            text = AddGoalViewController.activeRecommendations[indexPath.row]
-//        case 1:
-//            guard let indexPath = addGoalController.tableView.indexPathForSelectedRow else {
-//                text = ""
-//                break
-//            }
-//            text = (addGoalController.tableView.cellForRow(at: indexPath) as! RecommendedCell).textView.text
-        default:
-            text = ""
-        }
+        let text = addGoalController.goalWritingView.text ?? ""
         
         // Create goal
         if text != "" {
