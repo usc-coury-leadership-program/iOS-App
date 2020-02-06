@@ -48,6 +48,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         CalendarCell.registerWith(tableView)
         PollCell.registerWith(tableView)
         LinkCell.registerWith(tableView)
+        ImageLinkCell.registerWith(tableView)
         ImageCell.registerWith(tableView)
         QuoteCell.registerWith(tableView)
 

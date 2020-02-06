@@ -68,6 +68,7 @@ extension Posts {
             switch data["type"] as? String {
             case "Quote": return Posts.Quote(dbDocument: dbDocument)
             case "Link": return Posts.Link(dbDocument: dbDocument)
+            case "ImageLink": return Posts.ImageLink(dbDocument: dbDocument)
             case "Image": return Posts.Image(dbDocument: dbDocument)
             default: fatalError("\(String(describing: data["type"])) is not a valid Post type")
             }

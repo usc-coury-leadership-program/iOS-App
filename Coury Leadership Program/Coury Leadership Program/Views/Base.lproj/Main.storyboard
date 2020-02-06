@@ -29,9 +29,9 @@
                                 </connections>
                             </tableView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcO-sO-PbC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2FQ-A9-Hxs">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BD6-f0-iI6" customClass="HeaderView" customModule="Coury_Leadership_Program" customModuleProvider="target">
@@ -136,9 +136,9 @@
                                 </connections>
                             </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVn-jK-ncP">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="81.333333333333329"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5f2-Oq-jEx">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="81.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="81.333333333333329"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjj-8r-h2Y" customClass="HeaderView" customModule="Coury_Leadership_Program" customModuleProvider="target">
@@ -380,36 +380,87 @@
                                     <segue destination="8mH-Qi-2HX" kind="unwind" unwindAction="unwindToProfile:" id="tQA-4c-J9q"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6ly-LY-W6b">
-                                <rect key="frame" x="16" y="16" width="343" height="614"/>
-                                <string key="text">Icon Attributions:
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="urJ-Bu-Z0E">
+                                <rect key="frame" x="0.0" y="446" width="375" height="312"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6ly-LY-W6b">
+                                        <rect key="frame" x="16" y="20" width="343" height="124"/>
+                                        <string key="text">Icon Attributions:
 Feed - Icon Made by Freepic from www.flaticon.com
 Improve - Icon made by Good Ware from www.flaticon.com
 Profile - Icon made by Lucy G from www.flaticon.com
-Safebox - Icon made by Freepic from www.flaticon.com
 Heart - Icon made by Google from www.flaticon.com</string>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="designed and developed by hayden shively" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUb-uZ-jmM">
+                                        <rect key="frame" x="16" y="224" width="343" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="epy-v7-Uvm"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AcademyEngravedLetPlain" family="Academy Engraved LET" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CouryLeadershipProgram@marshall.usc.edu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxm-V7-ThX">
+                                        <rect key="frame" x="16" y="176" width="343" height="16"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="QUb-uZ-jmM" firstAttribute="top" secondItem="Lxm-V7-ThX" secondAttribute="bottom" constant="32" id="C5r-Wy-H0a"/>
+                                    <constraint firstAttribute="trailing" secondItem="6ly-LY-W6b" secondAttribute="trailing" constant="16" id="Lbi-gQ-aKJ"/>
+                                    <constraint firstItem="QUb-uZ-jmM" firstAttribute="leading" secondItem="urJ-Bu-Z0E" secondAttribute="leading" constant="16" id="Unc-5l-FtJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="QUb-uZ-jmM" secondAttribute="trailing" constant="16" id="cBO-VB-Jao"/>
+                                    <constraint firstItem="6ly-LY-W6b" firstAttribute="leading" secondItem="urJ-Bu-Z0E" secondAttribute="leading" constant="16" id="fRD-dv-dnc"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lxm-V7-ThX" secondAttribute="trailing" constant="16" id="hzQ-fS-ZoY"/>
+                                    <constraint firstItem="Lxm-V7-ThX" firstAttribute="top" secondItem="6ly-LY-W6b" secondAttribute="bottom" constant="32" id="opa-EN-jcf"/>
+                                    <constraint firstItem="Lxm-V7-ThX" firstAttribute="leading" secondItem="urJ-Bu-Z0E" secondAttribute="leading" constant="16" id="uTI-f5-pKa"/>
+                                    <constraint firstItem="6ly-LY-W6b" firstAttribute="top" secondItem="urJ-Bu-Z0E" secondAttribute="top" constant="20" id="vnA-RI-6hm"/>
+                                    <constraint firstAttribute="bottom" secondItem="QUb-uZ-jmM" secondAttribute="bottom" constant="64" id="wqU-bE-Gch"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="jdY-gr-h92" appends="YES" id="tKh-uI-RS9"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="urJ-Bu-Z0E" firstAttribute="trailing" secondItem="2fP-uO-rUU" secondAttribute="trailing" id="1wo-pt-g2J"/>
                             <constraint firstItem="jAN-Va-q4K" firstAttribute="leading" secondItem="2fP-uO-rUU" secondAttribute="leading" constant="16" id="42c-2Y-9OK"/>
-                            <constraint firstItem="6ly-LY-W6b" firstAttribute="leading" secondItem="2fP-uO-rUU" secondAttribute="leading" constant="16" id="88z-lV-rse"/>
-                            <constraint firstItem="6ly-LY-W6b" firstAttribute="top" secondItem="2fP-uO-rUU" secondAttribute="top" constant="16" id="VbG-Wf-IdL"/>
+                            <constraint firstAttribute="bottom" secondItem="urJ-Bu-Z0E" secondAttribute="bottom" id="5aE-qS-qYa"/>
+                            <constraint firstItem="urJ-Bu-Z0E" firstAttribute="leading" secondItem="2fP-uO-rUU" secondAttribute="leading" id="CH9-Bm-OGc"/>
                             <constraint firstItem="2fP-uO-rUU" firstAttribute="bottom" secondItem="jAN-Va-q4K" secondAttribute="bottom" constant="16" id="kyV-lS-sjB"/>
-                            <constraint firstItem="2fP-uO-rUU" firstAttribute="trailing" secondItem="6ly-LY-W6b" secondAttribute="trailing" constant="16" id="l5c-Xl-HOg"/>
-                            <constraint firstItem="jAN-Va-q4K" firstAttribute="top" secondItem="6ly-LY-W6b" secondAttribute="bottom" constant="32" id="u51-yT-4bX"/>
                             <constraint firstItem="2fP-uO-rUU" firstAttribute="trailing" secondItem="jAN-Va-q4K" secondAttribute="trailing" constant="16" id="wVx-Kj-8gS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2fP-uO-rUU"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="MYG-HI-IVT" appends="YES" id="XGO-J7-Faj"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgT-aG-2Rk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="8mH-Qi-2HX" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="MYG-HI-IVT">
+                    <connections>
+                        <segue destination="8mH-Qi-2HX" kind="unwind" unwindAction="unwindToProfile:" id="76f-fS-nWj"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="jdY-gr-h92"/>
             </objects>
-            <point key="canvasLocation" x="2393" y="785"/>
+            <point key="canvasLocation" x="2392.8000000000002" y="784.72906403940885"/>
         </scene>
         <!--Value Detail View Controller-->
         <scene sceneID="S89-ic-F7u">
