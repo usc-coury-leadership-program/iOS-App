@@ -20,7 +20,12 @@ extension TableableCell {
     public static func getUINib() -> UINib {return UINib(nibName: REUSE_ID, bundle: nil)}
     public static func registerWith(_ tableView: UITableView) {tableView.register(getUINib(), forCellReuseIdentifier: REUSE_ID)}
     public static func insideOf(_ tableView: UITableView, at indexPath: IndexPath) -> AUITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath) as! AUITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: REUSE_ID, for: indexPath) as! AUITableViewCell
+        cell.refreshParent = {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+        return cell
     }
 }
 
@@ -63,6 +68,8 @@ extension FeedViewCell {
 public class AUITableViewCell: UITableViewCell {
     public var indexPath: IndexPath?
     internal var data: TableableCellData?
+    internal var refreshParent: (() -> ())?
+    
     public func populatedBy(_ data: TableableCellData, at indexPath: IndexPath) -> AUITableViewCell {
         self.indexPath = indexPath
         self.data = data
